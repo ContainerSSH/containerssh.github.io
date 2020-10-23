@@ -18,7 +18,7 @@ Before you can start with writing code you will need to grab the `config.example
 go run . --config config.example.yaml
 ```
 
-Additionally, you will need to run the dummy config-auth server. Execute the following command in the `cmd/containerssh-testconfigauthserver` directory:
+Additionally, you will need to run the dummy config-auth server in parallel. Execute the following command in the `cmd/containerssh-testconfigauthserver` directory:
 
 ```
 go run .
