@@ -3,7 +3,7 @@ template: overrides/home.html
 title: "ContainerSSH: An SSH server that launches containers"
 ---
 
-<h1>ContainerSSH: launch containers on demand</h1>
+<h1>ContainerSSH: Launch containers on demand</h1>
 
 <div class="grid">
 <div class="grid__box">
