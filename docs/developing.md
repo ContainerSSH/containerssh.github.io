@@ -35,3 +35,9 @@ That's it! You can now start hacking the code.
 ## Running tests
 
 You can run the tests using `go test`. Make sure to **stop the SSH and auth-config server** you started above, otherwise some tests will fail.
+
+## Understanding ContainerSSH
+
+ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.
+
+Before you begin we recommend reading [this blog post](https://pasztor.at/blog/ssh-direct-to-docker/) that runs you through a simplified version of ContainerSSH called [MiniContainerSSH](https://github.com/janoszen/minicontainerssh).
