@@ -1,4 +1,5 @@
 site_name: "ContainerSSH: launch containers on-demand"
+site_description: "ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes or Docker"
 site_url: "https://containerssh.github.io/"
 repo_url: "https://github.com/containerssh/containerssh.github.io/"
 edit_uri: "edit/main/docs/"

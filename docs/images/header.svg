@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1200 630" style="enable-background:new 0 0 1200 630;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#010101;}
+	.st1{fill:#ED2224;}
+	.st2{enable-background:new    ;}
+	.st3{fill:#FFFFFF;}
+	.st4{font-family:'Verdana';}
+	.st5{font-size:111px;}
+	.st6{fill:#58595B;}
+	.st7{font-family:'Verdana-Italic';}
+	.st8{font-size:50px;}
+</style>
+<g>
+	<rect x="44.4" y="163.6" class="st0" width="285" height="285"/>
+	<path class="st1" d="M320.5,172.5v267.2H53.3V172.5H320.5 M338.3,154.8H35.6v302.7h302.7V154.8z"/>
+	<g class="st2">
+		<path class="st3" d="M151.1,283.5L102,256.4c-2.5-1.4-4.1-2.6-4.9-3.7c-0.8-1.1-1.2-2.5-1.2-4.1c0-2.1,0.8-4,2.3-5.4
+			c1.5-1.5,3.3-2.3,5.4-2.3c1.3,0,3.3,0.7,5.9,2.1l73.1,40.7l-73.1,40.7c-2.7,1.5-4.6,2.2-5.9,2.2c-2.1,0-3.8-0.8-5.4-2.3
+			c-1.5-1.5-2.3-3.4-2.3-5.6c0-1.7,0.4-3.1,1.2-4.1c0.8-1.1,2.4-2.3,4.9-3.7L151.1,283.5z"/>
+		<path class="st3" d="M267.9,372.1h-83.2c-3.7,0-6.3-0.7-7.8-2.1s-2.3-3.2-2.3-5.4s0.8-4.1,2.3-5.5c1.5-1.4,4.1-2.1,7.8-2.1h83.2
+			c3.6,0,6.1,0.7,7.7,2.1c1.6,1.4,2.3,3.3,2.3,5.5s-0.8,4-2.3,5.4C274.1,371.4,271.5,372.1,267.9,372.1z"/>
+	</g>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 384.4419 322.6456)" class="st4 st5">ContainerSSH</text>
+	<text transform="matrix(1.0109 0 0 1 390.6575 388.0447)" class="st6 st7 st8">launch containers on-demand</text>
+</g>
+</svg>
