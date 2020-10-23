@@ -1,7 +1,7 @@
 site_name: "ContainerSSH: launch containers on-demand"
 site_url: "https://containerssh.github.io/"
-repo_url: "https://github.com/janoszen/containerssh.github.io/"
-edit_uri: "edit/stable/docs/"
+repo_url: "https://github.com/containerssh/containerssh.github.io/"
+edit_uri: "edit/main/docs/"
 markdown_extensions:
   - admonition
   - attr_list
