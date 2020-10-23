@@ -3,7 +3,7 @@ template: overrides/home.html
 title: "ContainerSSH: An SSH server that launches containers"
 ---
 
-<h1>ContainerSSH: launch containers on-demand</h1>
+<h1>ContainerSSH: launch containers on demand</h1>
 
 <div class="grid">
 <div class="grid__box">
@@ -13,7 +13,7 @@ title: "ContainerSSH: An SSH server that launches containers"
 </div>
 <div class="grid__box">
 <h2>Looking for a Linux learning environment?</h2>
-<p>With ContainerSSH you can launch Linux-based containers on-demand when your students connect. You can supply your own container image and mount folders with learning and testing material as needed.</p>
+<p>With ContainerSSH you can launch Linux-based containers on demand when your students connect. You can supply your own container image and mount folders with learning and testing material as needed.</p>
 <p><a href="usecases/learning/" class="md-button">Read more »</a></p>
 </div>
 <div class="grid__box">
