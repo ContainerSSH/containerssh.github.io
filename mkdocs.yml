@@ -67,7 +67,7 @@ nav:
     - 'Metrics': 'metrics.md'
     - 'Hardening': 'hardening.md'
     - 'Developing': 'developing.md'
-  - API's:
+  - APIs:
       - 'About the API': 'api/index.md'
       - 'The AuthConfig Server ⭧': './api/authconfig/'
 site_favicon: img/favicon.png
