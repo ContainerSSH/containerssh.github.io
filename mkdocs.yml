@@ -66,6 +66,7 @@ nav:
     - 'Logging': 'logging.md'
     - 'Metrics': 'metrics.md'
     - 'Hardening': 'hardening.md'
+    - 'Developing': 'developing.md'
   - API's:
       - 'About the API': 'api/index.md'
       - 'The AuthConfig Server ⭧': './api/authconfig/'
