@@ -32,6 +32,14 @@ theme:
   titles_only: false
   sticky_navigation: true
   collapse_navigation: true
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ContainerSSH
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ContainerSSH
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com/orgs/containerssh
 plugins:
   - search
   - macros

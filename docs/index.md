@@ -30,7 +30,7 @@ title: "ContainerSSH: An SSH server that launches containers"
 
 ## How does it work?
 
-![](https://projects.pasztor.at/containerssh/images/ssh-in-action.gif)
+![](/images/ssh-in-action.gif)
 
 ```
 +------+        +--------------+   2.   +-------------------+
