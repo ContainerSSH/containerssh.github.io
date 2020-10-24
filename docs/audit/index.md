@@ -25,7 +25,7 @@ When enabled, audit logging records the following information:
 
 All information is recorded with nanosecond timing, so events can be accurately reconstructed after the fact. (Or you could make an asciinema out of your sessions.)
 
-Audit logs can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](format.md).
+Audit logs are stored in a [compressed binary format](format.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](format.md).
 
 ## About interceptions
 
