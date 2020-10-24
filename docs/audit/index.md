@@ -14,6 +14,17 @@ audit:
     passwords: true|false # Intercept passwords during authentication
 ```
 
+When enabled, audit logging records the following information:
+
+- Connections
+- Authentication attempts, optionally with credentials
+- Global and channel-specific SSH requests
+- Programs launched from SSH
+- Input from the user (optional)
+- Output and errors to the user (optional)
+
+All information is recorded with nanosecond timing, so events can be accurately reconstructed after the fact. (Or you could make an asciinema out of your sessions.)
+
 Audit logs can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](format.md).
 
 ## About interceptions
