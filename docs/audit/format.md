@@ -6,11 +6,17 @@ The main element of the CBOR container is an *array of messages* where each mess
 
 ```
 Message {
-    ConnectionID []byte # opaque binary value that uniquely identifies the connection 
+    ConnectionID []byte # opaque binary value
+                        # that uniquely identifies the connection
+ 
     Timestamp    int64  # nanosecond timestamp when this message happened
+
     MessageType  int32  # message type identifier (see below)
+
     Payload      map    # Map of details. See payload structure below
-    ChannelID    int64  # Channel identifier. -1 if the message is not related to a channel
+
+    ChannelID    int64  # Channel identifier.
+                        # -1 if the message is not related to a channel
 }
 ```
 
@@ -98,7 +104,8 @@ PayloadNewChannelSuccessful {
 ```
 PayloadNewChannelFailed {
     ChannelType string
-    Reason      string  # Freeform message for channel request failure. Do not rely on this text.
+    Reason      string  # Freeform message for channel request failure.
+                        # Do not rely on this text.
 }
 ```
 
@@ -115,7 +122,8 @@ PayloadChannelRequestUnknownType {
 ```
 PayloadChannelRequestDecodeFailed {
     RequestType string
-    Reason      string  # Freeform reason message  
+    Reason      string  # Freeform reason message.
+                        # Do not rely on this text.
 }
 ```
 
