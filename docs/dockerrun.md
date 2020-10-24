@@ -4,8 +4,7 @@ The `dockerrun` backend launches a container using the Docker API
 
 ## Providing certificates
 
-Docker sockets allow connections over TCP with TLS encryption. You can provide these TLS certificates embedded in the
-YAML file in PEM format:
+Docker sockets allow connections over TCP with TLS encryption. You can provide these TLS certificates embedded in the YAML file in PEM format:
 
 ```yaml
 dockerrun:
@@ -26,8 +25,7 @@ dockerrun:
 
 ## Changing the container image
 
-The container image depends on the backend you are using. For `dockerrun` you can change the image in the config
-file:
+The container image depends on the backend you are using. For `dockerrun` you can change the image in the config file:
 
 ```yaml
 dockerrun:
@@ -38,8 +36,7 @@ dockerrun:
 
 ## Detailed configuration
 
-The full configuration at the time of writing are as described below. Keep in mind that the configuration structure
-may change over time as they follow the
+The full configuration at the time of writing are as described below. Keep in mind that the configuration structure may change over time as they follow the
 [Docker API](https://docs.docker.com/engine/api/v1.40/#operation/ContainerCreate).
 
 ```yaml

@@ -10,7 +10,7 @@ Please read the [hardening guide](hardening.md) if you intend to use ContainerSS
 
 ContainerSSH is in use by several companies in production and has caused no issues or crashes. That being said, it is very early in its development and the API and configuration file format may still change.
 
-If you intend to use ContainerSSH in production please read the [hardening guide](hardening.md) and [feel free to reach out](https://pasztor.at/discord/.
+If you intend to use ContainerSSH in production please read the [hardening guide](hardening.md) and [feel free to reach out](https://pasztor.at/discord/).
 
 ## Does ContainerSSH delete containers after it is done?
 
@@ -32,11 +32,11 @@ Not at this time.
 
 Not at this time. TCP port forwarding is done outside of a channel. At this time ContainerSSH launches one container per SSH channel, so forwarding TCP ports would mean a complete overhaul of the entire architecture. In essence the architecture would be changed to launch one container per session, not per channel, and use `exec` to launch a shell or SFTP server for the channel.
 
-However, as you might imagine that's a bit of a larger change and will need quite a bit of work.
+However, as you might imagine that's a bit of a larger change and will need a bit of work.
 
 ## Does ContainerSSH support SSH agent forwarding?
 
-Not at this time. SSH agent forwarding would require a separate binary agent within the container to proxy data. This is similar to how TCP port forwarding works, except that the authentication agent requests are sent on a per-channel basis. Additionally SSH agent forwarding is not documented well, it is proprietary to OpenSSH. (The request type is `auth-agent-req@openssh.com`.)
+Not at this time. SSH agent forwarding would require a separate binary agent within the container to proxy data. This is similar to how TCP port forwarding works, except that the authentication agent requests are sent on a per-channel basis. Additionally, SSH agent forwarding is not documented well, it is proprietary to OpenSSH. (The request type is `auth-agent-req@openssh.com`.)
 
 ## Does ContainerSSH support X11 forwarding?
 

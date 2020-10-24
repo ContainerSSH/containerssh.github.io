@@ -6,7 +6,7 @@ Welcome! And a big thank you for wanting to contribute! This page will explain h
 
 ContainerSSH is written in [go](https://golang.org/). Love it or hate it, it's one of the simplest way to create a single binary you can package into a container and it happens to have an excellent SSH library, which is somewhat of a rarity. If you want to contribute you will have to do so in Go. If you are not familiar with it you might want to take [Effective Go](https://golang.org/doc/effective_go.html) for a spin.
 
-If you have Go somewhat in your grasp we would recommend installing either [VSCode](https://code.visualstudio.com/) or [Goland](https://www.jetbrains.com/go/) as having an IDE with code completion will help you with navigating around the code. We personally use Goland, but it's not free so VSCode may be the way to go for you.
+We would recommend installing either [VSCode](https://code.visualstudio.com/) or [Goland](https://www.jetbrains.com/go/) as having an IDE with code completion will help you with navigating around the code. We personally use Goland, but it's not free, so VSCode may be the way to go for you.
 
 Finally, you will need a working Docker or Kubernetes environment. We recommend installing Docker Desktop as it provides both out of the box.
 
@@ -24,7 +24,7 @@ Additionally, you will need to run the dummy config-auth server in parallel. Exe
 go run .
 ```
 
-Now that you have both daemons running, you can connect the SSH server:
+Now that you have both daemons running, you can connect to the SSH server:
 
 ```
 ssh foo@localhost -p 2222
