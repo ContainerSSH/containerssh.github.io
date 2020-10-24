@@ -14,6 +14,8 @@ audit:
     passwords: true|false # Intercept passwords during authentication
 ```
 
+Audit logs can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](format.md).
+
 ## About interceptions
 
 The `intercept` options give you a wide range of options when it comes to detailed logging of actions by users. You may want to, for example, enable `stdout` logging while keeping `stdin` disabled to avoid accidentally capturing passwords typed into the console.
