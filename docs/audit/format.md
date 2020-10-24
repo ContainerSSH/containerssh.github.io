@@ -1,4 +1,4 @@
-<h1>The Audit Log Format, version 1</h1>
+<h1>The ContainerSSH Audit Log Format, version 1</h1>
 
 The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format. You will first need to decode the GZIP container and then the CBOR format.
 

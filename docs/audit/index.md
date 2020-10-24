@@ -31,7 +31,7 @@ audit:
     directory: /var/log/audit
 ```
 
-If you wish to decode the protocol you can use the provided `containerssh-auditlog-decoder` utility or [decode the audit log yourself](protocol.md).
+If you wish to decode the file format you can use the provided `containerssh-auditlog-decoder` utility or [decode the audit log format yourself](format.md).
 
 ## The "log" audit logger
 
