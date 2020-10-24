@@ -75,6 +75,7 @@ nav:
     - 'Logging': 'logging.md'
     - 'Metrics': 'metrics.md'
     - 'Hardening': 'hardening.md'
+    - 'Audit logging': 'audit.md'
     - 'Developing': 'developing.md'
   - APIs:
       - 'About the API': 'api/index.md'
