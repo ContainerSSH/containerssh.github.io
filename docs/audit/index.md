@@ -6,11 +6,11 @@ Audit logging can be enabled in the configuration using the following structure:
 
 ```yaml
 audit:
-  type: none|file|log # Which audit logger to use
+  type: none|file|log     # Which audit logger to use. Defaults to none.
   intercept:
-    stdin: true|false # Intercept keystrokes from user
-    stdout: true|false # Intercept standard output
-    stderr: true|false # Intercept standard error
+    stdin: true|false     # Intercept keystrokes from user
+    stdout: true|false    # Intercept standard output
+    stderr: true|false    # Intercept standard error
     passwords: true|false # Intercept passwords during authentication
 ```
 
