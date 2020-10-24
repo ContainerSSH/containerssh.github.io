@@ -1,6 +1,6 @@
 <h1>Audit logging {{ upcoming("0.4.0") }}</h1>
 
-ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it as serious security and privacy implications, as well as severe resource requirements.
+ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it has serious security and privacy implications, as well as severe resource requirements.
 
 Audit logging can be enabled in the configuration using the following structure:
 
