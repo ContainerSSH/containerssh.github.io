@@ -18,30 +18,30 @@ The audit log protocol has the following message types at this time:
 
 | Message type ID | Name | Description | Payload type |
 |-----------------|------|-------------|--------------|
-| 0   | Connect | TCP connection established | [PayloadConnect](#PayloadConnect) |
+| 0   | Connect | TCP connection established | [PayloadConnect](#payloadconnect) |
 | 1   | Disconnect | TCP connection closed | *none* |
-| 100 | AuthPassword | Password authentication attempt | [PayloadAuthPassword](#PayloadAuthPassword) |
+| 100 | AuthPassword | Password authentication attempt | [PayloadAuthPassword](#payloadauthpassword) |
 | 101 | AuthPasswordSuccessful | Successful password authentication | *none* |
 | 102 | AuthPasswordFailed | Failed password authentication | *none* |
 | 103 | AuthPasswordBackendError | Backend failed to respond | *none* |
-| 104 | AuthPubKey | Public key authentication attempt | [PayloadAuthPubKey](#PayloadAuthPubKey) |
+| 104 | AuthPubKey | Public key authentication attempt | [PayloadAuthPubKey](#payloadauthpubkey) |
 | 105 | AuthPubKeySuccessful | Successful public key authentication | *none* |
 | 106  | AuthPubKeyFailed | Failed public key authentication | *none* |
 | 107 | AuthPubKeyBackendError | Backend failed to respond | *none* |
-| 200 | GlobalRequestUnknown | Unknown global request received | [PayloadGlobalRequestUnknown](#PayloadGlobalRequestUnknown) |
-| 300 | NewChannel | Requesting a new SSH channel | [PayloadNewChannel](#PayloadNewChannel) |
-| 301 | NewChannelSuccessful | New SSH channel successful | [PayloadNewChannelSuccessful](#PayloadNewChannelSuccessful) |
-| 302 | NewChannelFailed | New SSH channel failed | [PayloadNewChannelFailed](#PayloadNewChannelFailed) |
-| 400 | ChannelRequestUnknownType | A channel request of unknown type | [PayloadChannelRequestUnknownType](#PayloadChannelRequestUnknownType) |
-| 401 | ChannelRequestDecodeFailed | An invalid request payload was received | [PayloadChannelRequestDecodeFailed](#PayloadChannelRequestDecodeFailed) |
-| 402 | ChannelRequestSetEnv | An environment variable was requested | [PayloadChannelRequestSetEnv](#PayloadChannelRequestSetEnv) |
-| 403 | ChannelRequestExec | A program execution was requested | [PayloadChannelRequestExec](#PayloadChannelRequestExec) |
-| 404 | ChannelRequestPty | An interactive terminal was requested | [PayloadChannelRequestPty](#PayloadChannelRequestPty) |
+| 200 | GlobalRequestUnknown | Unknown global request received | [PayloadGlobalRequestUnknown](#payloadglobalrequestUnknown) |
+| 300 | NewChannel | Requesting a new SSH channel | [PayloadNewChannel](#payloadnewchannel) |
+| 301 | NewChannelSuccessful | New SSH channel successful | [PayloadNewChannelSuccessful](#payloadnewchannelsuccessful) |
+| 302 | NewChannelFailed | New SSH channel failed | [PayloadNewChannelFailed](#payloadnewchannelfailed) |
+| 400 | ChannelRequestUnknownType | A channel request of unknown type | [PayloadChannelRequestUnknownType](#payloadchannelrequestunknowntype) |
+| 401 | ChannelRequestDecodeFailed | An invalid request payload was received | [PayloadChannelRequestDecodeFailed](#payloadchannelrequestdecodefailed) |
+| 402 | ChannelRequestSetEnv | An environment variable was requested | [PayloadChannelRequestSetEnv](#payloadchannelrequestsetenv) |
+| 403 | ChannelRequestExec | A program execution was requested | [PayloadChannelRequestExec](#payloadchannelrequestexec) |
+| 404 | ChannelRequestPty | An interactive terminal was requested | [PayloadChannelRequestPty](#payloadchannelrequestpty) |
 | 405 | ChannelRequestShell | A shell was requested | *none* |
-| 406 | ChannelRequestSignal | A signal was sent | [PayloadChannelRequestSignal](#PayloadChannelRequestSignal) |
-| 407 | ChannelRequestSubsystem | A subsystem (e.g. SFTP) was requested | [PayloadChannelRequestSubsystem](#PayloadChannelRequestSubsystem) |
-| 408 | ChannelRequestWindow | Window size change | [PayloadChannelRequestWindow](#PayloadChannelRequestWindow) |
-| 500 | Channel I/O | I/O event | [PayloadIO](#PayloadIO) |
+| 406 | ChannelRequestSignal | A signal was sent | [PayloadChannelRequestSignal](#payloadchannelrequestsignal) |
+| 407 | ChannelRequestSubsystem | A subsystem (e.g. SFTP) was requested | [PayloadChannelRequestSubsystem](#payloadchannelrequestsubsystem) |
+| 408 | ChannelRequestWindow | Window size change | [PayloadChannelRequestWindow](#payloadchannelrequestwindow) |
+| 500 | Channel I/O | I/O event | [PayloadIO](#payloadio) |
 
 ## PayloadConnect
 
