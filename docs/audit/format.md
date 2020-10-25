@@ -52,6 +52,9 @@ The audit log protocol has the following message types at this time:
 | 408 | ChannelRequestWindow | Window size change | [PayloadChannelRequestWindow](#payloadchannelrequestwindow) |
 | 500 | Channel I/O | I/O event | [PayloadIO](#payloadio) |
 
+!!! note
+    When writing a decoder, your decoder should ignore unknown fields and message codes as the format may be extended to accommodate new ContainerSSH features.
+
 ## PayloadConnect
 
 ```
