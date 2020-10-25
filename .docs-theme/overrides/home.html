@@ -1,30 +1,15 @@
 {% extends "overrides/main.html" %}
 {% block extrahead %}
-  {% set title = config.site_name %}
-  {% if page and page.title and not page.is_homepage %}
-    {% set title = config.site_name ~ " - " ~ page.title | striptags %}
-  {% endif %}
-  {% set image = config.site_url ~ 'images/header.svg' %}
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ title }}">
-  <meta property="og:description" content="{{ config.site_description }}">
-  <meta property="og:url" content="{{ page.canonical_url }}">
-  <meta property="og:image" content="{{ image }}">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1080">
-  <meta property="og:image:height" content="568">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@janoszen">
-  <meta name="twitter:creator" content="@janoszen">
-  <meta name="twitter:title" content="{{ title }}">
-  <meta name="twitter:description" content="{{ config.site_description }}">
-  <meta name="twitter:image" content="{{ image }}">
+  {{ super() }}
   <style>
       .md-content {
           width:100%;
           max-width:100%;
       }
-      @media screen and (min-width: 760px) {
+      @media screen and (min-width: 76.25em) {
+          .md-sidebar {
+              display:none;
+          }
           .grid {
               display: grid;
               grid-template-columns: 1fr 1fr;
@@ -34,5 +19,9 @@
       }
   </style>
 {% endblock %}
-{% block site_nav %}{% endblock %}
+{% block announce %}
+  <a href="https://github.com/janoszen/containerssh/releases/tag/0.3.0">
+      ContainerSSH now lives under <strong>containerssh/containerssh</strong>. Please update your references.
+  </a>
+{% endblock %}
 {% block toc %}{% endblock %}

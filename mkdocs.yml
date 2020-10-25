@@ -24,18 +24,9 @@ theme:
     - search.highlight
   logo: images/logo.svg
   favicon: images/logo.svg
-  include_search_page: true
-  search_index_only: false
-
-  highlightjs: true
-  hljs_languages: []
-
-  include_homepage_in_sidebar: true
-  prev_next_buttons_location: bottom
-  navigation_depth: 4
-  titles_only: false
-  sticky_navigation: true
-  collapse_navigation: true
+  language: en
+  include_search_page: false
+  search_index_only: 'false'
 extra:
   social:
     - icon: fontawesome/brands/discord
