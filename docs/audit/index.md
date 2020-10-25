@@ -55,7 +55,7 @@ The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/a
 
 ## Storage backends
 
-### The "s3" storage (recommended)
+### The `s3` storage (recommended)
 
 The S3 storage sends the logs to an S3-compatible object storage for long term storage. This is the recommended way of storing audit logs because it is a server-independent storage device that supports permissions. You may also want to investigate if your S3 provider supports WORM / object locking, object lifecycles, or server side encryption for compliance.
 
@@ -77,7 +77,7 @@ audit:
 !!! warning
     The S3 upload can be slow. If your users are uploading or downloading a huge amount of data and you have enabled I/O interception your local memory usage may climb rapidly.
 
-### The "file" storage
+### The `file` storage
 
 The file storage writes audit logs to files on the disk. The storage location can be configured using the following option:
 
