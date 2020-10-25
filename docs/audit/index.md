@@ -37,7 +37,7 @@ However, this approach may fail if SFTP is enabled as you will fail to capture b
 
 ## Log formats
 
-### The `audit` format
+### The `audit` format (recommended)
 
 The audit format is intended for an accurate reconstruction of everything happening during an SSH session. It allows for accurate reconstruction of what happened during the session.
 
@@ -51,7 +51,7 @@ The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/a
     Make sure you enable the `stdout` and `stderr` interceptions, otherwise the `asciinema encoder won't capture anything 
 
 !!! warning
-    Asciinema is intended for entertainment purposes and doesn't store all relevant information required for an accurate audit log.
+    Asciinema is intended for entertainment purposes only and doesn't store all relevant information required for an accurate audit log.
 
 ## Storage backends
 
