@@ -57,7 +57,8 @@ The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/a
 
 ### The `s3` storage (recommended)
 
-The S3 storage sends the logs to an S3-compatible object storage for long term storage. This is the recommended way of storing audit logs because it is a server-independent storage device that supports permissions. You may also want to investigate if your S3 provider supports WORM / object locking, object lifecycles, or server side encryption for compliance.
+The S3 storage sends the logs to an S3-compatible object storage for long term storage. This is the recommended way of storing audit logs because it is a server-independent storage device that supports permissions.
+
 
 The S3 storage can be configured as follows:
 
@@ -65,6 +66,7 @@ The S3 storage can be configured as follows:
 audit:
   storage: s3
   s3:
+    local: /local/storage/directory
     accessKey: "your-access-key-here"
     secretKey: "your-secret-key-here"
     bucket: "your-existing-bucket-name-here"
@@ -75,7 +77,10 @@ audit:
 ```
 
 !!! warning
-    The S3 upload can be slow. If your users are uploading or downloading a huge amount of data and you have enabled I/O interception your local memory usage may climb rapidly.
+    Since the S3 upload can be slow, the S3 storage requires a local directory. This directory should be stored on a persistent storage and must not be shared between multiple ContainerSSH instances.
+
+!!! tip
+    You may also want to investigate if your S3 provider supports WORM / object locking, object lifecycles, or server side encryption for compliance.
 
 ### The `file` storage
 

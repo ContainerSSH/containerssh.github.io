@@ -3,7 +3,7 @@
 The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format. You will first need to decode the GZIP container and then the CBOR format.
 
 !!! note
-    We provide a Go library to decode the audit log format. Check out the details [on GitHub](https://github.com/ContainerSSH/ContainerSSH/tree/development/audit/format).
+    We provide a Go library to decode the audit log format. Check out the details [on GitHub](https://github.com/ContainerSSH/ContainerSSH/tree/development/audit/format/audit).
 
 The main element of the CBOR container is an *array of messages* where each message has the following format:
 
