@@ -18,7 +18,6 @@ theme:
   font: false
   features:
     - navigation.tabs
-    - navigation.instant
     - toc.autohide
     - search.suggest
     - search.highlight
