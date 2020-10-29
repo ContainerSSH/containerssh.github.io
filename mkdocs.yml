@@ -87,6 +87,7 @@ nav:
       - 'Log format': 'advanced/audit/format.md'
   - 'Contributing':
       - Overview: 'contributing/index.md'
+      - Internal Architecture: 'contributing/internal-architecture.md'
   - APIs:
       - 'About the API': 'api/index.md'
       - 'The AuthConfig Server ⭧': './api/authconfig/'
