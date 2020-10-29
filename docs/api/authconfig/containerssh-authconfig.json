@@ -11,7 +11,7 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://github.com/janoszen/containerssh for details.)",
+    "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://github.com/containerssh/containerssh for details.)",
     "title": "ContainerSSH Authentication and Configuration Server",
     "version": "0.3.0"
   },
@@ -155,7 +155,7 @@
           "$ref": "#/definitions/AppLogConfig"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "AppLogConfig": {
       "type": "object",
@@ -175,7 +175,7 @@
           "x-go-name": "Level"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "AuthResponseBody": {
       "type": "object",
@@ -191,7 +191,7 @@
         }
       },
       "x-go-name": "AuthResponse",
-      "x-go-package": "github.com/janoszen/containerssh/protocol"
+      "x-go-package": "github.com/containerssh/containerssh/protocol"
     },
     "AuthenticateOKBody": {
       "description": "AuthenticateOKBody authenticate o k body",
@@ -277,7 +277,7 @@
     },
     "BackendName": {
       "type": "string",
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "BindOptions": {
       "type": "object",
@@ -625,7 +625,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/protocol"
+      "x-go-package": "github.com/containerssh/containerssh/protocol"
     },
     "ConfigResponseBody": {
       "type": "object",
@@ -635,7 +635,7 @@
         }
       },
       "x-go-name": "ConfigResponse",
-      "x-go-package": "github.com/janoszen/containerssh/protocol"
+      "x-go-package": "github.com/containerssh/containerssh/protocol"
     },
     "Container": {
       "type": "object",
@@ -890,7 +890,7 @@
           "x-go-name": "Key"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "DockerRunContainerConfig": {
       "type": "object",
@@ -920,7 +920,7 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "DownwardAPIProjection": {
       "description": "Note that this is identical to a downwardAPI volume source without the default\nmode.",
@@ -2258,7 +2258,7 @@
           "$ref": "#/definitions/Duration"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "KubeRunConnectionConfig": {
       "type": "object",
@@ -2333,7 +2333,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "KubeRunPodConfig": {
       "type": "object",
@@ -2362,7 +2362,7 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/config"
+      "x-go-package": "github.com/containerssh/containerssh/config"
     },
     "LabelSelector": {
       "description": "A label selector is a label query over a set of resources. The result of matchLabels and\nmatchExpressions are ANDed. An empty label selector matches all objects. A null\nlabel selector matches no objects.",
@@ -2669,7 +2669,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/protocol"
+      "x-go-package": "github.com/containerssh/containerssh/protocol"
     },
     "PersistentVolumeClaimVolumeSource": {
       "description": "This volume finds the bound PV and mounts that volume for the pod. A\nPersistentVolumeClaimVolumeSource is, essentially, a wrapper around another\ntype of volume that is owned by someone else (the system).",
@@ -3754,7 +3754,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/janoszen/containerssh/protocol"
+      "x-go-package": "github.com/containerssh/containerssh/protocol"
     },
     "PullPolicy": {
       "description": "PullPolicy describes a policy for if/when to pull a container image",

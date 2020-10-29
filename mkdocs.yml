@@ -6,6 +6,7 @@ edit_uri: "edit/main/docs/"
 markdown_extensions:
   - admonition
   - attr_list
+  - def_list
   - toc:
       permalink: True
       separator: "-"
@@ -43,6 +44,20 @@ extra:
 plugins:
   - search
   - macros
+  - redirects:
+      redirect_maps:
+        'developing.md': 'contributing/index.md'
+        'quickstart.md': 'getting-started/index.md'
+        'installation.md': 'getting-started/installation.md'
+        'authserver.md': 'getting-started/authserver.md'
+        'configuration.md': 'getting-started/configuration.md'
+        'configserver.md': 'getting-started/configserver.md'
+        'backends.md': 'getting-started/backends/index.md'
+        'dockerrun.md': 'getting-started/backends/dockerrun.md'
+        'kuberun.md': 'getting-started/backends/kuberun.md'
+        'faq.md': 'getting-started/faq.md'
+        'audit/index.md': 'advanced/audit/index.md'
+        'audit/format.md': 'advanced/audit/format.md'
 nav:
   - 'Home': 'index.md'
   - 'Use cases':
@@ -51,24 +66,26 @@ nav:
       - Honeypots: 'usecases/honeypots.md'
       - Security: 'usecases/security.md'
   - 'Getting started':
-    - 'Quick Start': 'quickstart.md'
-    - 'Installation': 'installation.md'
-    - 'Configuration': 'configuration.md'
-    - 'Authentication Server': 'authserver.md'
-    - 'Configuration Server': 'configserver.md'
-    - 'Selecting a Backend': 'backends.md'
-    - 'The dockerrun Backend': 'dockerrun.md'
-    - 'The kuberun Backend': 'kuberun.md'
-    - FAQ: 'faq.md'
+    - 'Quick Start': 'getting-started/index.md'
+    - 'Architecture': 'getting-started/architecture.md'
+    - 'Installation': 'getting-started/installation.md'
+    - 'Configuration': 'getting-started/configuration.md'
+    - 'Authentication Server': 'getting-started/authserver.md'
+    - 'Configuration Server': 'getting-started/configserver.md'
+    - 'Selecting a Backend': 'getting-started/backends/index.md'
+    - 'The dockerrun Backend': 'getting-started/backends/dockerrun.md'
+    - 'The kuberun Backend': 'getting-started/backends/kuberun.md'
+    - 'FAQ': 'getting-started/faq.md'
   - 'Advanced usage':
-    - 'Creating an Image': 'image.md'
-    - 'Logging': 'logging.md'
-    - 'Metrics': 'metrics.md'
-    - 'Hardening': 'hardening.md'
+    - 'Creating an Image': 'advanced/image.md'
+    - 'Logging': 'advanced/logging.md'
+    - 'Metrics': 'advanced/metrics.md'
+    - 'Hardening': 'advanced/hardening.md'
     - 'Audit logging':
-      - 'Audit logging': 'audit/index.md'
-      - 'Log format': 'audit/format.md'
-    - 'Developing': 'developing.md'
+      - 'Audit logging': 'advanced/audit/index.md'
+      - 'Log format': 'advanced/audit/format.md'
+  - 'Contributing':
+      - Overview: 'contributing/index.md'
   - APIs:
       - 'About the API': 'api/index.md'
       - 'The AuthConfig Server ⭧': './api/authconfig/'

@@ -21,4 +21,4 @@ The config file must end in `.yml`, `.yaml`, or `.json`. You can dump the entire
     Parts of the configuration can be provided dynamically based on the username using a [configserver](configserver.md)
 
 !!! note
-    In order to actually use ContainerSSH you will also need to provide [a backend configuration](backends.md) either via this file or via the [configserver](configserver.md). 
+    In order to actually use ContainerSSH you will also need to provide [a backend configuration](backends/index.md) either via this file or via the [configserver](configserver.md). 

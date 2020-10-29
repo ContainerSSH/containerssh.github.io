@@ -2,7 +2,7 @@
 
 ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide so it can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration.
 
-!!! note
+!!! tip
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
 For password authentication ContainerSSH will call out to `http://your-auth-server/password` with the following request body. The password is base64 encoded to transfer special characters properly.
@@ -44,4 +44,4 @@ Both endpoints need to respond with the following JSON:
 ```
 
 > **Tip** You can find the source code for a test authentication and configuration server written in Go
-> [in the code repository](https://github.com/janoszen/containerssh/blob/stable/cmd/containerssh-testauthconfigserver/main.go)
+> [in the code repository](https://github.com/containerssh/containerssh/blob/stable/cmd/containerssh-testauthconfigserver/main.go)

@@ -1,3 +1,4 @@
 mkdocs>=1.1
 mkdocs-macros-plugin
 mkdocs-material>=6.1.0
+mkdocs-redirects

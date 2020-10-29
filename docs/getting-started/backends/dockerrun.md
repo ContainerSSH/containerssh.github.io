@@ -66,7 +66,7 @@ dockerrun:
             cmd: []
             healthcheck: null
             argsescaped: false
-            image: janoszen/containerssh-image
+            image: containerssh/containerssh-guest-image
             volumes: {}
             workingdir: ""
             entrypoint: []

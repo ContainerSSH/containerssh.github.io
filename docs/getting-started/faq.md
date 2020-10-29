@@ -4,13 +4,13 @@
 
 ContainerSSH depends on a number of libraries to achieve what it does. A security hole in any of the critical ones could mean a compromise of your container environment, especially if you are using the `dockerrun` backend. (Docker has no access control so a compromise means your whole host is compromised.)
 
-Please read the [hardening guide](hardening.md) if you intend to use ContainerSSH in production.
+Please read the [hardening guide](../advanced/hardening.md) if you intend to use ContainerSSH in production.
 
 ## Is ContainerSSH production-ready?
 
 ContainerSSH is in use by several companies in production and has caused no issues or crashes. That being said, it is very early in its development and the API and configuration file format may still change.
 
-If you intend to use ContainerSSH in production please read the [hardening guide](hardening.md) and [feel free to reach out](https://pasztor.at/discord/).
+If you intend to use ContainerSSH in production please read the [hardening guide](../advanced/hardening.md) and [feel free to reach out](https://pasztor.at/discord/).
 
 ## Does ContainerSSH delete containers after it is done?
 
@@ -76,7 +76,7 @@ Kubernetes is built for scale. That means there are some tradeoffs in terms of r
 
 ## Why is there no initial prompt with the `kuberun` backend?
 
-This is a [known bug](https://github.com/janoszen/containerssh/issues/12). Unfortunately the `kuberun` backend was built by reverse engineering kubectl as there is no documentation whatsoever on how the attach functionality works on pods. If you are good with Go you might want to help out here.
+This is a [known bug](https://github.com/containerssh/containerssh/issues/12). Unfortunately the `kuberun` backend was built by reverse engineering kubectl as there is no documentation whatsoever on how the attach functionality works on pods. If you are good with Go you might want to help out here.
 
 ## Can I use my normal kubeconfig files?
 

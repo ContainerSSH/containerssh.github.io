@@ -4,7 +4,7 @@ ContainerSSH is built to secure its inner workings as much as possible. You can 
 
 ## Running ContainerSSH
 
-The default [ContainerSSH image](https://hub.docker.com/r/janoszen/containerssh) runs as a non-root user by default
+The default [ContainerSSH image](https://hub.docker.com/r/containerssh/containerssh) runs as a non-root user by default
 and exposes itself on port 2222. If you decide to build your own installation make sure ContainerSSH does not run
 as root as it is not required.
 

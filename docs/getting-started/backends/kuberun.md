@@ -51,7 +51,7 @@ kuberun:
             initcontainers: []
             containers:
               - name: shell
-                image: janoszen/containerssh-image
+                image: containerssh/containerssh-guest-image
 ```
 
 Note: if you are running multiple containers you should specify the `consoleContainerNumber` parameter to indicate
@@ -100,7 +100,7 @@ kuberun:
             containers:
               # The name doesn't matter
               - name: shell
-                image: janoszen/containerssh-image
+                image: containerssh/containerssh-guest-image
                 # This may be overridden by the SSH client
                 command: []
                 args: []

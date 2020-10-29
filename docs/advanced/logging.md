@@ -10,7 +10,7 @@ log:
 ```
 
 !!! tip
-    You can configure the log level on a per-user basis using the [configuration server](configserver.md).
+    You can configure the log level on a per-user basis using the [configuration server](../getting-started/configserver.md).
 
 The supported levels are in accordance with the Syslog standard:
 
