@@ -72,9 +72,10 @@ nav:
     - 'Configuration': 'getting-started/configuration.md'
     - 'Authentication Server': 'getting-started/authserver.md'
     - 'Configuration Server': 'getting-started/configserver.md'
-    - 'Selecting a Backend': 'getting-started/backends/index.md'
-    - 'The dockerrun Backend': 'getting-started/backends/dockerrun.md'
-    - 'The kuberun Backend': 'getting-started/backends/kuberun.md'
+    - 'Container Backends':
+      - 'Selecting a Backend': 'getting-started/backends/index.md'
+      - 'The dockerrun Backend': 'getting-started/backends/dockerrun.md'
+      - 'The kuberun Backend': 'getting-started/backends/kuberun.md'
     - 'FAQ': 'getting-started/faq.md'
   - 'Advanced usage':
     - 'Creating an Image': 'advanced/image.md'
