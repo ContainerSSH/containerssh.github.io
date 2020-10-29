@@ -8,6 +8,6 @@ ContainerSSH provides a user-friendly solution. When your users connect to the S
 
 When authenticated successfully, ContainerSSH contacts your [configuration server](../getting-started/configserver.md) to get the configuration for your user. The configuration server can expose *short lived* credentials from the key management system in the container environment. Even if your users steal or leak the credentials, they are only valid for a short time.
 
-Additionally, the logging facilities of your container environment can track what your users are doing.
+Additionally, the logging facilities of your container environment can track what your users are doing and [version 0.4.0 will offer comprehensive audit logging.](../advanced/audit/index.md)
 
 [Get started »](../getting-started/index.md){: .md-button}
