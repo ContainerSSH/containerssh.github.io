@@ -95,4 +95,6 @@ site_favicon: img/favicon.png
 extra_css:
   - css/custom.css
 copyright: >
-  Copyright &copy; ContainerSSH Contributors | <a href="https://containerssh.github.io/privacy/">Privacy Policy</a> | <a href="https://containerssh.github.io/imprint/">Imprint</a>
+  Copyright &copy; <a href="https://github.com/ContainerSSH/ContainerSSH/graphs/contributors">ContainerSSH Contributors</a>
+  | <a href="https://containerssh.github.io/privacy/">Privacy Policy</a>
+  | <a href="https://containerssh.github.io/imprint/">Imprint</a>
