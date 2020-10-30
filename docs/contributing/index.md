@@ -40,4 +40,4 @@ You can run the tests using `go test`. Make sure to **stop the SSH and auth-conf
 
 ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.
 
-Before you begin we recommend reading [this blog post](https://pasztor.at/blog/ssh-direct-to-docker/) that runs you through a simplified version of ContainerSSH called [MiniContainerSSH](https://github.com/containerssh/minicontainerssh). You may also want to read the [internal architecture documentation](internal-architecture.md)
+Before you begin we recommend reading [this blog post](https://pasztor.at/blog/ssh-direct-to-docker/) that runs you through a simplified version of ContainerSSH called [MiniContainerSSH](https://github.com/janoszen/minicontainerssh). You may also want to read the [internal architecture documentation](internal-architecture.md)
