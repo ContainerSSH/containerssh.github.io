@@ -48,7 +48,7 @@ Audit logs are stored in a [compressed binary format](format.md) and can be deco
 The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) stores logs in a format suitable for replay in the [Asciinema player](https://asciinema.org/).
 
 !!! note
-    Make sure you enable the `stdout` and `stderr` interceptions, otherwise the `asciinema encoder won't capture anything 
+    Make sure you enable the `stdout` and `stderr` interceptions otherwise the `asciinema` encoder won't capture anything 
 
 !!! warning
     Asciinema is intended for entertainment purposes only and doesn't store all relevant information required for an accurate audit log.
@@ -59,6 +59,10 @@ The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/a
 
 The S3 storage sends the logs to an S3-compatible object storage for long term storage. This is the recommended way of storing audit logs because it is a server-independent storage device that supports permissions.
 
+The S3 storage stores the logs in a local directory and uploads them once an upload part is full (default: 5MB) or the connection closes. If the upload fails, ContainerSSH will retry the upload as soon as possible. If ContainerSSH is stopped and restarted it will attempt to upload the audit logs still in the local directory, but no guarantee is made that these logs will not be corrupt after a crash.
+
+!!! warning
+    The local directory should be stored on a persistent storage and must not be shared between ContainerSSH instances.
 
 The S3 storage can be configured as follows:
 
@@ -72,12 +76,13 @@ audit:
     bucket: "your-existing-bucket-name-here"
     region: "your-region-name-here"
     endpoint: "https://your-custom-s3-url" # Optional
+    uploadPartSize: 5242880 # in bytes, min: 5MB, max: 5GB
     cacert: | # Optional
       Your trusted CA certificate in PEM format here for your S3 server.
 ```
 
-!!! warning
-    Since the S3 upload can be slow, the S3 storage requires a local directory. This directory should be stored on a persistent storage and must not be shared between multiple ContainerSSH instances.
+!!! tip
+    You can restrict the access key permissions to `PutObject`, `CreateMultipartUpload`, `UploadPart`, `CompleteMultipartUpload`, `ListMultipartUploads`, and `AbortMultipartUpload`. Other permissions are not required.
 
 !!! tip
     You may also want to investigate if your S3 provider supports WORM / object locking, object lifecycles, or server side encryption for compliance.
