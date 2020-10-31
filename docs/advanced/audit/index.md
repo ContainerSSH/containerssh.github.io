@@ -64,7 +64,7 @@ The S3 storage sends the logs to an S3-compatible object storage for long term s
 The S3 storage stores the logs in a local directory and uploads them once an upload part is full (default: 5MB) or the connection closes. If the upload fails, ContainerSSH will retry the upload as soon as possible. If ContainerSSH is stopped and restarted it will attempt to upload the audit logs still in the local directory, but no guarantee is made that these logs will not be corrupt after a crash.
 
 !!! warning
-    The local directory should be stored on a persistent storage and must not be shared between ContainerSSH instances.
+    The local directory should be stored on a persistent storage and must not be shared between ContainerSSH instances. It must be large enough to host *all* sessions in their entirety that are currently running. When IO interception is enabled and your users are downloading or uploading large amounts of data this can run you up to several GB of storage needed locally. We recommend turning off IO interception for cases where large amounts of data are being transferred.  
 
 The S3 storage can be configured as follows:
 
