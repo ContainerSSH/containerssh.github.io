@@ -5,7 +5,7 @@ Before you can run ContainerSSH, you will need to create a configuration file. T
 ```yaml
 ssh:
   hostkeys:
-    # Generate a host key with ssh-keygen -t rsa
+    # Generate a host key with openssl genrsa
     - /path/to/your/host/key
 auth:
   # See auth server below
