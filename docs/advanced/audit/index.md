@@ -82,7 +82,11 @@ audit:
     bucket: "your-existing-bucket-name-here"
     region: "your-region-name-here"
     endpoint: "https://your-custom-s3-url" # Optional
-    uploadPartSize: 5242880 # in bytes, min: 5MB, max: 5GB
+    uploadPartSize: 5242880 # In bytes, min: 5MB, max: 5GB
+    acl: "public-read" # Optional, in case you want to set an ACL
+    metadata:
+      username: true # Expose username via S3 metadata. Defaults to false.
+      ip: true # Expose IP address via S3 metadata. Defaults to false.
     cacert: | # Optional
       Your trusted CA certificate in PEM format here for your S3 server.
 ```
