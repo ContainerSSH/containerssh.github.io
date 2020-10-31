@@ -4,7 +4,10 @@
   {% if page and page.title and not page.is_homepage %}
     {% set title = config.site_name ~ " - " ~ page.title | striptags %}
   {% endif %}
-  {% set image = config.site_url ~ 'images/header.png' %}
+  {% set image = config.site_url ~ 'images/header.jpg' %}
+  {% if page and page.meta and page.meta.image %}
+    {% set image = config.site_url ~ page.meta.image %}
+  {% endif %}
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ title }}">
   <meta property="og:description" content="{{ config.site_description }}">

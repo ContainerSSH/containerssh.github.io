@@ -1,3 +1,7 @@
+---
+image: images/auditlog-asciinema.jpg
+---
+
 <h1>Audit logging {{ upcoming("0.4.0") }}</h1>
 
 !!! warning
