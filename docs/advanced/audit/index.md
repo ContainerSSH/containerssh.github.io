@@ -47,6 +47,8 @@ Audit logs are stored in a [compressed binary format](format.md) and can be deco
 
 The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) stores logs in a format suitable for replay in the [Asciinema player](https://asciinema.org/).
 
+<script id="asciicast-vMhS8fMI6tyICWdcszMvKQVFU" src="https://asciinema.org/a/vMhS8fMI6tyICWdcszMvKQVFU.js" async></script>
+
 !!! note
     Make sure you enable the `stdout` and `stderr` interceptions otherwise the `asciinema` encoder won't capture anything 
 
