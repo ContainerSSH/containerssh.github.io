@@ -1,4 +1,8 @@
-# The ContainerSSH website
+[![ContainerSSH - Launch Containers on Demand](https://containerssh.github.io/images/logo-for-embedding.svg)](https://containerssh.github.io/)
+
+<!--suppress HtmlDeprecatedAttribute -->
+<h1 align="center">The ContainerSSH Website</h1>
+
 
 This repository contains the source code for the ContainerSSH website. It is built using [mkdocs](https://www.mkdocs.org/) and the [material theme](https://squidfunk.github.io/mkdocs-material/).
 
