@@ -6,6 +6,10 @@
 
 This repository contains the source code for the ContainerSSH website. It is built using [mkdocs](https://www.mkdocs.org/) and the [material theme](https://squidfunk.github.io/mkdocs-material/).
 
+<p align="center"><strong>Note: This is a developer documentation.</strong><br />The user documentation for ContainerSSH is located at <a href="https://containerssh.github.io">containerssh.github.io</a>.</p>
+
+## Building and testing the website
+
 In order to build the website you will need [Python](https://www.python.org/) and [pip](https://pypi.org/project/pip/). You can install the required dependencies using pip:
 
 ```
