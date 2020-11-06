@@ -3,7 +3,7 @@
 The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format. You will first need to decode the GZIP container and then the CBOR format.
 
 !!! note
-    We provide a Go library to decode the audit log format. Check out the details [on GitHub](https://github.com/ContainerSSH/ContainerSSH/tree/development/audit/format/audit).
+    We provide a Go library to decode the audit log format. Check out the details [on GitHub](https://github.com/ContainerSSH/auditlog).
 
 The main element of the CBOR container is an *array of messages* where each message has the following format:
 
@@ -30,13 +30,13 @@ The audit log protocol has the following message types at this time:
 | 0   | Connect | TCP connection established | [PayloadConnect](#payloadconnect) |
 | 1   | Disconnect | TCP connection closed | *none* |
 | 100 | AuthPassword | Password authentication attempt | [PayloadAuthPassword](#payloadauthpassword) |
-| 101 | AuthPasswordSuccessful | Successful password authentication | *none* |
-| 102 | AuthPasswordFailed | Failed password authentication | *none* |
-| 103 | AuthPasswordBackendError | Backend failed to respond | *none* |
+| 101 | AuthPasswordSuccessful | Successful password authentication | [PayloadAuthPassword](#payloadauthpassword) |
+| 102 | AuthPasswordFailed | Failed password authentication | [PayloadAuthPassword](#payloadauthpassword) |
+| 103 | AuthPasswordBackendError | Backend failed to respond | [PayloadAuthPasswordBackendError](#payloadauthpasswordbackenderror) |
 | 104 | AuthPubKey | Public key authentication attempt | [PayloadAuthPubKey](#payloadauthpubkey) |
-| 105 | AuthPubKeySuccessful | Successful public key authentication | *none* |
-| 106  | AuthPubKeyFailed | Failed public key authentication | *none* |
-| 107 | AuthPubKeyBackendError | Backend failed to respond | *none* |
+| 105 | AuthPubKeySuccessful | Successful public key authentication | [PayloadAuthPubKey](#payloadauthpubkey) |
+| 106 | AuthPubKeyFailed | Failed public key authentication | [PayloadAuthPubKey](#payloadauthpubkey) |
+| 107 | AuthPubKeyBackendError | Backend failed to respond | [PayloadAuthPubKeyBackendError](#payloadauthpubkeybackenderror) |
 | 200 | GlobalRequestUnknown | Unknown global request received | [PayloadGlobalRequestUnknown](#payloadglobalrequestUnknown) |
 | 300 | NewChannel | Requesting a new SSH channel | [PayloadNewChannel](#payloadnewchannel) |
 | 301 | NewChannelSuccessful | New SSH channel successful | [PayloadNewChannelSuccessful](#payloadnewchannelsuccessful) |
@@ -72,12 +72,32 @@ PayloadAuthPassword {
 }
 ```
 
+## PayloadAuthPasswordBackendError
+
+```
+PayloadAuthPasswordBackendError {
+    Username string
+    Password []byte  # Password can contain special characters, so it's a byte array
+    Reason   string
+}
+```
+
 ## PayloadAuthPubKey
 
 ```
 PayloadAuthPassword {
     Username string
     Key      []byte  # Public key in OpenSSH wire format
+}
+```
+
+## PayloadAuthPubKeyBackendError
+
+```
+PayloadAuthPasswordBackendError {
+    Username string
+    Key      []byte  # Public key in OpenSSH wire format
+    Reason   string
 }
 ```
 
@@ -102,6 +122,7 @@ PayloadNewChannel {
 ```
 PayloadNewChannelSuccessful {
     ChannelType string
+    ChannelID   int64
 }
 ```
 
