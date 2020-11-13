@@ -90,6 +90,7 @@ nav:
       - Overview: 'contributing/index.md'
       - Internal Architecture: 'contributing/internal-architecture.md'
       - Roadmap: 'contributing/roadmap.md'
+      - Libraries: 'contributing/libraries.md'
   - APIs:
       - 'About the API': 'api/index.md'
       - 'The AuthConfig Server ⭧': './api/authconfig/'
