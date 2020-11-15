@@ -36,6 +36,14 @@ That's it! You can now start hacking the code.
 
 You can run the tests using `go test`. Make sure to **stop the SSH and auth-config server** you started above, otherwise some tests will fail.
 
+## QA tools
+
+Our QA pipeline for all libraries requires the following 3 checks to pass:
+
+1. All tests with `go test ./...` must be successful.
+2. The GitHub CodeQL analysis must be successful.
+3. The [golangci-lint](https://golangci-lint.run/) must pass with the parameters `-E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen`
+
 ## Understanding ContainerSSH
 
 ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.
