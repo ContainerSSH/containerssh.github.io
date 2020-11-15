@@ -44,6 +44,8 @@ Our QA pipeline for all libraries requires the following 3 checks to pass:
 2. The GitHub CodeQL analysis must be successful.
 3. The [golangci-lint](https://golangci-lint.run/) must pass with the parameters `-E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen`
 
+Furthermore, all commits that go into the main branches must be signed with your GPG key.
+
 ## Understanding ContainerSSH
 
 ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.

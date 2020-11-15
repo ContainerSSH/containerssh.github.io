@@ -1,4 +1,4 @@
-<h1>The ContainerSSH Audit Log Format, version 1</h1>
+<h1>The ContainerSSH Audit Log Format, version 1 (draft)</h1>
 
 The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format. You will first need to decode the GZIP container and then the CBOR format.
 
@@ -50,7 +50,9 @@ The audit log protocol has the following message types at this time:
 | 406 | ChannelRequestSignal | A signal was sent | [PayloadChannelRequestSignal](#payloadchannelrequestsignal) |
 | 407 | ChannelRequestSubsystem | A subsystem (e.g. SFTP) was requested | [PayloadChannelRequestSubsystem](#payloadchannelrequestsubsystem) |
 | 408 | ChannelRequestWindow | Window size change | [PayloadChannelRequestWindow](#payloadchannelrequestwindow) |
+| 499 | ChannelExit | The program running has exited | [PayloadExit](#payloadexit) |
 | 500 | Channel I/O | I/O event | [PayloadIO](#payloadio) |
+| 501 | RequestFailed | A global or channel request has failed | [PayloadRequestFailed](#payloadrequestfailed) |
 
 !!! note
     When writing a decoder, your decoder should ignore unknown fields and message codes as the format may be extended to accommodate new ContainerSSH features.
@@ -122,7 +124,6 @@ PayloadNewChannel {
 ```
 PayloadNewChannelSuccessful {
     ChannelType string
-    ChannelID   int64
 }
 ```
 
@@ -140,7 +141,9 @@ PayloadNewChannelFailed {
 
 ```
 PayloadChannelRequestUnknownType {
+	RequestID   uint64
     RequestType string
+    Payload     []byte
 }
 ```
 
@@ -148,9 +151,11 @@ PayloadChannelRequestUnknownType {
 
 ```
 PayloadChannelRequestDecodeFailed {
+	RequestID   uint64
     RequestType string
+    Payload     []byte
     Reason      string  # Freeform reason message.
-                        # Do not rely on this text.
+                        # Do not rely on this text, it may change between versions.
 }
 ```
 
@@ -158,8 +163,9 @@ PayloadChannelRequestDecodeFailed {
 
 ```
 PayloadChannelRequestSetEnv {
-    Name string
-    Value string
+	RequestID uint64
+    Name      string
+    Value     string
 }
 ```
 
@@ -167,7 +173,8 @@ PayloadChannelRequestSetEnv {
 
 ```
 PayloadChannelRequestExec {
-    Program string
+	RequestID uint64
+    Program   string
 }
 ```
 
@@ -175,8 +182,13 @@ PayloadChannelRequestExec {
 
 ```
 PayloadChannelRequestPty {
-    Columns uint
-    Rows    uint
+	RequestID uint64
+    Term      string
+	Columns   uint32
+	Rows      uint32
+	Width     uint32
+	Height    uint32
+    ModeList  []byte
 }
 ```
 
@@ -184,7 +196,8 @@ PayloadChannelRequestPty {
 
 ```
 PayloadChannelRequestSignal {
-    Signal string
+	RequestID uint64
+    Signal    string
 }
 ```
 
@@ -192,6 +205,7 @@ PayloadChannelRequestSignal {
 
 ```
 PayloadChannelRequestSubsystem {
+	RequestID uint64
     Subsystem string
 }
 ```
@@ -200,8 +214,11 @@ PayloadChannelRequestSubsystem {
 
 ```
 PayloadChannelRequestWindow {
-    Colums uint
-    Rows uint
+	RequestID uint64
+	Columns   uint32
+	Rows      uint32
+	Width     uint32
+	Height    uint32
 }
 ```
 
@@ -211,5 +228,14 @@ PayloadChannelRequestWindow {
 PayloadIO {
     Stream uint # 0=stdin, 1=stdout, 2=stderr
     Data   []byte
+}
+```
+
+## PayloadRequestFailed
+
+```
+PayloadRequestFailed {
+	RequestID uint64
+	Reason    string
 }
 ```
