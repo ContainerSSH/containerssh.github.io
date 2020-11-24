@@ -1,0 +1,9 @@
+nav:
+  - 'Quick Start': 'index.md'
+  - 'Architecture': 'architecture.md'
+  - 'Installation': 'installation.md'
+  - 'Configuration': 'configuration.md'
+  - 'Authentication Server': 'authserver.md'
+  - 'Configuration Server': 'configserver.md'
+  - 'Container Backends': 'backends'
+  - 'FAQ': 'faq.md'

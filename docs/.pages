@@ -1,0 +1,8 @@
+nav:
+  - Home: index.md
+  - Use cases: usecases
+  - Getting started: getting-started
+  - Advanced usage: advanced
+  - Contributing: contributing
+  - APIs: api
+  - ...
