@@ -15,7 +15,7 @@ Please download the contents of the [example directory](https://github.com/conta
 
 ## Step 3: Launch ContainerSSH
 
-In the downloaded directory run `docker-compose build` and then `docker-compose up`.
+In the downloaded directory run `docker-compose build` and then `docker-compose up -d`.
 
 ## Step 4: Logging in
 
@@ -23,7 +23,17 @@ Run `ssh foo@localhost -p 2222` on the same machine. You should be able to log i
 
 Alternatively you can also try the user `busybox` to land in a Busybox container.
 
-## Step 5: Making it productive
+## Step 5: Cleaning up
+
+ONce you're done you can shut down the server using the `docker-compose down` then remove the images using `docker-compose rm`.
+
+Finally, you can also remove the guest image:
+
+```
+docker image rm containerssh/containerssh-guest-image
+```
+
+## Step 6: Making it productive
 
 The authentication and configuration server included in the example is a dummy server and lets any password in. To actually use ContainerSSH you will have to write [your own authentication server](authserver.md) and you may want to write your own [configuration server too](configserver.md). We recommend reading the [architecture overview](architecture.md) before proceeding.
 

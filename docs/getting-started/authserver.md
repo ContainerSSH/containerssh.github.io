@@ -1,11 +1,16 @@
 <h1>Implementing an authentication server</h1>
 
-ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide so it can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration.
+ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide. Your service can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration"
+
+```yaml
+auth:
+  url: "http://your-server-name/"
+```
 
 !!! tip
-    We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
+    We have an [OpenAPI document](/api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
-For password authentication ContainerSSH will call out to `http://your-auth-server/password` with the following request body. The password is base64 encoded to transfer special characters properly.
+For password authentication ContainerSSH will call out to the `/password` path on your authentication server. The request body will be the following:
 
 ```json
 {
@@ -16,10 +21,7 @@ For password authentication ContainerSSH will call out to `http://your-auth-serv
 }
 ```
 
-> **Note:** Earlier versions of ContainerSSH used the `user` field instead of `username`. While the `user` field still
-> exists it is considered deprecated and will be removed in a future version.
-
-The public key auth ContainerSSH will call out to `http://your-auth-server/pubkey` in the following format.
+The public key auth ContainerSSH will call out to `/pubkey` in the following format:
 
 ```json
 {
@@ -30,12 +32,9 @@ The public key auth ContainerSSH will call out to `http://your-auth-server/pubke
 }
 ```
 
-> **Note:** Earlier versions of ContainerSSH used the `user` field instead of `username`. While the `user` field still
-> exists it is considered deprecated and will be removed in a future version.
-
 The public key is provided in the SSH wire format in base64 encoding.
 
-Both endpoints need to respond with the following JSON:
+Your server will need to respond with the following JSON:
 
 ```json
 {
