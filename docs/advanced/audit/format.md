@@ -37,7 +37,9 @@ The audit log protocol has the following message types at this time:
 | 105 | AuthPubKeySuccessful | Successful public key authentication | [PayloadAuthPubKey](#payloadauthpubkey) |
 | 106 | AuthPubKeyFailed | Failed public key authentication | [PayloadAuthPubKey](#payloadauthpubkey) |
 | 107 | AuthPubKeyBackendError | Backend failed to respond | [PayloadAuthPubKeyBackendError](#payloadauthpubkeybackenderror) |
-| 200 | GlobalRequestUnknown | Unknown global request received | [PayloadGlobalRequestUnknown](#payloadglobalrequestUnknown) |
+| 198 | HandshakeFailed | Indicates a handshake failure | [PayloadHandshakeFailed](#payloadhandshakefailed) |
+| 199 | HandshakeSuccessful | Indicates a successful handshake | [PayloadHandshakeFailed](#payloadhandshakesuccessful) |
+| 200 | GlobalRequestUnknown | Unknown global request received | [PayloadGlobalRequestUnknown](#payloadglobalrequestunknown) |
 | 300 | NewChannel | Requesting a new SSH channel | [PayloadNewChannel](#payloadnewchannel) |
 | 301 | NewChannelSuccessful | New SSH channel successful | [PayloadNewChannelSuccessful](#payloadnewchannelsuccessful) |
 | 302 | NewChannelFailed | New SSH channel failed | [PayloadNewChannelFailed](#payloadnewchannelfailed) |
@@ -100,6 +102,22 @@ PayloadAuthPasswordBackendError {
     Username string
     Key      []byte  # Public key in OpenSSH wire format
     Reason   string
+}
+```
+
+## PayloadHandshakeFailed
+
+```
+PayloadHandshakeFailed {
+    Reason string
+}
+```
+
+## PayloadHandshakeSuccessful
+
+```
+PayloadHandshakeSuccessful {
+    Username string
 }
 ```
 
@@ -219,6 +237,14 @@ PayloadChannelRequestWindow {
 	Rows      uint32
 	Width     uint32
 	Height    uint32
+}
+```
+
+## PayloadExit
+
+```
+PayloadExit {
+    ExitStatus uint32
 }
 ```
 
