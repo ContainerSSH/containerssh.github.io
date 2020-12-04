@@ -1,5 +1,4 @@
 nav:
   - Overview: 'index.md'
+  - Dashboard: 'dashboard.md'
   - Internal Architecture: 'internal-architecture.md'
-  - Roadmap: 'roadmap.md'
-  - Libraries: 'libraries.md'

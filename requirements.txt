@@ -5,3 +5,4 @@ mkdocs-redirects
 mkdocs-blog-plugin
 mkdocs-material-extensions
 mkdocs-awesome-pages-plugin
+PyGithub

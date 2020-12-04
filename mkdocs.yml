@@ -8,6 +8,11 @@ markdown_extensions:
   - attr_list
   - def_list
   - meta
+  - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - toc:
       permalink: True
       separator: "-"
@@ -50,7 +55,11 @@ plugins:
       format: ""
   - redirects:
       redirect_maps:
-        'developing.md': 'contributing/index.md'
+        'developing.md': 'development/index.md'
+        'contributing/index.md': 'development/index.md'
+        'contributing/internal-architecture.md': 'development/internal-architecture.md'
+        'contributing/libraries.md': 'development/dashboard.md'
+        'contributing/roadmap.md': 'development/dashboard.md'
         'quickstart.md': 'getting-started/index.md'
         'installation.md': 'getting-started/installation.md'
         'authserver.md': 'getting-started/authserver.md'
@@ -65,6 +74,9 @@ plugins:
 site_favicon: img/favicon.png
 extra_css:
   - css/custom.css
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
+  - javascript/tables.js
 copyright: >
   Copyright &copy; <a href="https://github.com/ContainerSSH/ContainerSSH/graphs/contributors">ContainerSSH Contributors</a>
   | <a href="https://containerssh.github.io/privacy/">Privacy Policy</a>

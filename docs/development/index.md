@@ -8,7 +8,13 @@ ContainerSSH is written in [go](https://golang.org/). Love it or hate it, it's o
 
 We would recommend installing either [VSCode](https://code.visualstudio.com/) or [Goland](https://www.jetbrains.com/go/) as having an IDE with code completion will help you with navigating around the code. We personally use Goland, but it's not free, so VSCode may be the way to go for you.
 
-Finally, you will need a working Docker or Kubernetes environment. We recommend installing Docker Desktop as it provides both out of the box.
+We are also using [golangci-lint](https://golangci-lint.run/usage/install/#local-installation) with the following options:
+
+```
+golangci-lint -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen
+```
+
+Finally, you will need a working Docker or Kubernetes environment. We recommend installing [Docker Desktop](https://www.docker.com/products/docker-desktop) on Windows and MacOS as it provides both out of the box. For Linux we recommend installing the [Docker Engine](https://docs.docker.com/engine/install/) and [KIND](https://kind.sigs.k8s.io/).
 
 ## Running in a development environment
 
