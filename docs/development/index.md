@@ -14,6 +14,8 @@ We are also using [golangci-lint](https://golangci-lint.run/usage/install/#local
 golangci-lint -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen
 ```
 
+You will also need to set up [a GPG key for code signing](https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work) as we only accept signed commits and tags. 
+
 Finally, you will need a working Docker or Kubernetes environment. We recommend installing [Docker Desktop](https://www.docker.com/products/docker-desktop) on Windows and MacOS as it provides both out of the box. For Linux we recommend installing the [Docker Engine](https://docs.docker.com/engine/install/) and [KIND](https://kind.sigs.k8s.io/).
 
 ## Running in a development environment
