@@ -15,7 +15,7 @@ repoPages = org.get_repos()
 main_repo = org.get_repo("containerssh")
 
 repoIndex = 0
-repos: list[Repository] = []
+repos = []
 while True:
     repoList = repoPages.get_page(repoIndex)
     if len(repoList) == 0:
@@ -24,8 +24,8 @@ while True:
     repoIndex = repoIndex + 1
 
 
-def get_issues() -> list[Issue]:
-    issues: list[Issue] = []
+def get_issues():
+    issues = []
     for repo in repos:
         issue_pages = repo.get_issues()
         page = 0
