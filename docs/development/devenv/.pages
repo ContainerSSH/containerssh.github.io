@@ -1,0 +1,8 @@
+nav:
+  - Overview: index.md
+  - Installing GPG: gpg.md
+  - Installing Golang: golang.md
+  - Installing the QA tools: qa.md
+  - Installing Docker: docker.md
+  - Installing Kubernetes: kubernetes.md
+  - Setting up the website: website.md
