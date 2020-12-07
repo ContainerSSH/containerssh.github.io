@@ -47,8 +47,8 @@ title: "ContainerSSH: An SSH server that launches containers"
 ```
 
 1. The user opens an SSH connection to ContainerSSH.
-2. ContainerSSH calls the authentication server with the users username and password/pubkey to check if its valid.
-3. ContainerSSH calls the config server to obtain backend location and configuration (if configured)
+2. ContainerSSH calls the authentication server with the users username and password/pubkey to check if it is valid.
+3. ContainerSSH calls the config server to obtain backend location and configuration (if configured).
 4. ContainerSSH calls the container backend to launch the container with the
    specified configuration. All input from the user is sent directly to the backend, output from the container is sent
    to the user.

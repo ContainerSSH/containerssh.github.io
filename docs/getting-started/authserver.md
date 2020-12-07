@@ -1,6 +1,6 @@
 <h1>Implementing an authentication server</h1>
 
-ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide. Your service can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration"
+ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide. Your service can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration.
 
 ```yaml
 auth:

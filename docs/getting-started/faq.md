@@ -40,7 +40,7 @@ Not at this time. SSH agent forwarding would require a separate binary agent wit
 
 ## Does ContainerSSH support X11 forwarding?
 
-Not at this time. X11 is sent over separate channels and would most probably need the overhaul that TCP port forwarding requires. As X11 forwarding isn't use much any more it is unlikely that ContainerSSH will ever support it.
+Not at this time. X11 is sent over separate channels and would most probably need the overhaul that TCP port forwarding requires. As X11 forwarding isn't used much anymore, it is unlikely that ContainerSSH will ever support it.
 
 ## Does ContainerSSH support forwarding signals?
 
@@ -80,8 +80,8 @@ This is a [known bug](https://github.com/containerssh/containerssh/issues/12). U
 
 ## Can I use my normal kubeconfig files?
 
-Unfortunately, no. Kubeconfig files are parsed by kubectl and the code is quite elaborate. At this time I don't think adding it to ContainerSSH is wise.
+Unfortunately, no. Kubeconfig files are parsed by kubectl and the code is quite elaborate. At this time, adding it to ContainerSSH is not planned.
 
 ## Why does the `kuberun` backend have so many things it doesn't support?
 
-The `kuberun` backend was written by reverse engineering `kubectl`. Unfortunately the Kubernetes API is documented very poorly and is quirky in some places. Kubernetes is a very complex and fast moving beast so things like API documentation, a proper SDK and other niceties that make a developers life easy are not something that's currently available.
+The `kuberun` backend was written by reverse engineering `kubectl`. Unfortunately the Kubernetes API is documented very poorly and is quirky in some places. Kubernetes is a very complex and fast moving beast so things like API documentation, a proper SDK and other niceties that make a developer's life easy are not something that's currently available.

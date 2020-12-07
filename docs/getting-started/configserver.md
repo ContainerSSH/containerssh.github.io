@@ -9,7 +9,7 @@ configserver:
   url: http://your-config-server-url/
 ```
 
-Once you have this configured you can launch a HTTP server that returns a configuration fragment as described below on that address.
+Once you have this configured you can launch an HTTP server that returns a configuration fragment as described below on that address.
 
 !!! note
     We have an [OpenAPI document](/api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
