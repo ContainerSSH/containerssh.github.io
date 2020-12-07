@@ -4,7 +4,7 @@ If you develop against the `kuberun` backend you will need a working Kubernetes.
 
 === "Windows / MacOS"
 
-    Docker Desktop contains a working Kubernetes. Please enable it to have a working Kubernetes setup. You can test it by running:
+    **Docker Desktop** contains a working Kubernetes. **Please enable it** to have a working Kubernetes setup. You can test it by running:
     
     ```
     kubectl get nodes
@@ -12,7 +12,7 @@ If you develop against the `kuberun` backend you will need a working Kubernetes.
     
 === "Windows / WSL"
 
-    For WSL we recommend setting up KinD (Kubernetes in Docker). Please read the [KinD guide](https://kind.sigs.k8s.io/docs/user/using-wsl2/) for getting it running.
+    For WSL we recommend setting up **KinD (Kubernetes in Docker)**. Please read the [KinD guide](https://kind.sigs.k8s.io/docs/user/using-wsl2/) for getting it running.
     
     Please create a cluster with the oldest [officially supported Kubernetes](https://kubernetes.io/docs/setup/release/version-skew-policy/) to test against:
     
@@ -24,7 +24,7 @@ If you develop against the `kuberun` backend you will need a working Kubernetes.
 
 === "Linux"
 
-    We recommend using [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/) (Kubernetes in Docker) as a reliable way to get a Kubernetes cluster running.
+    **We recommend using [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/) (Kubernetes in Docker)** as a reliable way to get a Kubernetes cluster running.
     
     Please create a cluster with the oldest [officially supported Kubernetes](https://kubernetes.io/docs/setup/release/version-skew-policy/) to test against:
     
