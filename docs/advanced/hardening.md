@@ -22,10 +22,10 @@ also make sure that ContainerSSH uses a restricted service account that can only
 ## Securing your auth server
 
 Your authentication server contains all your secrets and is therefore a prime target. ContainerSSH delegates any and
-all access checking to the authentication server so you should make sure it prevents brute force attacks.
+all access checking to the authentication server. Therefore, you need to make sure it prevents brute force attacks.
 
 Furthermore, you should make sure that the authentication server cannot be accessed from anywhere else. You can do this
-using firewalls, or alternatively you can configure ContainerSSH to use client certificates to authenticate itself:
+using firewalls. Alternatively, you can configure ContainerSSH to use client certificates to authenticate itself:
 
 ```yaml
 auth:

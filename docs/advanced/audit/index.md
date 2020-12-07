@@ -54,7 +54,7 @@ The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/a
 <script id="asciicast-vMhS8fMI6tyICWdcszMvKQVFU" src="https://asciinema.org/a/vMhS8fMI6tyICWdcszMvKQVFU.js" async></script>
 
 !!! note
-    Make sure you enable the `stdout` and `stderr` interceptions otherwise the `asciinema` encoder won't capture anything 
+    Make sure you enable the `stdout` and `stderr` interceptions otherwise the `asciinema` encoder won't capture anything. 
 
 !!! warning
     Asciinema is intended for entertainment purposes only and doesn't store all relevant information required for an accurate audit log.
