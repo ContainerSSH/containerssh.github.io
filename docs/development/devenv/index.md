@@ -32,6 +32,10 @@ The `dockerrun` backend requires Docker to be installed. [Please install Docker]
 
 The `kuberun` backend requires Kubernetes to be installed. [Please install a lightweight Kubernetes](kubernetes.md) to develop against.
 
-## Step 8: Website
+## Step 8: Setting up your IDE
+
+We have a [guide to set up VSCode and Goland](ide.md) as your IDE.
+
+## Step 9: Website
 
 This website requires a [Python to run locally](website.md). [This guide](website.md) explains the details of setting it up.

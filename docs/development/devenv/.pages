@@ -5,4 +5,5 @@ nav:
   - Installing the QA tools: qa.md
   - Installing Docker: docker.md
   - Installing Kubernetes: kubernetes.md
+  - Setting up your IDE: ide.md
   - Setting up the website: website.md

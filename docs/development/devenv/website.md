@@ -64,3 +64,6 @@ python -m mkdocs serve
 ```
 
 This will start the development server on [localhost:8000](https://localhost:8000).
+
+!!! tip
+    We recommend using the free [Visual Studio Code](https://code.visualstudio.com/) or the [PyCharm Community Edition](https://www.jetbrains.com/pycharm/download/) as a development environment for the website.
