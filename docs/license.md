@@ -1,4 +1,8 @@
-The MIT License (MIT)
+<h1>License</h1>
+
+This website and the ContainerSSH code is distributed under the **MIT license**.
+
+## The MIT License (MIT)
 
 Copyright (c) 2020 ContainerSSH contributors
 

@@ -79,5 +79,6 @@ extra_javascript:
   - javascript/tables.js
 copyright: >
   Copyright &copy; <a href="https://github.com/ContainerSSH/ContainerSSH/graphs/contributors">ContainerSSH Contributors</a>
+  | <a href="https://containerssh.github.io/license/">MIT license</a>
   | <a href="https://containerssh.github.io/privacy/">Privacy Policy</a>
   | <a href="https://containerssh.github.io/imprint/">Imprint</a>
