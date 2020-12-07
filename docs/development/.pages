@@ -1,4 +1,6 @@
 nav:
   - Overview: 'index.md'
   - Dashboard: 'dashboard.md'
+  - Development Environment: 'devenv'
+  - Getting Started: 'getting-started.md'
   - Internal Architecture: 'internal-architecture.md'

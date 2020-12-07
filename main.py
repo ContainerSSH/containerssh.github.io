@@ -7,21 +7,25 @@ from github.Issue import Issue
 from github.Milestone import Milestone
 
 token = os.getenv("GITHUB_TOKEN")
-gh = Github(token)
-
-org = gh.get_organization("containerssh")
-repoPages = org.get_repos()
-
-main_repo = org.get_repo("containerssh")
-
-repoIndex = 0
 repos = []
-while True:
-    repoList = repoPages.get_page(repoIndex)
-    if len(repoList) == 0:
-        break
-    repos.extend(repoList)
-    repoIndex = repoIndex + 1
+if token:
+    gh = Github(token)
+
+    org = gh.get_organization("containerssh")
+    repoPages = org.get_repos()
+
+    main_repo = org.get_repo("containerssh")
+
+    repoIndex = 0
+    while True:
+        repoList = repoPages.get_page(repoIndex)
+        if len(repoList) == 0:
+            break
+        repos.extend(repoList)
+        repoIndex = repoIndex + 1
+else:
+    main_repo = None
+    print("GITHUB_TOKEN not set, skipping development dashboard rendering")
 
 
 def get_issues():
@@ -115,19 +119,20 @@ def declare_variables(variables, macro):
 
     @macro
     def get_milestones():
-        milestones = main_repo.get_milestones()
-        result : list[Milestone] = []
-        ideas_milestone = None
-        future_milestone = None
-        for milestone in milestones:
-            if milestone.title == "Future":
-                future_milestone = milestone
-            elif milestone.title == "Ideas":
-                ideas_milestone = milestone
-            else:
-                result.append(milestone)
-        result.append(future_milestone)
-        result.append(ideas_milestone)
+        result = []
+        if main_repo is not None:
+            milestones = main_repo.get_milestones()
+            ideas_milestone = None
+            future_milestone = None
+            for milestone in milestones:
+                if milestone.title == "Future":
+                    future_milestone = milestone
+                elif milestone.title == "Ideas":
+                    ideas_milestone = milestone
+                else:
+                    result.append(milestone)
+            result.append(future_milestone)
+            result.append(ideas_milestone)
         return result
 
     @macro
