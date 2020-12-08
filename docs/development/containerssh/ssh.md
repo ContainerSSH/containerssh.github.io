@@ -4,6 +4,8 @@ Let's face it: we don't think about SSH all that much. We SSH into a server and 
 
 This document describes the high level concepts of SSH: how do you open a connection, what are channels, and how do requests work.
 
+This is a very high level overview, but should contain everything you need to get started with ContainerSSH development.
+
 ## Handshake
 
 When the user connects an SSH server the SSH keys are verified. We won't discuss this here as for ContainerSSH the Go SSH library takes care of that.
