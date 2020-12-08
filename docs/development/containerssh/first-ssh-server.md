@@ -86,12 +86,16 @@ So far so good, we reject all non-session channels and otherwise accept. The `ch
 Now, let's use [Docker](https://docker.io) as our backend. It's simple and it's [really well documented](https://docs.docker.com/engine/api/v1.40/). On a *NIX system we can create a Docker client like this:
 
 ```go
-docker, err := client.NewClient("unix:///var/run/docker.sock", nil,  make(map[string]string))
+docker, err := client.NewClient(
+    "unix:///var/run/docker.sock",
+    nil,
+    make(map[string]string),
+)
 ```
 
 Now we can loop over the requests and handle them, one by one:
 
-```
+```go
 for req := range requests {
     reply := func(success bool, message []byte) {
         if req.WantReply {
@@ -111,7 +115,7 @@ As you can see, the requests may need a reply, so we are constructing a simplifi
 
 For the final piece of our puzzle, let's implement the `handleRequest` method. For simplicity let's implement a switch-case:
 
-```
+```go
 switch req.Type {
     case "env":
         // Save environment variables for later use
