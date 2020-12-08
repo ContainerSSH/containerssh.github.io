@@ -1,4 +1,5 @@
 nav:
   - 'Overview': 'index.md'
   - 'Understanding SSH': 'ssh.md'
+  - 'Writing your first SSH server': 'first-ssh-server.md'
   - 'Internal Architecture': 'internal-architecture.md'
