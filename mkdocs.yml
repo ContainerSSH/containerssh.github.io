@@ -57,7 +57,8 @@ plugins:
       redirect_maps:
         'developing.md': 'development/index.md'
         'contributing/index.md': 'development/index.md'
-        'contributing/internal-architecture.md': 'development/internal-architecture.md'
+        'contributing/internal-architecture.md': 'development/containerssh/internal-architecture.md'
+        'development/internal-architecture.md': 'development/containerssh/internal-architecture.md'
         'contributing/libraries.md': 'development/dashboard.md'
         'contributing/roadmap.md': 'development/dashboard.md'
         'quickstart.md': 'getting-started/index.md'

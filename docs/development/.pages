@@ -1,6 +1,6 @@
 nav:
   - Overview: 'index.md'
+  - Getting Started: 'getting-started.md'
   - Dashboard: 'dashboard.md'
   - Development Environment: 'devenv'
-  - Getting Started: 'getting-started.md'
-  - Internal Architecture: 'internal-architecture.md'
+  - Understanding ContainerSSH: 'containerssh/'

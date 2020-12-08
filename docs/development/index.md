@@ -19,9 +19,9 @@
 <p><a href="dashboard/" class="md-button">Open Dashboard »</a></p>
 </div>
 <div class="grid__box">
-<h2>Internal Architecture</h2>
-<p>This document describes how ContainerSSH is built internally.</p>
-<p><a href="internal-architecture/" class="md-button">Read more »</a></p>
+<h2>Understanding ContainerSSH</h2>
+<p>This document describes the concepts around SSH and how ContainerSSH is built internally.</p>
+<p><a href="containerssh/" class="md-button">Read more »</a></p>
 </div>
 </div>
 

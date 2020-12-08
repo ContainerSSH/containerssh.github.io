@@ -79,4 +79,4 @@ Once you are done with your development you should fork the repository on GitHub
 
 ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.
 
-Before you begin we recommend reading [this blog post](https://pasztor.at/blog/ssh-direct-to-docker/) that runs you through a simplified version of ContainerSSH called [MiniContainerSSH](https://github.com/janoszen/minicontainerssh). You may also want to read the [internal architecture documentation](internal-architecture.md)
+We have dedicated a [whole section](containerssh/) to understanding how SSH, and ContainerSSH in particular work.
