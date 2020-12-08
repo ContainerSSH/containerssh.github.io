@@ -1,6 +1,6 @@
 <h1>Getting started with ContainerSSH development</h1>
 
-Welcome to developing ContainerSSH! For the purposes of this guide we will assume you have your [development environment set up and ready to go](devenv/). If not, please [follow our handy guide to do just that](devenv/).
+Welcome to developing ContainerSSH! For the purposes of this guide we will assume you have your [development environment set up and ready to go](devenv/index.md). If not, please [follow our handy guide to do just that](devenv/index.md).
 
 Ready? Good.
 
@@ -79,4 +79,4 @@ Once you are done with your development you should fork the repository on GitHub
 
 ContainerSSH is a reasonably complex piece of software. It uses the built-in Go SSH library to create a server and the client libraries for Docker and Kubernetes to forward the data from the SSH channel to the standard input and output of the container.
 
-We have dedicated a [whole section](containerssh/) to understanding how SSH, and ContainerSSH in particular work.
+We have dedicated a [whole section](containerssh/index.md) to understanding how SSH and ContainerSSH in particular work.
