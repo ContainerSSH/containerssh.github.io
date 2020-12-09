@@ -7,3 +7,4 @@ nav:
   - 'Configuration Server': 'configserver.md'
   - 'Container Backends': 'backends'
   - 'FAQ': 'faq.md'
+  - 'Getting Help': 'getting-help.md'
