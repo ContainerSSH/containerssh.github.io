@@ -1,6 +1,11 @@
 <h1>The ContainerSSH Audit Log Format, version 1 (draft)</h1>
 
-The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format. You will first need to decode the GZIP container and then the CBOR format.
+
+The ContainerSSH audit log is stored in [CBOR](https://cbor.io/) + GZIP format.
+
+However, before GZIP decoding you must provide/decode the **file header**. The file header is 40 bytes long. The fist 32 bytes must contain the string `ContainerSSH-Auditlog`, the rest padded with 0 bytes. The last 8 bytes contain the audit log format version number as a 64 bit little endian integer.
+
+After the first 40 bytes you will have to GZIP-decode the rest of the file and then the CBOR format.
 
 !!! note
     We provide a Go library to decode the audit log format. Check out the details [on GitHub](https://github.com/ContainerSSH/auditlog).
@@ -9,7 +14,7 @@ The main element of the CBOR container is an *array of messages* where each mess
 
 ```
 Message {
-    ConnectionID []byte # opaque binary value
+    ConnectionID string # opaque hex value
                         # that uniquely identifies the connection
  
     Timestamp    int64  # nanosecond timestamp when this message happened
@@ -91,7 +96,7 @@ PayloadAuthPasswordBackendError {
 ```
 PayloadAuthPassword {
     Username string
-    Key      []byte  # Public key in OpenSSH wire format
+    Key      string  # Public key in the authorized_keys format
 }
 ```
 
@@ -100,7 +105,7 @@ PayloadAuthPassword {
 ```
 PayloadAuthPasswordBackendError {
     Username string
-    Key      []byte  # Public key in OpenSSH wire format
+    Key      string  # Public key in the authorized_keys format
     Reason   string
 }
 ```
