@@ -55,6 +55,7 @@ plugins:
       format: ""
   - redirects:
       redirect_maps:
+        'ssh.md': 'development/containerssh/ssh.md'
         'developing.md': 'development/index.md'
         'contributing/index.md': 'development/index.md'
         'contributing/internal-architecture.md': 'development/containerssh/internal-architecture.md'
