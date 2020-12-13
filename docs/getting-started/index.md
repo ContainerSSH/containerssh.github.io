@@ -1,3 +1,7 @@
+---
+title: ContainerSSH Quick start
+---
+
 <h1>Quick start</h1>
 
 This is a quick start guide to get a test server up and running in less than 5 minutes with [docker-compose](https://docs.docker.com/compose/).

@@ -1,3 +1,7 @@
+---
+title: Internal Architecture
+---
+
 <h1>Internal Architecture</h1>
 
 The ContainerSSH internal architecture consists of two main parts: the SSH server and the backends.

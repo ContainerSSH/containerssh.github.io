@@ -1,3 +1,7 @@
+---
+title: Writing a configuration server
+---
+
 <h1>Writing a configuration server</h1>
 
 ContainerSSH has the ability to configure the backend and the launched container dynamically based on the username and/or IP address. To do this ContainerSSH calls out to a configuration server if configured.

@@ -1,3 +1,7 @@
+---
+title: Understanding ContainerSSH
+---
+
 <h1>Understanding ContainerSSH</h1>
 
 ContainerSSH is an SSH server that talks to external APIs such as Docker or Kubernetes. This section will explain how ContainerSSH is built.

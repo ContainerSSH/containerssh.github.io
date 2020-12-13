@@ -73,6 +73,9 @@ plugins:
         'faq.md': 'getting-started/faq.md'
         'audit/index.md': 'advanced/audit/index.md'
         'audit/format.md': 'advanced/audit/format.md'
+        'license.md': 'about/license.md'
+        'imprint.md': 'about/imprint.md'
+        'privacy.md': 'about/privacy.md'
 site_favicon: img/favicon.png
 extra_css:
   - css/custom.css

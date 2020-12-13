@@ -1,3 +1,7 @@
+---
+title: Installing Docker
+---
+
 <h1>Installing Docker</h1>
 
 The `dockerrun` backend requires Docker to create containers. You will need this if you test against this backend.

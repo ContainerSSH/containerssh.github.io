@@ -1,4 +1,6 @@
-<h1>The <code>kuberun</code> backend</h1>
+---
+title: The kuberun backend
+---
 
 The kuberun backend runs a pod in a Kubernetes cluster and attaches to a container there.
 

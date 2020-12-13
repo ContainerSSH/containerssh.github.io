@@ -1,4 +1,8 @@
-# Coding style
+---
+title: Coding style
+---
+
+<h1>Coding style</h1>
 
 We don't have a strict coding convention that will force you to write code in a very specific way. Instead, we will try to explain how we think about ensuring quality in this document.
 

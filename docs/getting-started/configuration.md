@@ -1,3 +1,7 @@
+---
+title: Configuring ContainerSSH
+---
+
 <h1>Configuring ContainerSSH</h1>
 
 Before you can run ContainerSSH, you will need to create a configuration file. The minimal configuration file looks like this:

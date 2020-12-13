@@ -1,3 +1,7 @@
+---
+title: Installing Kubernetes
+---
+
 <h1>Installing Kubernetes</h1>
 
 If you develop against the `kuberun` backend you will need a working Kubernetes.

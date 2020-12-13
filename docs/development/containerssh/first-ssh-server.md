@@ -1,3 +1,7 @@
+---
+title: Implementing your first SSH server
+---
+
 <h1>Implementing your first SSH server</h1>
 
 This section will guide you through implementing your first SSH server in go and combine it with Docker.

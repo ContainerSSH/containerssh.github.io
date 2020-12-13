@@ -1,3 +1,7 @@
+---
+title: Installing Golang
+---
+
 <h1>Installing Golang</h1>
 
 While there is an [official doc on installing Golang](https://golang.org/doc/install) it is less than helpful for Linux users. We are attempting to collect the best practices in installing Golang for beginners here.

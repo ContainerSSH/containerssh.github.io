@@ -1,3 +1,7 @@
+---
+title: Getting started with ContainerSSH development
+---
+
 <h1>Getting started with ContainerSSH development</h1>
 
 Welcome to developing ContainerSSH! For the purposes of this guide we will assume you have your [development environment set up and ready to go](devenv/index.md). If not, please [follow our handy guide to do just that](devenv/index.md).

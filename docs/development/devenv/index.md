@@ -1,3 +1,7 @@
+---
+title: Setting up your development environment
+---
+
 <h1>Setting up your development environment</h1>
 
 Welcome! This guide will help you set up your development environment for writing ContainerSSH code. We recommend to following this guide step by step, even when you have already set up some of them yourself.

@@ -1,3 +1,7 @@
+---
+title: Understanding SSH
+---
+
 <h1>Understanding SSH</h1>
 
 Let's face it: we don't think about SSH all that much. We SSH into a server and merrily type away our commands. *Until we need to write an SSH server.*

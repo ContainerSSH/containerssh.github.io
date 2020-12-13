@@ -1,3 +1,7 @@
+---
+title: Developing ContainerSSH
+---
+
 <h1>Developing ContainerSSH</h1>
 
 **Welcome! And a big thank you for wanting to contribute!** This page will explain how to get started with contributing to ContainerSSH. This guide will help you through the basics of getting development up and running.

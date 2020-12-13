@@ -1,3 +1,7 @@
+---
+title: Installing ContainerSSH
+---
+
 <h1>Installing ContainerSSH</h1>
 
 ContainerSSH is provided on the [GitHub releases page](https://github.com/containerssh/containerssh/releases). You can install it in a containerized environment or as a standalone software on Windows, Linux, and MacOS.

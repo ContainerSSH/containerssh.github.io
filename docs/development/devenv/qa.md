@@ -1,3 +1,7 @@
+---
+title: Installing the QA tools
+---
+
 <h1>Installing the QA tools</h1>
 
 ## Installing golangci-lint

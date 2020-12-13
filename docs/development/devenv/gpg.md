@@ -1,4 +1,8 @@
-<h1>Setting up GPG</h1>
+---
+title: Setting up GPG for code signing
+---
+
+<h1>Setting up GPG for code signing</h1>
 
 ContainerSSH requires all contributors to sign their commits using GPG. GPG authenticates the committer using their GPG key. This serves two purposes:
 

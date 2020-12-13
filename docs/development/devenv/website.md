@@ -1,3 +1,7 @@
+---
+title: Setting up the website development environment
+---
+
 <h1>Setting up the website development environment</h1>
 
 This website is developed using [mkdocs](https://www.mkdocs.org/) using the [Material theme](https://squidfunk.github.io/mkdocs-material/). This guide will run you through the steps of setting it up.
@@ -54,6 +58,9 @@ You can then set the token using the command line:
     ```
     set GITHUB_TOKEN=your-token-here
     ```
+
+!!! warning
+    Setting `GITHUB_TOKEN` dramatically slows down the development server because the GitHub API is queried for every refresh. Only set it when you need it.
 
 ## Running the dev server
 

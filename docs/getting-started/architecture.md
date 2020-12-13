@@ -1,3 +1,7 @@
+---
+title: Architecture
+---
+
 <h1>Architecture</h1>
 
 ContainerSSH is a modular software that consists of the following main components:
