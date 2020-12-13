@@ -5,3 +5,4 @@ nav:
   - Development Environment: 'devenv'
   - Understanding ContainerSSH: 'containerssh'
   - Coding Style: 'code-style.md'
+  - Releases: 'releases.md'
