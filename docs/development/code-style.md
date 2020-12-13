@@ -53,7 +53,10 @@ What's worse, these issues are extremely hard to debug, so we aim to prevent the
 Contexts in Go provide a graceful way to observe timeouts. The simplest way to create a timeout context is the following:
 
 ```go
-ctx, cancelFunc := context.WithTimeout(context.Background, 60 * time.Second)
+ctx, cancelFunc := context.WithTimeout(
+    context.Background,
+    60 * time.Second,
+)
 defer cancelFunc()
 ```
 
@@ -84,7 +87,10 @@ for {
     if err == nil {
         break loop
     } else {
-        logger.Warningf("failed to perform network call, retrying in 10 seconds (%v)", lastError)
+        logger.Warningf(
+            "failed to perform network call, retrying in 10 seconds (%v)",
+            lastError,
+        )
     }
     select {
     case <-ctx.Done():
