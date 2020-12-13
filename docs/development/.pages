@@ -4,3 +4,4 @@ nav:
   - Dashboard: 'dashboard.md'
   - Development Environment: 'devenv'
   - Understanding ContainerSSH: 'containerssh'
+  - Coding Style: 'code-style.md'
