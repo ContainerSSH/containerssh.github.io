@@ -10,9 +10,9 @@ title: Development Dashboard
     
     {{ milestone.description}}
     
-    | Title | Created |
-    | ----- | ------- |{% for issue in get_milestone_issues(milestone) %}
-    | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }}) | {{ days_ago(issue.created_at) }} |{% endfor %}
+    | Title | Created | State |
+    | ----- | ------- | ----- |{% for issue in get_milestone_issues(milestone) %}
+    | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }}) | {{ days_ago(issue.created_at) }} | {% if issue.state == "closed" %}✅{% else %}❌{% endif %} |{% endfor %}
     {% endfor %}
 
 === "Repositories"

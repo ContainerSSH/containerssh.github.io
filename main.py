@@ -98,8 +98,9 @@ def declare_variables(variables, macro):
     @macro
     def get_milestone_issues(milestone: Milestone):
         result = []
-        for issue in issues:
-            if not issue.pull_request and issue.state == "open" and issue.milestone and issue.milestone.number == milestone.number:
+        milestone_issues = main_repo.get_issues(milestone=milestone, state="all")
+        for issue in milestone_issues:
+            if not issue.pull_request and issue.milestone and issue.milestone.number == milestone.number:
                 result.append(issue)
         return result
 
