@@ -1,10 +1,15 @@
 from datetime import datetime
 import os
 import pprint
+from typing import List
+
 from github import Github
 from github.Repository import Repository
 from github.Issue import Issue
 from github.Milestone import Milestone
+from github.Commit import Commit
+from github.CheckRun import CheckRun
+from github.Tag import Tag
 
 token = os.getenv("GITHUB_TOKEN")
 repos = []
@@ -46,51 +51,6 @@ issues = get_issues()
 
 
 def declare_variables(variables, macro):
-    @macro
-    def lib(lib, description):
-        MD = """
-## [%s](https://github.com/containerssh/%s)
-
-%s [Read more »](https://github.com/containerssh/%s)
-
-    go get -u github.com/containerssh/%s
-
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/containerssh/%s?include_prereleases&style=for-the-badge)](https://github.com/ContainerSSH/%s/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/containerssh/%s?style=for-the-badge)](https://github.com/containerssh/%s)
-[![GitHub issues](https://img.shields.io/github/issues/ContainerSSH/%s?style=for-the-badge)](https://github.com/ContainerSSH/%s/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/containerssh/%s?style=for-the-badge)](https://github.com/ContainerSSH/%s/pulls)
-[![Lint](https://img.shields.io/github/workflow/status/containerssh/%s/Lint?style=for-the-badge&label=Lint)](https://github.com/ContainerSSH/%s/actions?query=workflow%%3ALint)
-[![Tests](https://img.shields.io/github/workflow/status/containerssh/%s/Tests?style=for-the-badge&label=Tests)](https://github.com/ContainerSSH/%s/actions?query=workflow%%3ATests)
-[![CodeQL](https://img.shields.io/github/workflow/status/containerssh/%s/CodeQL?style=for-the-badge&label=CodeQL)](https://github.com/ContainerSSH/%s/actions?query=workflow%%3ACodeQL)
-[![Go Report Card](https://goreportcard.com/badge/github.com/containerssh/%s?style=for-the-badge)](https://goreportcard.com/report/github.com/containerssh/%s)
-[![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/ContainerSSH/%s?style=for-the-badge)](https://lgtm.com/projects/g/ContainerSSH/%s/)
-"""
-        return MD % (
-            lib,
-            lib,
-            description,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-            lib,
-        )
-
     @macro
     def since(version):
         "Add a button"
@@ -144,6 +104,29 @@ def declare_variables(variables, macro):
         return result
 
     @macro
+    def get_commits_since_last_tag(repo: Repository) -> int:
+        tag_pages = repo.get_tags()
+        tags = tag_pages.get_page(0)
+        tag = None
+        if len(tags) == 0:
+            commits = repo.get_commits()
+        else:
+            tag = tags[0]
+            commits = repo.get_commits()
+        page_number = 0
+        count = 0
+        while True:
+            page = commits.get_page(page_number)
+            if len(page) == 0:
+                return count
+            for commit in page:
+                commit: Commit
+                if tag is not None and commit.sha == tag.commit.sha:
+                    return count
+                count = count + 1
+            page_number = page_number + 1
+
+    @macro
     def get_version(repo: Repository) -> str:
         tag_pages = repo.get_tags()
         tags = tag_pages.get_page(0)
@@ -166,6 +149,24 @@ def declare_variables(variables, macro):
             if issue.pull_request and issue.state == "open":
                 result.append(issue)
         return result
+
+    @macro
+    def github_checks(issue: Issue):
+        commits = issue.as_pull_request().get_commits()
+        commit: Commit = commits.get_page(0)[0]
+        check_runs = commit.get_check_runs()
+        page_number = 0
+        status = 'success'
+        while True:
+            page: List[CheckRun] = check_runs.get_page(page_number)
+            if len(page) == 0:
+                break
+            for check in page:
+                if check.conclusion == "success" or check.conclusion == "neutral":
+                    continue
+                status = check.conclusion
+            page_number = page_number + 1
+        return status
 
 
 if __name__ == "__main__":

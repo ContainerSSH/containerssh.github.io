@@ -16,9 +16,9 @@ title: Development Dashboard
     {% endfor %}
 
 === "Repositories"
-    | Repository | Description | Version |
-    | ---------- | ----------- | ------- |{% for repo in github_repos() %}
-    | [{{ repo.name }}](https://github.com/containerssh/{{ repo.name }}) | {{ repo.description }} | {{ get_version(repo) }} |{% endfor %}
+    | Repository | Description | Version | Commits since last version |
+    | ---------- | ----------- | ------- | -------------------------- |{% for repo in github_repos() %}
+    | [{{ repo.name }}](https://github.com/containerssh/{{ repo.name }}) | {{ repo.description }} | {{ get_version(repo) }} | {{ get_commits_since_last_tag(repo) }} |{% endfor %}
 
 === "Issues"
     | Repository | Title | Milestone | Created |
@@ -26,6 +26,6 @@ title: Development Dashboard
     | [{{issue.repository.name}}](https://github.com/containerssh/{{issue.repository.name}}/issues) | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }}) | [{{ issue.milestone.title }}](https://github.com/ContainerSSH/{{ issue.repository.name }}/milestone/{{ issue.milestone.number }}) | {{ days_ago(issue.created_at) }} |{% endfor %}
     
 === "Pull Requests"
-    | Repository | Title | Milestone | Created | Can be merged |
-    | ---------- | ----- | --------- | ------- | ------------- |{% for issue in github_prs() %}
-    | [{{issue.repository.name}}](https://github.com/containerssh/{{issue.repository.name}}/pulls) | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/pull/{{ issue.number }}) | [{{ issue.milestone.title }}](https://github.com/ContainerSSH/{{ issue.repository.name }}/milestone/{{ issue.milestone.number }}) | {{ days_ago(issue.created_at) }} | {% if issue.as_pull_request().mergeable_state == "clean" %}✅{% else %}❌{% endif %} |{% endfor %}
+    | Repository | Title | Created | Mergeable | Checks |
+    | ---------- | ----- | ------- | ----------| ------ |{% for issue in github_prs() %}
+    | [{{issue.repository.name}}](https://github.com/containerssh/{{issue.repository.name}}/pulls) | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/pull/{{ issue.number }}) | {{ days_ago(issue.created_at) }} | {% if issue.as_pull_request().mergeable %}✅{% else %}❌{% endif %} | {% if github_checks(issue) == "success" %}✅{% else %}❌{% endif %} |{% endfor %}
