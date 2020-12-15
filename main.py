@@ -163,7 +163,7 @@ def declare_variables(variables, macro):
             if len(page) == 0:
                 break
             for check in page:
-                if check.conclusion == "success" or check.conclusion == "neutral":
+                if check.conclusion == "success":
                     continue
                 status = check.conclusion
             page_number = page_number + 1
