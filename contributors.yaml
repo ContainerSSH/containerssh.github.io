@@ -1,0 +1,18 @@
+# This file lists all the contributors listed on the website under https://containerssh.io/about/
+# This list is opt-in for privacy reasons. If you contributed to ContainerSSH and wish to be listed here please
+# edit this file on GitHub and provide your name/alias and GitHub link. We will pull your avatar from GitHub.
+# Name and GitHub are required, the rest is optional
+---
+- name: Sanja Bonic
+  github: sanjabonic
+  website: https://pasztor.at
+  linkedin: sanjabonic
+- name: Janos Pasztor
+  github: janoszen
+  twitter: janoszen
+  website: https://pasztor.at
+  linkedin: janoszen
+- name: Richard Kovacs
+  github: mhmxs
+  twitter: mhmxs
+  website: https://mhmxs.blogspot.com/

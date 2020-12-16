@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import pprint
+import yaml
 from typing import List
 
 from github import Github
@@ -9,14 +10,25 @@ from github.Issue import Issue
 from github.Milestone import Milestone
 from github.Commit import Commit
 from github.CheckRun import CheckRun
-from github.Tag import Tag
+from functools import cmp_to_key
 
 token = os.getenv("GITHUB_TOKEN")
 repos = []
+core_maintainers = []
 if token:
     gh = Github(token)
 
     org = gh.get_organization("containerssh")
+    members_pages = org.get_members()
+    members_page = 0
+    while True:
+        members = members_pages.get_page(members_page)
+        if len(members) == 0:
+            break
+        for member in members:
+            core_maintainers.append(member.login)
+        members_page = members_page + 1
+
     repoPages = org.get_repos()
 
     main_repo = org.get_repo("containerssh")
@@ -31,6 +43,38 @@ if token:
 else:
     main_repo = None
     print("GITHUB_TOKEN not set, skipping development dashboard rendering")
+
+with open(os.path.dirname(__file__) + "/contributors.yaml", "r") as fh:
+    public_contributors = yaml.load(fh.read(), Loader=yaml.BaseLoader)
+
+
+contributions = {}
+contributors_dict = {}
+for repo in repos:
+    contributor_list = repo.get_stats_contributors()
+    for contributor in contributor_list:
+        if contributor.author not in contributors_dict:
+            contributors_dict[contributor.author.login] = contributor.author
+            contributions[contributor.author.login] = contributor.total
+        else:
+            contributions[contributor.author.login] = contributions[contributor.author] + contributor.total
+
+for index, contributor in enumerate(public_contributors):
+    try:
+        contributor_record = contributors_dict[contributor["github"]]
+        if contributor["github"] in core_maintainers:
+            public_contributors[index]["core_maintainer"] = True
+        else:
+            public_contributors[index]["core_maintainer"] = False
+        public_contributors[index]["avatar_url"] = contributor_record.avatar_url
+        public_contributors[index]["contributions"] = contributions[contributor["github"]]
+    except:
+        public_contributors[index]["avatar_url"] = ""
+        public_contributors[index]["contributions"] = 0
+
+public_contributors = list(reversed(sorted(public_contributors, key=lambda c: c["contributions"])))
+
+public_contributors = sorted(public_contributors, key=lambda c: not c["core_maintainer"])
 
 
 def get_issues():
@@ -168,6 +212,10 @@ def declare_variables(variables, macro):
                 status = check.conclusion
             page_number = page_number + 1
         return status
+
+    @macro
+    def contributors():
+        return public_contributors
 
 
 if __name__ == "__main__":

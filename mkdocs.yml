@@ -83,8 +83,9 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
 copyright: >
-  Copyright &copy; <a href="https://github.com/ContainerSSH/ContainerSSH/graphs/contributors">ContainerSSH Contributors</a>
-  | <a href="https://containerssh.github.io/license/">MIT license</a>
+  Copyright &copy; <a href="/about/">ContainerSSH Contributors</a>
+  | <a href="/about/">About</a>
+  | <a href="/about/license/">MIT license</a>
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
-  | <a href="https://containerssh.github.io/privacy/">Privacy Policy</a>
-  | <a href="https://containerssh.github.io/imprint/">Imprint</a>
+  | <a href="/about/privacy/">Privacy Policy</a>
+  | <a href="/about/imprint/">Imprint</a>
