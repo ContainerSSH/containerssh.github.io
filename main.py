@@ -71,6 +71,7 @@ for index, contributor in enumerate(public_contributors):
     except:
         public_contributors[index]["avatar_url"] = ""
         public_contributors[index]["contributions"] = 0
+        public_contributors[index]["core_maintainer"] = False
 
 public_contributors = list(reversed(sorted(public_contributors, key=lambda c: c["contributions"])))
 
