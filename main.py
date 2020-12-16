@@ -10,7 +10,6 @@ from github.Issue import Issue
 from github.Milestone import Milestone
 from github.Commit import Commit
 from github.CheckRun import CheckRun
-from functools import cmp_to_key
 
 token = os.getenv("GITHUB_TOKEN")
 repos = []
