@@ -19,4 +19,4 @@ ContainerSSH is a *fully open source community-driven project*. It is made with 
     </span>
 </span>{% endfor %}</span>
 
-<small>Note: appearance on this list is opt-in for privacy reasons. If you wish to be listed on this page please <a href="https://github.com/ContainerSSH/containerssh.github.io/edit/main/contributors.yaml">add your name here</a>.</small>
+<small>Note: this list is opt-in for privacy reasons. If you wish to be listed on this page please <a href="https://github.com/ContainerSSH/containerssh.github.io/edit/main/contributors.yaml">add your name here</a>.</small>
