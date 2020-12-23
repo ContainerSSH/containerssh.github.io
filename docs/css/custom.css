@@ -118,3 +118,34 @@ h1 .since__value {
 .md-typeset a.contributor__social--linkedin {
     color:#0072b1
 }
+
+.companies {
+    position:relative;
+    vertical-align: top;
+}
+
+.companies .company td {
+    padding-top:1.5rem;
+}
+
+.companies .logo {
+    padding-right:5%;
+}
+
+@media screen and (max-width:960px) {
+    .companies .logo {
+        padding-right:2.5%;
+    }
+}
+
+.companies .logo img {
+    max-width:120px;
+}
+
+.companies .logo {
+    padding-right:10%;
+}
+
+.companies h3 {
+    margin-top:0;
+}

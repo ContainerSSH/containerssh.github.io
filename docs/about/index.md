@@ -20,3 +20,24 @@ ContainerSSH is a *fully open source community-driven project*. It is made with 
 </span>{% endfor %}</span>
 
 <small>Note: this list is opt-in for privacy reasons. If you wish to be listed on this page please <a href="https://github.com/ContainerSSH/containerssh.github.io/edit/main/contributors.yaml">add your name here</a>.</small>
+
+## Companies
+
+The development of ContainerSSH is made possible by the following companies:
+
+<table class="companies">
+<tr class="company">
+<td class="logo"><a href="https://hub.docker.com/orgs/containerssh" target="_blank"><img src="/images/logos/docker.png" alt="Docker" /></a></td>
+<td>
+<h3><a href="https://hub.docker.com/orgs/containerssh" target="_blank">Docker</a></h3>
+<p>Docker has accepted ContainerSSH into their <a href="https://www.docker.com/community/open-source/application" target="_blank">Docker Open Source Program</a>. The open source program exempts ContainerSSH from the <a href="https://www.docker.com/increase-rate-limits" target="_blank">Docker Hub rate limits</a>, which is important to us because we are using it to host the <a href="https://hub.docker.com/repository/docker/containerssh/containerssh-guest-image" target="_blank">default guest image</a>.</p>
+</td>
+</tr>
+<tr class="company">
+<td class="logo"><a href="https://github.com/ContainerSSH/" target="_blank"><img src="/images/logos/github.png" alt="GitHub" /></a></td>
+<td>
+<h3><a href="https://github.com/ContainerSSH/" target="_blank">GitHub</a></h3>
+<p>GitHub provides the <a href="https://github.com/containerssh/" target="_blank">core development infrastructure for ContainerSSH</a>, as well as the continuous integration system and the hosting for this website.</p>
+</td>
+</tr>
+</table>

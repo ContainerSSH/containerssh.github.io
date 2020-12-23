@@ -78,7 +78,7 @@ plugins:
         'privacy.md': 'about/privacy.md'
 site_favicon: img/favicon.png
 extra_css:
-  - css/custom.css?v2
+  - css/custom.css?v3
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
