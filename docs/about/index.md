@@ -1,8 +1,10 @@
 ---
-title: Who makes ContainerSSH?
+title: About ContainerSSH
 ---
 
-<h1>Who makes ContainerSSH? Why?</h1>
+<h1>About ContainerSSH</h1>
+
+## Who makes ContainerSSH? Why?
 
 ContainerSSH is a *fully open source community-driven project*. It is made with ❤️ by the following group of volunteers.
 
@@ -23,7 +25,7 @@ ContainerSSH is a *fully open source community-driven project*. It is made with 
 
 ## Companies
 
-The development of ContainerSSH is made possible by the following companies:
+We use services and tools from the following companies for free:
 
 <table class="companies">
 <tr class="company">
@@ -38,6 +40,13 @@ The development of ContainerSSH is made possible by the following companies:
 <td>
 <h3><a href="https://github.com/ContainerSSH/" target="_blank">GitHub</a></h3>
 <p>GitHub provides the <a href="https://github.com/containerssh/" target="_blank">core development infrastructure for ContainerSSH</a>, as well as the continuous integration system and the hosting for this website.</p>
+</td>
+</tr>
+<tr class="company">
+<td class="logo"><a href="https://www.hashicorp.com/products/terraform" target="_blank"><img src="/images/logos/terraform.png" alt="HashiCorp Terraform" /></a></td>
+<td>
+<h3><a href="https://www.hashicorp.com/products/terraform" target="_blank">Terraform Cloud</a></h3>
+<p>We use the <a href="https://www.hashicorp.com/products/terraform" target="_blank">Terraform Cloud</a> by <a href="https://www.hashicorp.com/">HashiCorp</a> to <a href="https://github.com/containerssh/github-terraform">automate the configuration</a> of our GitHub organization.</p>
 </td>
 </tr>
 </table>
