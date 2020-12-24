@@ -12,6 +12,6 @@ Sending in patches to enable all the functionality would be a very long process 
 
 The ContainerSSH guest agent is a binary containing only minimal functionality and no external dependencies that can easily be added to any container image as a single binary. We have already added it to the `containerssh/guest-image` and we encourage users who built their own image to include the agent as well. Please see [github.com/containerssh/agent](https://github.com/containerssh/agent) for details.
 
-That being said, the guest image is and will be optional. It will be a feature that needs to be explicitly enabled in the configuration.
+That being said, the guest image is and will be optional. It will be a feature that needs to be explicitly enabled in the configuration. Guest image support wlll arrive in ContainerSSH 0.4 after the holidays.
 
-Merry Christmas!
+Merry Christmas and Happy Holidays!
