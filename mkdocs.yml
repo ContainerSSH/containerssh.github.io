@@ -13,6 +13,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - toc:
       permalink: True
       separator: "-"
@@ -25,6 +27,7 @@ theme:
   font: false
   features:
     - navigation.tabs
+    - navigation.sections
     - toc.autohide
     - search.suggest
     - search.highlight
@@ -55,6 +58,7 @@ plugins:
       format: ""
   - redirects:
       redirect_maps:
+        'security.md': 'about/security.md'
         'ssh.md': 'development/containerssh/ssh.md'
         'developing.md': 'development/index.md'
         'contributing/index.md': 'development/index.md'
@@ -78,14 +82,15 @@ plugins:
         'privacy.md': 'about/privacy.md'
 site_favicon: img/favicon.png
 extra_css:
-  - css/custom.css?v3
+  - css/custom.css?v4
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
 copyright: >
   Copyright &copy; <a href="/about/">ContainerSSH Contributors</a>
   | <a href="/about/">About Us</a>
-  | <a href="/security/">Security</a>
+  | <a href="/about/security/">Security</a>
+  | <a href="/deprecations/">Deprecations</a>
   | <a href="/about/license/">MIT License</a>
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
   | <a href="/about/privacy/">Privacy Policy</a>

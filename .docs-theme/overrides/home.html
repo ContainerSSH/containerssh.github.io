@@ -1,22 +1,2 @@
 {% extends "main.html" %}
 {% block htmltitle %}<title>ContainerSSH: Launch containers on demand</title>{% endblock %}
-{% block extrahead %}
-  {{ super() }}
-  <style>
-      @media screen and (min-width: 76.25em) {
-          .md-content {
-              width:100%;
-              max-width:100%;
-          }
-          .md-sidebar {
-              display:none;
-          }
-          .grid {
-              display: grid;
-              grid-template-columns: 1fr 1fr;
-              grid-column-gap: 20px;
-              grid-row-gap: 20px;
-          }
-      }
-  </style>
-{% endblock %}
