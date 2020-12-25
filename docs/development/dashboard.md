@@ -11,6 +11,7 @@ title: Development Dashboard
     {{ milestone.description}}
     
     {% for issue in get_milestone_issues(milestone) %}- [{% if issue.state == "closed" %}X{% else %} {% endif %}] [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }}){% endfor %}
+    {% endfor %}
 
 === "Repositories"
     | Repository | Description | Version | Commits since last version |
