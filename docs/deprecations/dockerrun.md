@@ -1,5 +1,6 @@
 ---
 title: Deprecating the DockerRun backend
+image: deprecations/dockerrun.png
 ---
 
 # Deprecating the DockerRun backend {{ upcoming("0.4") }}
