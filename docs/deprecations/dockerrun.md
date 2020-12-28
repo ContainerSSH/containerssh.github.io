@@ -71,6 +71,10 @@ docker:
     commandStart: 60s
     # Timeout for HTTP calls
     http: 15s
+    # Timeout for signal requests
+    signal: 60s
+    # Timeout for window change requests
+    window: 60s
 ```
 
 ## The new execution modes
@@ -133,5 +137,6 @@ However, this command was separately implemented in the `kuberun` and in the `do
 
 ```yaml
 security:
-  disableCommand: true
+  command:
+    mode: disable
 ```
