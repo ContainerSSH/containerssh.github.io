@@ -52,7 +52,9 @@ Please run `kubectl explain pod.metadata` for the full list of options.
 
 The new `kubernetes` backend supports two execution modes: `connection` or `session`. The old `kuberun` backend worked identical to the `session` mode, where each command execution within an SSH connection would cause a new container to be started.
 
-The new `connection` mode, on the other hand, starts a container with an idle command from the configuration and then uses the `docker exec` facility to launch commands.
+The new `connection` mode, on the other hand, starts a container with an idle command from the configuration and then uses the `exec` facility to launch commands.
+
+In `connection` mode the pods are launched with the command specified in `kubernetes` &rarr; `pod` &rarr; `idleCommand` as a command. The purpose of this command is to keep the pod alive and wait for a `TERM` signal. Any commands (shell, etc.) will be launched similar to how you would use `kubectl exec` to run an additional command in the pod. When a shell is requested the `kubernetes` &rarr; `pod` &rarr; `shellCommand` parameter is used.
 
 !!! warning
     The `connection` execution mode means that the `CMD` and `ENTRYPOINT` settings from the container image or the configuration are ignored. If you are switching from the `kuberun` backend and used the `CMD` as a security measure it is strongly recommended that you configure the `idleCommand` and `shellCommand` options properly.
