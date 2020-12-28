@@ -1,5 +1,6 @@
 ---
 title: Deprecations
+image: deprecations/deprecations.png
 ---
 
 # Deprecated and removed ContainerSSH features
