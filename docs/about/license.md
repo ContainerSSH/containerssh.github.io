@@ -1,6 +1,12 @@
 <h1>License</h1>
 
-This website and the ContainerSSH code is distributed under the **MIT license**, with exception to company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines, and excluding decorative images licensed from [Unsplash](https://unsplash.com/license). MkDocs is distributed under the BSD license. Material for MkDocs is distributed under the MIT license.
+This website and the ContainerSSH code is distributed under the **MIT license** with the following exceptions:
+
+1. The ContainerSSH name and logos may only be used in accordance with the [ContainerSSH brand license](https://github.com/ContainerSSH/branding/blob/main/LICENSE.md). 
+2. Company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines.
+3. Some decorative images licensed from [Unsplash](https://unsplash.com/license).
+4. MkDocs is distributed under the BSD license.
+5. Material for MkDocs is distributed under the MIT license.
 
 ## The MIT License (MIT)
 
