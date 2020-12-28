@@ -1,6 +1,6 @@
 <h1>License</h1>
 
-This website and the ContainerSSH code is distributed under the **MIT license**, with exception to company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines. 
+This website and the ContainerSSH code is distributed under the **MIT license**, with exception to company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines, and excluding decorative images licensed from [Unsplash](https://unsplash.com/license).
 
 ## The MIT License (MIT)
 
