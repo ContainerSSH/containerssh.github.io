@@ -34,7 +34,7 @@ ContainerSSH maintains a package repository at `packages.containerssh.io`. This 
     
     ```bash
     sudo add-apt-repository \
-       "deb [arch=amd64] https://packages.containerssh.io/debian main stable"
+       "deb [arch=amd64] https://packages.containerssh.io/debian ./"
     ```
     
     Finally, refresh the package list:
