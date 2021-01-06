@@ -6,4 +6,4 @@ mkdocs-blog-plugin
 mkdocs-material-extensions
 mkdocs-awesome-pages-plugin
 PyGithub~=1.54
-pyyaml
+pyyaml>=5.3.1
