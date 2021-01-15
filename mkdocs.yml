@@ -80,6 +80,7 @@ plugins:
         'license.md': 'about/license.md'
         'imprint.md': 'about/imprint.md'
         'privacy.md': 'about/privacy.md'
+        'advanced/audit/format.md': 'https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md'
 site_favicon: img/favicon.png
 extra_css:
   - css/custom.css?v4

@@ -3,4 +3,4 @@ nav:
   - 'Logging': logging.md
   - 'Metrics': metrics.md
   - 'Hardening': hardening.md
-  - 'Audit logging': audit
+  - 'Audit logging': audit.md
