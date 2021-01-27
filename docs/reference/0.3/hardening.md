@@ -1,31 +1,27 @@
+{{ outdated() }}
+
 <h1>Hardening ContainerSSH</h1>
 
 ContainerSSH is built to secure its inner workings as much as possible. You can take several steps to secure it further.
 
 ## Running ContainerSSH
 
-The default [ContainerSSH image](https://hub.docker.com/r/containerssh/containerssh) runs as a non-root user by default
-and exposes itself on port 2222. If you decide to build your own installation make sure ContainerSSH does not run
-as root as it is not required.
+The default [ContainerSSH image](https://hub.docker.com/r/containerssh/containerssh) runs as a non-root user by default and exposes itself on port 2222. If you decide to build your own installation make sure ContainerSSH does not run as root as it is not required.
 
 ## Secure your Docker/Kubernetes
 
 Depending on which backend you are using you have to take different steps to secure it.
 
-When using Docker ContainerSSH will need access to the Docker socket. This undeniably means that ContainerSSH will
-be able to launch root processes on the host machine. You may want to look into running Docker in
+When using Docker ContainerSSH will need access to the Docker socket. This undeniably means that ContainerSSH will be able to launch root processes on the host machine. You may want to look into running Docker in
 [rootless mode](https://docs.docker.com/engine/security/rootless/) or switching to [Podman](https://podman.io/)
 
-When running Kubernetes it is strongly advised that you deploy a pod security policy and a network policy. You should
-also make sure that ContainerSSH uses a restricted service account that can only access its own namespace.
+When running Kubernetes it is strongly advised that you deploy a pod security policy and a network policy. You should also make sure that ContainerSSH uses a restricted service account that can only access its own namespace.
 
 ## Securing your auth server
 
-Your authentication server contains all your secrets and is therefore a prime target. ContainerSSH delegates any and
-all access checking to the authentication server. Therefore, you need to make sure it prevents brute force attacks.
+Your authentication server contains all your secrets and is therefore a prime target. ContainerSSH delegates any and all access checking to the authentication server. Therefore, you need to make sure it prevents brute force attacks.
 
-Furthermore, you should make sure that the authentication server cannot be accessed from anywhere else. You can do this
-using firewalls. Alternatively, you can configure ContainerSSH to use client certificates to authenticate itself:
+Furthermore, you should make sure that the authentication server cannot be accessed from anywhere else. You can do this using firewalls. Alternatively, you can configure ContainerSSH to use client certificates to authenticate itself:
 
 ```yaml
 auth:
@@ -49,10 +45,9 @@ configserver:
     key: "insert your client key in PEM format here"
 ```
 
-## Disabling command execution {{ since("0.2.1") }}
+## Disabling command execution
 
 You can disable the execution of custom SSH commands through the configuration:
-
 
 ```yaml
 dockerrun:

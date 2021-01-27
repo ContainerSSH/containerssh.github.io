@@ -6,7 +6,7 @@ Providing SSH access in a web hosting environment is tricky. Users may run unexp
 
 Containers present a good solution for this problem: you can run a container as the same user as the web server, but keep them in isolation from the actual production environment. You can use NFS mounts to isolate them from the production servers. You can even mount folders based on an advanced permission matrix.
 
-However, running an SSH server per user is very cost-intensive in an industry where individual customers don't pay much. That's where ContainerSSH fills an important role: when users connect via SSH, ContainerSSH reaches out to [your authentication server](../getting-started/authserver.md) to verify user credentials and then contacts [your configuration server](../getting-started/configserver.md) to fetch the customized container configuration for your user. When your user disconnects, ContainerSSH removes their container and leaves no trace behind.
+However, running an SSH server per user is very cost-intensive in an industry where individual customers don't pay much. That's where ContainerSSH fills an important role: when users connect via SSH, ContainerSSH reaches out to [your authentication server](../reference/auth.md) to verify user credentials and then contacts [your configuration server](../reference/configserver.md) to fetch the customized container configuration for your user. When your user disconnects, ContainerSSH removes their container and leaves no trace behind.
 
 ContainerSSH also supports SFTP, which provides secure file transfers. It can replace the old and arguably broken FTP, so you no longer have to worry about that either.
 

@@ -1,8 +1,0 @@
-nav:
-  - Overview: 'index.md'
-  - Getting Started: 'getting-started.md'
-  - Dashboard: 'dashboard.md'
-  - Development Environment: 'devenv'
-  - Understanding ContainerSSH: 'containerssh'
-  - Coding Style: 'code-style.md'
-  - Releases: 'releases.md'

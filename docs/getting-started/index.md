@@ -39,7 +39,7 @@ docker image rm containerssh/containerssh-guest-image
 
 ## Step 6: Making it productive
 
-The authentication and configuration server included in the example is a dummy server and lets any password in. To actually use ContainerSSH, you will have to write [your own authentication server](authserver.md) and you may want to write your own [configuration server too](configserver.md). We recommend reading the [architecture overview](architecture.md) before proceeding.
+The authentication and configuration server included in the example is a dummy server and lets any password in. To actually use ContainerSSH, you will have to write [your own authentication server](authserver.md). We recommend reading the [architecture overview](architecture.md) before proceeding.
 
 !!! tip
     You can pass the `CONTAINERSSH_ALLOW_ALL` environment variable to the demo auth-config server to build a honeypot.

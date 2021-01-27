@@ -1,4 +1,4 @@
-<h1>Metrics {{ since("0.3.0") }}</h1>
+<h1>Metrics</h1>
 
 ContainerSSH contains a [Prometheus](https://prometheus.io/)-compatible metrics server which can be enabled using the following configuration:
 
@@ -43,5 +43,6 @@ The default path for the GeoIP database is `/var/lib/GeoIP/GeoIP2-Country.mmdb`,
 
 ```yaml
 geoip:
+  provider: "maxmind"
   maxmind-geoip2-file: '/var/lib/GeoIP/GeoIP2-Country.mmdb'
 ```

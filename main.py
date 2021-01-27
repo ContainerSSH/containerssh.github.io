@@ -217,6 +217,13 @@ def declare_variables(variables, macro):
     def contributors():
         return public_contributors
 
+    @macro
+    def outdated():
+        return '''
+!!! danger "Old manual"
+    You are reading the reference manual of an older release. [Read the current manual &raquo;](/reference/)
+'''
+
 
 if __name__ == "__main__":
     pprint.pprint(repos)

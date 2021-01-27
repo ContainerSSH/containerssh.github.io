@@ -45,7 +45,7 @@ However, this approach may fail if SFTP is enabled as you will fail to capture b
 
 The audit format is intended for an accurate reconstruction of everything happening during an SSH session. It allows for accurate reconstruction of what happened during the session.
 
-Audit logs are stored in a [compressed binary format](format.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](format.md).
+Audit logs are stored in a [compressed binary format](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md).
 
 ### The `asciinema` format
 

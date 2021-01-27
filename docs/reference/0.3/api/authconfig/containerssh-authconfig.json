@@ -13,7 +13,7 @@
   "info": {
     "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://github.com/containerssh/containerssh for details.)",
     "title": "ContainerSSH Authentication and Configuration Server",
-    "version": "0.3.0"
+    "version": "0.3"
   },
   "host": "localhost",
   "basePath": "/",
