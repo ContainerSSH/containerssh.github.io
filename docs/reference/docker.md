@@ -180,13 +180,13 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 
 | Name | Type | Description |
 |------|------|-------------|
-| mode | string | Specify `connection` to launch one container per SSH connection or `session` to run one container per SSH session (multiple containers per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `docker exec` runs programs. In session mode the command is launched directly. | 
-| idleCommand | array of string | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
-| shellCommand | array of string | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
-| agentPath | string | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
-| disableAgent | bool | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
-| subsystems | map\[string\]string | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
-| imagePullPolicy | Never,IfNotPresent,Always | Specifies when to pull the container image. Defaults to IfNotPresent, which pulls the image when it is not locally present *or* if the image has no tag/has the `latest` tag. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
+| `mode` | `string` | Specify `connection` to launch one container per SSH connection or `session` to run one container per SSH session (multiple containers per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `docker exec` runs programs. In session mode the command is launched directly. | 
+| `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
+| `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
+| `subsystems | `map\[string\]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `imagePullPolicy` | `Never,IfNotPresent,Always` | Specifies when to pull the container image. Defaults to `IfNotPresent`, which pulls the image when it is not locally present *or* if the image has no tag/has the `latest` tag. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
 
 ## Configuring timeouts
 
@@ -194,12 +194,12 @@ The `timeouts` section has the following options. All options can use time units
 
 | Name | Description |
 |------|-------------|
-| containerStart | The time to wait for the container to start. |
-| containerStop | The time to wait for the container to stop. |
-| commandStart | The time to wait for the command to start in `connection` mode. |
-| signal | The time to wait to deliver a signal to a process. |
-| window | The time to wait to deliver a window size change. |
-| http | The time to wait for the underlying HTTP calls to complete. |
+| `containerStart` | The time to wait for the container to start. |
+| `containerStop` | The time to wait for the container to stop. |
+| `commandStart` | The time to wait for the command to start in `connection` mode. |
+| `signal` | The time to wait to deliver a signal to a process. |
+| `window` | The time to wait to deliver a window size change. |
+| `http` | The time to wait for the underlying HTTP calls to complete. |
 
 ## Securing Docker
 

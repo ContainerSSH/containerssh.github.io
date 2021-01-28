@@ -63,7 +63,26 @@ To maximize security it is recommended that you deploy a custom CA for the serve
 
 The [security module](security.md) provides the ability to limit which requests are allowed from a client. As ContainerSSH is upgraded the default is to allow new features that will come in with future releases (e.g. TCP port forwarding).
 
-In order to secure ContainerSSH for future releases it is recommended 
+In order to secure ContainerSSH for future releases it is recommended to set the `defaultMode` to disable and enable the modes that you need. For subsystems specifically we recommend filtering and allowing only the `sftp` subsystem as future ContainerSSH versions may support more subsystems.
+
+```yaml
+security:
+  defaultMode: disable
+  env:
+    mode: enable
+  command:
+    mode: enable
+  shell:
+    mode: enable
+  subsystem:
+    mode: filter
+    allow:
+     - sftp
+  tty:
+    mode: enable
+  signal:
+    mode: enable
+```
 
 ## Securing Docker
 
