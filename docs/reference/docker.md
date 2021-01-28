@@ -236,7 +236,14 @@ docker:
 
 ### Preventing root escalation
 
-In order to prevent a user to become root on the host we recommend not running workloads in the container as root.
+Under normal circumstances a user running as root inside a container cannot access resources outside the container. However, in the event of a container escape vulnerability in Docker it is prudent not to run container workloads as root. For example, you can set the container to run at uid `1000` as follows:
+
+```yaml
+docker:
+  execution:
+    container:
+      user: 1000
+```
 
 If root is required inside the container [user namespace mapping](https://docs.docker.com/engine/security/userns-remap/). There are a few steps required to make this happen:
 
