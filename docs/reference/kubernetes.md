@@ -106,6 +106,9 @@ kubernetes:
       containers:
         - name: shell
           image: containerssh/containerssh-guest-image
+          env:
+           - name: VAR
+             value: Hello world!
 ```
 
 ### Running multiple containers
@@ -185,7 +188,7 @@ kubernetes:
 
 ### Other options
 
-Apart from the `metadata` and `spec` options ContainerSSH has  the following options on a Pod-level. These should not be changed unless required.
+Apart from the `metadata` and `spec` options ContainerSSH has the following options on a Pod-level. These should not be changed unless required.
 
 | Name | Type | Description |
 |------|------|-------------|
@@ -195,7 +198,7 @@ Apart from the `metadata` and `spec` options ContainerSSH has  the following opt
 | shellCommand | array of string | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | agentPath | string | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
 | disableAgent | bool | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
-| subsystem | map\[string\]string | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| subsystems | map\[string\]string | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 
 ### Configuration restrictions
 
