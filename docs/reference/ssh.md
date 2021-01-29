@@ -13,9 +13,9 @@ The options are as follows:
 |------|------|-------------|
 | `listen` | `string` | IP and port pair to bind the SSH service to. Defaults to `0.0.0.0:2222` |
 | `serverVersion` | `string` | Server version string presented to any connecting client. Must start with `SSH-2.0-`. Defaults to `SSH-2.0-ContainerSSH`. |
-| `cipher` | `[]string` | List of ciphers the server should support. See the [Ciphers](#Ciphers) section below. |
-| `kex` | `[]string` | List of key exchange algorithms the server should support. See the [Key exchange](#Key exchange) section below. |
-| `macs` | `[]string` | List of MAC algorithms the server should support. See the [MAC](#MAC) section below. | 
+| `cipher` | `[]string` | List of ciphers the server should support. See the [Ciphers](#ciphers) section below. |
+| `kex` | `[]string` | List of key exchange algorithms the server should support. See the [Key exchange](#key-exchange) section below. |
+| `macs` | `[]string` | List of MAC algorithms the server should support. See the [MAC](#mac) section below. | 
 | `banner` | `[]string` | The banner text to presented to any connecting client. |
 | `hostkeys` | `[]string` | List of host keys in PEM format, or file names to read the key from. |
 

@@ -24,9 +24,9 @@ The following options are supported:
 | `cacert` | `string` | CA certificate in PEM format or filename that contains the CA certificate. This is field is required for `https://` URL's on Windows because of Golang issue [#16736](https://github.com/golang/go/issues/16736) |
 | `cert` | `string` | Client certificate in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
 | `key` | `string` | Private key in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
-| `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tlsversion) section below. |
-| `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms](#ellipticcurvealgoritms) section below. |
-| `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#ciphersuites) section below. |
+| `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
+| `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms][] section below. |
+| `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
 
 ## Configuring TLS
 
@@ -185,3 +185,5 @@ Currently only the following options can be set from the configuration server:
 
 !!! tip
     We provide a [Go library to implement a config server](https://github.com/containerssh/configuration).
+
+[]: #elliptic-curve-algorithms

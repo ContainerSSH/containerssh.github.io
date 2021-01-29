@@ -39,30 +39,30 @@ kubernetes:
 
 | Name | Type | Description |
 |------|------|-------------|
-| host | string | The hostname or ip + the port of the Kubernetes API server. Set this to `kubernetes.default.svc` to run inside a Kubernetes cluster, otherwise set it to the host name of your Kubernetes API. |
-| path | string | This is the API path of the Kubernetes API. Defaults to `/api` and you will typically not need to change this. |
-| cacertFile | string | Points to the file that contains the CA certificate in PEM format that signed the server certificate. |
-| cacert | string | Directly contains the CA certificate in PEM format that signed the server certificate. |
-| serverName | string | Sets the hostname of the server that should be sent to the Kuberentes API in the TLS SNI. This is useful when the Kubernetes API has a hostname that is not resolvable from the server ContainerSSH is running on. |
-| insecure | bool | Disable certificate verification on the Kubernetes API. **This is a very bad idea** as anyone on the network will be able to intercept your credentials. |
-| qps | float32 | Indicates a maximum queries per second from this client. |
-| burst | int | Indicates the maximum burst for query throttling. |
+| `host` | `string` | The hostname or ip + the port of the Kubernetes API server. Set this to `kubernetes.default.svc` to run inside a Kubernetes cluster, otherwise set it to the host name of your Kubernetes API. |
+| `path` | `string` | This is the API path of the Kubernetes API. Defaults to `/api` and you will typically not need to change this. |
+| `cacertFile` | `string` | Points to the file that contains the CA certificate in PEM format that signed the server certificate. |
+| `cacert` | `string` | Directly contains the CA certificate in PEM format that signed the server certificate. |
+| `serverName` | `string` | Sets the hostname of the server that should be sent to the Kuberentes API in the TLS SNI. This is useful when the Kubernetes API has a hostname that is not resolvable from the server ContainerSSH is running on. |
+| `insecure` | `bool` | Disable certificate verification on the Kubernetes API. **This is a very bad idea** as anyone on the network will be able to intercept your credentials. |
+| `qps` | `float32` | Indicates a maximum queries per second from this client. |
+| `burst` | `int` | Indicates the maximum burst for query throttling. |
 
 ### HTTP basic authentication (username and password)
 
 | Name | Type | Description |
 |------|------|-------------|
-| username | string | Username for authenticating against the Kubernetes API. This is only used for HTTP basic auth and does not work with other authentication methods (e.g. OAuth2) |
-| password | string | Password for authenticating against the Kubernetes API. This is only used for HTTP basic auth and does not work with other authentication methods (e.g. OAuth2) |
+| `username` | `string` | Username for authenticating against the Kubernetes API. This is only used for HTTP basic auth and does not work with other authentication methods (e.g. OAuth2) |
+| `password` | `string` | Password for authenticating against the Kubernetes API. This is only used for HTTP basic auth and does not work with other authentication methods (e.g. OAuth2) |
 
 ### x509 certificate authentication
 
 | Name | Type | Description |
 |------|------|-------------|
-| certFile | string | Points to a file that contains the client certificate for x509 authentication against the Kubernetes API in PEM format. |
-| cert | string | Directly contains the certificate for x509 authentication against the Kubernetes API in PEM format. |  
-| keyFile | string | Points to a file that contains the client key for x509 authentication against the Kubernetes API in PEM format. |
-| key | string | Directly contains the client key for x509 authentication against the Kubernetes API in PEM format. |  
+| `certFile` | `string` | Points to a file that contains the client certificate for x509 authentication against the Kubernetes API in PEM format. |
+| `cert` | `string` | Directly contains the certificate for x509 authentication against the Kubernetes API in PEM format. |  
+| `keyFile` | `string` | Points to a file that contains the client key for x509 authentication against the Kubernetes API in PEM format. |
+| `key` | `string` | Directly contains the client key for x509 authentication against the Kubernetes API in PEM format. |  
 
 ### Bearer token authentication
 
@@ -70,8 +70,8 @@ This authentication method is primarily used with [service accounts](https://kub
 
 | Name | Type | Description |
 |------|------|-------------|
-| bearerTokenFile | string | Points to the file that contains the bearer token for authenticating against the Kubernetes API. Set to `/var/run/secrets/kubernetes.io/serviceaccount` to use the service account when running ContainerSSH inside a Kubernetes cluster. |
-| bearerToken | string | Directly contains the bearer token for authenticating against the Kubernetes API. |
+| `bearerTokenFile` | `string` | Points to the file that contains the bearer token for authenticating against the Kubernetes API. Set to `/var/run/secrets/kubernetes.io/serviceaccount` to use the service account when running ContainerSSH inside a Kubernetes cluster. |
+| `bearerToken` | `string` | Directly contains the bearer token for authenticating against the Kubernetes API. |
 
 ## Pod configuration
 
@@ -192,13 +192,13 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 
 | Name | Type | Description |
 |------|------|-------------|
-| consoleContainerNumber | uint | Specifies the number of the container to attach to. Defaults to the first container. |
-| mode | string | Specify `connection` to launch one pod per SSH connection or `session` to run one pod per SSH session (multiple pods per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `kubectl exec` runs programs. In session mode the command is launched directly. | 
-| idleCommand | array of string | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
-| shellCommand | array of string | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
-| agentPath | string | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
-| disableAgent | bool | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
-| subsystems | map\[string\]string | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `consoleContainerNumber` | `uint` | Specifies the number of the container to attach to. Defaults to the first container. |
+| `mode` | `string` | Specify `connection` to launch one pod per SSH connection or `session` to run one pod per SSH session (multiple pods per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `kubectl exec` runs programs. In session mode the command is launched directly. | 
+| `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
+| `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
+| `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 
 ### Configuration restrictions
 
@@ -211,9 +211,85 @@ The `timeouts` section has the following options. All options can use time units
 
 | Name | Description |
 |------|-------------|
-| podStart | The time to wait for the pod to start. |
-| podStop | The time to wait for the pod to stop. |
-| commandStart | The time to wait for the command to start in `connection` mode. |
-| signal | The time to wait to deliver a signal to a process. |
-| window | The time to wait to deliver a window size change. |
-| http | The time to wait for the underlying HTTP calls to complete. |
+| `podStart` | The time to wait for the pod to start. |
+| `podStop` | The time to wait for the pod to stop. |
+| `commandStart` | The time to wait for the command to start in `connection` mode. |
+| `signal` | The time to wait to deliver a signal to a process. |
+| `window` | The time to wait to deliver a window size change. |
+| `http` | The time to wait for the underlying HTTP calls to complete. |
+
+## Securing Kubernetes
+
+Securing the Kubernetes installation is beyond the scope of this document. We will describe how to deploy and configure ContainerSSH for security in a Kubernetes environment
+
+## Creating a service account
+
+When deploying ContainerSSH with a Kubernetes backend you should never an admin account for interacting with a Kubernetes cluster. ContainerSSH can run inside the same Kubernetes cluster or it can run as a standalone. When deploying inside the same Kubernetes cluster it is strongly recommended that ContainerSSH runs in a different namespace as the guest pods ContainerSSH launches.
+
+The setup below assumes you are creating a service account in the `default` namespace and the ContainerSSH pods will run in the `containerssh-guests` namespace
+
+First, we need to create the service account. The following fragment can be applied with `kubectl apply -f`:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: containerssh
+automountServiceAccountToken: false
+```
+
+Then we create the `role` and `rolebinding` resources in the `containerssh-guests` namespace to allow the service accounts to create pods:
+
+```bash
+kubectl create role containerssh \
+  -n containerssh-guests \
+  --verb=* \
+  --resource=pods \
+  --resource=pods/logs \
+  --resource=pods/exec
+kubectl create rolebinding containerssh \
+  -n containerssh-guests \
+  --serviceaccount=containerssh
+```
+
+### Deploying inside of Kubernetes
+
+When deploying ContainerSSH inside the same Kubernetes cluster you can simply use the service account when making your deployment:
+
+
+
+### Deploying outside of Kubernetes
+
+Now, if you are running ContainerSSH outside of the Kubernetes cluster you can fetch the secret belonging to the service account by first looking at the service account itself:
+
+```
+kubectl describe serviceaccount containerssh
+```
+
+This command will output the name of the secret for this service account, which can then be extracted:
+
+```
+kubectl get secret containerssh-token-2jrnc -o yaml
+```
+
+The output will look as follows:
+
+```yaml
+apiVersion: v1
+data:
+  ca.crt: <base64-encoded CA certificate here>
+  namespace: ZGVmYXVsdA==
+  token: <base64-encoded bearer token here>
+kind: Secret
+```
+
+Base64-decode both the `ca.crt` and the `token` fields and insert them into your ContainerSSH config as follows:
+
+```yaml
+kubernetes:
+  connection:
+    bearerToken: <insert token here>
+    cacert: |
+      <insert ca.crt here>
+```
+

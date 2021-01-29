@@ -86,8 +86,8 @@ security:
 
 ## Securing Docker
 
-Docker-specific settings for security are described in the [Docker documentation](docker.md). 
+Docker-specific settings for security are described in the [Docker documentation](docker.md#securing-docker). 
 
 ## Securing Kubernetes
 
-Kubernetes-specific settings for security are described in the [Kubernetes documentation](docker.md).
+Kubernetes-specific settings for security are described in the [Kubernetes documentation](kubernetes.md#securing-kubernetes).

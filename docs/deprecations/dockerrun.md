@@ -3,9 +3,9 @@ title: Deprecating the DockerRun backend
 image: deprecations/dockerrun.png
 ---
 
-# Deprecating the DockerRun backend {{ upcoming("0.4") }}
+# Deprecating the DockerRun backend {{ since("0.4") }}
 
-In version `0.4` ContainerSSH receives a generalized `docker` backend and we are deprecating the `dockerrun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `dockerrun` backend, but log a warning when used:
+In version `0.4` ContainerSSH receives a [generalized Docker backend](../reference/docker.md) and we are deprecating the `dockerrun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `dockerrun` backend, but log a warning when used:
 
 > You are using the dockerrun backend deprecated since ContainerSSH 0.4. This backend will be removed in the future. Please switch to the new docker backend as soon as possible. See https://containerssh.io/deprecations/dockerrun for details.
 

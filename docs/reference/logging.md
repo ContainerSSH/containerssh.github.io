@@ -7,6 +7,7 @@ The configuration can be done from the config file:
 ```
 log:
   level: "warning"
+  format: <ljson|text>
 ```
 
 !!! tip
@@ -43,3 +44,7 @@ The JSON log format outputs one line to the output per message. The message form
 
 !!! note
     In case of a fatal application crash (panic), the crash log will end up on the stderr. Make sure to capture that as well for emergency debugging.
+
+## The text log format
+
+The text log format prints information in plain text with a new line at the end.

@@ -25,6 +25,9 @@ The supported levels are in accordance with the Syslog standard:
 - `alert`
 - `emerg`
 
+!!! note
+    In case of a fatal application crash (panic), the crash log will end up on the stderr. Make sure to capture that as well for emergency debugging.
+
 ## The JSON log format
 
 The JSON log format outputs one line to the output per message. The message format is:

@@ -71,14 +71,15 @@ nav:
       - 'Getting Help': getting-started/getting-help.md
   - Reference manual:
       - 'Overview': reference/index.md
+      - 'Installation': reference/installation.md
       - 'Configuration':
           - 'SSH': reference/ssh.md
-          - 'Backend':
-              - 'Backend selection': reference/backends.md
-              - 'Docker': reference/docker.md
-              - 'Kubernetes': reference/kubernetes.md
-              - 'DockerRun': reference/dockerrun.md
-              - 'KubeRun': reference/kuberun.md
+      - 'Backends':
+          - 'Backend selection': reference/backends.md
+          - 'Docker': reference/docker.md
+          - 'Kubernetes': reference/kubernetes.md
+          - 'DockerRun': reference/dockerrun.md
+          - 'KubeRun': reference/kuberun.md
       - Webhooks and APIs:
           - 'Authentication': reference/auth.md
           - 'Configuration server': reference/configserver.md
@@ -90,7 +91,7 @@ nav:
           - 'Audit logging': reference/audit.md
           - 'Metrics': reference/metrics.md
       - Security:
-          - 'Security': reference/security.md
+          - 'Restrictions': reference/security.md
           - 'Hardening guide': reference/hardening.md
       - Older manuals:
           - 0.3:
@@ -167,6 +168,7 @@ plugins:
         'getting-started/configserver.md': 'reference/configserver.md'
         'getting-started/backends/dockerrun.md': 'reference/0.3/dockerrun.md'
         'getting-started/backends/kuberun.md': 'reference/0.3/kuberun.md'
+        'metrics.md': 'reference/metrics.md'
 extra_css:
   - css/custom.css?v4
 extra_javascript:

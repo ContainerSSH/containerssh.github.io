@@ -3,9 +3,9 @@ title: Deprecating the KubeRun backend
 image: deprecations/kuberun.png
 ---
 
-# Deprecating the KubeRun backend {{ upcoming("0.4") }}
+# Deprecating the KubeRun backend {{ since("0.4") }}
 
-In version `0.4` ContainerSSH receives a generalized `kubernetes` backend and we are deprecating the `kuberun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `kuberun` backend, but log a warning when used:
+In version `0.4` ContainerSSH receives [a generalized Kubernetes backend](../reference/kubernetes.md) and we are deprecating the `kuberun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `kuberun` backend, but log a warning when used:
 
 > You are using the kuberun backend deprecated since ContainerSSH 0.4. This backend will be removed in the future. Please switch to the new docker backend as soon as possible. See https://containerssh.io/deprecations/kuberun for details.
 
@@ -34,7 +34,7 @@ kubernetes:
 
 This replaces the old `kubernetes` &rarr; `connection` &rarr; `timeout` option.
 
-The configuration now also moves the `kubernetes` &rarr; `pod` &rarr; `namespace` option to the new `metadata` section, which is can now be fully customized with Kubernetes pod metadata:
+The configuration now also moves the `kubernetes` &rarr; `pod` &rarr; `namespace` option to the new `metadata` section, which is can now be fully customized with Kubernetes pod metadata. The `podSpec` option was renamed `spec` to align with Kubernetes:
 
 ```yaml
 kubernetes:
@@ -44,6 +44,8 @@ kubernetes:
       generateName: myPodNamePrefix-
       labels:
         foo: bar
+  # Rename podSpec
+  spec:
 ```
 
 Please run `kubectl explain pod.metadata` for the full list of options.

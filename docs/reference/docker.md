@@ -7,7 +7,7 @@ The Docker backend should work with any Docker Engine version starting with 1.6 
 In order to use the Docker backend you must specify the following configuration entries via the configuration file or the configuration server:
 
 ```yaml
-backend: kubernetes
+backend: docker
 docker:
   connection:
     <connection configuration here>
@@ -70,6 +70,8 @@ docker:
 ```
 
 The `container`, `host`, `network`, and `platform` options contain settings described in the [Docker API](https://docs.docker.com/engine/api/v1.41/#operation/ContainerCreate).
+
+The `containerName` option contains the name for the container. If the a container already exists with the same name the container creation will fail, so this should be left empty for most use cases.
 
 ### Basic container configuration
 
@@ -185,7 +187,7 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 | `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
 | `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
-| `subsystems | `map\[string\]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `subsystems | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `imagePullPolicy` | `Never,IfNotPresent,Always` | Specifies when to pull the container image. Defaults to `IfNotPresent`, which pulls the image when it is not locally present *or* if the image has no tag/has the `latest` tag. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
 
 ## Configuring timeouts
@@ -418,3 +420,38 @@ docker:
     host:
       networkDisabled: true
 ```
+
+### Limiting disk I/O
+
+Docker has a built-in facility to limit the disk I/O by IOPS and by bytes per second. This can be done using the following configuration structure:
+
+```yaml
+docker:
+  execution:
+    host:
+      resources:
+        # Set relative weight against other containers
+        blkioweight: <weight number> 
+        # Set relative weight against other containers
+        blkioweightdevice:
+          - path: <device path>
+            weight: <weight number>
+        # Read BPS
+        blkiodevicereadbps:
+          - path: <device path>
+            rate: <bytes per second>
+        # Write BPS
+        blkiodevicewritebps:
+          - path: <device path>
+            rate: <bytes per second>
+        # Read IOps
+        blkiodevicereadiops:
+          - path: <device path>
+            rate: <IO per second>
+        # Write IOps
+        blkiodevicewriteiops:
+          - path: <device path>
+            rate: <IO per second>
+```
+
+The **device path** has to be a path to a **block device**, e.g. `/dev/vda`. It does not work on filesystems or character devices.
