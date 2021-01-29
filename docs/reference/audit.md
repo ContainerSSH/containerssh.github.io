@@ -2,10 +2,7 @@
 image: images/auditlog-asciinema.jpg
 ---
 
-<h1>Audit logging {{ upcoming("0.4.0") }}</h1>
-
-!!! warning
-    This is a feature still in development and is available in [0.4.0 Preview Release 1](https://github.com/ContainerSSH/ContainerSSH/releases/tag/0.4.0-PR1)
+<h1>Audit logging</h1>
 
 ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it has serious security and privacy implications, as well as severe resource requirements.
 
