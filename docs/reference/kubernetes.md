@@ -35,6 +35,9 @@ kubernetes:
     <...>
 ```
 
+!!! tip
+    See the [Securing Kubernetes section below](#securing-kubernetes) for a detailed walkthrough for provisioning limited service accounts for ContainerSSH.
+
 ### Base configuration
 
 | Name | Type | Description |
