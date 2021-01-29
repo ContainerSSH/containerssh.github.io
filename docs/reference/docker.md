@@ -2,6 +2,9 @@
 
 The Docker backend should work with any Docker Engine version starting with 1.6 thanks to the version negotiation present. We fix issues starting with Docker version 18.02.
 
+!!! tip
+    This is the documentation for the **Docker backend**. For deploying ContainerSSH inside Docker please see the [installation guide](installation.md).
+
 ## The base configuration structure
 
 In order to use the Docker backend you must specify the following configuration entries via the configuration file or the configuration server:

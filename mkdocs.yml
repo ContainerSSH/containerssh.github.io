@@ -78,8 +78,8 @@ nav:
           - 'Backend selection': reference/backends.md
           - 'Docker': reference/docker.md
           - 'Kubernetes': reference/kubernetes.md
-          - 'DockerRun': reference/dockerrun.md
-          - 'KubeRun': reference/kuberun.md
+          - 'DockerRun (deprecated)': reference/dockerrun.md
+          - 'KubeRun (deprecated)': reference/kuberun.md
       - Webhooks and APIs:
           - 'Authentication': reference/auth.md
           - 'Configuration server': reference/configserver.md

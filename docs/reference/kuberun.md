@@ -6,6 +6,9 @@
 The KubeRun backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
 For ContainerSSH version 0.4 these are: 1.20, 1.19, and 1.18.
 
+!!! tip
+    This is the documentation for the **KubeRun backend**. For deploying ContainerSSH inside Kubernetes please see the [installation guide](installation.md).
+
 ## The base configuration structure
 
 In order to use the Kubernetes backend you must specify the following configuration entries via the configuration file or the configuration server:
@@ -198,3 +201,170 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 | `enableAgent` | `bool` | Enable the ContainerSSH guest agent. This enables the ContainerSSH guest agent. |
 | `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `disableCommand` | `bool` | Disable command execution. |
+
+## Securing Kubernetes
+
+Securing the Kubernetes installation is beyond the scope of this document. We will describe how to deploy and configure ContainerSSH for security in a Kubernetes environment
+
+### Creating a service account
+
+When deploying ContainerSSH with a Kubernetes backend you should never an admin account for interacting with a Kubernetes cluster. ContainerSSH can run inside the same Kubernetes cluster or it can run as a standalone. When deploying inside the same Kubernetes cluster it is strongly recommended that ContainerSSH runs in a different namespace as the guest pods ContainerSSH launches.
+
+The setup below assumes you are creating a service account in the `default` namespace and the ContainerSSH pods will run in the `containerssh-guests` namespace
+
+First, we need to create the service account. The following fragment can be applied with `kubectl apply -f`:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: containerssh
+automountServiceAccountToken: false
+```
+
+Then we create the `role` and `rolebinding` resources in the `containerssh-guests` namespace to allow the service accounts to create pods:
+
+```bash
+kubectl create role containerssh \
+  -n containerssh-guests \
+  --verb=* \
+  --resource=pods \
+  --resource=pods/logs \
+  --resource=pods/exec
+kubectl create rolebinding containerssh \
+  -n containerssh-guests \
+  --serviceaccount=containerssh
+```
+
+#### Deploying inside of Kubernetes
+
+When deploying ContainerSSH inside the same Kubernetes cluster you can simply use the service account when making your deployment:
+
+```
+kuberun:
+  connection:
+    host: ...
+    cacertFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+```
+
+#### Deploying outside of Kubernetes
+
+Now, if you are running ContainerSSH outside of the Kubernetes cluster you can fetch the secret belonging to the service account by first looking at the service account itself:
+
+```
+kubectl describe serviceaccount containerssh
+```
+
+This command will output the name of the secret for this service account, which can then be extracted:
+
+```
+kubectl get secret containerssh-token-2jrnc -o yaml
+```
+
+The output will look as follows:
+
+```yaml
+apiVersion: v1
+data:
+  ca.crt: <base64-encoded CA certificate here>
+  namespace: <base64-encoded namespace here>
+  token: <base64-encoded bearer token here>
+kind: Secret
+```
+
+Base64-decode both the `ca.crt` and the `token` fields and insert them into your ContainerSSH config as follows:
+
+```yaml
+kuberun:
+  connection:
+    bearerToken: <insert token here>
+    cacert: |
+      <insert ca.crt here>
+```
+
+### Preventing root escalation
+
+Under normal circumstances a user running as root inside a container cannot access resources outside the container. However, in the event of a container escape vulnerability in Kubernetes it is prudent not to run container workloads as root. You can prevent forcibly prevent any container from running as root by configuring the following setting:
+
+```yaml
+kuberun:
+  pod:
+    podSpec:
+      securityContext:
+        runAsNonRoot: true
+```
+
+However, this will fail starting any container image that wants to run as root. In addition to the option above, you can also force the container to a specific UID:
+
+```yaml
+kuberun:
+  pod:
+    podSpec:
+      securityContext:
+        runAsUser: 1000
+```
+
+### Preventing storage exhaustion
+
+A malicious user could cause the Kubernetes host to run out of disk space with a simple attack:
+
+```bash
+cat /dev/zero > ~/zerofill
+```
+
+There are two cases here:
+
+If **the directory** the user can write to **is mounted using a volume** the attacker can fill up the storage that is mounted. You can pass per-user mounts from the [configuration server](configserver.md) that mount volumes that are unique to the connecting user. This way the user can only fill up their own disk. The specific implementation depends on your volume driver.
+
+If **the directory** the user can write to **is not mounted** the user can fill up the container image. This is a much more subtle way of filling up the disk. Current Kubernetes does not support preventing this kind of attack, so it is recommended to only allow users to write to paths mounted as volumes. The  [`readOnlyRootFilesystem` PodSecurityPolicy](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#volumes-and-file-systems) can be applied to the namespace or the whole cluster preventing writes to the container root filesystem filling up the disk.
+
+### Preventing memory exhaustion
+
+Users can also try to exhaust the available memory to potentially crash the server. This can be prevented using the following configuration:
+
+```yaml
+kuberun:
+  pod:
+    podSpec:
+      resources:
+        limits:
+          memory: "128Mi"
+```
+
+You can read more about memory requests and limits in the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+
+### Preventing CPU exhaustion
+
+A malicious user can also exhaust the CPU by running CPU-heavy workloads. This can be prevented by setting the following options:
+
+```yaml
+kuberun:
+  pod:
+    podSpec:
+      resources:
+        limits:
+          cpu: "500m"
+```
+
+In this setting `1000m` corresponds to a full core or vCPU of the host. You can read more about memory requests and limits in the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+
+### Limiting network access
+
+Depending on which Container Network Interface is installed on the Kubernetes cluster you may have access to [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/). These work very similar to how traditional Linux firewalling works. The following network policy disables all network access within a namespace:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: containerssh-guest-policy
+  namespace: containerssh-guests
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []
+```
+

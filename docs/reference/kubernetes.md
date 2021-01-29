@@ -3,6 +3,9 @@
 The Kubernetes backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
 For ContainerSSH version 0.4 these are: 1.20, 1.19, and 1.18.
 
+!!! tip
+    This is the documentation for the **Kubernetes backend**. For deploying ContainerSSH inside Kubernetes please see the [installation guide](installation.md).
+
 ## The base configuration structure
 
 In order to use the Kubernetes backend you must specify the following configuration entries via the configuration file or the configuration server:
