@@ -256,7 +256,13 @@ kubectl create rolebinding containerssh \
 
 When deploying ContainerSSH inside the same Kubernetes cluster you can simply use the service account when making your deployment:
 
-
+```
+kubernetes:
+  connection:
+    host: ...
+    cacertFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+```
 
 ### Deploying outside of Kubernetes
 
