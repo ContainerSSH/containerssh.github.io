@@ -337,7 +337,7 @@ docker:
     
 ### Preventing memory exhaustion
 
-Users can also try to exhaust the available memory to crash the server. This can be prevented using the following configuration:
+Users can also try to exhaust the available memory to potentially crash the server. This can be prevented using the following configuration:
 
 ```yaml
 docker:
