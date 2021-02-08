@@ -1,4 +1,4 @@
-<h1>Deprecating the sessionId field in the authentication and configuration server protocol {{ since("0.4") }}</h1>
+<h1>Deprecating the sessionId field in the authentication and configuration server protocol {{ upcoming("0.4") }}</h1>
 
 Before ContainerSSH 0.4 both the [authentication server protocol](../reference/upcoming/auth.md) and the [configuration server protocol](../reference/upcoming/configserver.md) contained a field called `sessionId` which would include a self-generated ID for the session.
 
