@@ -1,3 +1,6 @@
+
+{{ reference_upcoming() }}
+
 <h1>The Kubernetes backend</h1>
 
 The Kubernetes backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
@@ -257,6 +260,18 @@ kubectl create rolebinding containerssh \
   -n containerssh-guests \
   --serviceaccount=containerssh
 ```
+
+Let's test if the permissions are correct:
+
+```
+$ kubectl auth can-i create pod --as containerssh
+no
+$ kubectl auth can-i create pod --namespace containerssh-guests --as containerssh
+yes
+```
+
+!!! warning "Docker Desktop"
+    Docker Desktop Kubernetes contains a cluster role binding called `docker-for-desktop-binding` that allows all service accounts to perform every action. To secure your Docker Desktop installation you will need to delete this CRB. 
 
 #### Deploying inside of Kubernetes
 

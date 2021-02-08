@@ -1,8 +1,11 @@
+
+{{ reference_upcoming() }}
+
 <h1>Installation</h1>
 
 === "Standalone"
 
-    ContainerSSH can be deployed outside of a container. On our [downloads page](/downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB and RPM packages.
+    ContainerSSH can be deployed outside of a container. On our [downloads page](/downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB, RPM and APK (Alpine Linux) packages.
     
     Before running ContainerSSH you will need to create a `config.yaml` file that tells ContainerSSH where to find the SSH host key and the [authentication server](auth.md). The minimum configuration file looks like this:
     
@@ -47,7 +50,7 @@
       -v /srv/containerssh/config.yaml:/etc/containerssh/config.yaml \
       -v /srv/containerssh/host.key:/var/run/secrets/host.key \
       -p 2222:2222 \
-      containerssh/containerssh:0.3.1
+      containerssh/containerssh:0.4.0
     ```
 
 === "Kubernetes"
@@ -96,7 +99,7 @@
         spec:
           containers:
           - name: containerssh
-            image: containerssh/containerssh:0.3.1
+            image: containerssh/containerssh:0.4.0-PR3
             ports:
             - containerPort: 2222
             volumeMounts:
@@ -128,4 +131,4 @@
     ```
 
     !!! warning "Note"
-        This still does not configure ContainerSSH to use Kubernetes as a container backend. This is described in detail in the [KubeRun backend section](kuberun.md).
+        This still does not configure ContainerSSH to use Kubernetes as a container backend. This is described in detail in the [Kubernetes backend section](kubernetes.md).

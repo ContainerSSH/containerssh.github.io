@@ -1,4 +1,5 @@
-{{ outdated() }}
+
+{{ reference_upcoming() }}
 
 <h1>Metrics</h1>
 
@@ -45,5 +46,6 @@ The default path for the GeoIP database is `/var/lib/GeoIP/GeoIP2-Country.mmdb`,
 
 ```yaml
 geoip:
+  provider: "maxmind"
   maxmind-geoip2-file: '/var/lib/GeoIP/GeoIP2-Country.mmdb'
 ```

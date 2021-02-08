@@ -1,3 +1,6 @@
+
+{{ reference_upcoming() }}
+
 <h1>Security configuration</h1>
 
 The security module provides the ability to limit or force the behavior of SSH. It can be configured using the following structure:

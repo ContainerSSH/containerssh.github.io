@@ -2,7 +2,7 @@
 title: Authentication
 ---
 
-{{ outdated() }}
+{{ reference_upcoming() }}
 
 <h1>Authentication</h1>
 
@@ -28,6 +28,9 @@ The following options are supported:
 | `cacert` | `string` | CA certificate in PEM format or filename that contains the CA certificate. This is field is required for `https://` URL's on Windows because of Golang issue [#16736](https://github.com/golang/go/issues/16736) |
 | `cert` | `string` | Client certificate in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
 | `key` | `string` | Private key in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
+| `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
+| `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms](#elliptic-curve-algorithms) section below. |
+| `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
 
 ## Configuring TLS
 
@@ -35,7 +38,32 @@ TLS ensures that the connection between ContainerSSH and the configuration serve
 
 ### TLS version
 
-The minimum TLS version for ContainerSSH 0.3 is 1.3.
+The minimum supported TLS version can be configured using the `tlsVersion` option. It defaults to `1.3` and also supports `1.2`. Versions lower than `1.2` are not supported.
+
+### Elliptic curve algorithms
+
+The elliptic curve algorithms can be specified in the `curve` option. We support and default to the following options:
+
+- `x25519`
+- `secp256r1`
+- `secp384r1`
+- `secp521r1`
+
+### Cipher suites
+
+The following cipher suites are supported in ContainerSSH:
+
+| Suite | Default |
+|-------|---------|
+| TLS_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_AES_256_GCM_SHA384 | :material-check-bold: |
+| TLS_CHACHA20_POLY1305_SHA256 | :material-check-bold: |
+| TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | :material-close: |
+| TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 | :material-close: |
+| TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 | :material-close: |
+| TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 | :material-close: |
 
 ## Client authentication
 
@@ -137,7 +165,7 @@ On password authentication the authentication server will receive the following 
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "An opaque ID for the SSH connection",
+    "connectionId": "An opaque ID for the SSH connection",
     "passwordBase64": "Base 64-encoded password"
 }
 ```
@@ -150,8 +178,8 @@ On public key authentication the authentication server will receive the followin
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "An opaque ID for the SSH connection",
-    "publicKeyBase64": "Base64-encoded public key in the OpenSSH wire format"
+    "connectionId": "An opaque ID for the SSH connection",
+    "publicKey": "ssh-rsa ..."
 }
 ```
 
@@ -166,3 +194,6 @@ Both endpoints need to respond with an `application/json` response of the follow
   "success": true
 }
 ```
+
+!!! tip
+    We provide a [Go library to implement a authentication server](https://github.com/containerssh/auth).

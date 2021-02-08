@@ -5,7 +5,7 @@ image: deprecations/kuberun.png
 
 # Deprecating the KubeRun backend {{ since("0.4") }}
 
-In version `0.4` ContainerSSH receives [a generalized Kubernetes backend](../reference/kubernetes.md) and we are deprecating the `kuberun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `kuberun` backend, but log a warning when used:
+In version `0.4` ContainerSSH receives [a generalized Kubernetes backend](../reference/upcoming/kubernetes.md) and we are deprecating the `kuberun` backend from version `0.3.1` and earlier. We are adding this new backend because we are changing several default values to options which could cause security problems if the old configuration was used. Version `0.4` still includes support for the `kuberun` backend, but log a warning when used:
 
 > You are using the kuberun backend deprecated since ContainerSSH 0.4. This backend will be removed in the future. Please switch to the new docker backend as soon as possible. See https://containerssh.io/deprecations/kuberun for details.
 

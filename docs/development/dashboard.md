@@ -14,9 +14,9 @@ title: Development Dashboard
     {% endfor %}{% endfor %}
 
 === "Repositories"
-    | Repository | Description | Version | Commits since last version |
-    | ---------- | ----------- | ------- | -------------------------- |{% for repo in github_repos() %}
-    | [{{ repo.name }}](https://github.com/containerssh/{{ repo.name }}) | {{ repo.description }} | {{ get_version(repo) }} | {{ get_commits_since_last_tag(repo) }} |{% endfor %}
+    | Repository | Description | Version |
+    | ---------- | ----------- | ------- |{% for repo in github_repos() %}
+    | [{{ repo.name }}](https://github.com/containerssh/{{ repo.name }}) | {{ repo.description }} | {{ get_version(repo) }} |{% endfor %}
 
 === "Issues"
     | Repository | Title | Milestone | Created |

@@ -2,6 +2,8 @@
 image: images/auditlog-asciinema.jpg
 ---
 
+{{ reference_upcoming() }}
+
 <h1>Audit logging</h1>
 
 ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it has serious security and privacy implications, as well as severe resource requirements.
@@ -10,7 +12,8 @@ Audit logging can be enabled in the configuration using the following structure:
 
 ```yaml
 audit:
-  format: none|audit|asciinema # Which format to log in. Defaults to none.
+  enable: true
+  format: none|binary|asciinema # Which format to log in. Defaults to none.
   storage: none|s3|file        # Where to write audit log. Defaults to none.
   intercept:
     stdin: true|false          # Intercept keystrokes from user
@@ -38,11 +41,11 @@ However, this approach may fail if SFTP is enabled as you will fail to capture b
 
 ## Log formats
 
-### The `audit` format (recommended)
+### The `binary` format (recommended)
 
-The audit format is intended for an accurate reconstruction of everything happening during an SSH session. It allows for accurate reconstruction of what happened during the session.
+The binary format is intended for an accurate reconstruction of everything happening during an SSH session. It allows for accurate reconstruction of what happened during the session.
 
-Audit logs are stored in a [compressed binary format](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md).
+Audit logs are stored in a [compressed binary format](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md). We are providing a [Go library for decoding audit log messages](https://github.com/ContainerSSH/auditlog/).
 
 ### The `asciinema` format
 
@@ -71,6 +74,7 @@ The S3 storage can be configured as follows:
 
 ```yaml
 audit:
+  ... 
   storage: s3
   s3:
     local: /local/storage/directory

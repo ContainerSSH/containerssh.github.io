@@ -1,13 +1,11 @@
-<h1>The DockerRun backend</h1>
+---
+title: The DockerRun backend
+---
 
-!!! warning
-    The DockerRun backend is deprecated and the [Docker backend](docker.md) should be used instead. [Read the migration guide here &raquo;](../deprecations/dockerrun.md)
+<h1>The DockerRun backend</h1>
 
 The DockerRun backend should work with any Docker Engine version starting with 1.6 thanks to the version negotiation present. We fix issues starting with Docker version 18.02.
 
-!!! tip
-    This is the documentation for the **DockerRun backend**. For deploying ContainerSSH inside Docker please see the [installation guide](installation.md).
-    
 ## The base configuration structure
 
 In order to use the Docker backend you must specify the following configuration entries via the configuration file or the configuration server:
@@ -64,13 +62,11 @@ docker:
       <host options>
     network:
       <network options>
-    platform:
-      <platform options>
     containerName: "<container name here>"
     <ContainerSSH-specific options here>
 ```
 
-The `container`, `host`, `network`, and `platform` options contain settings described in the [Docker API](https://docs.docker.com/engine/api/v1.41/#operation/ContainerCreate).
+The `container`, `host`, and `network` options contain settings described in the [Docker API](https://docs.docker.com/engine/api/v1.41/#operation/ContainerCreate).
 
 The `containerName` option contains the name for the container. If the a container already exists with the same name the container creation will fail, so this should be left empty for most use cases.
 
@@ -183,7 +179,7 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 
 | Name | Type | Description |
 |------|------|-------------|
-| `subsystems | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `disableCommand` | `bool` | Disable command execution. |
 | `timeout` | `string` | Timeout for container operations in nanoseconds. Time units can be set. |
 
@@ -314,10 +310,7 @@ docker:
     host:
       readonlyrootfs: true
 ```
-
-!!! danger
-    If you are using the [auditlog](audit.md) make sure you put the local directory on a separate disk than the `/var/lib/docker` directory even if you don't use storage limits to prevent the audit log from getting corrupted.
-    
+   
 ### Preventing memory exhaustion
 
 Users can also try to exhaust the available memory to crash the server. This can be prevented using the following configuration:

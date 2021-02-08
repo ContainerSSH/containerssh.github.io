@@ -4,7 +4,7 @@ title: Honeypots
 
 When left undefended, SSH can be a large attack surface towards the internet. If you leave an SSH server open to the Internet, bots will try to brute force their way in within minutes. Why not build a honeypot?
 
-Honeypots can provide valuable early warning: log the IP addresses of connection attempts and dynamically firewall them. Collect credentials attackers are trying to use and match them against your user database to root out weak passwords. Collect logs of what attackers are doing in a containerized environment. [Version 0.4.0 will offer comprehensive audit logging.](../reference/audit.md)
+Honeypots can provide valuable early warning: log the IP addresses of connection attempts and dynamically firewall them. Collect credentials attackers are trying to use and match them against your user database to root out weak passwords. Collect logs of what attackers are doing in a containerized environment. [Version 0.4.0 will offer comprehensive audit logging.](/reference/upcoming/audit.md)
 
 ContainerSSH can do all that. When a user connects, ContainerSSH reaches out to your [authentication server](../reference/auth.md) where you can log IP addresses and credentials.
 
