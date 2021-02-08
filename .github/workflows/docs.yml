@@ -1,8 +1,5 @@
 name: Deploy website
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: '0 * * * *'
 jobs:
