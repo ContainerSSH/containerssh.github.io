@@ -1,6 +1,8 @@
+---
 title: Announcing the ContainerSSH Guest Agent
 description: The new ContainerSSH guest agent will level the playing field across container backends.
 image: images/blog/the-agent/preview.png
+---
 
 ContainerSSH is an integration project between the SSH library and the Docker and Kubernetes API. However, neither the Docker nor the Kubernetes API have been designed to host some of the more intricate SSH specific features.
 

@@ -12,7 +12,7 @@ auth:
 ```
 
 !!! tip
-    We have an [OpenAPI document](/api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
+    We have an [OpenAPI document](/reference/api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
 For password authentication ContainerSSH will call out to the `/password` path on your authentication server. The request body will be the following:
 
@@ -20,8 +20,8 @@ For password authentication ContainerSSH will call out to the `/password` path o
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "A base64 SSH session ID",
-    "passwordBase64": "Base 64 password"
+    "connectionId": "An opaque ID for the SSH connection",
+    "passwordBase64": "Base 64-encoded password"
 }
 ```
 
@@ -31,8 +31,8 @@ The public key auth ContainerSSH will call out to `/pubkey` in the following for
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "A base64 SSH session ID",
-    "publicKeyBase64": "Base 64 public key in SSH wire format"
+    "connectionId": "An opaque ID for the SSH connection",
+    "publicKey": "ssh-rsa ..."
 }
 ```
 
@@ -46,5 +46,6 @@ Your server will need to respond with the following JSON:
 }
 ```
 
-> **Tip** You can find the source code for a test authentication and configuration server written in Go
-> [in the code repository](https://github.com/containerssh/containerssh/blob/stable/cmd/containerssh-testauthconfigserver/main.go)
+!!! tip
+    We provide a [Go library to implement a authentication server](https://github.com/containerssh/auth).
+

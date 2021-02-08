@@ -1,6 +1,0 @@
-nav:
-  - 'Creating an Image': image.md
-  - 'Logging': logging.md
-  - 'Metrics': metrics.md
-  - 'Hardening': hardening.md
-  - 'Audit logging': audit.md

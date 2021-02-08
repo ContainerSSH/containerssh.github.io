@@ -11,13 +11,9 @@ from github.Milestone import Milestone
 from github.Commit import Commit
 from github.CheckRun import CheckRun
 
-token = os.getenv("GITHUB_TOKEN")
-repos = []
-core_maintainers = []
-if token:
-    gh = Github(token)
 
-    org = gh.get_organization("containerssh")
+def get_org_members(gh):
+    core_maintainers = []
     members_pages = org.get_members()
     members_page = 0
     while True:
@@ -27,11 +23,12 @@ if token:
         for member in members:
             core_maintainers.append(member.login)
         members_page = members_page + 1
+    return core_maintainers
 
+
+def get_org_repos(org):
+    repos = []
     repoPages = org.get_repos()
-
-    main_repo = org.get_repo("containerssh")
-
     repoIndex = 0
     while True:
         repoList = repoPages.get_page(repoIndex)
@@ -39,48 +36,70 @@ if token:
             break
         repos.extend(repoList)
         repoIndex = repoIndex + 1
+    return repos
+
+
+def get_main_repo(repos):
+    for repo in repos:
+        if repo.name == "ContainerSSH":
+            return repo
+    return None
+
+
+token = os.getenv("GITHUB_TOKEN")
+repos = []
+core_maintainers = []
+if token:
+    gh = Github(token)
+
+    org = gh.get_organization("containerssh")
+    core_maintainers = get_org_members(gh)
+    repos = get_org_repos(org)
+    main_repo = get_main_repo(repos)
 else:
     main_repo = None
     print("GITHUB_TOKEN not set, skipping development dashboard rendering")
 
-with open(os.path.dirname(__file__) + "/contributors.yaml", "r") as fh:
-    public_contributors = yaml.load(fh.read(), Loader=yaml.BaseLoader)
 
+def get_public_contributors(repos):
+    with open(os.path.dirname(__file__) + "/contributors.yaml", "r") as fh:
+        public_contributors = yaml.load(fh.read(), Loader=yaml.BaseLoader)
 
-contributions = {}
-contributors_dict = {}
-for repo in repos:
-    contributor_list = repo.get_stats_contributors()
-    for contributor in contributor_list:
-        if contributor.author not in contributors_dict:
-            contributors_dict[contributor.author.login] = contributor.author
-            contributions[contributor.author.login] = contributor.total
-        else:
-            contributions[contributor.author.login] = contributions[contributor.author] + contributor.total
-
-for index, contributor in enumerate(public_contributors):
-    try:
-        contributor_record = contributors_dict[contributor["github"]]
-        if contributor["github"] in core_maintainers:
-            public_contributors[index]["core_maintainer"] = True
-        else:
+    contributions = {}
+    contributors_dict = {}
+    for repo in repos:
+        contributor_list = repo.get_stats_contributors()
+        for contributor in contributor_list:
+            if contributor.author not in contributors_dict:
+                contributors_dict[contributor.author.login] = contributor.author
+                contributions[contributor.author.login] = contributor.total
+            else:
+                contributions[contributor.author.login] = contributions[contributor.author] + contributor.total
+    for index, contributor in enumerate(public_contributors):
+        try:
+            contributor_record = contributors_dict[contributor["github"]]
+            if contributor["github"] in core_maintainers:
+                public_contributors[index]["core_maintainer"] = True
+            else:
+                public_contributors[index]["core_maintainer"] = False
+            public_contributors[index]["avatar_url"] = contributor_record.avatar_url
+            public_contributors[index]["contributions"] = contributions[contributor["github"]]
+        except:
+            public_contributors[index]["avatar_url"] = ""
+            public_contributors[index]["contributions"] = 0
             public_contributors[index]["core_maintainer"] = False
-        public_contributors[index]["avatar_url"] = contributor_record.avatar_url
-        public_contributors[index]["contributions"] = contributions[contributor["github"]]
-    except:
-        public_contributors[index]["avatar_url"] = ""
-        public_contributors[index]["contributions"] = 0
-        public_contributors[index]["core_maintainer"] = False
-
-public_contributors = list(reversed(sorted(public_contributors, key=lambda c: c["contributions"])))
-
-public_contributors = sorted(public_contributors, key=lambda c: not c["core_maintainer"])
+    public_contributors = list(reversed(sorted(public_contributors, key=lambda c: c["contributions"])))
+    public_contributors = sorted(public_contributors, key=lambda c: not c["core_maintainer"])
+    return public_contributors
 
 
-def get_issues():
+public_contributors = get_public_contributors(repos)
+
+
+def get_issues(repos):
     issues = []
     for repo in repos:
-        issue_pages = repo.get_issues()
+        issue_pages = repo.get_issues(state="all")
         page = 0
         while True:
             issue_list = issue_pages.get_page(page)
@@ -91,7 +110,41 @@ def get_issues():
     return issues
 
 
-issues = get_issues()
+issues = get_issues(repos)
+
+
+def get_milestones(main_repo):
+    result = []
+    if main_repo is not None:
+        milestones = main_repo.get_milestones()
+        ideas_milestone = None
+        future_milestone = None
+        for milestone in milestones:
+            if milestone.title == "Future":
+                future_milestone = milestone
+            elif milestone.title == "Ideas":
+                ideas_milestone = milestone
+            else:
+                result.append(milestone)
+        result.append(future_milestone)
+        result.append(ideas_milestone)
+    return result
+
+
+milestones = get_milestones(main_repo)
+
+
+def get_milestone_issues(issues: List[Issue], milestones: List[Milestone], main_repo: Repository):
+    milestone_issues = {}
+    for milestone in milestones:
+        milestone_issues[milestone.number] = []
+        for issue in issues:
+            if issue.repository.name == main_repo.name and issue.milestone and issue.milestone.number == milestone.number and not issue.pull_request:
+                milestone_issues[milestone.number].append(issue)
+    return milestone_issues
+
+
+milestone_issues = get_milestone_issues(issues, milestones, main_repo)
 
 
 def declare_variables(variables, macro):
@@ -123,30 +176,11 @@ def declare_variables(variables, macro):
 
     @macro
     def get_milestones():
-        result = []
-        if main_repo is not None:
-            milestones = main_repo.get_milestones()
-            ideas_milestone = None
-            future_milestone = None
-            for milestone in milestones:
-                if milestone.title == "Future":
-                    future_milestone = milestone
-                elif milestone.title == "Ideas":
-                    ideas_milestone = milestone
-                else:
-                    result.append(milestone)
-            result.append(future_milestone)
-            result.append(ideas_milestone)
-        return result
+        return milestones
 
     @macro
-    def get_milestone_issues(milestone: Milestone):
-        result = []
-        milestone_issues = main_repo.get_issues(milestone=milestone, state="all")
-        for issue in milestone_issues:
-            if not issue.pull_request and issue.milestone and issue.milestone.number == milestone.number:
-                result.append(issue)
-        return result
+    def get_milestone_issues(milestone: Milestone) -> List[Issue]:
+        return milestone_issues[milestone.number]
 
     @macro
     def get_commits_since_last_tag(repo: Repository) -> int:
@@ -216,6 +250,20 @@ def declare_variables(variables, macro):
     @macro
     def contributors():
         return public_contributors
+
+    @macro
+    def reference_outdated():
+        return '''
+!!! danger "Old manual"
+    You are reading the reference manual of an older release. [Read the current manual &raquo;](/reference/)
+'''
+
+    @macro
+    def reference_upcoming():
+        return '''
+!!! danger "Upcoming release"
+    You are reading the reference manual of an upcoming release. [Read the current manual &raquo;](/reference/)
+'''
 
 
 if __name__ == "__main__":

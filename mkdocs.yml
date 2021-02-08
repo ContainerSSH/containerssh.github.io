@@ -50,10 +50,95 @@ extra:
     - icon: fontawesome/brands/docker
       link: https://hub.docker.com/orgs/containerssh
       name: Docker Hub
+nav:
+  - Home: index.md
+  - Use cases:
+      - Web hosting: usecases/webhosting.md
+      - Learning environments: usecases/learning.md
+      - Honeypots: usecases/honeypots.md
+      - Security: usecases/security.md
+  - Getting started:
+      - 'Quick Start': getting-started/index.md
+      - 'Architecture': getting-started/architecture.md
+      - 'Installation': getting-started/installation.md
+      - 'Configuration': getting-started/configuration.md
+      - 'Authentication Server': getting-started/authserver.md
+      - 'Container Backends':
+          - 'Selecting a Backend': getting-started/backends.md
+          - 'The Docker Backend': getting-started/docker.md
+          - 'The Kubernetes Backend': getting-started/kubernetes.md
+      - 'FAQ': getting-started/faq.md
+      - 'Getting Help': getting-started/getting-help.md
+  - Downloads: downloads/index.md
+  - Reference manual:
+      - 'Overview': reference/index.md
+      - Installation: reference/installation.md
+      - Backends:
+        - Backend selection: reference/backends.md
+        - DockerRun: reference/dockerrun.md
+        - KubeRun: reference/kuberun.md
+      - Webhooks and APIs:
+        - 'Authentication': reference/auth.md
+        - 'Configuration server': reference/configserver.md
+        - 'API': reference/api/index.md
+      - Monitoring:
+        - Logging: reference/logging.md
+        - Metrics: reference/metrics.md
+      - Security:
+        - Hardening guide: reference/hardening.md
+      - Customization:
+        - Creating a guest image: reference/image.md
+      - Upcoming releases:
+          - 0.4:
+            - 'Overview': reference/upcoming/index.md
+            - 'Installation': reference/upcoming/installation.md
+            - 'Configuration':
+                - 'SSH': reference/upcoming/ssh.md
+            - 'Backends':
+                - 'Backend selection': reference/upcoming/backends.md
+                - 'Docker': reference/upcoming/docker.md
+                - 'Kubernetes': reference/upcoming/kubernetes.md
+                - 'DockerRun (deprecated)': reference/upcoming/dockerrun.md
+                - 'KubeRun (deprecated)': reference/upcoming/kuberun.md
+            - Webhooks and APIs:
+                - 'Authentication': reference/upcoming/auth.md
+                - 'Configuration server': reference/upcoming/configserver.md
+                - 'API': reference/upcoming/api/index.md
+            - Customization:
+                - 'Creating Guest Images': reference/upcoming/image.md
+            - Monitoring:
+                - 'Logging': reference/upcoming/logging.md
+                - 'Audit logging': reference/upcoming/audit.md
+                - 'Metrics': reference/upcoming/metrics.md
+            - Security:
+                - 'Restrictions': reference/upcoming/security.md
+                - 'Hardening guide': reference/upcoming/hardening.md
+  - Development:
+      - Overview: development/index.md
+      - Getting Started: development/getting-started.md
+      - Dashboard: development/dashboard.md
+      - Development Environment:
+          - Overview: development/devenv/index.md
+          - Installing GPG: development/devenv/gpg.md
+          - Installing Golang: development/devenv/golang.md
+          - Installing the QA tools: development/devenv/qa.md
+          - Installing Docker: development/devenv/docker.md
+          - Installing Kubernetes: development/devenv/kubernetes.md
+          - Setting up your IDE: development/devenv/ide.md
+          - Setting up the website: development/devenv/website.md
+      - Understanding ContainerSSH:
+          - 'Overview': development/containerssh/index.md
+          - 'Understanding SSH': development/containerssh/ssh.md
+          - 'Writing your first SSH server': development/containerssh/first-ssh-server.md
+          - 'Internal Architecture': development/containerssh/internal-architecture.md
+      - Coding Style: development/code-style.md
+      - Releases: development/releases.md
+  - Blog:
+      - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
+      - The Road to ContainerSSH 0.4: blog/2020/11/25/the-road-to-0-4.md
 plugins:
   - search
   - macros
-  - awesome-pages
   - blog:
       format: ""
   - redirects:
@@ -70,18 +155,27 @@ plugins:
         'installation.md': 'getting-started/installation.md'
         'authserver.md': 'getting-started/authserver.md'
         'configuration.md': 'getting-started/configuration.md'
-        'configserver.md': 'getting-started/configserver.md'
-        'backends.md': 'getting-started/backends/index.md'
-        'dockerrun.md': 'getting-started/backends/dockerrun.md'
-        'kuberun.md': 'getting-started/backends/kuberun.md'
+        'configserver.md': 'reference/configserver.md'
+        'backends.md': 'getting-started/backends.md'
+        'dockerrun.md': 'reference/dockerrun.md'
+        'kuberun.md': 'reference/kuberun.md'
         'faq.md': 'getting-started/faq.md'
-        'audit/index.md': 'advanced/audit/index.md'
-        'audit/format.md': 'advanced/audit/format.md'
+        'audit/index.md': 'reference/upcoming/audit.md'
+        'audit/format.md': 'https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md'
         'license.md': 'about/license.md'
         'imprint.md': 'about/imprint.md'
         'privacy.md': 'about/privacy.md'
         'advanced/audit/format.md': 'https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md'
-site_favicon: img/favicon.png
+        'advanced/index.md': 'reference/index.md'
+        'advanced/audit.md': 'reference/upcoming/audit.md'
+        'advanced/hardening.md': 'reference/hardening.md'
+        'advanced/image.md': 'reference/image.md'
+        'advanced/logging.md': 'reference/logging.md'
+        'advanced/metrics.md': 'reference/metrics.md'
+        'getting-started/configserver.md': 'reference/configserver.md'
+        'getting-started/backends/dockerrun.md': 'getting-started/docker.md'
+        'getting-started/backends/kuberun.md': 'getting-started/kubernetes.md'
+        'metrics.md': 'reference/metrics.md'
 extra_css:
   - css/custom.css?v4
 extra_javascript:

@@ -1,11 +1,13 @@
+---
 title: The road to ContainerSSH 0.4: modularized structure, audit logging, and more
 description: What happened to ContainerSSH 0.4? Why is it not released yet?
 image: images/blog/the-road-to-0-4/preview.png
+---
 
 # The road to ContainerSSH 0.4: modularized structure, audit logging, and more
 <div class="blog-meta"><small>November 25, 2020</small></div>
 
-After a rapid rush of releases this summer we have announced that version 0.4.0 would have a long-awaited feature: [detailed audit logging](/advanced/audit/). This feature would allow for a forensic reconstruction of an SSH session. The use cases for this are diverse: from building honeypots to securing a corporate environment. We even published a [preview release](https://github.com/ContainerSSH/ContainerSSH/releases/tag/0.4.0-PR1) for test driving this feature. We even implemented an automatic upload for the audit logs to an S3-compatible object storage. So, what happened? **Why isn't 0.4.0 released yet?**
+After a rapid rush of releases this summer we have announced that version 0.4.0 would have a long-awaited feature: [detailed audit logging](/reference/audit.md). This feature would allow for a forensic reconstruction of an SSH session. The use cases for this are diverse: from building honeypots to securing a corporate environment. We even published a [preview release](https://github.com/ContainerSSH/ContainerSSH/releases/tag/0.4.0-PR1) for test driving this feature. We even implemented an automatic upload for the audit logs to an S3-compatible object storage. So, what happened? **Why isn't 0.4.0 released yet?**
 
 The delay has everything to do with *maintainability*. The PR-1 implementation of the audit logging was built right into ContainerSSH causing a deluge of code changes. While it technically worked, it blew up the code in size and made features extremely hard to test. Look at [this code, for example](https://github.com/ContainerSSH/ContainerSSH/blob/0.4.0-PR1/ssh/server/server.go#L231). The actual authentication code dwarfs in comparison to the audit logging parts. You could say, the code violates the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle). There is no way we could retrofit component-level tests into this.
 
