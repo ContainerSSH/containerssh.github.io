@@ -69,6 +69,9 @@ nav:
           - 'The Kubernetes Backend': getting-started/kubernetes.md
       - 'FAQ': getting-started/faq.md
       - 'Getting Help': getting-started/getting-help.md
+  - Guides:
+      - Overview: guides/index.md
+      - Honeypot: guides/honeypot.md
   - Downloads: downloads/index.md
   - Reference manual:
       - 'Overview': reference/index.md
