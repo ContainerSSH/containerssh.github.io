@@ -28,6 +28,8 @@ This release moves the container image to `containerssh/containerssh`.
     <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.3.1/containerssh_0.3.1_windows_amd64.zip" class="md-button">.zip</a>
     
 
+---
+
 ## Preview release (0.4.0-PR3)
 
 This release adds a number of security features, audit logging, and a complete overhaul of the container backends.
@@ -53,6 +55,8 @@ This release adds a number of security features, audit logging, and a complete o
 === "Windows"
     
     <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_windows_amd64.zip" class="md-button">.zip</a>
+
+---
 
 ## Older releases
 
