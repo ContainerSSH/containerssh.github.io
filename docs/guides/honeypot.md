@@ -3,16 +3,16 @@
 This guide will lead you through the steps of creating an SSH honeypot with ContainerSSH.
 
 !!! danger
-    Creating SSH honeypots with a real Linux backend is inherently dangerous. Any local privilege escalation could lead to the attacker taking over your host system. While this tutorial represents the best practices in building a honeypot, the responsibility of securing your installation ultimately rests upon you. **Please do not attempt this unless you are intimately familiar with securing container environments.** [Docker has a really good read on this topic.](https://docs.docker.com/engine/security/)
+    Creating SSH honeypots with a real Linux backend is inherently dangerous. Any local privilege escalation could lead to the attacker taking over your host system. While this tutorial represents the best practices in building a honeypot, the responsibility of securing your installation ultimately rests upon you. **Please do not attempt this unless you are intimately familiar with securing container environments.** [Docker has really good documentation on this topic.](https://docs.docker.com/engine/security/)
     
 !!! warning
     This guide is written for the upcoming 0.4 release of ContainerSSH. You can [read the reference manual for this version here](../reference/upcoming/index.md).
     
 ## Step 1: Infrastructure
 
-In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the `gateway` VM and the second one `sacrificial` VM. Ideally, the `sacrificial` VM should run on its own dedicated physical hardware to prevent secrets leakage due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.
+In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the `gateway` VM and the second one `sacrificial` VM. Ideally, the `sacrificial` VM should run on its own dedicated physical hardware to prevent leakage of secrets due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.
 
-Furthermore, you will need an S3-compatible object storage to upload [audit logs](/reference/upcoming/audit.md) to and we will need a [Prometheus](https://prometheus.io/) installation for monitoring.
+Furthermore, you will need an S3-compatible object storage to upload [audit logs](/reference/upcoming/audit.md) and we will need a [Prometheus](https://prometheus.io/) installation for monitoring.
 
 We strongly recommend automating the setup with a tool like [Terraform](https://terraform.io) to rapidly apply security updates.
 
@@ -22,7 +22,7 @@ You should set up the `gateway` host in such a way that it is visible from the I
 
 - Port `22` should be open to the Internet.
 - Ports `9100` and `9101` should be open from your Prometheus instance. These will be used by the [Prometheus node exporter](https://github.com/prometheus/node_exporter) and the [ContainerSSH metrics server](https://containerssh.io/reference/upcoming/metrics/) respectively.
-- Outbound rules your S3-compatible object storage.
+- Outbound rules to your S3-compatible object storage.
 
 ## Step 3: Firewalling the sacrificial host
 
@@ -81,8 +81,8 @@ ssh:
     ********************************************************************
 
     This is a honeypot. All information, including IP address, username,
-    password, any commands you type, or files you upload will be made
-    public.
+    password, any commands you type, or files you upload will be visible
+    to the honeypot.
 
     If you do not agree disconnect now.
 
@@ -211,4 +211,4 @@ Please set up monitoring for both the host metrics (such as disk space usage) an
 
 ## Further hardening
 
-This creates a honeypot that lets attackers in a container. However, in a real world scenario you may want to integrate micro virtual machines instead of containers for better security, such as [Firecracker](https://firecracker-microvm.github.io/). Alternatively, you may want to investigate tools like [gVisor](https://github.com/google/gvisor) which implement a separate security layer for your container. This is beyond the scope of this guide.
+This creates a honeypot that lets attackers access a container. However, in a real world scenario you may want to integrate micro virtual machines instead of containers for better security, such as [Firecracker](https://firecracker-microvm.github.io/). Alternatively, you may want to investigate tools like [gVisor](https://github.com/google/gvisor) which implement a separate security layer for your container. This is beyond the scope of this guide.
