@@ -211,4 +211,4 @@ Please set up monitoring for both the host metrics (such as disk space usage) an
 
 ## Further hardening
 
-This creates a honeypot that lets attackers in a container. However, in a real world scenario you may want to integrate micro virtual machines instead of containers for better security, such as [Firecracker](https://firecracker-microvm.github.io/). This is beyond the scope of this guide.
+This creates a honeypot that lets attackers in a container. However, in a real world scenario you may want to integrate micro virtual machines instead of containers for better security, such as [Firecracker](https://firecracker-microvm.github.io/). Alternatively, you may want to investigate tools like [gVisor](https://github.com/google/gvisor) which implement a separate security layer for your container. This is beyond the scope of this guide.
