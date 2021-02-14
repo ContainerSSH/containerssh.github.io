@@ -10,4 +10,4 @@ ContainerSSH can do all that. When a user connects, ContainerSSH reaches out to 
 
 If you allow attackers to connect, ContainerSSH fetches a dynamic container configuration from your [configuration server](../reference/configserver.md). You can specify what environment and on which Docker or Kubernetes setup to run your honeypot. Restrict attackers to a set amount of resources or a networkless environment.
 
-[Get started »](../getting-started/index.md){: .md-button}
+[Get started »](../getting-started/index.md){: .md-button} [Read the guide »](../guides/honeypot.md){: .md-button}
