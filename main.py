@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import json
 import re
 from datetime import datetime, timezone
 import os
@@ -90,6 +92,9 @@ class GitHubClient:
         request = requests.post("https://api.github.com/graphql", json={'query': query, 'variables': variables},
                                 headers=headers)
         if request.status_code == 200:
+            json_data = request.json()
+            if "errors" in json:
+                raise Exception("One or more errors during query: " + json.dumps(json_data))
             return request.json()
         else:
             raise Exception("Failed to run GitHub query")
@@ -142,7 +147,6 @@ class GitHubClient:
               }
             }
             """, {"orgLogin": org_login, "after": after})
-
             org.id = org_data["data"]["organization"]["id"]
             for memberData in org_data["data"]["organization"]["membersWithRole"]["nodes"]:
                 member = GitHubUser()
