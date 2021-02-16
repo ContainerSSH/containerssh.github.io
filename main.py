@@ -133,11 +133,13 @@ class GitHubClient:
             query($orgLogin: String!, $after: String) {
               organization(login: $orgLogin) {
                 id
-                membersWithRole(first: 100, after: $after) {
+                memberStatuses(first: 100, after: $after) {
                   nodes {
-                    login
-                    name
-                    avatarUrl
+                    user {
+                      login
+                      name
+                      avatarUrl
+                    }
                   }
                   pageInfo {
                     hasNextPage
@@ -148,11 +150,11 @@ class GitHubClient:
             }
             """, {"orgLogin": org_login, "after": after})
             org.id = org_data["data"]["organization"]["id"]
-            for memberData in org_data["data"]["organization"]["membersWithRole"]["nodes"]:
+            for memberData in org_data["data"]["organization"]["memberStatuses"]["nodes"]:
                 member = GitHubUser()
-                member.login = memberData["login"]
-                member.name = memberData["name"]
-                member.avatar_url = memberData["avatarUrl"]
+                member.login = memberData["user"]["login"]
+                member.name = memberData["user"]["name"]
+                member.avatar_url = memberData["user"]["avatarUrl"]
                 org.members.append(member)
             finished = not org_data["data"]["organization"]["membersWithRole"]["pageInfo"]["hasNextPage"]
             after = org_data["data"]["organization"]["membersWithRole"]["pageInfo"]["endCursor"]
