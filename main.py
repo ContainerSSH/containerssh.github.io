@@ -93,7 +93,7 @@ class GitHubClient:
                                 headers=headers)
         if request.status_code == 200:
             json_data = request.json()
-            if "errors" in json:
+            if "errors" in json_data:
                 raise Exception("One or more errors during query: " + json.dumps(json_data))
             return request.json()
         else:
