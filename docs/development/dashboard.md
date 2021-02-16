@@ -6,24 +6,31 @@ title: Development Dashboard
 
 === "Roadmap"
     {% for milestone in get_milestones() %}
-    ## [{{ milestone.title }}](https://github.com/ContainerSSH/ContainerSSH/milestones/{{ milestone.number }})
+    ## [{{ milestone.title }}]({{ milestone.url }})
     
     {{ milestone.description}}
     
-    {% for issue in get_milestone_issues(milestone) %}- [{% if issue.state == "closed" %}X{% else %} {% endif %}] [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }})
+    {% for issue in milestone.issues %}- [{% if not issue.open %}X{% else %} {% endif %}] [{{issue.title}}]({{ issue.url }})
     {% endfor %}{% endfor %}
 
 === "Repositories"
     | Repository | Description | Version |
     | ---------- | ----------- | ------- |{% for repo in github_repos() %}
-    | [{{ repo.name }}](https://github.com/containerssh/{{ repo.name }}) | {{ repo.description }} | {{ get_version(repo) }} |{% endfor %}
+    | [{{ repo.name }}]({{ repo.url }}) | {{ repo.description }} | {{ get_version(repo) }} |{% endfor %}
 
 === "Issues"
     | Repository | Title | Milestone | Created |
     | ---------- | ----- | --------- | ------- |{% for issue in github_issues() %}
-    | [{{issue.repository.name}}](https://github.com/containerssh/{{issue.repository.name}}/issues) | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/issues/{{ issue.number }}) | [{{ issue.milestone.title }}](https://github.com/ContainerSSH/{{ issue.repository.name }}/milestone/{{ issue.milestone.number }}) | {{ days_ago(issue.created_at) }} |{% endfor %}
+    | [{{issue.repo.name}}]({{ issue.repo.url }}/issues/) | [{{issue.title}}]({{ issue.url }}) | [{{ issue.milestone.title }}]({{ issue.milestone.url }}) | {{ days_ago(issue.created_at) }} |{% endfor %}
     
 === "Pull Requests"
     | Repository | Title | Created | Mergeable | Checks |
-    | ---------- | ----- | ------- | ----------| ------ |{% for issue in github_prs() %}
-    | [{{issue.repository.name}}](https://github.com/containerssh/{{issue.repository.name}}/pulls) | [{{issue.title}}](https://github.com/containerssh/{{issue.repository.name}}/pull/{{ issue.number }}) | {{ days_ago(issue.created_at) }} | {% if issue.as_pull_request().mergeable %}✅{% else %}❌{% endif %} | {% if github_checks(issue) == "success" %}✅{% else %}❌{% endif %} |{% endfor %}
+    | ---------- | ----- | ------- | ----------| ------ |{% for pr in github_prs() if pr.author != "dependabot" %}
+    | [{{pr.repo.name}}]({{ pr.repo.url }}/pulls/) | [{{pr.title}}]({{ pr.url }}) | {{ days_ago(pr.created_at) }} | {% if pr.can_merge %}✅{% else %}❌{% endif %} | {% if pr.checks_status == "SUCCESS" %}✅{% else %}❌{% endif %} |{% else %}
+    | *No pull requests open.* |{% endfor %}
+    
+=== "Dependency updates"
+    | Repository | Title | Created | Mergeable | Checks |
+    | ---------- | ----- | ------- | ----------| ------ |{% for pr in github_prs() if pr.author == "dependabot" %}
+    | [{{pr.repo.name}}]({{ pr.repo.url }}/pulls/) | [{{pr.title}}]({{ pr.url }}) | {{ days_ago(pr.created_at) }} | {% if pr.can_merge %}✅{% else %}❌{% endif %} | {% if pr.checks_status == "SUCCESS" %}✅{% else %}❌{% endif %} |{% else %}
+    | *No dependency updates open.* |{% endfor %}
