@@ -156,8 +156,8 @@ class GitHubClient:
                 member.name = memberData["user"]["name"]
                 member.avatar_url = memberData["user"]["avatarUrl"]
                 org.members.append(member)
-            finished = not org_data["data"]["organization"]["membersWithRole"]["pageInfo"]["hasNextPage"]
-            after = org_data["data"]["organization"]["membersWithRole"]["pageInfo"]["endCursor"]
+            finished = not org_data["data"]["organization"]["memberStatuses"]["pageInfo"]["hasNextPage"]
+            after = org_data["data"]["organization"]["memberStatuses"]["pageInfo"]["endCursor"]
         self._org = org
         return org
 
