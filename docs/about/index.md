@@ -12,7 +12,7 @@ ContainerSSH is a *fully open source community-driven project*. It is made with 
 <span class="contributor">
     <span class="contributor__image"><img src="{{contributor.avatar_url}}" alt="" /></span>
     <span class="contributor__name">{{contributor.name}}</span>
-    {%- if contributor.core_maintainer %}<span class="contributor__role">core maintainer</span>{%else%}<span class="contributor__role">&nbsp;</span>{% endif -%} 
+    {%- if contributor.staff %}<span class="contributor__role">core maintainer</span>{%else%}<span class="contributor__role">&nbsp;</span>{% endif -%} 
     <span class="contributor__social_wrapper">
         <a class="contributor__social contributor__social--github" target="_blank" href="https://github.com/{{contributor.github}}" title="GitHub">:fontawesome-brands-github:</a>
         {%- if contributor.twitter %}<a class="contributor__social contributor__social--twitter" target="_blank" href="https://twitter.com/{{contributor.twitter}}" title="Twitter">:fontawesome-brands-twitter:</a>{% endif -%}
