@@ -156,6 +156,9 @@ The authentication webhook is a simple JSON `POST` request to which the server m
 
 !!! note
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
+    
+!!! tip
+    We provide a [Go library](https://github.com/ContainerSSH/auth) to create an authentication server.
 
 ### Password authentication
 
