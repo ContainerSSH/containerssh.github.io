@@ -38,7 +38,7 @@ TLS ensures that the connection between ContainerSSH and the configuration serve
 
 ### TLS version
 
-The minimum supported TLS version can be configured using the `tlsVersion` option. It defaults to `1.3` and also supports `1.2`. Versions lower than `1.2` are not supported.
+The minimum supported TLS version can be configured using the `tlsVersion` option. It defaults to `1.3` and also supports `1.2`. Versions lower than `1.2` are not supported. Server certificates *must* use Subject Alternative Names (SAN's) for proper server verification.
 
 ### Elliptic curve algorithms
 

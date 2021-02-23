@@ -33,7 +33,7 @@ TLS ensures that the connection between ContainerSSH and the configuration serve
 
 ### TLS version
 
-The minimum TLS version for ContainerSSH 0.3 is 1.3.
+The minimum TLS version for ContainerSSH 0.3 is 1.3. Server certificates *must* use Subject Alternative Names (SAN's) for proper server verification.
 
 ## Client authentication
 
