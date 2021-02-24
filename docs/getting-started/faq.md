@@ -30,7 +30,7 @@ Yes, but your container image must contain an SFTP server binary and your config
 
 ## Does ContainerSSH support SCP?
 
-Not at this time.
+No, ContainerSSH does not support SCP and since [OpenSSH is dropping SCP support too](https://lwn.net/Articles/835962/) it probably never will.
 
 ## Does ContainerSSH support TCP port forwarding?
 
