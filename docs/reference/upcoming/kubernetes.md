@@ -53,7 +53,6 @@ kubernetes:
 | `cacertFile` | `string` | Points to the file that contains the CA certificate in PEM format that signed the server certificate. |
 | `cacert` | `string` | Directly contains the CA certificate in PEM format that signed the server certificate. |
 | `serverName` | `string` | Sets the hostname of the server that should be sent to the Kuberentes API in the TLS SNI. This is useful when the Kubernetes API has a hostname that is not resolvable from the server ContainerSSH is running on. |
-| `insecure` | `bool` | Disable certificate verification on the Kubernetes API. **This is a very bad idea** as anyone on the network will be able to intercept your credentials. |
 | `qps` | `float32` | Indicates a maximum queries per second from this client. |
 | `burst` | `int` | Indicates the maximum burst for query throttling. |
 

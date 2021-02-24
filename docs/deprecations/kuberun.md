@@ -90,3 +90,7 @@ security:
   command:
     mode: disable
 ```
+
+## Removing the `insecure` option
+
+We are also removing the `insecure` option from the connection configuration and no longer support connecting a Kubernetes cluster without certificate verification. Using the `insecure` option represents the worst practices in terms of security. If you are using it, please set up a proper CA infrastructure.

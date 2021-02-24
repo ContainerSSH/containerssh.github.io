@@ -190,5 +190,3 @@ Currently only the following options can be set from the configuration server:
 
 !!! tip
     We provide a [Go library to implement a config server](https://github.com/containerssh/configuration).
-
-[]: #elliptic-curve-algorithms
