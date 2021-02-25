@@ -17,7 +17,7 @@ You can configure the minimum log level by adding the following to your configur
 
 ```yaml
 log:
-  level: "warning"
+  level: "info"
 ```
 
 !!! tip
