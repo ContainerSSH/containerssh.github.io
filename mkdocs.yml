@@ -119,6 +119,9 @@ nav:
             - Security:
                 - 'Restrictions': reference/upcoming/security.md
                 - 'Hardening guide': reference/upcoming/hardening.md
+            - Troubleshooting:
+                - Troubleshooting guide: reference/upcoming/troubleshooting.md
+                - Message codes: reference/upcoming/codes.md
   - Development:
       - Overview: development/index.md
       - Getting Started: development/getting-started.md

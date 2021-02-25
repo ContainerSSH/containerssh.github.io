@@ -47,6 +47,6 @@ In the previous version ContainerSSH sent the SSH key in the OpenSSH binary form
 
 The change is described in the [publicKeyBase64 deprecation notice](/deprecations/publicKeyBase64.md).
 
-### Multiple log formats
+### Improved logging
 
-This release also adds the ability to output the logs in text format next to the JSON format. The details are described in the [logging reference](logging.md).
+This release also adds several improvements to logging. You can now log in text and JSON formats to stdout, files, or syslog. Each log message contains a unique message code that you can use to look up the details of the specified error. The details are described in the [logging reference](logging.md).
