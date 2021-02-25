@@ -9,6 +9,8 @@ ContainerSSH comes with configurable logging facilities. You can configure the f
 2. The log format
 3. The log destination
 
+---
+
 ## Configuring the minimum log level
 
 You can configure the minimum log level by adding the following to your configuration:
@@ -32,6 +34,8 @@ The supported levels are in accordance with the Syslog standard:
 - `crit`
 - `alert`
 - `emerg`
+
+---
 
 ## Configuring the log format
 
@@ -74,7 +78,9 @@ The `TIMESTAMP` will be formatted according to RFC3339, while the `LEVEL` will b
 
 !!! warning
     The text message is not intended for machine processing and may change across versions. If you intend to do machine processing please use the `details` field from the `ljson` format.
-    
+
+---
+
 ## Setting the output
 
 The output configuration of ContainerSSH is the following:
