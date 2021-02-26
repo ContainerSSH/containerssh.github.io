@@ -200,4 +200,4 @@ copyright: >
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
   | <a href="/about/privacy/">Privacy Policy</a>
   | <a href="/about/imprint/">Imprint</a><br />
-  [Kubernetes and Linux are trademarks of The Linux Foundation.](https://www.linuxfoundation.org/trademark-usage/) [Docker and the Docker logo are trademarks of Docker, Inc.](https://www.docker.com/legal/trademark-guidelines)
+  <a href="https://www.linuxfoundation.org/trademark-usage/">Kubernetes and Linux are trademarks of The Linux Foundation.</a> <a href="https://www.docker.com/legal/trademark-guidelines">Docker and the Docker logo are trademarks of Docker, Inc.</a>
