@@ -70,14 +70,19 @@ h1 .since__value {
     flex-wrap: wrap;
     margin-left: -10px;
     margin-right: -10px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .contributor {
-    flex: 1 0 31%;
-    display: inline-block;
+    display: flex;
     padding-left: 10px;
     padding-right: 10px;
     font-size: 1.2rem;
+    flex-direction: column;
+    flex-basis: 30%;
+    padding-bottom: 40px;
 }
 
 .contributor__name, .contributor__social_wrapper, .contributor__role {
@@ -104,6 +109,7 @@ h1 .since__value {
 
 .contributor__image img {
     border-radius: 50%;
+    box-shadow: -1px 4px 8px 3px rgba(0, 0, 0, .1);
 }
 
 .contributor__social {
