@@ -9,7 +9,7 @@ title: Installing the QA tools
 We are using [golangci-lint](https://golangci-lint.run/) as a way to lint the code for problematic practices. We use golangci-li using the following command line:
 
 ```
-golangci-lint -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen
+golangci-lint run -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen
 ```
 
 Please follow the instructions below:
