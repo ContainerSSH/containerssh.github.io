@@ -11,11 +11,21 @@ This manual contains documentation on how to set up, configure, monitor, and sec
 
 ## Changes since ContainerSSH 0.3
 
-ContainerSSH 0.4 is major overhaul to the internal structure. As such, this release contains several major improvements to the stability of ContainerSSH. The reference manual for ContainerSSH 0.3 is [available here](./index.md).
+ContainerSSH 0.4 is major overhaul to the internal structure. As such, this release contains several major improvements to the stability of ContainerSSH. The reference manual for ContainerSSH 0.3 is [available here](../index.md).
 
 ### Audit logging
 
 The most visible improvement of this release is the new [audit logging facility](audit.md). Audit logging allows operators to capture everything that is happening within an SSH connection, including passwords, keys, typed commands, or SFTP uploads. The audit log can automatically be uploaded to an S3-compatible object storage.
+
+### Improved logging
+
+This release also adds significant improvements to logging. This release adds several hundred log messages across all levels to make debugging potential failures and reporting errors much easier. Most of these log messages have been added with the average operator in mind and the details are sent in the debug log level, which is disabled by default. 
+ 
+Furthermore, we have added a new log format as well as two new log outputs. You can now log in text and JSON formats to stdout, files, or syslog.
+
+Finally, we have added a unique message code to each log message that makes it easier to look up the corresponding documentation in the [code list](codes.md) and determine if a log message is cause for concern or not.
+
+The details are described in the [logging reference](logging.md).
 
 ### The Kubernetes backend
 
@@ -47,6 +57,3 @@ In the previous version ContainerSSH sent the SSH key in the OpenSSH binary form
 
 The change is described in the [publicKeyBase64 deprecation notice](/deprecations/publicKeyBase64.md).
 
-### Improved logging
-
-This release also adds several improvements to logging. You can now log in text and JSON formats to stdout, files, or syslog. Each log message contains a unique message code that you can use to look up the details of the specified error. The details are described in the [logging reference](logging.md).

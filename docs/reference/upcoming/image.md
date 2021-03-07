@@ -57,3 +57,21 @@ If you wish to use SFTP you have to add an SFTP server (`apt install openssh-sft
     ```
     
     You can look at the default [guest image Dockerfile](https://github.com/containerssh/guest-image) for an example on Ubuntu.
+
+Guest image support is enabled by default in the [Docker](docker.md) and [Kubernetes](kubernetes.md) backends, but can be disabled as shown below. The [KubeRun](kuberun.md) and [DockerRun](dockerrun.md) backends do not support the guest agent. 
+
+=== "Docker"
+
+    ```yaml
+    docker:
+      execution:
+        disableAgent: true
+    ```
+
+=== "Kubernetes"
+
+    ```yaml
+    kubernetes:
+      pod:
+        disableAgent: true
+    ```

@@ -25,12 +25,13 @@ The following options are supported:
 | `pubkey` | `bool` | Enable public key authentication. |
 | `url`  | `string` | HTTP URL of the configuration server to call. Leaving this field empty disables the webhook. |
 | `timeout` | `string` | Timeout for the webhook. Can be provided with time units (e.g. `6s`), defaults to nanoseconds if provided without a time unit. |
+| `authTimeout` | `string` | Timeout for the authentication process. HTTP calls that result in a non-200 response call will be retried until this timeout is reached. |
 | `cacert` | `string` | CA certificate in PEM format or filename that contains the CA certificate. This is field is required for `https://` URL's on Windows because of Golang issue [#16736](https://github.com/golang/go/issues/16736) |
 | `cert` | `string` | Client certificate in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
 | `key` | `string` | Private key in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
-| `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
-| `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms](#elliptic-curve-algorithms) section below. |
-| `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
+| `tlsVersion` | `[]string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
+| `curve` | `[]string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms](#elliptic-curve-algorithms) section below. |
+| `cipher` | `[]string,string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
 
 ## Configuring TLS
 
@@ -64,6 +65,9 @@ The following cipher suites are supported in ContainerSSH:
 | TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 | :material-close: |
 | TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 | :material-close: |
 | TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 | :material-close: |
+
+!!! tip
+    Cipher suites can be provided as a list or as a colon (`:`) separated string.
 
 ## Client authentication
 
@@ -159,6 +163,9 @@ The authentication webhook is a simple JSON `POST` request to which the server m
     
 !!! tip
     We provide a [Go library](https://github.com/ContainerSSH/auth) to create an authentication server.
+    
+!!! warning
+    A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users it should take into account that a user is allowed to try multiple authentication attempts (currently hard-coded to 6 per connection) before they are disconnected. Some of the authentication attempts (e.g. public keys) happen automatically on the client side without the user having any influence on them. Furthermore, ContainerSSH retries failed HTTP calls. To be effective the authentication server should count the unique connection identifiers seen in the `connectionId` field and implement a lock-out based on these.
 
 ### Password authentication
 
