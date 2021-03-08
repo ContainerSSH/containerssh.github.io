@@ -17,3 +17,9 @@ The final significant method is the backend registry. The backend is fetched bas
 The backend is a structure of `Backend` defined in [`github.com/containerssh/containerssh/backend/`](https://github.com/ContainerSSH/ContainerSSH/tree/stable/backend). The `CreateSession` method takes the details of the current connection and returns a session implementation.
 
 The session implementation defines the handler methods for individual SSH events like setting environment variables or executing commands. 
+
+## Module dependency map
+
+The following graph shows the internal dependencies of ContainerSSH. This is important to know the order in which modules must be updated:
+
+![We are very sorry, but we haven't found a good way to make this graph accessible. Please contact us if you have a visual impairment so we can test out how to best represent this.](modules.svg)

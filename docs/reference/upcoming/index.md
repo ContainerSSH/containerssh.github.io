@@ -27,6 +27,10 @@ Finally, we have added a unique message code to each log message that makes it e
 
 The details are described in the [logging reference](logging.md).
 
+### Security filters
+
+The new [security module](security.md) adds a the ability to create a fine-grained filter what interactions over SSH are allowed and which ones should be blocked.
+
 ### The Kubernetes backend
 
 The new [Kubernetes backend](kubernetes.md) replaces the previous [KubeRun backend](kuberun.md). The new Kubernetes backend supports two modes of operation: running a pod per session (multiple per connection) or one pod per connection, using the `exec` facility. Support for the new [ContainerSSH agent](https://github.com/containerssh/agent) means that the Kubernetes backend now has support for all functions in SSH.
