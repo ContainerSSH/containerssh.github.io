@@ -187,38 +187,38 @@
 <!-- auditlog&#45;&gt;log -->
 <g id="edge16" class="edge">
 <title>auditlog&#45;&gt;log</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M822,-310.89C822,-257.26 822,-103 822,-103 822,-103 356.13,-103 356.13,-103"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="356.13,-101.25 351.13,-103 356.13,-104.75 356.13,-101.25"/>
+<path fill="none" stroke="#fce700" stroke-width="2" d="M822,-310.89C822,-257.26 822,-103 822,-103 822,-103 356.13,-103 356.13,-103"/>
+<polygon fill="#fce700" stroke="#fce700" stroke-width="2" points="356.13,-101.25 351.13,-103 356.13,-104.75 356.13,-101.25"/>
 </g>
 <!-- auditlog&#45;&gt;geoip -->
 <g id="edge15" class="edge">
 <title>auditlog&#45;&gt;geoip</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M804,-310.58C804,-301.72 804,-293 804,-293 804,-293 395.36,-293 395.36,-293 395.36,-293 395.36,-280.42 395.36,-280.42"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="397.11,-280.42 395.36,-275.42 393.61,-280.42 397.11,-280.42"/>
+<path fill="none" stroke="#fce700" stroke-width="2" d="M804,-310.58C804,-301.72 804,-293 804,-293 804,-293 395.36,-293 395.36,-293 395.36,-293 395.36,-280.42 395.36,-280.42"/>
+<polygon fill="#fce700" stroke="#fce700" stroke-width="2" points="397.11,-280.42 395.36,-275.42 393.61,-280.42 397.11,-280.42"/>
 </g>
 <!-- auditlogintegration&#45;&gt;auditlog -->
 <g id="edge17" class="edge">
 <title>auditlogintegration&#45;&gt;auditlog</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M833.83,-382.83C833.83,-382.83 833.83,-352.41 833.83,-352.41"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="835.58,-352.41 833.83,-347.41 832.08,-352.41 835.58,-352.41"/>
+<path fill="none" stroke="#c400fc" stroke-width="2" d="M833.83,-382.83C833.83,-382.83 833.83,-352.41 833.83,-352.41"/>
+<polygon fill="#c400fc" stroke="#c400fc" stroke-width="2" points="835.58,-352.41 833.83,-347.41 832.08,-352.41 835.58,-352.41"/>
 </g>
 <!-- auditlogintegration&#45;&gt;log -->
 <g id="edge19" class="edge">
 <title>auditlogintegration&#45;&gt;log</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M878.25,-382.56C878.25,-316.99 878.25,-99 878.25,-99 878.25,-99 356.11,-99 356.11,-99"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="356.11,-97.25 351.11,-99 356.11,-100.75 356.11,-97.25"/>
+<path fill="none" stroke="#c400fc" stroke-width="2" d="M878.25,-382.56C878.25,-316.99 878.25,-99 878.25,-99 878.25,-99 356.11,-99 356.11,-99"/>
+<polygon fill="#c400fc" stroke="#c400fc" stroke-width="2" points="356.11,-97.25 351.11,-99 356.11,-100.75 356.11,-97.25"/>
 </g>
 <!-- auditlogintegration&#45;&gt;sshserver -->
 <g id="edge20" class="edge">
 <title>auditlogintegration&#45;&gt;sshserver</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M821.3,-401C768.57,-401 691,-401 691,-401 691,-401 691,-352.17 691,-352.17"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="692.75,-352.17 691,-347.17 689.25,-352.17 692.75,-352.17"/>
+<path fill="none" stroke="#c400fc" stroke-width="2" d="M821.3,-401C768.57,-401 691,-401 691,-401 691,-401 691,-352.17 691,-352.17"/>
+<polygon fill="#c400fc" stroke="#c400fc" stroke-width="2" points="692.75,-352.17 691,-347.17 689.25,-352.17 692.75,-352.17"/>
 </g>
 <!-- auditlogintegration&#45;&gt;geoip -->
 <g id="edge18" class="edge">
 <title>auditlogintegration&#45;&gt;geoip</title>
-<path fill="none" stroke="#00c900" stroke-width="2" d="M827.67,-382.96C827.67,-370.44 827.67,-356 827.67,-356 827.67,-356 390.71,-356 390.71,-356 390.71,-356 390.71,-280.16 390.71,-280.16"/>
-<polygon fill="#00c900" stroke="#00c900" stroke-width="2" points="392.46,-280.16 390.71,-275.16 388.96,-280.16 392.46,-280.16"/>
+<path fill="none" stroke="#c400fc" stroke-width="2" d="M827.67,-382.96C827.67,-370.44 827.67,-356 827.67,-356 827.67,-356 390.71,-356 390.71,-356 390.71,-356 390.71,-280.16 390.71,-280.16"/>
+<polygon fill="#c400fc" stroke="#c400fc" stroke-width="2" points="392.46,-280.16 390.71,-275.16 388.96,-280.16 392.46,-280.16"/>
 </g>
 <!-- auth&#45;&gt;http -->
 <g id="edge22" class="edge">

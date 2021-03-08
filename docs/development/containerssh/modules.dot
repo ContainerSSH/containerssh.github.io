@@ -36,13 +36,13 @@ digraph ContainerSSH {
     ContainerSSH -> sshserver [color="#00C900"]
     ContainerSSH -> structutils [color="#00C900"]
 
-    auditlog -> geoip
-    auditlog -> log
+    auditlog -> geoip [color="#fce700"]
+    auditlog -> log [color="#fce700"]
 
-    auditlogintegration -> auditlog
-    auditlogintegration -> geoip
-    auditlogintegration -> log
-    auditlogintegration -> sshserver
+    auditlogintegration -> auditlog [color="#c400fc"]
+    auditlogintegration -> geoip [color="#c400fc"]
+    auditlogintegration -> log [color="#c400fc"]
+    auditlogintegration -> sshserver [color="#c400fc"]
 
     auth -> geoip [color="#c400fc"]
     auth -> http [color="#c400fc"]
