@@ -1,6 +1,6 @@
 digraph ContainerSSH {
     concentrate=true;
-    graph [label="Internal ContainerSSH Module Dependencies", splines=ortho, nodesep=0.2, fontname="Arial", concentrate=true]
+    graph [splines=ortho, nodesep=0.2, fontname="Arial", concentrate=true]
     node [shape=box, style=filled, fillcolor=black, color=red, fontcolor=white, fontsize=10, fontname="Arial", penwidth=3]
     edge [penwidth=2, color="#00C900", arrowsize=0.5, tailclip=true]
 
