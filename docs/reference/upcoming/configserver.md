@@ -29,6 +29,7 @@ The following options are supported:
 | `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
 | `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms][] section below. |
 | `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
+| `allowRedirects` | `bool` | Allow following HTTP redirects. Defaults to false. |
 
 ## Configuring TLS
 
@@ -56,8 +57,8 @@ The following cipher suites are supported in ContainerSSH:
 | TLS_AES_128_GCM_SHA256 | :material-check-bold: |
 | TLS_AES_256_GCM_SHA384 | :material-check-bold: |
 | TLS_CHACHA20_POLY1305_SHA256 | :material-check-bold: |
-| TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | :material-close: |
-| TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 | :material-close: |
+| TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
 | TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 | :material-close: |
 | TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 | :material-close: |
 | TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 | :material-close: |
