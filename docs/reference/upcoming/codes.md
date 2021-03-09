@@ -4,8 +4,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Core
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `CORE_CONFIG_CANNOT_WRITE_FILE` | ContainerSSH cannot update the configuration file with the new host keys and will only use the host key for the current run. |
 | `CORE_CONFIG_ERROR` | ContainerSSH encountered an error in the configuration. |
 | `CORE_CONFIG_FILE` | ContainerSSH is reading the configuration file |
@@ -14,8 +14,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Auditlog
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `AUDIT_S3_CANNOT_CLOSE_METADATA_FILE_HANDLE` | ContainerSSH could not close the metadata file in the local folder. This typically happens when the local folder is on an NFS share. (This is NOT supported.) |
 | `AUDIT_S3_CLOSE_FAILED` | ContainerSSH failed to close an audit log file in the local directory. This usually happens when the local directory is on an NFS share. (This is NOT supported.) |
 | `AUDIT_S3_FAILED_CREATING_METADATA_FILE` | ContainerSSH failed to create the metadata file for the S3 upload in the local temporary directory. Check if the local directory specified is writable and has enough disk space. |
@@ -43,8 +43,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Authentication
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `AUTH` | ContainerSSH is trying to contact the authentication backend to verify the user credentials. |
 | `AUTH_BACKEND_ERROR` | The ContainerSSH authentication server responded with a non-200 status code. ContainerSSH will retry the authentication for a few times before giving up. This is most likely a bug in your authentication server, please check your logs. |
 | `AUTH_FAILED` | The user has provided invalid credentials and the authentication is rejected. |
@@ -54,14 +54,14 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Backend
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `BACKEND_CONFIG_ERROR` | The backend retreived from the configuration server is invalid. See the error message for details. |
 
 ## Configuration
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `CONFIG_BACKEND_ERROR` | ContainerSSH has received an invalid response from the configuration server or the network connection broke. ContainerSSH will retry fetching the user-specific configuration until the timeout. If this error persists check the connectivity to the configuration server, or the logs of the configuration server itself to find out of there may be a specific error. |
 | `CONFIG_INVALID_STATUS_CODE` | ContainerSSH has received a non-200 response code when calling a per-user backend configuration from the configuration server. |
 | `CONFIG_REQUEST` | ContainerSSH is sending a quest to the configuration server to obtain a per-user backend configuration. |
@@ -70,8 +70,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Docker
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `DOCKER_AGENT_READ_FAILED` | The ContainerSSH Docker module failed to read from the ContainerSSH agent. This is most likely because the ContainerSSH guest agent is not present in the guest image, but agent support is enabled. |
 | `DOCKER_CLOSE_INPUT_FAILED` | The ContainerSSH Docker module attempted to close the input (stdin) for reading but failed to do so. |
 | `DOCKER_CLOSE_OUTPUT_FAILED` | The ContainerSSH Docker module attempted to close the output (stdout and stderr) for writing but failed to do so. |
@@ -121,8 +121,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## HTTP
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `HTTP_CLIENT_CONNECTION_FAILED` | This message indicates a connection failure on the network level. |
 | `HTTP_CLIENT_DECODE_FAILED` | This message indicates that decoding the JSON response has failed. The status code is set for this code. |
 | `HTTP_CLIENT_ENCODE_FAILED` | This message indicates that JSON encoding the request failed. This is usually a bug. |
@@ -135,8 +135,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Kubernetes 
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `KUBERNETES_CLOSE_OUTPUT_FAILED` | The ContainerSSH Kubernetes module attempted to close the output (stdout and stderr) for writing but failed to do so. |
 | `KUBERNETES_CONFIG_ERROR` | The ContainerSSH Kubernetes module detected a configuration error. Please check your configuration. |
 | `KUBERNETES_EXEC` | The ContainerSSH Kubernetes module is creating an execution. This may be in connection mode, or it may be the module internally using the exec mechanism to deliver a payload into the pod. |
@@ -169,8 +169,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Log
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `LOG_FILE_OPEN_FAILED` | ContainerSSH failed to open the specified log file. |
 | `LOG_ROTATE_FAILED` | ContainerSSH cannot rotate the logs as requested because of an underlying error. |
 | `LOG_WRITE_FAILED` | ContainerSSH cannot write to the specified log file. This usually happens because the underlying filesystem is full or the log is located on a non-local storage (e.g. NFS), which is not supported. |
@@ -179,14 +179,14 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Metrics
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `METRICS_AVAILABLE` | The metrics service is now online and ready for service. |
 
 ## Security
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `SECURITY_ENV_REJECTED` | ContainerSSH rejected setting the environment variable because it does not pass the security settings. |
 | `SECURITY_EXEC_FAILED_SETENV` | Program execution failed in conjunction with the forceCommand option because ContainerSSH could not set the `SSH_ORIGINAL_COMMAND` environment variable on the backend. |
 | `SECURITY_EXEC_FORCING_COMMAND` | ContainerSSH is replacing the command passed from the client (if any) to the specified command and is setting the `SSH_ORIGINAL_COMMAND` environment variable. |
@@ -198,8 +198,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## Service
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `SERVICE_CRASHED` | A ContainerSSH has stopped improperly. |
 | `SERVICE_POOL_RUNNING` | All ContainerSSH services are now running. |
 | `SERVICE_POOL_STARTING` | All ContainerSSH services are starting. |
@@ -212,8 +212,8 @@ This page contains all message codes logged by ContainerSSH. Some of these are e
 
 ## SSH
 
-| Code | Explanation |
-|------|-------------|
+| Code {:width=45%} | Explanation |
+|-------------------|-------------|
 | `SSH_ALREADY_RUNNING` | The SSH server is already running and has been started again. This is a bug, please report it. |
 | `SSH_AUTH_FAILED` | The user has provided invalid credentials. |
 | `SSH_AUTH_SUCCESSFUL` | The user has provided valid credentials and is now authenticated. |
