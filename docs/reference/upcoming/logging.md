@@ -64,7 +64,7 @@ When writing to the `stdout` or `file` destinations the format is the following:
 }
 ```
 
-When writing to syslog the format is the same, but does not contain the `timestamp` and `level` fields as they are redundant.
+When writing to syslog the format is the same, but does not contain the `timestamp` and `level` fields as they are redundant. The error codes are documented in the [troubleshooting section](codes.md).
 
 ### The text log format
 
