@@ -30,7 +30,7 @@ This release moves the container image to `containerssh/containerssh`.
 
 ---
 
-## Preview release (0.4.0-PR3)
+## Preview release (0.4.0-PR4)
 
 This release adds a number of security features, audit logging, and a complete overhaul of the container backends.
 
@@ -41,20 +41,20 @@ This release adds a number of security features, audit logging, and a complete o
     ContainerSSH can be installed in a containerized system (Docker, Podman, Kubernetes) by referencing the following image name:
 
     ```
-    containerssh/containerssh:0.4.0-PR3
+    containerssh/containerssh:0.4.0-PR4
     ```
 
 === "Linux"
     
-    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_linux_amd64.tar.gz" class="md-button">.tar.gz</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_linux_amd64.deb" class="md-button">.deb</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_linux_amd64.rpm" class="md-button">.rpm</a>
+    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR4/containerssh_0.4.0-PR4_linux_amd64.tar.gz" class="md-button">.tar.gz</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR4/containerssh_0.4.0-PR4_linux_amd64.deb" class="md-button">.deb</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR4/containerssh_0.4.0-PR4_linux_amd64.rpm" class="md-button">.rpm</a>
     
 === "MacOS"
     
-    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_darwin_amd64.tar.gz" class="md-button">.tar.gz</a>
+    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR4/containerssh_0.4.0-PR4_darwin_amd64.tar.gz" class="md-button">.tar.gz</a>
     
 === "Windows"
     
-    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR3/containerssh_0.4.0-PR3_windows_amd64.zip" class="md-button">.zip</a>
+    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0-PR4/containerssh_0.4.0-PR4_windows_amd64.zip" class="md-button">.zip</a>
 
 ---
 

@@ -99,7 +99,7 @@
         spec:
           containers:
           - name: containerssh
-            image: containerssh/containerssh:0.4.0-PR3
+            image: containerssh/containerssh:0.4.0-PR4
             ports:
             - containerPort: 2222
             volumeMounts:

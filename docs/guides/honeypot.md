@@ -180,7 +180,7 @@ docker run -d \
   -v /srv/containerssh/config/:/etc/containerssh/ \
   -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
   --net=host \
-  containerssh/containerssh:0.4.0-PR3
+  containerssh/containerssh:0.4.0-PR4
 ```
 
 ## Step 8: Starting the auth-config server
@@ -192,7 +192,7 @@ docker run -d \
   --restart=always \
   -p 127.0.0.1:8080:8080 \
   -e CONTAINERSSH_ALLOW_ALL=1 \
-  containerssh/containerssh-test-authconfig:0.4.0-PR3
+  containerssh/containerssh-test-authconfig:0.4.0-PR4
 ```
 
 ## Step 9: Redirecting port 22
