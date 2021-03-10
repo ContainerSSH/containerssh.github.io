@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>The DockerRun backend</h1>
 
 !!! warning

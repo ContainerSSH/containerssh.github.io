@@ -1,3 +1,6 @@
+
+{{ reference_outdated() }}
+
 <h1>Logging</h1>
 
 ContainerSSH comes with configurable logging facilities. At this time only JSON logging is supported, but the log level can be configured.

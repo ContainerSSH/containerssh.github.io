@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 ---
 title: ContainerSSH Reference Manual
 ---
-=======
-
-{{ reference_upcoming() }}
->>>>>>> 93417d1 (Docs changes for 0.4)
 
 <h1>ContainerSSH Reference Manual</h1>
 

@@ -1,3 +1,6 @@
+
+{{ reference_outdated() }}
+
 <h1>Installation</h1>
 
 === "Standalone"

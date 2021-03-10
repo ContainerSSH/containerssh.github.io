@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>Logging</h1>
 
 ContainerSSH comes with configurable logging facilities. You can configure the following options:

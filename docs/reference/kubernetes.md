@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>The Kubernetes backend</h1>
 
 The Kubernetes backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).

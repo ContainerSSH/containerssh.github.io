@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>Building a container image for ContainerSSH</h1>
 
 ContainerSSH can run any Linux container image. However, it is strongly recommended that you install the [ContainerSSH guest agent](https://github.com/containerssh/agent) into the image to make all features available.

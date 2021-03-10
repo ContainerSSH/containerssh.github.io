@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>The Docker backend</h1>
 
 The Docker backend should work with any Docker Engine version starting with 1.6 thanks to the version negotiation present. We fix issues starting with Docker version 18.02.

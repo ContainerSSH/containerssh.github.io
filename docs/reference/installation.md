@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>Installation</h1>
 
 === "Standalone"

@@ -2,6 +2,8 @@
 title: The Kubernetes backend
 ---
 
+{{ reference_outdated() }}
+
 <h1>The KubeRun backend</h1>
 
 The KubeRun backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/). For ContainerSSH version 0.3 these are: 1.19, and 1.18.

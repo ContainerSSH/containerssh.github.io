@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>Metrics</h1>
 
 ContainerSSH contains a [Prometheus](https://prometheus.io/)-compatible metrics server which can be enabled using the following configuration:

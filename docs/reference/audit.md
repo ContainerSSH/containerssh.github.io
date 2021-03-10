@@ -2,8 +2,6 @@
 image: images/auditlog-asciinema.jpg
 ---
 
-{{ reference_upcoming() }}
-
 <h1>Audit logging</h1>
 
 ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it has serious security and privacy implications, as well as severe resource requirements.

@@ -1,4 +1,4 @@
-# Troubleshooting ContainerSSH
+<h1>Troubleshooting ContainerSSH</h1>
 
 When ContainerSSH doesn't work several components can be involved. Is it ContainerSSH? Can it connect to [the authentication server](auth.md)? How about [the configuration server](configserver.md)? Is the [backend working](backends.md)?
 
