@@ -1,16 +1,10 @@
-
-{{ reference_upcoming() }}
+---
+title: The Kubernetes backend
+---
 
 <h1>The KubeRun backend</h1>
 
-!!! warning
-    The KubeRun backend is deprecated and the [Kubernetes backend](kubernetes.md) should be used instead. [Read the migration guide here &raquo;](/deprecations/kuberun.md)
-
-The KubeRun backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
-For ContainerSSH version 0.4 these are: 1.20, 1.19, and 1.18.
-
-!!! tip
-    This is the documentation for the **KubeRun backend**. For deploying ContainerSSH inside Kubernetes please see the [installation guide](installation.md).
+The KubeRun backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/). For ContainerSSH version 0.3 these are: 1.19, and 1.18.
 
 ## The base configuration structure
 
@@ -204,6 +198,7 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 | `enableAgent` | `bool` | Enable the ContainerSSH guest agent. This enables the ContainerSSH guest agent. |
 | `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `disableCommand` | `bool` | Disable command execution. |
+
 
 ## Securing Kubernetes
 

@@ -2,6 +2,8 @@
 title: Authentication
 ---
 
+{{ reference_upcoming() }}
+
 <h1>Authentication</h1>
 
 ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide. Your service can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration.
@@ -23,9 +25,14 @@ The following options are supported:
 | `pubkey` | `bool` | Enable public key authentication. |
 | `url`  | `string` | HTTP URL of the configuration server to call. Leaving this field empty disables the webhook. |
 | `timeout` | `string` | Timeout for the webhook. Can be provided with time units (e.g. `6s`), defaults to nanoseconds if provided without a time unit. |
+| `authTimeout` | `string` | Timeout for the authentication process. HTTP calls that result in a non-200 response call will be retried until this timeout is reached. |
 | `cacert` | `string` | CA certificate in PEM format or filename that contains the CA certificate. This is field is required for `https://` URL's on Windows because of Golang issue [#16736](https://github.com/golang/go/issues/16736) |
 | `cert` | `string` | Client certificate in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
 | `key` | `string` | Private key in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
+| `tlsVersion` | `[]string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
+| `curve` | `[]string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms](#elliptic-curve-algorithms) section below. |
+| `cipher` | `[]string,string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
+| `allowRedirects` | `bool` | Allow following HTTP redirects. Defaults to false. |
 
 ## Configuring TLS
 
@@ -33,7 +40,35 @@ TLS ensures that the connection between ContainerSSH and the configuration serve
 
 ### TLS version
 
-The minimum TLS version for ContainerSSH 0.3 is 1.3. Server certificates *must* use Subject Alternative Names (SAN's) for proper server verification.
+The minimum supported TLS version can be configured using the `tlsVersion` option. It defaults to `1.3` and also supports `1.2`. Versions lower than `1.2` are not supported. Server certificates *must* use Subject Alternative Names (SAN's) for proper server verification.
+
+### Elliptic curve algorithms
+
+The elliptic curve algorithms can be specified in the `curve` option. We support and default to the following options:
+
+- `x25519`
+- `secp256r1`
+- `secp384r1`
+- `secp521r1`
+
+### Cipher suites
+
+The following cipher suites are supported in ContainerSSH:
+
+| Suite | Default |
+|-------|---------|
+| TLS_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_AES_256_GCM_SHA384 | :material-check-bold: |
+| TLS_CHACHA20_POLY1305_SHA256 | :material-check-bold: |
+| TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 | :material-close: |
+| TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 | :material-close: |
+
+!!! tip
+    Cipher suites can be provided as a list or as a colon (`:`) separated string.
 
 ## Client authentication
 
@@ -126,6 +161,12 @@ The authentication webhook is a simple JSON `POST` request to which the server m
 
 !!! note
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
+    
+!!! tip
+    We provide a [Go library](https://github.com/ContainerSSH/auth) to create an authentication server.
+    
+!!! warning
+    A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users it should take into account that a user is allowed to try multiple authentication attempts (currently hard-coded to 6 per connection) before they are disconnected. Some of the authentication attempts (e.g. public keys) happen automatically on the client side without the user having any influence on them. Furthermore, ContainerSSH retries failed HTTP calls. To be effective the authentication server should count the unique connection identifiers seen in the `connectionId` field and implement a lock-out based on these.
 
 ### Password authentication
 
@@ -135,7 +176,7 @@ On password authentication the authentication server will receive the following 
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "An opaque ID for the SSH connection",
+    "connectionId": "An opaque ID for the SSH connection",
     "passwordBase64": "Base 64-encoded password"
 }
 ```
@@ -148,8 +189,8 @@ On public key authentication the authentication server will receive the followin
 {
     "username": "username",
     "remoteAddress": "127.0.0.1:1234",
-    "sessionId": "An opaque ID for the SSH connection",
-    "publicKeyBase64": "Base64-encoded public key in the OpenSSH wire format"
+    "connectionId": "An opaque ID for the SSH connection",
+    "publicKey": "ssh-rsa ..."
 }
 ```
 
@@ -164,3 +205,6 @@ Both endpoints need to respond with an `application/json` response of the follow
   "success": true
 }
 ```
+
+!!! tip
+    We provide a [Go library to implement a authentication server](https://github.com/containerssh/auth).
