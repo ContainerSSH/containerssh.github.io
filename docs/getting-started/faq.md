@@ -6,7 +6,7 @@ title: Frequently Asked Questions
 
 ## Is ContainerSSH secure?
 
-ContainerSSH depends on a number of libraries to achieve what it does. A security hole in any of the critical ones could mean a compromise of your container environment, especially if you are using the `dockerrun` backend. (Docker has no access control so a compromise means your whole host is compromised.)
+ContainerSSH depends on a number of libraries to achieve what it does. A security hole in any of the critical ones could mean a compromise of your container environment, especially if you are using the Docker backend. (Docker has no access control so a compromise means your whole host is compromised.)
 
 Please read the [hardening guide](../reference/hardening.md) if you intend to use ContainerSSH in production.
 
@@ -34,11 +34,11 @@ No, ContainerSSH does not support SCP and since [OpenSSH is dropping SCP support
 
 ## Does ContainerSSH support TCP port forwarding?
 
-No, but it is planned.
+No, but [it is planned](https://github.com/ContainerSSH/ContainerSSH/issues/58).
 
 ## Does ContainerSSH support SSH agent forwarding?
 
-No, but it is planned.
+No, but [it is planned](https://github.com/ContainerSSH/ContainerSSH/issues/59).
 
 ## Does ContainerSSH support X11 forwarding?
 
