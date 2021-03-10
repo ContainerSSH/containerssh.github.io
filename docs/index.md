@@ -31,29 +31,22 @@ hide:
 </div>
 </div>
 
+---
+
 ## How does it work?
 
-![](/images/ssh-in-action.gif)
-
-```
-+------+        +--------------+   2.   +-------------------+
-|      |        |              | -----> |    Auth server    |
-|      |        |              |        +-------------------+
-|      |        |              |   
-|      |   1.   |              |   3.   +-------------------+
-| User | -----> | ContainerSSH | -----> |   Config server   |
-|      |        |              |        +-------------------+
-|      |        |              |   
-|      |        |              |   4.   +-------------------+
-|      |        |              | -----> | Container Backend |
-+------+        +--------------+        +-------------------+
-```
-
-1. The user opens an SSH connection to ContainerSSH.
-2. ContainerSSH calls the authentication server with the users username and password/pubkey to check if it is valid.
-3. ContainerSSH calls the config server to obtain backend location and configuration (if configured).
-4. ContainerSSH calls the container backend to launch the container with the
-   specified configuration. All input from the user is sent directly to the backend, output from the container is sent
-   to the user.
-   
-[Get started »](getting-started/index.md){: .md-button}
+<div class="grid">
+<div class="grid__box">
+<img src="/images/architecture.svg" alt="" />
+<ol>
+<li>The user opens an SSH connection to ContainerSSH.</li>
+<li>ContainerSSH calls the authentication server with the users username and password/pubkey to check if it is valid.</li>
+<li>ContainerSSH calls the config server to obtain backend location and configuration (if configured).</li>
+<li>ContainerSSH calls the container backend to launch the container with the specified configuration. All input from the user is sent directly to the backend, output from the container is sent to the user.</li>
+</ol>   
+<p><a href="/getting-started/" class="md-button">Get started »</a></p>
+</div>
+<div class="grid__box">
+<img src="/images/ssh-in-action.gif" alt="" />
+</div>
+</div>

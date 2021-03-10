@@ -6,19 +6,7 @@ title: Architecture
 
 ContainerSSH is a modular software that consists of the following main components:
 
-```
-+------+      +--------------+  2.  +-------------------+
-|      |      |              | ---> |    Auth Server    |
-|      |      |              |      +-------------------+
-|      |      |              |
-|      |  1.  |              |  3.  +-------------------+
-| User | ---> | ContainerSSH | ---> |   Config Server   |
-|      |      |              |      +-------------------+
-|      |      |              |
-|      |      |              |  4.  +-------------------+
-|      |      |              | ---> | Docker/Kubernetes |
-+------+      +--------------+      +-------------------+
-```
+![](/images/architecture.svg)
 
 1. The user connects ContainerSSH using an SSH client (e.g. PuTTY)
 2. ContainerSSH performs the handshake and offers the user the authentication methods supported. ContainerSSH will submit the users SSH key or password to the authentication server using HTTP (TLS encryption and authentication possible.) For more details see [the page about the Auth Server](authserver.md).
