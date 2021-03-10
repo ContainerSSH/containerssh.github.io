@@ -9,7 +9,7 @@ This page lists all features that have been removed or deprecated. You can click
 
 | Feature           | Deprecated | Removed |
 | ----------------- | ---------- | ------- |
-| [publicKeyBase64 in auth protocol](publicKeyBase64.md) | 0.4 | &mdash; |
+| [publicKeyBase64 in auth protocol](publicKeyBase64.md) | &mdash; | 0.4 |
 | [sessionId field in auth/config protocol](sessionId.md) | 0.4 | &mdash; |
 | [listen option](listen.md) | 0.4 | &mdash; |
 | [dockerrun backend](dockerrun.md) | 0.4 | &mdash; |
