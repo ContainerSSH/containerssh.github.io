@@ -48,7 +48,7 @@
       -v /srv/containerssh/config.yaml:/etc/containerssh/config.yaml \
       -v /srv/containerssh/host.key:/var/run/secrets/host.key \
       -p 2222:2222 \
-      containerssh/containerssh:0.4.0
+      containerssh/containerssh:0.4
     ```
 
 === "Kubernetes"
@@ -97,7 +97,7 @@
         spec:
           containers:
           - name: containerssh
-            image: containerssh/containerssh:0.4.0-PR4
+            image: containerssh/containerssh:0.4
             ports:
             - containerPort: 2222
             volumeMounts:
