@@ -167,6 +167,7 @@ class GitHubClient:
             contributor.name = "Fake Contributor"
             contributor.login = username
             contributor.contributions = 0
+            contributor.avatar_url = "about:blank"
             return contributor
         if username in self._contributors:
             return self._contributors[username]
@@ -220,6 +221,7 @@ class GitHubClient:
             repo.description = "Main repo"
             repo.name = self._main_repo_name
             repo.url = "https://github.com/" + self._org_name + "/" + self._main_repo_name
+            repo.last_version = None
             return [
                 repo
             ]
@@ -388,6 +390,8 @@ class GitHubClient:
             issue.open = True
             issue.url = "http://github.com"
             issue.title = "Test issue"
+            issue.repo = self._get_repo_by_name(repo)
+            issue.milestone = None
             return [issue]
         if repo in self._issues:
             return self._issues[repo]
@@ -584,7 +588,7 @@ def declare_variables(variables, macro):
 
     @macro
     def get_version(repo: GitHubRepo) -> str:
-        if not repo.last_version:
+        if repo is None or repo.last_version is None:
             return ""
         return "[%s](%s/releases/tag/%s)" % (repo.last_version, repo.url, repo.last_version)
 

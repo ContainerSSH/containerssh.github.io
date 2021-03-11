@@ -6,8 +6,6 @@ hide:
   - toc
 ---
 
-<h1>ContainerSSH: Launch containers on demand</h1>
-
 <div class="grid">
 <div class="grid__box">
 <h2>Offering SSH in a web hosting service?</h2>

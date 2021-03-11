@@ -1,2 +1,62 @@
 {% extends "main.html" %}
 {% block htmltitle %}<title>ContainerSSH: Launch containers on demand</title>{% endblock %}
+{% block tabs %}
+    {{ super() }}
+    <style>
+        .mdx-container {
+            background: no-repeat bottom,linear-gradient(180deg,var(--md-primary-fg-color),#3F6EC6 99%,var(--md-default-bg-color) 0);
+        }
+        .mdx-container, .mdx-container h1 {
+            color:var(--md-primary-bg-color);
+        }
+        .mdx-container h1 {
+            font-weight: 700;
+            margin-bottom:1.5rem;
+        }
+        @media screen and (min-width: 76.25rem) {
+            .mdx-hero {
+                display: grid;
+                grid-template-columns: 2fr 3fr;
+                gap: 1.5rem 1.5rem;
+            }
+        }
+        .mdx-hero__content {
+            font-size:1.2em;
+            line-height:1.5em;
+        }
+        .mdx-hero__content, .mdx-hero__image {
+            padding-left: 0.8rem;
+            padding-right:0.8rem;
+            margin-top:3rem;
+            margin-bottom:3rem;
+        }
+    </style>
+    <section class="mdx-container">
+        <div class="md-grid md-typeset">
+            <div class="mdx-hero">
+                <div class="mdx-hero__content">
+                    <h1>Launch containers<br />on demand</h1>
+                    <p>
+                        ContainerSSH launches a new container for each SSH connection in <strong>Kubernetes, Podman or Docker</strong>.
+                        The user is transparently dropped in the container and the container is removed when the user disconnects.
+                        Authentication and container configuration are dynamic using webhooks, no system users required.
+                    </p>
+                    <p><small>Oh, and it's free / open source!</small></p>
+                </div>
+                <div class="mdx-hero__image">
+                    <img src="/images/ssh-in-action.gif" alt="" width="1659" height="1200" draggable="false">
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block content %}
+    {{ page.content }}
+    {% if page and page.meta %}
+      {% if page.meta.git_revision_date_localized or
+            page.meta.revision_date
+      %}
+        {% include "partials/source-date.html" %}
+      {% endif %}
+    {% endif %}
+{% endblock %}
