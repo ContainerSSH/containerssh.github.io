@@ -41,7 +41,7 @@ ContainerSSH is provided on the [Downloads page](../downloads/index.md). You can
       -v /srv/containerssh/config.yaml:/etc/containerssh/config.yaml \
       -v /srv/containerssh/host.key:/var/run/secrets/host.key \
       -p 2222:2222 \
-      containerssh/containerssh:0.3.1
+      containerssh/containerssh:0.4
     ```
 
 === "Kubernetes"
@@ -87,7 +87,7 @@ ContainerSSH is provided on the [Downloads page](../downloads/index.md). You can
         spec:
           containers:
           - name: containerssh
-            image: containerssh/containerssh:0.3.1
+            image: containerssh/containerssh:0.4
             ports:
             - containerPort: 2222
             volumeMounts:
