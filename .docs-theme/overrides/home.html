@@ -13,13 +13,6 @@
             font-weight: 700;
             margin-bottom:1.5rem;
         }
-        @media screen and (min-width: 76.25rem) {
-            .mdx-hero {
-                display: grid;
-                grid-template-columns: 2fr 3fr;
-                gap: 1.5rem 1.5rem;
-            }
-        }
         .mdx-hero__content {
             font-size:1.2em;
             line-height:1.5em;
@@ -36,6 +29,16 @@
         .mdx-hero__image img {
             max-width:75%;
             background:#000000;
+        }
+        @media screen and (min-width: 76.25rem) {
+            .mdx-hero {
+                display: grid;
+                grid-template-columns: 2fr 3fr;
+                gap: 1.5rem 1.5rem;
+            }
+            .mdx-hero__image img {
+                max-width:100%;
+            }
         }
     </style>
     <section class="mdx-container">
