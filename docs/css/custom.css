@@ -1,13 +1,25 @@
 .md-announce a, .md-announce a:focus, .md-announce a:hover {
     color: #ffffff;
 }
-
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 40em) {
     .grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;
+    }
+    .grid h2 {
+        margin-top:0;
+    }
+}
+
+.grid .grid__box:first-child h2 {
+    margin-top:0;
+}
+
+@media screen and (min-width: 60em) {
+    .grid--4 {
+        grid-template-columns: 1fr 1fr 1fr  1fr;
     }
 }
 
