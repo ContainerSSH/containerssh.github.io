@@ -14,12 +14,12 @@ hide:
 </div>
 <div class="grid__box">
 <h2>Teaching Linux or cloud?</h2>
-<p>With ContainerSSH your students can connect an <strong>on-demand environment</strong> that you can customize with your own tools and access to credentials. When users disconnect the environment is cleaned up. This is perfect for Linux or cloud learning environments.</p>
+<p>With ContainerSSH your students can connect to an <strong>on-demand environment</strong> that you can customize with your own tools and access to credentials. When users disconnect the environment is cleaned up. This is perfect for Linux or cloud learning environments.</p>
 <p><a href="usecases/learning/" class="md-button">Read more »</a></p>
 </div>
 <div class="grid__box">
 <h2>Building a honeypot?</h2>
-<p>If you want to understand what attackers do once they breach SSH you can use ContainerSSH to drop them in an <strong>isolated environment</strong>. You can store their entire audit trail on an S3-compatible storage for later analysis. This includes SFTP file uploads!</p>
+<p>If you want to understand what attackers do once they breach SSH you can use ContainerSSH to drop them into an <strong>isolated environment</strong>. You can store their entire audit trail on an S3-compatible storage for later analysis. This includes SFTP file uploads!</p>
 <p><a href="usecases/honeypots/" class="md-button">Read more »</a></p>
 </div>
 <div class="grid__box">
@@ -37,7 +37,7 @@ hide:
 <div class="grid__box">
 <ol>
 <li>The user opens an <strong>SSH connection</strong> to ContainerSSH.</li>
-<li>ContainerSSH calls the <strong>authentication server</strong> with the users username and password/pubkey to check if it is valid.</li>
+<li>ContainerSSH calls the <strong>authentication server</strong> with the user's username and password/pubkey to check if it is valid.</li>
 <li>ContainerSSH calls the <strong>config server</strong> to obtain backend location and configuration (if configured).</li>
 <li>ContainerSSH calls the <strong>container backend</strong> to launch the container with the specified configuration. All input from the user is sent directly to the backend, output from the container is sent to the user.</li>
 </ol>   
