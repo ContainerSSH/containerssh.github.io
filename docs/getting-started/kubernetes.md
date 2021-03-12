@@ -56,4 +56,4 @@ kuberun:
 
 Note: if you are running multiple containers you should specify the `consoleContainerNumber` parameter to indicate which container you wish to attach to when an SSH session is opened.
 
-You can read more in the [reference manual](../reference/kuberun.md)
+You can read more in the [reference manual](../reference/kuberun.md).
