@@ -191,7 +191,7 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
 copyright: >
-  Copyright &copy; <a href="/about/">ContainerSSH Contributors</a>
+  Copyright &copy; ContainerSSH Contributors
   | <a href="/about/">About Us</a>
   | <a href="/about/packages/">Packages</a>
   | <a href="/about/security/">Security</a>

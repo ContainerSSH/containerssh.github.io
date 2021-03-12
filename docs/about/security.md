@@ -4,7 +4,7 @@ title: Security
 
 <h1>Security</h1>
 
-ContainerSSH is a security-relevant piece of software. If you have found any security issues you wish to report to us please mail <a href="%6D%61%69%6C%74%6F%3A%68%61%6E%64%73%68%61%6B%65%40%63%6F%6E%74%61%69%6E%65%72%73%73%68%2E%69%6F">%68%61%6E%64%73%68%61%6B%65%40%63%6F%6E%74%61%69%6E%65%72%73%73%68%2E%69%6F</a>.
+ContainerSSH is a security-relevant piece of software. If you have found any security issues you wish to report to us please mail <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#97;&#110;&#100;&#115;&#104;&#97;&#107;&#101;&#64;&#99;&#111;&#110;&#116;&#97;&#105;&#110;&#101;&#114;&#115;&#115;&#104;&#46;&#105;&#111;">&#104;&#97;&#110;&#100;&#115;&#104;&#97;&#107;&#101;&#64;&#99;&#111;&#110;&#116;&#97;&#105;&#110;&#101;&#114;&#115;&#115;&#104;&#46;&#105;&#111;</a>.
 
 We are also in the process of signing all our binaries, which is expected to complete during 2021.
 

@@ -4,6 +4,6 @@ title: Imprint
 
 <h1>Imprint</h1>
 
-ContainerSSH is being developed by <a href="/about/">a community of volunteers</a>. The project is maintained by Janos Pasztor and Sanja Bonic.
+ContainerSSH is being developed by <a href="/about/">a community of volunteers</a>.
 
-For a postal address suitable for legal service please contact <a href="%6D%61%69%6C%74%6F%3A%68%61%6E%64%73%68%61%6B%65%40%63%6F%6E%74%61%69%6E%65%72%73%73%68%2E%69%6F">%68%61%6E%64%73%68%61%6B%65%40%63%6F%6E%74%61%69%6E%65%72%73%73%68%2E%69%6F</a>. The address will be handed out to registered law firms and government agencies only.
+For a postal address suitable for legal service please contact <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#97;&#110;&#100;&#115;&#104;&#97;&#107;&#101;&#64;&#99;&#111;&#110;&#116;&#97;&#105;&#110;&#101;&#114;&#115;&#115;&#104;&#46;&#105;&#111;">&#104;&#97;&#110;&#100;&#115;&#104;&#97;&#107;&#101;&#64;&#99;&#111;&#110;&#116;&#97;&#105;&#110;&#101;&#114;&#115;&#115;&#104;&#46;&#105;&#111;</a>. The address will be handed out to registered law firms and government agencies only.
