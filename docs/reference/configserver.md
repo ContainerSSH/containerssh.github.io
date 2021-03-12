@@ -27,7 +27,7 @@ The following options are supported:
 
 ## Configuring TLS
 
-TLS ensures that the connection between ContainerSSH and the configuration server cannot be intercepted using a Man-in-the-Mittle attack. We recommend checking the [Mozilla Wiki](https://wiki.mozilla.org/Security/Server_Side_TLS) for information about which configuration can be considered secure.
+TLS ensures that the connection between ContainerSSH and the configuration server cannot be intercepted using a Man-in-the-Middle attack. We recommend checking the [Mozilla Wiki](https://wiki.mozilla.org/Security/Server_Side_TLS) for information about which configuration can be considered secure.
 
 ### TLS version
 
