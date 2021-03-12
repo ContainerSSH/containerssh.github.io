@@ -13,8 +13,8 @@ hide:
 <p><a href="usecases/webhosting/" class="md-button">Read more »</a></p>
 </div>
 <div class="grid__box">
-<h2>Teaching Linux or cloud?</h2>
-<p>With ContainerSSH your students can connect to an <strong>on-demand environment</strong> that you can customize with your own tools and access to credentials. When users disconnect the environment is cleaned up. This is perfect for Linux or cloud learning environments.</p>
+<h2>Teaching the cloud?</h2>
+<p>With ContainerSSH students can connect to an <strong>on-demand environment</strong> that you can customize with your own tools and credentials. On disconnect the environment is cleaned up. This is perfect for Linux or cloud learning environments.</p>
 <p><a href="usecases/learning/" class="md-button">Read more »</a></p>
 </div>
 <div class="grid__box">
