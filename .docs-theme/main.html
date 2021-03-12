@@ -34,3 +34,10 @@
       ContainerSSH is <strong>free</strong> and <strong>open source</strong>. Read more &raquo;
   </a>
 {% endblock %}
+{% block tabs %}
+    {{ super() }}
+    <section class="mdx-container">
+        {% block herocontent %}{% endblock %}
+        <div class="mdx-hero-separator"></div>
+    </section>
+{% endblock %}
