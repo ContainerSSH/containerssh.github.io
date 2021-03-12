@@ -11,7 +11,7 @@ The default [ContainerSSH image](https://hub.docker.com/r/containerssh/container
 Depending on which backend you are using you have to take different steps to secure it.
 
 When using Docker ContainerSSH will need access to the Docker socket. This undeniably means that ContainerSSH will be able to launch root processes on the host machine. You may want to look into running Docker in
-[rootless mode](https://docs.docker.com/engine/security/rootless/) or switching to [Podman](https://podman.io/)
+[rootless mode](https://docs.docker.com/engine/security/rootless/) or switching to [Podman](https://podman.io/).
 
 When running Kubernetes it is strongly advised that you deploy a pod security policy and a network policy. You should also make sure that ContainerSSH uses a restricted service account that can only access its own namespace.
 
