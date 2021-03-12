@@ -43,6 +43,3 @@ The JSON log format outputs one line to the output per message. The message form
 
 !!! note
     The JSON logger writes to the standard output regardless of log level.
-
-!!! note
-    In case of a fatal application crash (panic), the crash log will end up on the stderr. Make sure to capture that as well for emergency debugging.
