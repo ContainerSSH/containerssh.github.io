@@ -206,9 +206,9 @@ Securing the Kubernetes installation is beyond the scope of this document. We wi
 
 ### Creating a service account
 
-When deploying ContainerSSH with a Kubernetes backend you should never an admin account for interacting with a Kubernetes cluster. ContainerSSH can run inside the same Kubernetes cluster or it can run as a standalone. When deploying inside the same Kubernetes cluster it is strongly recommended that ContainerSSH runs in a different namespace as the guest pods ContainerSSH launches.
+When deploying ContainerSSH with a Kubernetes backend you should never use an admin account for interacting with a Kubernetes cluster. ContainerSSH can run inside the same Kubernetes cluster or it can run as a standalone. When deploying inside the same Kubernetes cluster it is strongly recommended that ContainerSSH runs in a different namespace as the guest pods ContainerSSH launches.
 
-The setup below assumes you are creating a service account in the `default` namespace and the ContainerSSH pods will run in the `containerssh-guests` namespace
+The setup below assumes you are creating a service account in the `default` namespace and the ContainerSSH pods will run in the `containerssh-guests` namespace.
 
 First, we need to create the service account. The following fragment can be applied with `kubectl apply -f`:
 
