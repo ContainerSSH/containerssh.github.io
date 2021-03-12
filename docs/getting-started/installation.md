@@ -4,15 +4,11 @@ title: Installing ContainerSSH
 
 <h1>Installing ContainerSSH</h1>
 
-ContainerSSH is provided on the [Downloads page](/downloads/index.md). You can install it in a containerized environment or as a standalone software on Windows, Linux, and MacOS.
-
-## Step 1: Generate host keys
-
-## Step 2: Install ContainerSSH
+ContainerSSH is provided on the [Downloads page](../downloads/index.md). You can install it in a containerized environment or as a standalone software on Windows, Linux, and MacOS.
 
 === "Standalone"
 
-    ContainerSSH can be deployed outside of a container. On our [downloads page](/downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB and RPM packages.
+    ContainerSSH can be deployed outside of a container. On our [downloads page](../downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB and RPM packages.
     
     Before running ContainerSSH you will need to create a `config.yaml` file that tells ContainerSSH where to find the SSH host key and the [authentication server](authserver.md). The minimum configuration file looks like this:
     
