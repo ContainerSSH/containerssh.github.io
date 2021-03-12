@@ -35,7 +35,6 @@ hide:
 
 <div class="grid">
 <div class="grid__box">
-<img src="/images/architecture.svg" alt="" />
 <ol>
 <li>The user opens an <strong>SSH connection</strong> to ContainerSSH.</li>
 <li>ContainerSSH calls the <strong>authentication server</strong> with the users username and password/pubkey to check if it is valid.</li>
@@ -45,6 +44,12 @@ hide:
 <p><a href="/getting-started/" class="md-button">Get started »</a></p>
 </div>
 <div class="grid__box">
-<img src="/images/ssh-in-action.gif" alt="" />
+<img src="/images/architecture.svg" alt="" />
 </div>
 </div>
+
+---
+
+## Demo
+
+![](/images/ssh-in-action.gif)
