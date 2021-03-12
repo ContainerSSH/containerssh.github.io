@@ -19,7 +19,7 @@ ssh:
 
 If you use the old option you will receive the following log warning:
 
-> You are using the 'listen' option deprecated in ContainerSSH 0.4. Please use the new 'ssh -> listen' option. See https://containerssh.io/deprecations/listen for details.
+> You are using the 'listen' option deprecated in ContainerSSH 0.4. Please use the new 'ssh -> listen' option. See [https://containerssh.io/deprecations/listen](https://containerssh.io/deprecations/listen) for details.
 
 If you provide both options the new option will take precedence and you will receive the following log message:
 
