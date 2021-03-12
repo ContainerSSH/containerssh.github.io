@@ -13,7 +13,7 @@ This is a quick start guide to get a test server up and running in less than 5 m
 
 To run this quick start please make sure you have a working [Docker environment](https://docs.docker.com/get-docker/) and a working [docker-compose](https://docs.docker.com/compose/).
 
-## Step 2: download the sample files
+## Step 2: Download the sample files
 
 Please download the contents of the [example directory](https://github.com/containerssh/containerssh/tree/main/example) from the source code repository.
 

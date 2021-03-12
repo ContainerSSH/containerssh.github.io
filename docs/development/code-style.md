@@ -12,7 +12,7 @@ Please, feel free to bring your own ideas and [discuss on the discussions board]
 
 Wait, what? OOP in Go?
 
-Yes, bear with me. Go has a concept called [receivers](https://gobyexample.com/methods) that allow you to pass a context structure to a function. This is very similar to how private and public variables are handled in OOP languages.
+Go has a concept called [receivers](https://gobyexample.com/methods) that allow you to pass a context structure to a function. This is very similar to how private and public variables are handled in OOP languages.
 
 The main benefit of receivers is that they can be used to implement [interfaces](https://gobyexample.com/interfaces). Interfaces, in turn, give us the ability to create a standardized API between components without involving a network.
  
@@ -34,7 +34,7 @@ When it comes to actually writing the tests we follow the [Detroit/classicist sc
 
 ## Structuring your code
 
-In the early versions of ContainerSSH we had a rather monolithic application. The core SSH server would perform logging, write metrics, deal with SSH specifics, etc. Needless to say, writing and maintaining the code became very tedious. It took a a large amount of concentration to find the right parts to implement a change on, and finding bugs often took a slog through layers and layers of code.
+In the early versions of ContainerSSH we had a rather monolithic application. The core SSH server would perform logging, write metrics, deal with SSH specifics, etc. Writing and maintaining the code became very tedious. It took a a large amount of concentration to find the right parts to implement a change on, and finding bugs often took a slog through layers and layers of code.
 
 This is frustrating and hinders productivity. We don't want contributors to spend more time finding the right code piece than implementing the actual change. This requires a short-term sacrifice: better code structure and abstractions. Yes, we know, they are not fun to implement. When we refactored ContainerSSH in version 0.4 the size of the codebase grew by over 50%. However, this change was worth it as it paved the way for adding new features without pain in the future.
 
@@ -111,7 +111,7 @@ if lastError != nil {
 
 ## Microserviecs
 
-The above-mentioned networks also factor into the concept of *microservices*. ContainerSSH uses two external services for *authentication* and *configuration*. These are provided for user convenience making it easier to integrate ContainerSSH. However, we do not plan to add more microservices for development convenience. We want to avoid having more deployment YAML files than actual code. ContainerSSH should be simple to run, even if that means making it harder to structure the code.
+The above-mentioned networks also factor in the concept of *microservices*. ContainerSSH uses two external services for *authentication* and *configuration*. These are provided for user convenience making it easier to integrate ContainerSSH. However, we do not plan to add more microservices for development convenience. We want to avoid having more deployment YAML files than actual code. ContainerSSH should be simple to run, even if that means making it harder to structure the code.
 
 ## Conclusion
 

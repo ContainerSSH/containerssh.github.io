@@ -17,4 +17,4 @@ dockerrun:
       image: your/image
 ``` 
 
-You can read more in the [reference manual](../reference/dockerrun.md)
+You can read more in the [reference manual](../reference/dockerrun.md).
