@@ -68,7 +68,7 @@ docker:
 
 The `container`, `host`, and `network` options contain settings described in the [Docker API](https://docs.docker.com/engine/api/v1.41/#operation/ContainerCreate).
 
-The `containerName` option contains the name for the container. If the a container already exists with the same name the container creation will fail, so this should be left empty for most use cases.
+The `containerName` option contains the name for the container. If a container already exists with the same name the container creation will fail, so this should be left empty for most use cases.
 
 ### Basic container configuration
 
@@ -327,7 +327,7 @@ docker:
 
 The memory is specified in bytes.
 
-In addition it is recommended to enable [cgroup swap limit support](https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities). This allows for limiting the totoal memory + swap usage:
+In addition it is recommended to enable [cgroup swap limit support](https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities). This allows for limiting the total memory + swap usage:
 
 ```yaml
 docker:
