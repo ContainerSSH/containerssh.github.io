@@ -18,7 +18,7 @@
     ```
     
     !!! tip
-        You can generate a new host key using `openssl genrsa`. Please don't use `ssh-keygen` as it regenerates OpenSSH-specific keys.
+        You can generate a new host key using `openssl genrsa`. Please don't use `ssh-keygen` as it generates OpenSSH-specific keys.
         
     !!! tip
         Details about the authentication server are described in the [Authentication section](auth.md).
