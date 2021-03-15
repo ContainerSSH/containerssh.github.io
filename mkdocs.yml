@@ -154,6 +154,7 @@ nav:
           - Snyk: development/tools/snyk.md
           - Docker: development/tools/docker.md
   - Blog:
+      - ContainerSSH 0.4 is now available: blog/2021/04/01/containerssh-0-4.md
       - We messed up: blog/2021/03/19/we-messed-up.md
       - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
       - The Road to ContainerSSH 0.4: blog/2020/11/25/the-road-to-0-4.md
