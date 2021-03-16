@@ -162,6 +162,8 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
     container_name: elasticsearch
     environment:
+      # We are running ElasticSearch in single-node mode.
+      # Do we need to say this is not production ready?
       - "discovery.type=single-node"
   kibana:
     image: kibana:7.10.1
