@@ -75,7 +75,7 @@ nav:
   - Guides:
       - Overview: guides/index.md
       - Honeypot: guides/honeypot.md
-      - Logging to the ELK stack with Docker and Fluentd: guides/docker-elk.md
+      - Logging to the ELK stack with Docker and Fluentd: guides/docker-elk/index.md
   - Downloads: downloads/index.md
   - Reference manual:
       - 'Overview': reference/index.md

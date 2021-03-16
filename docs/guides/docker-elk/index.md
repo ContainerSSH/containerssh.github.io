@@ -134,7 +134,7 @@ services:
 
 And finally, let's change the ContainerSSH part of the same file to send logs to Fluentd:
 
-```yaml
+{% raw %}```yaml
 services:
   containerssh:
     #...
@@ -147,7 +147,7 @@ services:
         "tag": "containerssh.{{.ID}}"
     depends_on:
       - fluentd
-```
+```{% endraw %}
 
 Now everything is done and we can start the modified setup by running `docker-compose build` and then `docker-compose up`.
 
