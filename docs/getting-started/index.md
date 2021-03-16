@@ -15,7 +15,7 @@ To run this quick start please make sure you have a working [Docker environment]
 
 ## Step 2: Download the sample files
 
-Please download the contents of the [example directory](https://github.com/containerssh/containerssh/tree/main/example) from the source code repository.
+Please download the contents of the [example directory](https://github.com/ContainerSSH/examples/tree/main/quick-start) from the source code repository.
 
 ## Step 3: Launch ContainerSSH
 
