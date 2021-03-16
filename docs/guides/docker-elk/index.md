@@ -151,7 +151,7 @@ services:
 
 Now everything is done and we can start the modified setup by running `docker-compose build` and then `docker-compose up`.
 
-## Starting the ELK stack
+## Step 3: Starting the ELK stack
 
 For our test setup we'll start a single-node Elasticsearch and Kibana by adding them to our `docker-compose.yaml`:
 
@@ -173,7 +173,7 @@ services:
 
 Now we're all done so we can start the stack with `docker-compose up`.
 
-## Configuring Kibana
+## Step 4: Configuring Kibana
 
 When you first start Kibana you will need to configure Kibana. To do that you need to head to [http://localhost:5601/app/management/kibana/indexPatterns/create](http://localhost:5601/app/management/kibana/indexPatterns/create) to create a new index pattern. Please enter the following:
 
