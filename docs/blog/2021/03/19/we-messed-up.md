@@ -1,10 +1,10 @@
 ---
-title: Be broke your images
+title: We broke your images
 description: Two days ago we pushed a change that broke all ContainerSSH container images on the Docker hub.
 image: images/blog/we-messed-up/preview.png
 ---
 
-# Be broke your images 😢
+# We broke your images 😢
 <div class="blog-meta"><small>March 19, 2021</small></div>
 
 Two days ago, on *March 17, 2021 around 4:30 PM UTC* we pushed a change to our build system that broke the container images we published on the [Docker Hub](https://hub.docker.com/u/containerssh/). This change resulted in the following error when running the container:
@@ -28,9 +28,9 @@ If you are affected by this issue you can pull the fixed ContainerSSH image by p
 
 The `<version>` tag in this case should be replaced with your ContainerSSH version (e.g. `0.3.1`).
 
-There is no way around it: we messed up. Pretty badly at that, we potentially broke your production environment without an easy way to roll back to a previous version. This should not happen, not even in a pre-1.0 version, especially not with something as trivial as a permission mistake.
+**There is no way around it: we messed up.** Pretty badly at that, we potentially broke your production environment without an easy way to roll back to a previous version. This should not happen, not even in a pre-1.0 version, especially not with something as trivial as a permission mistake.
 
-These images should have never made it to the Docker Hub, our testing procedures (obviously lacking) should have caught this and [we are determined to fix them](https://github.com/ContainerSSH/images/issues/1). We are very sorry for the inconvenience and the potential outage this issue has caused.
+These images should have never made it to the Docker Hub, our testing procedures (obviously lacking) should have caught this and [we are determined to fix them](https://github.com/ContainerSSH/images/issues/1). **We are very sorry for the inconvenience and the potential outage this issue has caused.**
 
 !!! tip "Please reach out to us"
     If you need to reach out quickly you can [tag or DM us in Twitter](https://twitter.com/ContainerSSH) or [tag the @ContainerSSH role on the Debugged.it Discord](https://discord.gg/CFMMqwS) to notify the core maintainers.
