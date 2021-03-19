@@ -144,6 +144,7 @@ nav:
       - Coding Style: development/code-style.md
       - Releases: development/releases.md
   - Blog:
+      - We messed up: blog/2021/03/19/we-messed-up.md
       - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
       - The Road to ContainerSSH 0.4: blog/2020/11/25/the-road-to-0-4.md
 plugins:
