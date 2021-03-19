@@ -43,6 +43,13 @@ We use services and tools from the following companies for free:
 </td>
 </tr>
 <tr class="company">
+<td class="logo"><a href="https://github.com/ContainerSSH/" target="_blank"><img src="/images/logos/snyk.png" alt="Snyk" /></a></td>
+<td>
+<h3><a href="https://app.snyk.io/org/containerssh/projects" target="_blank">Snyk</a></h3>
+<p>Snyk monitors our Go dependencies and container root images for known security vulnerabilities and alerts us when we need to rebuild any of them.</p>
+</td>
+</tr>
+<tr class="company">
 <td class="logo"><a href="https://www.hashicorp.com/products/terraform" target="_blank"><img src="/images/logos/terraform.png" alt="HashiCorp Terraform" /></a></td>
 <td>
 <h3><a href="https://www.hashicorp.com/products/terraform" target="_blank">Terraform Cloud</a></h3>
