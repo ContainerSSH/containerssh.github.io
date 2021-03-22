@@ -1,3 +1,7 @@
+---
+title: ContainerSSH Reference Manual
+---
+
 <h1>ContainerSSH Reference Manual</h1>
 
 The Reference Manual provides reference material for ContainerSSH 0.3 and is oriented towards system operators wishing to use ContainerSSH on their system.

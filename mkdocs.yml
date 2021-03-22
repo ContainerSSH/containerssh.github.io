@@ -142,13 +142,16 @@ nav:
           - 'Understanding SSH': development/containerssh/ssh.md
           - 'Writing your first SSH server': development/containerssh/first-ssh-server.md
           - 'Internal Architecture': development/containerssh/internal-architecture.md
+      - Releases:
+          - Overview: development/releases/index.md
+          - Libraries: development/releases/libraries.md
+          - Binaries: development/releases/binaries.md
       - External tools:
           - Overview: development/tools/index.md
           - GitHub: development/tools/github.md
           - Terraform: development/tools/terraform.md
           - Snyk: development/tools/snyk.md
           - Docker: development/tools/docker.md
-      - Releases: development/releases.md
   - Blog:
       - We messed up: blog/2021/03/19/we-messed-up.md
       - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
