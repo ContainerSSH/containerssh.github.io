@@ -32,8 +32,7 @@ sshproxy:
 !!! tip
     You can obtain the fingerprints of OpenSSH host keys by running the following script:
     ```
-    for i in /etc/ssh/ssh_host_*.pub; do ssh-keygen -l -f $i; done | cut -d ' ' -f
- 2
+    for i in /etc/ssh/ssh_host_*.pub; do ssh-keygen -l -f $i; done | cut -d ' ' -f 2
     ```
 
 !!! warning
