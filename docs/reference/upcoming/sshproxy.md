@@ -36,7 +36,7 @@ sshproxy:
     ```
 
 !!! warning
-    ContainerSSH does not support passing through password or private key to the backing server. We recommend setting up a private-public key authentication for the backing server.
+    ContainerSSH does not support passing through passwords or public key authentication to the backing server. We recommend setting up private-public key authentication with the backing server.
     
 ## Configuration options
 
