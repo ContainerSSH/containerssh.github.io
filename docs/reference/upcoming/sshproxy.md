@@ -54,7 +54,7 @@ sshproxy:
 | `macs` | `[]string` | List of MAC algorithms to use. See [MAC algorithms](#mac-algorithms) below. |
 | `hostKeyAlgorithms` | `[]string` | List of host key algorithms to request from the backing server. See [Host key algorithms](#host-key-algorithms) below. |
 | `timeout` | `string` | Timeout for connecting / retrying the SSH connection. |
-| `clientVersion` | `string` | Client version string to send to the backing server. Must be in the format of `SSH-protoversion-softwareversion SPACE comments`"`. See [RFC 4235 section 4.2. Protocol Version Exchange](https://tools.ietf.org/html/rfc4253#page-4) for details. The trailing CR and LF characters should NOT be added to this string. |
+| `clientVersion` | `string` | Client version string to send to the backing server. Must be in the format of `SSH-protoversion-softwareversion SPACE comments`. See [RFC 4235 section 4.2. Protocol Version Exchange](https://tools.ietf.org/html/rfc4253#page-4) for details. The trailing CR and LF characters should not be added to this string. |
 
 ## Ciphers
 

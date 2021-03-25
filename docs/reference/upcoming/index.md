@@ -17,6 +17,10 @@ ContainerSSH 0.4 is major overhaul to the internal structure. As such, this rele
 
 The most visible improvement of this release is the new [audit logging facility](audit.md). Audit logging allows operators to capture everything that is happening within an SSH connection, including passwords, keys, typed commands, or SFTP uploads. The audit log can automatically be uploaded to an S3-compatible object storage.
 
+### SSH proxying
+
+This release also adds a new [SSH proxy backend](sshproxy.md) that can be used to forward connections to a backing SSH server. Using this in conjunction with the audit logging facility makes it possible to use ContainerSSH as an auditing and dynamic forwarding SSH proxy.
+
 ### Improved logging
 
 This release also adds significant improvements to logging. This release adds several hundred log messages across all levels to make debugging potential failures and reporting errors much easier. Most of these log messages have been added with the average operator in mind and the details are sent in the debug log level, which is disabled by default. 
