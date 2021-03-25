@@ -16,3 +16,4 @@ ContainerSSH currently supports the following backends:
 | [`kubernetes`](kubernetes.md) | Runs Kubernetes containers. |
 | [`dockerrun`](dockerrun.md) | Deprecated backend that runs Docker containers. |
 | [`kuberrun`](kuberun.md) | Deprecated backend that runs Kubernetes pods. |
+| [`sshproxy`](sshproxy.md) | Forwards SSH connections to a backend server. |
