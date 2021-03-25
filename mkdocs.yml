@@ -105,6 +105,7 @@ nav:
                 - 'Backend selection': reference/upcoming/backends.md
                 - 'Docker': reference/upcoming/docker.md
                 - 'Kubernetes': reference/upcoming/kubernetes.md
+                - 'SSH proxy': reference/upcoming/sshproxy.md
                 - 'DockerRun (deprecated)': reference/upcoming/dockerrun.md
                 - 'KubeRun (deprecated)': reference/upcoming/kuberun.md
             - Webhooks and APIs:
