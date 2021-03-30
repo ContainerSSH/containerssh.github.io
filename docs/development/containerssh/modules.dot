@@ -12,6 +12,7 @@ digraph ContainerSSH {
     backend [url="https://github.com/containerssh/backend"]
     configuration [url="https://github.com/containerssh/configuration"]
     docker [url="https://github.com/containerssh/docker"]
+    sshproxy [url="https://github.com/containerssh/sshproxy"]
     http [url="https://github.com/containerssh/http"]
     kubernetes [url="https://github.com/containerssh/kubernetes"]
     log [url="https://github.com/containerssh/log"]
@@ -60,6 +61,7 @@ digraph ContainerSSH {
 
     backend -> configuration [color="#FC8300"]
     backend -> docker [color="#FC8300"]
+    backend -> sshproxy [color="#FC8300"]
     backend -> geoip [color="#FC8300"]
     backend -> kubernetes [color="#FC8300"]
     backend -> log [color="#FC8300"]
@@ -72,6 +74,7 @@ digraph ContainerSSH {
     configuration -> auditlog [color="#0600FF"]
     configuration -> auth [color="#0600FF"]
     configuration -> docker [color="#0600FF"]
+    configuration -> sshproxy [color="#0600FF"]
     configuration -> geoip [color="#0600FF"]
     configuration -> http [color="#0600FF"]
     configuration -> kubernetes [color="#0600FF"]
@@ -88,6 +91,12 @@ digraph ContainerSSH {
     docker -> sshserver [color="#c400fc"]
     docker -> structutils [color="#c400fc"]
     docker -> unixutils [color="#c400fc"]
+
+    sshproxy -> geoip [color="#c400fc"]
+    sshproxy -> log [color="#c400fc"]
+    sshproxy -> metrics [color="#c400fc"]
+    sshproxy -> sshserver [color="#c400fc"]
+    sshproxy -> structutils [color="#c400fc"]
 
     http -> log [color="#00dbfc"]
     http -> service [color="#00dbfc"]
