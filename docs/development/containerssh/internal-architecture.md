@@ -18,7 +18,7 @@ The final piece of the puzzle is the [backend library](https://github.com/contai
 
 These backends form the lowermost layer of the SSH handler stack and forward the connections to the container backend.
 
-![](layers.svg)
+[![](layers.svg)](layers.svg)
 
 ## Module dependency map
 
