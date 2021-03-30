@@ -29,6 +29,6 @@ digraph layers {
         backend -> security
         security -> Docker
         security -> Kubernetes
-        security -> SSH proxy
+        security -> "SSH proxy"
     }
 }
