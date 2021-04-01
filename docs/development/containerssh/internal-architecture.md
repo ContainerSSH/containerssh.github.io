@@ -1,6 +1,4 @@
----
 title: Internal Architecture
----
 
 <h1>Internal Architecture</h1>
 

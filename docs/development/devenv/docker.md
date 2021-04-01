@@ -1,6 +1,4 @@
----
 title: Installing Docker
----
 
 <h1>Installing Docker</h1>
 

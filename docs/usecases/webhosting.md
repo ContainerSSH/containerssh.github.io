@@ -1,6 +1,4 @@
----
 title: ContainerSSH for web hosting
----
 
 Providing SSH access in a web hosting environment is tricky. Users may run unexpected scripts that consume lots of resources. They may have permission issues if they are not able to SSH with the same user as the webserver, which in turn presents security issues.
 

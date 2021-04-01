@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% block extrahead %}
+{% block site_meta %}
+  {{ super() }}
   {% set title = config.site_name %}
   {% set site_name = "" %}
   {% if page and page.title and not page.is_homepage %}
@@ -15,23 +16,27 @@
     {% set description = page.meta.description %}
   {% endif %}
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ title }}">
-  <meta property="og:site_name" content="{{ site_name }}">
-  <meta property="og:description" content="{{ description }}">
+  <meta property="og:title" content="{{ title|e }}">
+  <meta property="og:site_name" content="{{ site_name|e }}">
+  <meta property="og:description" content="{{ description|e }}">
   <meta property="og:url" content="{{ page.canonical_url }}">
-  <meta property="og:image" content="{{ image }}">
+  <meta property="og:image" content="{{ image|e }}">
+  {% if page and page.meta and page.meta.alt %}
+  <meta property="og:image:alt" content="{{ page.meta.alt|e }}">
+  <meta property="twitter:image:alt" content="{{ page.meta.alt|e }}">
+  {% endif %}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
-  <meta name="twitter:title" content="{{ title }}">
-  <meta name="twitter:description" content="{{ description }}">
-  <meta name="twitter:image" content="{{ image }}">
+  <meta name="twitter:title" content="{{ title|e }}">
+  <meta name="twitter:description" content="{{ description|e }}">
+  <meta name="twitter:image" content="{{ image|e }}">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
   <meta name="google-site-verification" content="VN4-Orfu-TOf9hXInR_ZdaZXQJDiak-dmPuaBc9TlwE" />
 {% endblock %}
 {% block announce %}
-  <a href="/about/">
-      ContainerSSH is <strong>free</strong> and <strong>open source</strong>. Read more &raquo;
+  <a href="/blog/2021/04/01/containerssh-0-4/">
+      ContainerSSH 0.4: Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
   </a>
 {% endblock %}
 {% block tabs %}

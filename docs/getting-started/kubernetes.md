@@ -1,6 +1,4 @@
----
 title: The Kubernetes backend
----
 
 The <code>Kubernetes</code> backend runs a pod in a Kubernetes cluster and attaches to a container there.
 

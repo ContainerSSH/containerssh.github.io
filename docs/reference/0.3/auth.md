@@ -1,6 +1,4 @@
----
 title: Authentication
----
 
 {{ reference_outdated() }}
 

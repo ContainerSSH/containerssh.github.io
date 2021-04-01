@@ -1,31 +1,35 @@
----
-title: "ContainerSSH 0.4"
-description: We are announcing the immediate availability of ContainerSSH 0.4 
+title: ContainerSSH 0.4: Audit & Proxy
+description: We are announcing the immediate availability of ContainerSSH 0.4: Audit & Proxy
 image: images/blog/containerssh-0-4/preview.png
----
+alt: ContainerSSH 0.4: Audit & Proxy. This is no april fool’s joke: ContainerSSH 0.4 is now available. We are adding detailed SSH audit log, SSH proxying, better logging, improved backends, and much more! Click here for details.
 
-# No april fool's joke: ContainerSSH 0.4
+# ContainerSSH 0.4: Audit & Proxy
 
-In [November last year](../../../2020/11/25/the-road-to-0-4.md) we were optimistic that we'd be launching 0.4 early 2020 with the **new audit logging feature**. Now it is finally time: we are very proud to announce the [immediate availability of **ContainerSSH 0.4**](../../../../downloads/index.md).
+In [November last year](../../../2020/11/25/the-road-to-0-4.md) we were optimistic that we'd be launching 0.4 early 2020 with the **new audit logging feature**. Now it is finally time: we are very proud to announce the [immediate availability of **ContainerSSH 0.4: Audit & Proxy**](../../../../downloads/index.md).
 
 ## TL;DR
 
 What we added:
 
-- [Audit logging](/reference/audit.md)
-- [Improved logging](/reference/logging.md)
-- [New SSH proxy backend](/reference/sshproxy.md)
-- [New Kubernetes backend](/reference/kubernetes.md)
-- [New Docker backend](/reference/docker.md)
-- [New security layer](/reference/security.md)
+- [Audit logging](/reference/audit/)
+- [Improved logging](/reference/logging/)
+- [New SSH proxy backend](/reference/sshproxy/)
+- [New Kubernetes backend](/reference/kubernetes/)
+- [New Docker backend](/reference/docker/)
+- [New security layer](/reference/security/)
+- [The guest agent](/reference/image/)
 
 What we deprecated:
 
-- [The KubeRun backend](/deprecations/kuberun.md)
-- [The DockerRun backend](/deprecations/dockerrun.md)
-- [The Listen config option](/deprecations/listen.md)
-- [The sessionId parameter in the auth/config webhook](/deprecations/sessionId.md)
-- [The pubKeyBase64 field in the auth webhook](/deprecations/publicKeyBase64.md)
+- [The KubeRun backend](/deprecations/kuberun/)
+- [The DockerRun backend](/deprecations/dockerrun/)
+- [The Listen config option](/deprecations/listen/)
+- [The sessionId parameter in the auth/config webhook](/deprecations/sessionId/)
+
+What we removed:
+
+- [The pubKeyBase64 field in the auth webhook](/deprecations/publicKeyBase64/)
+- [Moving from GET to POST in webhooks](/deprecations/authconfigget/)
 
 ## Audit logging
 
@@ -90,6 +94,6 @@ Alongside of this release we are also adding a [comprehensive reference manual](
 
 ## Future plans
 
-This release is a 90% rewrite of the ContainerSSH codebase which splits it into [modules](https://github.com/containerssh/). This presents a basis for exciting new features, such as SSH proxying, SSH single sign-on via a web interface (OAuth2/OIDC), web client, launching VMs instead of containers, etc.
+This release is a 90% rewrite of the ContainerSSH codebase which splits it into [modules](https://github.com/containerssh/). This presents a basis for exciting new features, such as SSH port forwarding, SSH single sign-on via a web interface (OAuth2/OIDC), web client, launching VMs instead of containers, etc.
 
 For details on the planned features please check our [development dashboard](https://containerssh.io/development/dashboard/).

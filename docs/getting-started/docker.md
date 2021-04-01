@@ -1,6 +1,4 @@
----
 title: The Docker backend
----
 
 <h1>The <code>Docker</code> backend</h1>
 

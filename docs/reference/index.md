@@ -1,6 +1,4 @@
----
 title: ContainerSSH Reference Manual
----
 
 <h1>ContainerSSH Reference Manual</h1>
 
@@ -65,4 +63,8 @@ The change is described in the [sessionId deprecation notice](/deprecations/sess
 In the previous version ContainerSSH sent the SSH key in the OpenSSH binary format in the `publicKeyBase64` field. This format was not easy to integrate and it is now replaced with the `publicKey` field containing the SSH key in the authorized key format.
 
 The change is described in the [publicKeyBase64 deprecation notice](/deprecations/publicKeyBase64.md).
+
+### Webhooks now use `POST`
+
+In the previous version of ContainerSSH the webhooks were sent using the `GET` method. This is now changed to `POST`.
 

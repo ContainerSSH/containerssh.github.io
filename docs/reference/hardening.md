@@ -89,10 +89,6 @@ security:
     mode: enable
 ```
 
-<<<<<<< HEAD
-!!! note
-    Disabling command execution also disables SFTP integration.
-=======
 ## Securing Docker
 
 Docker-specific settings for security are described in the [Docker documentation](docker.md#securing-docker). 
@@ -100,4 +96,3 @@ Docker-specific settings for security are described in the [Docker documentation
 ## Securing Kubernetes
 
 Kubernetes-specific settings for security are described in the [Kubernetes documentation](kubernetes.md#securing-kubernetes).
->>>>>>> adea78b (Docs changes for 0.4)

@@ -1,6 +1,4 @@
----
 title: Installing Kubernetes
----
 
 <h1>Installing Kubernetes</h1>
 

@@ -1,6 +1,4 @@
----
 title: High security environments
----
 
 Do you need to provide secure access to a console environment and highly sensitive credentials to users? Key management systems like [HashiCorp Vault](https://www.vaultproject.io/) can change credentials frequently to counteract credential leakage or theft by users. However, educating your users to use the key management system can be time-consuming. 
 

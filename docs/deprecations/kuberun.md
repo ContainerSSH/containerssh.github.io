@@ -1,7 +1,5 @@
----
 title: Deprecating the KubeRun backend
 image: deprecations/kuberun.png
----
 
 # Deprecating the KubeRun backend {{ since("0.4") }}
 

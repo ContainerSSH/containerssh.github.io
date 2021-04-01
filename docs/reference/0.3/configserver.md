@@ -1,6 +1,4 @@
----
 title: Configuration server
----
 
 {{ reference_outdated() }}
 

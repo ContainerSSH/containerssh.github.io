@@ -1,7 +1,5 @@
----
 title: Moving the Listen option
 image: deprecations/listen.png
----
 
 # Moving the ContainerSSH `listen` option {{ since("0.4") }}
 

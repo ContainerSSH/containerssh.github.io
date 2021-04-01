@@ -1,6 +1,4 @@
----
 title: Backend selection
----
 
 {{ reference_outdated() }}
 

@@ -1,6 +1,4 @@
----
 title: Configuration server
----
 
 <h1>Configuration Server</h1>
 

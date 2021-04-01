@@ -45,6 +45,8 @@ The binary format is intended for an accurate reconstruction of everything happe
 
 Audit logs are stored in a [compressed binary format](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md). We are providing a [Go library for decoding audit log messages](https://github.com/ContainerSSH/auditlog/).
 
+This format can be decoded using the `containerssh-auditlog-decoder` application supplied with ContainerSSH.
+
 ### The `asciinema` format
 
 The [asciinema format](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) stores logs in a format suitable for replay in the [Asciinema player](https://asciinema.org/).

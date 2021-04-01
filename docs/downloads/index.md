@@ -2,27 +2,35 @@
 
 ## Latest release (0.4.0, released Apr 1, 2021)
 
-This release moves the container image to `containerssh/containerssh`.
-
 <a href="/reference/" class="md-button">Read the reference manual &raquo;</a>
 
 === "Container"
 
-    ContainerSSH can be installed in a containerized system (Docker, Podman, Kubernetes) by referencing the following image names:
+    ContainerSSH can be installed in a containerized system (Kubernetes, Docker, Podman) by referencing the following image names:
     
     ```
+    containerssh/containerssh:0.4
     containerssh/containerssh:0.4.0
-    docker.pkg.github.com/containerssh/containerssh/containerssh:0.4.0
+
+    quay.io/containerssh/containerssh:0.4
+    quay.io/containerssh/containerssh:0.4.0
     ```
+    
+    Our container images are built on **Alpine Linux (x86, 64 bit)**.
+    
+    !!! tip "Note about container image versioning"
+        We provide the images with multiple version tags. `latest` will always reference the latest image build of the latest stable version. `0.4` will always reference the latest image build of the latest 0.4 version, and `0.4.0` will always reference the latest image build of 0.4.0.
+        
+        Each of these tags will see updates as we update the base Alpine Linux image to apply security fixes. If you need to roll back to an exact previous image you can reference the image by build date, e.g. `0.4.0-20210401`. The list of images can be found on the [Docker Hub](https://hub.docker.com/r/containerssh/containerssh/tags?page=1&ordering=last_updated&name=0.4).
 
 === "Linux"
     
-    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.tar.gz" class="md-button">.tar.gz</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.deb" class="md-button">.deb</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.rpm" class="md-button">.rpm</a>
-    
+    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.tar.gz" class="md-button">x86 (.tar.gz)</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.deb" class="md-button">x86 (.deb)</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_linux_amd64.rpm" class="md-button">x86 (.rpm)</a>
+
 === "MacOS"
-    
-    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_darwin_amd64.tar.gz" class="md-button">.tar.gz</a>
-    
+
+    <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_darwin_amd64.tar.gz" class="md-button">Intel (.tar.gz)</a>
+
 === "Windows"
     
     <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/0.4.0/containerssh_0.4.0_windows_amd64.zip" class="md-button">.zip</a>

@@ -1,6 +1,4 @@
----
 title: Honeypots
----
 
 When left undefended, SSH can be a large attack surface towards the internet. If you leave an SSH server open to the Internet, bots will try to brute force their way in within minutes. Why not build a honeypot?
 

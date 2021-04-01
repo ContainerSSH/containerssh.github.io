@@ -1,6 +1,4 @@
----
 title: Learning environments
----
 
 Providing console access to your students can be a hurdle. No matter if you want to provide access to a Linux environment, databases, or something else, you will have to create users, make sure they have everything they need, and clean up when they are done.
 

@@ -1,6 +1,4 @@
----
 title: Getting started with ContainerSSH development
----
 
 <h1>Getting started with ContainerSSH development</h1>
 

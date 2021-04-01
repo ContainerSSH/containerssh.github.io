@@ -1,5 +1,5 @@
 site_name: "ContainerSSH: Launch containers on demand"
-site_description: "ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes or Docker"
+site_description: "ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers."
 site_url: "https://containerssh.io/"
 repo_url: "https://github.com/containerssh/containerssh.github.io/"
 edit_uri: "edit/main/docs/"
@@ -70,6 +70,7 @@ nav:
           - 'Selecting a Backend': getting-started/backends.md
           - 'The Docker Backend': getting-started/docker.md
           - 'The Kubernetes Backend': getting-started/kubernetes.md
+          - 'The SSH Proxy Backend': getting-started/sshproxy.md
       - 'FAQ': getting-started/faq.md
       - 'Getting Help': getting-started/getting-help.md
   - Guides:
@@ -80,13 +81,14 @@ nav:
   - Reference manual:
       - 'Overview': reference/index.md
       - 'Installation': reference/installation.md
-      - 'Configuration':
-          - 'SSH': reference/ssh.md
+      - 'SSH':
+          - 'Configuration': reference/ssh.md
+          - 'Supported features': reference/features.md
       - 'Backends':
           - 'Backend selection': reference/backends.md
           - 'Docker': reference/docker.md
           - 'Kubernetes': reference/kubernetes.md
-          - 'SSH proxy': reference/upcoming/sshproxy.md
+          - 'SSH proxy': reference/sshproxy.md
           - 'DockerRun (deprecated)': reference/dockerrun.md
           - 'KubeRun (deprecated)': reference/kuberun.md
       - Webhooks and APIs:
@@ -154,7 +156,7 @@ nav:
           - Snyk: development/tools/snyk.md
           - Docker: development/tools/docker.md
   - Blog:
-      - ContainerSSH 0.4 is now available: blog/2021/04/01/containerssh-0-4.md
+      - "ContainerSSH 0.4: Audit & Proxy": blog/2021/04/01/containerssh-0-4.md
       - We messed up: blog/2021/03/19/we-messed-up.md
       - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
       - The Road to ContainerSSH 0.4: blog/2020/11/25/the-road-to-0-4.md
@@ -217,6 +219,7 @@ plugins:
         'reference/upcoming/hardening.md': reference/hardening.md
         'reference/upcoming/troubleshooting.md': reference/troubleshooting.md
         'reference/upcoming/codes.md': reference/codes.md
+        'reference/upcoming/sshproxy.md': reference/sshproxy.md
 extra_css:
   - css/custom.css?v6
 extra_javascript:
