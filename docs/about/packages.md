@@ -1,11 +1,9 @@
----
 title: ContainerSSH packages
----
 
 ContainerSSH maintains an experimental package repository at `packages.containerssh.io`. This page describes how to add the repository to your operating system.
 
 !!! warning
-    The package repository is experimental and may change in the future.
+    The package repository is experimental and is likely to change in the future.
 
 === "Debian/Ubuntu"
 

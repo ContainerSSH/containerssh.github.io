@@ -2,8 +2,6 @@
 image: images/auditlog-asciinema.jpg
 ---
 
-{{ reference_upcoming() }}
-
 <h1>Audit logging</h1>
 
 ContainerSSH contains an audit logging facility that can log every interaction happening over SSH. This functionality is disabled by default as it has serious security and privacy implications, as well as severe resource requirements.
@@ -46,6 +44,8 @@ However, this approach may fail if SFTP is enabled as you will fail to capture b
 The binary format is intended for an accurate reconstruction of everything happening during an SSH session. It allows for accurate reconstruction of what happened during the session.
 
 Audit logs are stored in a [compressed binary format](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md) and can be decoded to a series of JSON messages using the `containerssh-auditlog-decoder` supplied as part of the ContainerSSH release. Alternatively, you can [implement your own decoder](https://github.com/ContainerSSH/auditlog/blob/main/FORMAT.v1.md). We are providing a [Go library for decoding audit log messages](https://github.com/ContainerSSH/auditlog/).
+
+This format can be decoded using the `containerssh-auditlog-decoder` application supplied with ContainerSSH.
 
 ### The `asciinema` format
 

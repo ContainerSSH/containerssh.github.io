@@ -1,6 +1,6 @@
 ---
 template: overrides/home.html
-title: "ContainerSSH: An SSH server that launches containers"
+title: "ContainerSSH: Launch containers on demand"
 hide:
   - navigation
   - toc

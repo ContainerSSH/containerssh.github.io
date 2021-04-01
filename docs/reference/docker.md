@@ -1,26 +1,24 @@
 
-{{ reference_upcoming() }}
+<h1>The Docker backend</h1>
 
-<h1>The DockerRun backend</h1>
-
-!!! warning
-    The DockerRun backend is deprecated and the [Docker backend](docker.md) should be used instead. [Read the migration guide here &raquo;](/deprecations/dockerrun.md)
-
-The DockerRun backend should work with any Docker Engine version starting with 1.6 thanks to the version negotiation present. We fix issues starting with Docker version 18.02.
+The Docker backend should work with any Docker Engine version starting with 1.6 thanks to the version negotiation present. We fix issues starting with Docker version 18.02.
 
 !!! tip
-    This is the documentation for the **DockerRun backend**. For deploying ContainerSSH inside Docker please see the [installation guide](installation.md).
-    
+    This is the documentation for the **Docker backend**. For deploying ContainerSSH inside Docker please see the [installation guide](installation.md).
+
 ## The base configuration structure
 
 In order to use the Docker backend you must specify the following configuration entries via the configuration file or the configuration server:
 
 ```yaml
-backend: dockerrun
-dockerrun:
-  <connection configuration here>
-  config:
+backend: docker
+docker:
+  connection:
+    <connection configuration here>
+  execution:
     <execution configuration here>
+  timeouts:
+    <timeouts configuration here>
 ```
 
 ## Configuring connection parameters
@@ -31,26 +29,28 @@ The Docker socket location can be changed with the `host` option:
 
 ```yaml
 docker:
-  host: 127.0.0.1:2375
+  connection:
+    host: 127.0.0.1:2375
 ```
 
 However, **exposing Docker without certificate authentication is dangerous**. It is recommended to [generate a certificate for authentication](https://docs.docker.com/engine/security/https/) and pass it to ContainerSSH using the following options:
 
 ```yaml
 docker:
-  host: <ip and port of the Docker engine>
-  cert: |
-    -----BEGIN CERTIFICATE-----
-    <client certificate here>
-    -----END CERTIFICATE-----
-  key: |
-    -----BEGIN RSA PRIVATE KEY-----
-    <client key here>
-    -----END RSA PRIVATE KEY-----
-  cacert: |
-    -----BEGIN CERTIFICATE-----
-    <CA certificate here>
-    -----END CERTIFICATE-----
+  connection:
+    host: <ip and port of the Docker engine>
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      <client certificate here>
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      <client key here>
+      -----END RSA PRIVATE KEY-----
+    cacert: |
+      -----BEGIN CERTIFICATE-----
+      <CA certificate here>
+      -----END CERTIFICATE-----
 ```
 
 ## Configuring container execution
@@ -59,7 +59,7 @@ Container execution options can be specified as follows:
 
 ```yaml
 docker:
-  config:
+  execution:
     container:
       image: containerssh/containerssh
       <other container options>
@@ -83,7 +83,7 @@ The basic configuration options are as follows:
 
 ```yaml
 docker:
-  config:
+  execution:
     container:
       image: containerssh/containerssh
       env:
@@ -108,7 +108,7 @@ Volumes can be mounted in 3 ways:
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       binds:
         - "/path-on-the-host:/path-in-the-container[:options]"
@@ -137,7 +137,7 @@ The **mounts** option give you more flexibility to mount something, including us
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       mounts:
         - target: /path/in/container
@@ -172,7 +172,7 @@ The tmpfs method provides a temporary filesystem in memory. The contents are del
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       tmpfs:
         /container/directory: <options>
@@ -186,9 +186,26 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 
 | Name | Type | Description |
 |------|------|-------------|
+| `mode` | `string` | Specify `connection` to launch one container per SSH connection or `session` to run one container per SSH session (multiple containers per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `docker exec` runs programs. In session mode the command is launched directly. | 
+| `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
+| `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
 | `subsystems | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
-| `disableCommand` | `bool` | Disable command execution. |
-| `timeout` | `string` | Timeout for container operations in nanoseconds. Time units can be set. |
+| `imagePullPolicy` | `Never,IfNotPresent,Always` | Specifies when to pull the container image. Defaults to `IfNotPresent`, which pulls the image when it is not locally present *or* if the image has no tag/has the `latest` tag. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
+
+## Configuring timeouts
+
+The `timeouts` section has the following options. All options can use time units (e.g. `60s`) and default to nanoseconds without time units.
+
+| Name | Description |
+|------|-------------|
+| `containerStart` | The time to wait for the container to start. |
+| `containerStop` | The time to wait for the container to stop. |
+| `commandStart` | The time to wait for the command to start in `connection` mode. |
+| `signal` | The time to wait to deliver a signal to a process. |
+| `window` | The time to wait to deliver a window size change. |
+| `http` | The time to wait for the underlying HTTP calls to complete. |
 
 ## Securing Docker
 
@@ -204,19 +221,20 @@ The certificates can be provided for ContainerSSH using the following fields:
 
 ```yaml
 docker:
-  host: <ip and port of the Docker engine>
-  cert: |
-    -----BEGIN CERTIFICATE-----
-    <client certificate here>
-    -----END CERTIFICATE-----
-  key: |
-    -----BEGIN RSA PRIVATE KEY-----
-    <client key here>
-    -----END RSA PRIVATE KEY-----
-  cacert: |
-    -----BEGIN CERTIFICATE-----
-    <CA certificate here>
-    -----END CERTIFICATE-----
+  connection:
+    host: <ip and port of the Docker engine>
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      <client certificate here>
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      <client key here>
+      -----END RSA PRIVATE KEY-----
+    cacert: |
+      -----BEGIN CERTIFICATE-----
+      <CA certificate here>
+      -----END CERTIFICATE-----
 ```
 
 !!! danger
@@ -228,7 +246,7 @@ Under normal circumstances a user running as root inside a container cannot acce
 
 ```yaml
 docker:
-  config:
+  execution:
     container:
       user: 1000
 ```
@@ -264,7 +282,7 @@ Alternatively, you can configure this per-container in ContainerSSH:
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       usernsmode: <UID>:<GID>
 ```
@@ -290,7 +308,7 @@ If **the directory** the user can write to **is not mounted** the user can fill 
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       storageopt:
         size: 524288000
@@ -302,7 +320,7 @@ Some directories, such as `/tmp` or `/run` can also be put on tmpfs to store in 
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       tmpfs:
         /tmp: rw,noexec,nosuid,size=65536k
@@ -313,7 +331,7 @@ To prevent storage exhaustion it is recommended to set the root FS to be read on
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       readonlyrootfs: true
 ```
@@ -323,11 +341,11 @@ docker:
     
 ### Preventing memory exhaustion
 
-Users can also try to exhaust the available memory to crash the server. This can be prevented using the following configuration:
+Users can also try to exhaust the available memory to potentially crash the server. This can be prevented using the following configuration:
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       resources:
         memory: 26214400
@@ -341,7 +359,7 @@ In addition it is recommended to enable [cgroup swap limit support](https://docs
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       resources:
         memoryswap: 26214400
@@ -353,7 +371,7 @@ If the host still runs out of memory the OOM killer will try to kill a process t
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       # Tune how likely the OOM killer is to kill this container
       oomscoreadj: 500
@@ -368,7 +386,7 @@ A malicious user can also exhaust the CPU by running CPU-heavy workloads. This c
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       resources:
         # Limit which cores the container should run on
@@ -390,7 +408,7 @@ You can also limit the number of processes that can be launched inside the conta
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       resources:
         pidslimit: 1000
@@ -402,7 +420,7 @@ In some use cases you don't want a user to be able to access resources on the ne
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       networkDisabled: true
 ```
@@ -413,7 +431,7 @@ Docker has a built-in facility to limit the disk I/O by IOPS and by bytes per se
 
 ```yaml
 docker:
-  config:
+  execution:
     host:
       resources:
         # Set relative weight against other containers

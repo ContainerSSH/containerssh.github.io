@@ -1,28 +1,25 @@
 
-{{ reference_upcoming() }}
+<h1>The Kubernetes backend</h1>
 
-<h1>The KubeRun backend</h1>
-
-!!! warning
-    The KubeRun backend is deprecated and the [Kubernetes backend](kubernetes.md) should be used instead. [Read the migration guide here &raquo;](/deprecations/kuberun.md)
-
-The KubeRun backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
+The Kubernetes backend runs and is tested against all [currently actively maintained Kubernetes versions](https://kubernetes.io/docs/setup/release/version-skew-policy/).
 For ContainerSSH version 0.4 these are: 1.20, 1.19, and 1.18.
 
 !!! tip
-    This is the documentation for the **KubeRun backend**. For deploying ContainerSSH inside Kubernetes please see the [installation guide](installation.md).
+    This is the documentation for the **Kubernetes backend**. For deploying ContainerSSH inside Kubernetes please see the [installation guide](installation.md).
 
 ## The base configuration structure
 
 In order to use the Kubernetes backend you must specify the following configuration entries via the configuration file or the configuration server:
 
 ```yaml
-backend: kuberun
-kuberun:
+backend: kubernetes
+kubernetes:
   connection:
     <connection configuration here>
   pod:
     <pod configuration here>
+  timeouts:
+    <timeouts configuration here>
 ``` 
 
 ## Configuring connection parameters
@@ -36,11 +33,14 @@ In order to use Kubernetes you must provide the credentials to authenticate with
 These options should be specified like this:
 
 ```yaml
-kuberun:
+kubernetes:
   connection:
     host: <...>
     <...>
 ```
+
+!!! tip
+    See the [Securing Kubernetes section below](#securing-kubernetes) for a detailed walkthrough for provisioning limited service accounts for ContainerSSH.
 
 ### Base configuration
 
@@ -51,10 +51,8 @@ kuberun:
 | `cacertFile` | `string` | Points to the file that contains the CA certificate in PEM format that signed the server certificate. |
 | `cacert` | `string` | Directly contains the CA certificate in PEM format that signed the server certificate. |
 | `serverName` | `string` | Sets the hostname of the server that should be sent to the Kuberentes API in the TLS SNI. This is useful when the Kubernetes API has a hostname that is not resolvable from the server ContainerSSH is running on. |
-| `insecure` | `bool` | Disable certificate verification on the Kubernetes API. **This is a very bad idea** as anyone on the network will be able to intercept your credentials. |
-| `qps` | float32` | Indicates a maximum queries per second from this client. |
+| `qps` | `float32` | Indicates a maximum queries per second from this client. |
 | `burst` | `int` | Indicates the maximum burst for query throttling. |
-| `timeout` | `string` | Timeout for pod operations in nanoseconds. Time units can be used. |
 
 ### HTTP basic authentication (username and password)
 
@@ -83,29 +81,34 @@ This authentication method is primarily used with [service accounts](https://kub
 
 ## Pod configuration
 
-The pod configuration contains the information which pod to run.
+The pod configuration contains the information which pod to run. The structure is very similar to the `Pod` object in Kubernetes, and we add a few extra options:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    namespace: <namespace name>
-    podSpec:
+    metadata:
+      <metadata configuration here>
+    spec:
       <pod spec here>
     <ContainerSSH-specific options here>
 ```
 
+!!! note
+    Do not include the `apiVersion`, `kind`, or `status` types from the Kubernetes structure.
+    
 !!! tip
-    Did you know? You can get a full description of the Pod type by running `kubectl explain pod.spec`.
+    Did you know? You can get a full description of the Pod type by running `kubectl explain pod`, `kubectl explain pod.spec`, and `kubectl explain pod.metadata`.
     
 ### Basic pod configuration
 
 ContainerSSH defaults to running pods in the `default` namespace with the `containerssh/containerssh-guest-image` container image. You can change these settings with the following options:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    namespace: default
-    podSpec:
+    metadata:
+      namespace: default
+    spec:
       containers:
         - name: shell
           image: containerssh/containerssh-guest-image
@@ -119,11 +122,10 @@ kuberun:
 When running multiple containers ContainerSSH defaults to attaching to the first container. You can change this behavior by specifying the `consoleContainerNumber` option. This number is 0-indexed.
 
 ```
-kuberun:
+kubernetes:
   pod:
-    namespace: default
     consoleContainerNumber: 1
-    podSpec:
+    spec:
       containers:
         - name: container1
           image: ...
@@ -136,10 +138,10 @@ kuberun:
 In Kubernetes volumes of various types can be mounted into pods. This is done as follows:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
     consoleContainerNumber: 1
-    podSpec:
+    spec:
       volumes:
         - name: <volume name here>
           <mount type here>:
@@ -155,10 +157,10 @@ kuberun:
 For example, mounting a path from the host machine can be done as follows:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
     consoleContainerNumber: 1
-    podSpec:
+    spec:
       volumes:
         - name: home
           hostPath:
@@ -184,9 +186,9 @@ Node affinity lets you schedule pods based on various features of the node, e.g.
 Binding a pod to a specific node on the other hand is rather simple:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    podSpec:
+    spec:
       nodeName: <insert node name here>
 ```
 
@@ -201,9 +203,26 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 | `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
-| `enableAgent` | `bool` | Enable the ContainerSSH guest agent. This enables the ContainerSSH guest agent. |
+| `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
 | `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
-| `disableCommand` | `bool` | Disable command execution. |
+
+### Configuration restrictions
+
+- In `connection` mode the `idleCommand` and `shellCommand` options are required.
+- In `session` mode the restart policy must be empty or `Never`.
+
+## Configuring timeouts
+
+The `timeouts` section has the following options. All options can use time units (e.g. `60s`) and default to nanoseconds without time units.
+
+| Name | Description |
+|------|-------------|
+| `podStart` | The time to wait for the pod to start. |
+| `podStop` | The time to wait for the pod to stop. |
+| `commandStart` | The time to wait for the command to start in `connection` mode. |
+| `signal` | The time to wait to deliver a signal to a process. |
+| `window` | The time to wait to deliver a window size change. |
+| `http` | The time to wait for the underlying HTTP calls to complete. |
 
 ## Securing Kubernetes
 
@@ -239,12 +258,24 @@ kubectl create rolebinding containerssh \
   --serviceaccount=containerssh
 ```
 
+Let's test if the permissions are correct:
+
+```
+$ kubectl auth can-i create pod --as containerssh
+no
+$ kubectl auth can-i create pod --namespace containerssh-guests --as containerssh
+yes
+```
+
+!!! warning "Docker Desktop"
+    Docker Desktop Kubernetes contains a cluster role binding called `docker-for-desktop-binding` that allows all service accounts to perform every action. To secure your Docker Desktop installation you will need to delete this CRB. 
+
 #### Deploying inside of Kubernetes
 
 When deploying ContainerSSH inside the same Kubernetes cluster you can simply use the service account when making your deployment:
 
 ```
-kuberun:
+kubernetes:
   connection:
     host: ...
     cacertFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
@@ -271,7 +302,7 @@ The output will look as follows:
 apiVersion: v1
 data:
   ca.crt: <base64-encoded CA certificate here>
-  namespace: <base64-encoded namespace here>
+  namespace: ZGVmYXVsdA==
   token: <base64-encoded bearer token here>
 kind: Secret
 ```
@@ -279,7 +310,7 @@ kind: Secret
 Base64-decode both the `ca.crt` and the `token` fields and insert them into your ContainerSSH config as follows:
 
 ```yaml
-kuberun:
+kubernetes:
   connection:
     bearerToken: <insert token here>
     cacert: |
@@ -291,9 +322,9 @@ kuberun:
 Under normal circumstances a user running as root inside a container cannot access resources outside the container. However, in the event of a container escape vulnerability in Kubernetes it is prudent not to run container workloads as root. You can prevent forcibly prevent any container from running as root by configuring the following setting:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    podSpec:
+    spec:
       securityContext:
         runAsNonRoot: true
 ```
@@ -301,9 +332,9 @@ kuberun:
 However, this will fail starting any container image that wants to run as root. In addition to the option above, you can also force the container to a specific UID:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    podSpec:
+    spec:
       securityContext:
         runAsUser: 1000
 ```
@@ -327,9 +358,9 @@ If **the directory** the user can write to **is not mounted** the user can fill 
 Users can also try to exhaust the available memory to potentially crash the server. This can be prevented using the following configuration:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    podSpec:
+    spec:
       resources:
         limits:
           memory: "128Mi"
@@ -342,9 +373,9 @@ You can read more about memory requests and limits in the [Kubernetes documentat
 A malicious user can also exhaust the CPU by running CPU-heavy workloads. This can be prevented by setting the following options:
 
 ```yaml
-kuberun:
+kubernetes:
   pod:
-    podSpec:
+    spec:
       resources:
         limits:
           cpu: "500m"

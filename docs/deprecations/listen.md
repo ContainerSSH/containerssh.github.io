@@ -1,9 +1,7 @@
----
 title: Moving the Listen option
 image: deprecations/listen.png
----
 
-# Moving the ContainerSSH `listen` option {{ upcoming("0.4") }}
+# Moving the ContainerSSH `listen` option {{ since("0.4") }}
 
 In ContainerSSH 0.4 we are introducing a framework to run multiple services within one daemon. In the future we want to add more services like a web-based interface.
 

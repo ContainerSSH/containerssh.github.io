@@ -1,6 +1,4 @@
----
 title: Creating ContainerSSH binary releases
----
 
 # Creating ContainerSSH binary releases
 

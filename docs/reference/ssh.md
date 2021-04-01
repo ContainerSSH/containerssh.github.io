@@ -1,6 +1,4 @@
 
-{{ reference_upcoming() }}
-
 <h1>SSH configuration</h1>
 
 SSH is the main service of ContainerSSH. It has the following configuration structure:
@@ -27,7 +25,7 @@ The options are as follows:
 The SSH server version is presented to any connecting client in plain text upon connection. It has the following format:
 
 ```
-SSH-2.0-softwareversion <SP> comments <CR> <LF>
+SSH-2.0-softwareversion <SP> comments
 ```
 
 The `softwareversion` can only contain printable US-ASCII characters without whitespace and minus (`-`) signs. The `comments` field is optional and is separated from the `softwareversion` with a single space. The maximum length of the version string is 255 characters.   

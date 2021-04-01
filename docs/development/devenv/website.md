@@ -1,6 +1,4 @@
----
 title: Setting up the website development environment
----
 
 <h1>Setting up the website development environment</h1>
 

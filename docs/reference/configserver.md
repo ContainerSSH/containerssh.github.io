@@ -1,6 +1,4 @@
----
 title: Configuration server
----
 
 <h1>Configuration Server</h1>
 
@@ -24,6 +22,10 @@ The following options are supported:
 | `cacert` | `string` | CA certificate in PEM format or filename that contains the CA certificate. This is field is required for `https://` URL's on Windows because of Golang issue [#16736](https://github.com/golang/go/issues/16736) |
 | `cert` | `string` | Client certificate in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
 | `key` | `string` | Private key in PEM format or filename that contains the client certificate for x509 authentication with the configuration server. |
+| `tlsVersion` | `string` | Minimum TLS version to support. See the [TLS version](#tls-version) section below. |
+| `curve` | `string` | Elliptic curve algorithms to support. See the [Elliptic curve algorithms][] section below. |
+| `cipher` | `[]string` | Which cipher suites to support. See the [Cipher suites](#cipher-suites) section below. |
+| `allowRedirects` | `bool` | Allow following HTTP redirects. Defaults to false. |
 
 ## Configuring TLS
 
@@ -31,7 +33,32 @@ TLS ensures that the connection between ContainerSSH and the configuration serve
 
 ### TLS version
 
-The minimum TLS version for ContainerSSH 0.3 is 1.3.
+The minimum supported TLS version can be configured using the `tlsVersion` option. It defaults to `1.3` and also supports `1.2`. Versions lower than `1.2` are not supported.
+
+### Elliptic curve algorithms
+
+The elliptic curve algorithms can be specified in the `curve` option. We support and default to the following options:
+
+- `x25519`
+- `secp256r1`
+- `secp384r1`
+- `secp521r1`
+
+### Cipher suites
+
+The following cipher suites are supported in ContainerSSH:
+
+| Suite | Default |
+|-------|---------|
+| TLS_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_AES_256_GCM_SHA384 | :material-check-bold: |
+| TLS_CHACHA20_POLY1305_SHA256 | :material-check-bold: |
+| TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 | :material-check-bold: |
+| TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 | :material-close: |
+| TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305 | :material-close: |
+| TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 | :material-close: |
 
 ## Client authentication
 
@@ -125,12 +152,15 @@ The configuration webhook is a simple JSON `POST` request to which the server mu
 !!! note
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
+!!! tip
+    We provide a [Go library](https://github.com/ContainerSSH/configuration) to create a configuration server.
+    
 The config server will receive a request in following format:
 
 ```json
 {
   "username":"ssh username",
-  "sessionId": "ssh session ID"
+  "connectionId": "ssh session ID"
 }
 ```
 
@@ -149,5 +179,11 @@ The configuration JSON structure is identical to the YAML described in this refe
 Currently only the following options can be set from the configuration server:
 
 - [Backend](backends.md)
-- [KubeRun](kuberun.md)
+- [Docker](docker.md)
+- [Kubernetes](kubernetes.md)
 - [DockerRun](dockerrun.md)
+- [KubeRun](kuberun.md)
+- [Security](security.md)
+
+!!! tip
+    We provide a [Go library to implement a config server](https://github.com/containerssh/configuration).

@@ -1,6 +1,4 @@
----
 title: Setting up an IDE
----
 
 <h1>Setting up an IDE</h1>
 

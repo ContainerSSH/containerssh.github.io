@@ -1,6 +1,4 @@
----
 title: Installing Golang
----
 
 <h1>Installing Golang</h1>
 

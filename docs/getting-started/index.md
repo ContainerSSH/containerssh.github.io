@@ -1,6 +1,4 @@
----
 title: ContainerSSH Quick start
----
 
 <h1>Quick start</h1>
 

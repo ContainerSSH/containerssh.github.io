@@ -1,6 +1,4 @@
----
 title: Imprint
----
 
 <h1>Imprint</h1>
 

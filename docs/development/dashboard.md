@@ -1,6 +1,4 @@
----
 title: Development Dashboard
----
 
 <h1>Development Dashboard</h1>
 

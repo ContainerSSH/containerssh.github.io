@@ -1,6 +1,4 @@
----
 title: ContainerSSH release process
----
 
 # ContainerSSH release process
 

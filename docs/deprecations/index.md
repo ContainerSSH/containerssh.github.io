@@ -14,3 +14,4 @@ This page lists all features that have been removed or deprecated. You can click
 | [listen option](listen.md) | 0.4 | &mdash; |
 | [dockerrun backend](dockerrun.md) | 0.4 | &mdash; |
 | [kuberun backend](kuberun.md) | 0.4 | &mdash; |
+| [Moving from GET to POST in webhooks](authconfigget.md) | &mdash; | 0.4 |
