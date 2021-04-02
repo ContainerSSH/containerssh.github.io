@@ -90,7 +90,7 @@ ContainerSSH requires all contributors to sign their commits using GPG. GPG auth
     First, list your GPG keys with the key IDs:
     
     ```
-    $ gpg --list-secret-keys --key-format LONG
+    $ gpg --list-secret-keys --keyid-format LONG
     ------------------------------------------------
     sec   rsa4096/YOUR-KEY-ID 2020-06-18 [SC]
     ...
