@@ -18,7 +18,7 @@ The options are as follows:
 | `kex` | `[]string` | List of key exchange algorithms the server should support. See the [Key exchange](#key-exchange) section below. |
 | `macs` | `[]string` | List of MAC algorithms the server should support. See the [MAC](#mac) section below. | 
 | `banner` | `[]string` | The banner text to presented to any connecting client. |
-| `hostkeys` | `[]string` | List of host keys in PEM format, or file names to read the key from. |
+| `hostkeys` | `[]string` | List of host keys in PEM format, or file names to read the key from. Generate with `openssl genrsa` |
 
 ## Configuring the server version
 

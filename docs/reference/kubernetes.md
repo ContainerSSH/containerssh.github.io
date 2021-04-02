@@ -49,7 +49,7 @@ kubernetes:
 | `host` | `string` | The hostname or ip + the port of the Kubernetes API server. Set this to `kubernetes.default.svc` to run inside a Kubernetes cluster, otherwise set it to the host name of your Kubernetes API. |
 | `path` | `string` | This is the API path of the Kubernetes API. Defaults to `/api` and you will typically not need to change this. |
 | `cacertFile` | `string` | Points to the file that contains the CA certificate in PEM format that signed the server certificate. |
-| `cacert` | `string` | Directly contains the CA certificate in PEM format that signed the server certificate. |
+| `cacert` | `string` | Directly contains the CA certificate in PEM format that signed the server certificate. Set to `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` when running with a service account. |
 | `serverName` | `string` | Sets the hostname of the server that should be sent to the Kuberentes API in the TLS SNI. This is useful when the Kubernetes API has a hostname that is not resolvable from the server ContainerSSH is running on. |
 | `qps` | `float32` | Indicates a maximum queries per second from this client. |
 | `burst` | `int` | Indicates the maximum burst for query throttling. |
@@ -76,7 +76,7 @@ This authentication method is primarily used with [service accounts](https://kub
 
 | Name | Type | Description |
 |------|------|-------------|
-| `bearerTokenFile` | `string` | Points to the file that contains the bearer token for authenticating against the Kubernetes API. Set to `/var/run/secrets/kubernetes.io/serviceaccount` to use the service account when running ContainerSSH inside a Kubernetes cluster. |
+| `bearerTokenFile` | `string` | Points to the file that contains the bearer token for authenticating against the Kubernetes API. Set to `/var/run/secrets/kubernetes.io/serviceaccount/token` to use the service account when running ContainerSSH inside a Kubernetes cluster. |
 | `bearerToken` | `string` | Directly contains the bearer token for authenticating against the Kubernetes API. |
 
 ## Pod configuration
@@ -255,7 +255,7 @@ kubectl create role containerssh \
   --resource=pods/exec
 kubectl create rolebinding containerssh \
   -n containerssh-guests \
-  --serviceaccount=containerssh
+  --serviceaccount=containerssh:containerssh
 ```
 
 Let's test if the permissions are correct:
