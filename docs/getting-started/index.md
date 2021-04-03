@@ -2,11 +2,12 @@ title: ContainerSSH Quick start
 
 <h1>Quick start</h1>
 
-This is a quick start guide to get a test server up and running in less than 5 minutes with [docker-compose](https://docs.docker.com/compose/).
+This is a quick start guide to get a test server up and running in less than 5 minutes with [docker-compose](https://docs.docker.com/compose/) or Kubernetes.
+
+<p><a href="https://youtu.be/kyPKTJQTpw8" class="md-button">▶️ Watch as Video (Docker)</a> <a href="https://youtu.be/g6EagzAWTqA" class="md-button">▶️ Watch as Video (Kubernetes)</a></p>
 
 !!! warning
     This setup will let any password authenticate. Only use it for testing.
-
 
 ## Step 1: Set up a Dockerized environment
 
