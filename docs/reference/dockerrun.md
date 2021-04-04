@@ -164,7 +164,7 @@ docker:
             mode: 0755
 ```
 
-## tmpfs
+#### tmpfs
 
 The tmpfs method provides a temporary filesystem in memory. The contents are deleted when the container is removed.
 
