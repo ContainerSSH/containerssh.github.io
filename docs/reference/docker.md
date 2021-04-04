@@ -191,7 +191,7 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 | `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
 | `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
-| `subsystems | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `imagePullPolicy` | `Never,IfNotPresent,Always` | Specifies when to pull the container image. Defaults to `IfNotPresent`, which pulls the image when it is not locally present *or* if the image has no tag/has the `latest` tag. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
 
 ## Configuring timeouts

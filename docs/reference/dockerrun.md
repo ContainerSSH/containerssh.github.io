@@ -184,7 +184,7 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 
 | Name | Type | Description |
 |------|------|-------------|
-| `subsystems | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
+| `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `disableCommand` | `bool` | Disable command execution. |
 | `timeout` | `string` | Timeout for container operations in nanoseconds. Time units can be set. |
 
