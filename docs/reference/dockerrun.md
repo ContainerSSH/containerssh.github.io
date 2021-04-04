@@ -401,8 +401,8 @@ In some use cases you don't want a user to be able to access resources on the ne
 ```yaml
 docker:
   config:
-    host:
-      networkDisabled: true
+    container:
+      networkdisabled: true
 ```
 
 ### Limiting disk I/O
