@@ -41,10 +41,10 @@ hide:
 <li>ContainerSSH calls the <strong>config server</strong> to obtain backend location and configuration (if configured).</li>
 <li>ContainerSSH calls the <strong>container backend</strong> to launch the container with the specified configuration. All input from the user is sent directly to the backend, output from the container is sent to the user.</li>
 </ol>   
-<p><a href="/getting-started/" class="md-button">Get started »</a></p>
+<p><a href="https://youtu.be/Cs9OrnPi2IM" class="md-button">▶️ Watch as Video</a> <a href="/getting-started/" class="md-button">🚀 Get started »</a></p>
 </div>
 <div class="grid__box">
-<img src="/images/architecture.svg" alt="" />
+<p><img src="/images/architecture.svg" alt="" /></p>
 </div>
 </div>
 
