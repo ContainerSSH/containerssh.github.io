@@ -4,6 +4,8 @@ title: Architecture
 
 <h1>Architecture</h1>
 
+<p><a href="https://youtu.be/Cs9OrnPi2IM" class="md-button">▶️ Watch as Video</a></p>
+
 ContainerSSH is a modular software that consists of the following main components:
 
 ![](/images/architecture.svg)
