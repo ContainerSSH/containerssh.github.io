@@ -38,9 +38,6 @@ theme:
   search_index_only: 'false'
 extra:
   social:
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/CFMMqwS
-      name: Discord
     - icon: fontawesome/brands/github
       link: https://github.com/ContainerSSH
       name: GitHub
