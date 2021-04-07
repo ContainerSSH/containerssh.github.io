@@ -213,7 +213,7 @@ h1 .since__value {
     color: #ffffff;
     border-color:#ffffff;
 }
-.mdx-hero .md-button:hover {
+.mdx-hero .md-button:hover, .mdx-hero .md-button:focus {
     background-color:#ffffff;
     color:#3F6EC6;
     border-color:#ffffff;
