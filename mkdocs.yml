@@ -218,7 +218,7 @@ plugins:
         'reference/upcoming/codes.md': reference/codes.md
         'reference/upcoming/sshproxy.md': reference/sshproxy.md
 extra_css:
-  - css/custom.css?v6
+  - css/custom.css?v7
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js

@@ -209,6 +209,24 @@ h1 .since__value {
 .mdx-hero__image img {
     max-width:75%;
 }
+.mdx-hero .md-button {
+    color: #ffffff;
+    border-color:#ffffff;
+}
+.mdx-hero .md-button:hover {
+    background-color:#ffffff;
+    color:#3F6EC6;
+    border-color:#ffffff;
+}
+@media screen and (max-width: 30rem) {
+    .mdx-hero .md-button {
+        width:100%;
+        margin-bottom: 0.75rem;
+    }
+}
+.mdx-hero .md-buttons {
+    text-align:center;
+}
 @media screen and (min-width: 76.25rem) {
     .mdx-hero {
         display: grid;
@@ -217,6 +235,9 @@ h1 .since__value {
     }
     .mdx-hero__image img {
         max-width:100%;
+    }
+    .mdx-hero .md-buttons {
+        text-align:left;
     }
 }
 .mdx-hero-separator {
