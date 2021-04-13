@@ -44,3 +44,9 @@ As of writing, we have tested the following clients:
 - [Termius](https://termius.com/) does not display the instruction field on mobile at all, and does not make it possible to copy or click the link on desktop. This issue has been forwarded to their dev team.
 - [Bitvise](https://www.bitvise.com/) does not make it possible to copy or click the link. They are addressing this as a bug.
 - [JuiceSSH](https://juicessh.com/) (Android) does not display the instruction field on mobile at all.
+
+## When?
+
+Soon. We don't have an exact release date, it's uncharted territory and we want to wait at least for the more popular SSH clients to release full support for this feature.
+
+*We would like to thank everyone who helped this project with ideas, input and testing.**
