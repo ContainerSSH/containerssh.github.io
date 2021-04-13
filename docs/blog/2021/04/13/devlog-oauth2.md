@@ -30,7 +30,7 @@ The key lies in the `keyboard-interactive` authentication method described in [R
 
 From here it's fairly simple. Option one is the **authorization code flow**: client logs in to the web browser and must then copy the code back into their console. The SSH server checks their identity and that's it. [See this 17 second video.](https://youtu.be/ifP0xUraH20)
 
-Option two is the device code flow, where the user is sent to a link and must enter a code from the SSH console. [See this 25 second video.](https://youtu.be/SGHee9cV_rA)
+Option two is the device code flow, where the user is sent to a link and must enter a code from the SSH console. Here we don't send a question, we simply poll the auth token endpoint for the code to be entered. [See this 25 second video.](https://youtu.be/SGHee9cV_rA)
 
 The latter would also lend itself to displaying a QR code, but OpenSSH, unfortunately, limits the length of the instruction field to 255 characters and doesn't support UTF-8 either.
 
