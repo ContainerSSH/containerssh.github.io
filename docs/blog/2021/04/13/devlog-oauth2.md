@@ -39,7 +39,8 @@ The latter would also lend itself to displaying a QR code, but OpenSSH, unfortun
  
 As of writing, we have tested the following clients:
 
-- [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) displays the link, but breaks the link after 78 characters and limits the instruction field to 255 characters.
+- [OpenSSH](https://www.openssh.com/) limits the instruction field to 255 characters and does not display non-ASCII characters. 
+- [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) displays the link, but breaks the link after 78 characters.
 - [WinSCP](https://winscp.net/) displays the instruction text, but the link is not clickable or copyable. The author of WinSCP has sent us a preview build which contains this feature.
 - [FileZilla](https://filezilla-project.org/) exhibits a similar link breakage as PuTTY, but it also duplicates all `&` characters as well. [This has been fixed in a nightly build.](https://trac.filezilla-project.org/ticket/12415)
 - [Termius](https://termius.com/) does not display the instruction field on mobile at all, and does not make it possible to copy or click the link on desktop. This issue has been forwarded to their dev team.
