@@ -50,4 +50,4 @@ As of writing, we have tested the following clients:
 
 Soon. We don't have an exact release date, it's uncharted territory and we want to wait at least for the more popular SSH clients to release full support for this feature.
 
-*We would like to thank everyone who helped this project with ideas, input and testing.**
+*We would like to thank everyone who helped this project with ideas, input and testing.*
