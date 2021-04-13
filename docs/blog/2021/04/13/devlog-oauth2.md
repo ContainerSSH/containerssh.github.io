@@ -1,5 +1,6 @@
 title: DevLog: SSH authentication via OAuth2
 description: Authenticating an SSH session over OAuth2 sounds crazy? Not as much as you'd think!
+image: images/blog/devlog-oauth2/preview.png
 
 # DevLog: SSH authentication via OAuth2
 <div class="blog-meta"><small>April 13, 2021</small></div>
