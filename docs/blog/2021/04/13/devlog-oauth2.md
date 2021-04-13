@@ -17,7 +17,7 @@ Traditionally, large enterprises (telco providers, etc) relied on strong firewal
 
 As companies moved ouside their traditional network environment into the cloud in recent years access control became more and more of a problem. However, this is not a new problem. [SAML](https://en.wikipedia.org/wiki/SAML_2.0) was introduced in 2005, but proved to be an unwieldy XML beast, difficult to implement.
 
-Recently OpenID Connect (OIDC) became a very popular add-on to OAuth2 to manage single sign-on needs. (This is not to be confused with the traditional OpenID, the two are not related.) Microsoft Active Directory Federation offers OIDC support along with SAML 2.0, and [Kubernetes](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) also supports OIDC as an authentication method for administrator.
+Recently OpenID Connect (OIDC) became a very popular add-on to OAuth2 to manage single sign-on needs. (This is not to be confused with the traditional OpenID, the two are not related.) Microsoft Active Directory Federation Services offers OIDC support along with SAML 2.0, and [Kubernetes](https://kubernetes.io/docs/reference/access-authn-authz/authentication/) also supports OIDC as an authentication method for administrator.
 
 **What's missing? SSH.** The method of accessing the servers running Kubernetes, or traditional workloads.
 
