@@ -153,6 +153,7 @@ nav:
           - Snyk: development/tools/snyk.md
           - Docker: development/tools/docker.md
   - Blog:
+      - "DevLog: SSH authentication via OAuth2": blog/2021/04/13/devlog-oauth2.md
       - "ContainerSSH 0.4: Audit & Proxy": blog/2021/04/01/containerssh-0-4.md
       - We messed up: blog/2021/03/19/we-messed-up.md
       - Announcing the ContainerSSH Guest Agent: blog/2020/12/24/the-agent.md
