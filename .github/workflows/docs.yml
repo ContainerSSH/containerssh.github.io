@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - build
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -51,7 +52,7 @@ jobs:
           if-no-files-found: error
       - name: Deploy
         run: |
-          rsync -avz --delete ./artifacts/ ./dist/ && \
+          rsync -avz --exclude=.git --delete ./artifacts/ ./dist/ && \
           cd dist && \
           git config user.name "GitHub Actions" && \
           git config user.email noreply@github.com && \
