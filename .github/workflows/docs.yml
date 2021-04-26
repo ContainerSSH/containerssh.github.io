@@ -30,28 +30,33 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: site
-          path: |
-            site/*
+          path: site/*
+          if-no-files-found: error
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     needs:
       - build
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: dist
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: site
+          path: artifacts
+          if-no-files-found: error
       - name: Deploy
         run: |
-          cd site && \
-          git init && \
+          rsync -avz --delete ./artifacts/ ./dist/ && \
+          cd dist && \
           git config user.name "GitHub Actions" && \
           git config user.email noreply@github.com && \
-          git remote add origin https://containerssh:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git && \
           git add . && \
           git commit -m "Website publish" && \
-          git checkout -b gh-pages && \
           git push --set-upstream --force origin gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
