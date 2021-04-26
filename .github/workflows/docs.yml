@@ -49,10 +49,9 @@ jobs:
         with:
           name: site
           path: artifacts
-          if-no-files-found: error
       - name: Deploy
         run: |
-          rsync -avz --exclude=.git --delete ./artifacts/ ./dist/ && \
+          rsync -az --exclude=.git --delete ./artifacts/ ./dist/ && \
           cd dist && \
           git config user.name "GitHub Actions" && \
           git config user.email noreply@github.com && \
