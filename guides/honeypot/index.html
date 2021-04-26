@@ -1,0 +1,2604 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+      
+      
+      
+      
+        <link rel="canonical" href="https://containerssh.io/guides/honeypot/">
+      
+      <link rel="icon" href="../../images/logo.svg">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+  
+  
+  
+    
+  
+  
+  
+  
+  
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Honeypot">
+  <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
+  <meta property="og:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+  <meta property="og:url" content="https://containerssh.io/guides/honeypot/">
+  <meta property="og:image" content="https://containerssh.io/images/social.png">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@containerssh">
+  <meta name="twitter:creator" content="@containerssh">
+  <meta name="twitter:title" content="Honeypot">
+  <meta name="twitter:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+  <meta name="twitter:image" content="https://containerssh.io/images/social.png">
+  <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
+  <meta name="google-site-verification" content="VN4-Orfu-TOf9hXInR_ZdaZXQJDiak-dmPuaBc9TlwE" />
+
+    
+      
+        <title>Honeypot - ContainerSSH: Launch containers on demand</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css?v7">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-a-honeypot-with-containerssh" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="/blog/2021/04/01/containerssh-0-4/">
+      ContainerSSH 0.4: Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
+  </a>
+
+          </div>
+        </aside>
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="ContainerSSH: Launch containers on demand" class="md-header__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+      
+  <img src="../../images/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ContainerSSH: Launch containers on demand
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Honeypot
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/containerssh/containerssh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+    
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../usecases/webhosting/" class="md-tabs__link">
+        Use cases
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        Getting started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Guides
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../downloads/" class="md-tabs__link">
+      Downloads
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../reference/" class="md-tabs__link">
+        Reference manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../development/" class="md-tabs__link">
+        Development
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../blog/2021/04/13/devlog-oauth2/" class="md-tabs__link">
+        Blog
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+    <section class="mdx-container">
+        
+        <div class="mdx-hero-separator"></div>
+    </section>
+
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ContainerSSH: Launch containers on demand" class="md-nav__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+      
+  <img src="../../images/logo.svg" alt="logo">
+
+    </a>
+    ContainerSSH: Launch containers on demand
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/containerssh/containerssh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Use cases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Use cases" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Use cases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usecases/webhosting/" class="md-nav__link">
+        Web hosting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usecases/learning/" class="md-nav__link">
+        Learning environments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usecases/honeypots/" class="md-nav__link">
+        Honeypots
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usecases/security/" class="md-nav__link">
+        Security
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Getting started
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Getting started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        Quick Start
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/architecture/" class="md-nav__link">
+        Architecture
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/configuration/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/authserver/" class="md-nav__link">
+        Authentication Server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      <label class="md-nav__link" for="__nav_3_6">
+        Container Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Container Backends" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          Container Backends
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/backends/" class="md-nav__link">
+        Selecting a Backend
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/docker/" class="md-nav__link">
+        The Docker Backend
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/kubernetes/" class="md-nav__link">
+        The Kubernetes Backend
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/sshproxy/" class="md-nav__link">
+        The SSH Proxy Backend
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/getting-help/" class="md-nav__link">
+        Getting Help
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Guides
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Honeypot
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Honeypot
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-infrastructure" class="md-nav__link">
+    Step 1: Infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-firewalling-the-gateway" class="md-nav__link">
+    Step 2: Firewalling the gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-firewalling-the-sacrificial-host" class="md-nav__link">
+    Step 3: Firewalling the sacrificial host
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-creating-certificates-for-authentication-on-the-sacrificial-host" class="md-nav__link">
+    Step 4: Creating certificates for authentication on the sacrificial host
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-installing-the-node-exporter" class="md-nav__link">
+    Step 5: Installing the node exporter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-building-the-guest-image" class="md-nav__link">
+    Step 6: Building the guest image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-creating-the-containerssh-configuration-file" class="md-nav__link">
+    Step 7: Creating the ContainerSSH configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-starting-containerssh" class="md-nav__link">
+    Step 7: Starting ContainerSSH
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-starting-the-auth-config-server" class="md-nav__link">
+    Step 8: Starting the auth-config server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-redirecting-port-22" class="md-nav__link">
+    Step 9: Redirecting port 22
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-10-setting-up-monitoring" class="md-nav__link">
+    Step 10: Setting up monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-hardening" class="md-nav__link">
+    Further hardening
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker-elk/" class="md-nav__link">
+        Logging to the ELK stack with Docker and Fluentd
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../downloads/" class="md-nav__link">
+        Downloads
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Reference manual
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Reference manual" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Reference manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      <label class="md-nav__link" for="__nav_6_3">
+        SSH
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SSH" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          SSH
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/ssh/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/features/" class="md-nav__link">
+        Supported features
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      <label class="md-nav__link" for="__nav_6_4">
+        Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Backends" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Backends
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/backends/" class="md-nav__link">
+        Backend selection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sshproxy/" class="md-nav__link">
+        SSH proxy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dockerrun/" class="md-nav__link">
+        DockerRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/kuberun/" class="md-nav__link">
+        KubeRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      <label class="md-nav__link" for="__nav_6_5">
+        Webhooks and APIs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Webhooks and APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/auth/" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/configserver/" class="md-nav__link">
+        Configuration server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
+      
+      <label class="md-nav__link" for="__nav_6_6">
+        Customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Customization" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_6">
+          <span class="md-nav__icon md-icon"></span>
+          Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/image/" class="md-nav__link">
+        Creating Guest Images
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_7" type="checkbox" id="__nav_6_7" >
+      
+      <label class="md-nav__link" for="__nav_6_7">
+        Monitoring
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Monitoring" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_7">
+          <span class="md-nav__icon md-icon"></span>
+          Monitoring
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/audit/" class="md-nav__link">
+        Audit logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_8" type="checkbox" id="__nav_6_8" >
+      
+      <label class="md-nav__link" for="__nav_6_8">
+        Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_8">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/" class="md-nav__link">
+        Restrictions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/hardening/" class="md-nav__link">
+        Hardening guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_9" type="checkbox" id="__nav_6_9" >
+      
+      <label class="md-nav__link" for="__nav_6_9">
+        Troubleshooting
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Troubleshooting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_9">
+          <span class="md-nav__icon md-icon"></span>
+          Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/troubleshooting/" class="md-nav__link">
+        Troubleshooting guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/codes/" class="md-nav__link">
+        Message codes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10" type="checkbox" id="__nav_6_10" >
+      
+      <label class="md-nav__link" for="__nav_6_10">
+        Old releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Old releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_10">
+          <span class="md-nav__icon md-icon"></span>
+          Old releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1" type="checkbox" id="__nav_6_10_1" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1">
+        0.3
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="0.3" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          0.3
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_3" type="checkbox" id="__nav_6_10_1_3" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_3">
+        Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Backends" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          Backends
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/backends/" class="md-nav__link">
+        Backend selection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/dockerrun/" class="md-nav__link">
+        DockerRun
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/kuberun/" class="md-nav__link">
+        KubeRun
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_4" type="checkbox" id="__nav_6_10_1_4" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_4">
+        Webhooks and APIs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Webhooks and APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/auth/" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/configserver/" class="md-nav__link">
+        Configuration server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_5" type="checkbox" id="__nav_6_10_1_5" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_5">
+        Monitoring
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Monitoring" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Monitoring
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_6" type="checkbox" id="__nav_6_10_1_6" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_6">
+        Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Security" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/hardening/" class="md-nav__link">
+        Hardening guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_7" type="checkbox" id="__nav_6_10_1_7" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_7">
+        Customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Customization" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/0.3/image/" class="md-nav__link">
+        Creating a guest image
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      <label class="md-nav__link" for="__nav_7">
+        Development
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/getting-started/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/dashboard/" class="md-nav__link">
+        Dashboard
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/code-style/" class="md-nav__link">
+        Coding Style
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      <label class="md-nav__link" for="__nav_7_5">
+        Development Environment
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Development Environment" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Development Environment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/gpg/" class="md-nav__link">
+        Installing GPG
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/golang/" class="md-nav__link">
+        Installing Golang
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/qa/" class="md-nav__link">
+        Installing the QA tools
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/docker/" class="md-nav__link">
+        Installing Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/kubernetes/" class="md-nav__link">
+        Installing Kubernetes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/ide/" class="md-nav__link">
+        Setting up your IDE
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devenv/website/" class="md-nav__link">
+        Setting up the website
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      <label class="md-nav__link" for="__nav_7_6">
+        Understanding ContainerSSH
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Understanding ContainerSSH" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Understanding ContainerSSH
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/containerssh/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/containerssh/ssh/" class="md-nav__link">
+        Understanding SSH
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/containerssh/first-ssh-server/" class="md-nav__link">
+        Writing your first SSH server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/containerssh/internal-architecture/" class="md-nav__link">
+        Internal Architecture
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      <label class="md-nav__link" for="__nav_7_7">
+        Releases
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Releases" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Releases
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/releases/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/releases/libraries/" class="md-nav__link">
+        Libraries
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/releases/binaries/" class="md-nav__link">
+        Binaries
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_8" type="checkbox" id="__nav_7_8" >
+      
+      <label class="md-nav__link" for="__nav_7_8">
+        External tools
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="External tools" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          External tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/tools/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/tools/github/" class="md-nav__link">
+        GitHub
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/tools/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/tools/snyk/" class="md-nav__link">
+        Snyk
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/tools/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      <label class="md-nav__link" for="__nav_8">
+        Blog
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2021/04/13/devlog-oauth2/" class="md-nav__link">
+         DevLog: SSH authentication via OAuth2
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2021/04/01/containerssh-0-4/" class="md-nav__link">
+         ContainerSSH 0.4: Audit & Proxy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2021/03/19/we-messed-up/" class="md-nav__link">
+         We messed up
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2020/12/24/the-agent/" class="md-nav__link">
+         Announcing the ContainerSSH Guest Agent
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2020/11/25/the-road-to-0-4/" class="md-nav__link">
+         The Road to ContainerSSH 0.4
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-infrastructure" class="md-nav__link">
+    Step 1: Infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-firewalling-the-gateway" class="md-nav__link">
+    Step 2: Firewalling the gateway
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-firewalling-the-sacrificial-host" class="md-nav__link">
+    Step 3: Firewalling the sacrificial host
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-creating-certificates-for-authentication-on-the-sacrificial-host" class="md-nav__link">
+    Step 4: Creating certificates for authentication on the sacrificial host
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-installing-the-node-exporter" class="md-nav__link">
+    Step 5: Installing the node exporter
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-building-the-guest-image" class="md-nav__link">
+    Step 6: Building the guest image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-creating-the-containerssh-configuration-file" class="md-nav__link">
+    Step 7: Creating the ContainerSSH configuration file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-starting-containerssh" class="md-nav__link">
+    Step 7: Starting ContainerSSH
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-starting-the-auth-config-server" class="md-nav__link">
+    Step 8: Starting the auth-config server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-redirecting-port-22" class="md-nav__link">
+    Step 9: Redirecting port 22
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-10-setting-up-monitoring" class="md-nav__link">
+    Step 10: Setting up monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-hardening" class="md-nav__link">
+    Further hardening
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containerssh/containerssh.github.io/edit/main/docs/guides/honeypot.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="creating-a-honeypot-with-containerssh">Creating a honeypot with ContainerSSH<a class="headerlink" href="#creating-a-honeypot-with-containerssh" title="Permanent link">&para;</a></h1>
+<p>This guide will lead you through the steps of creating an SSH honeypot with ContainerSSH.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>Creating SSH honeypots with a real Linux backend is inherently dangerous. Any local privilege escalation could lead to the attacker taking over your host system. While this tutorial represents the best practices in building a honeypot, the responsibility of securing your installation ultimately rests upon you. <strong>Please do not attempt this unless you are intimately familiar with securing container environments.</strong> <a href="https://docs.docker.com/engine/security/">Docker has really good documentation on this topic.</a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This guide is written for the upcoming 0.4 release of ContainerSSH. You can <a href="../../reference/">read the reference manual for this version here</a>.</p>
+</div>
+<h2 id="step-1-infrastructure">Step 1: Infrastructure<a class="headerlink" href="#step-1-infrastructure" title="Permanent link">&para;</a></h2>
+<p>In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the <code>gateway</code> VM and the second one <code>sacrificial</code> VM. Ideally, the <code>sacrificial</code> VM should run on its own dedicated physical hardware to prevent leakage of secrets due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.</p>
+<p>Furthermore, you will need an S3-compatible object storage to upload <a href="/reference/audit.md">audit logs</a> and we will need a <a href="https://prometheus.io/">Prometheus</a> installation for monitoring.</p>
+<p>We strongly recommend automating the setup with a tool like <a href="https://terraform.io">Terraform</a> to rapidly apply security updates.</p>
+<h2 id="step-2-firewalling-the-gateway">Step 2: Firewalling the gateway<a class="headerlink" href="#step-2-firewalling-the-gateway" title="Permanent link">&para;</a></h2>
+<p>You should set up the <code>gateway</code> host in such a way that it is visible from the Internet. You will need the following firewall rules:</p>
+<ul>
+<li>Port <code>22</code> should be open to the Internet.</li>
+<li>Ports <code>9100</code> and <code>9101</code> should be open from your Prometheus instance. These will be used by the <a href="https://github.com/prometheus/node_exporter">Prometheus node exporter</a> and the <a href="https://containerssh.io/reference/metrics/">ContainerSSH metrics server</a> respectively.</li>
+<li>Outbound rules to your S3-compatible object storage.</li>
+</ul>
+<h2 id="step-3-firewalling-the-sacrificial-host">Step 3: Firewalling the sacrificial host<a class="headerlink" href="#step-3-firewalling-the-sacrificial-host" title="Permanent link">&para;</a></h2>
+<p>The <code>sacrificial</code> host should not have any public Internet connectivity, instead it should only be connected to the <code>gateway</code> host. In order to keep this host up to date a prebuilt VM image with Docker installed should be used. The update process of this VM image can be automated using tools like <a href="https://www.packer.io/">Packer</a>.</p>
+<p>On the firewall side, the sacrificial host should not allow any outbound connections and only allow inbound connections on TCP port 2376 from the <code>gateway</code> host.</p>
+<h2 id="step-4-creating-certificates-for-authentication-on-the-sacrificial-host">Step 4: Creating certificates for authentication on the sacrificial host<a class="headerlink" href="#step-4-creating-certificates-for-authentication-on-the-sacrificial-host" title="Permanent link">&para;</a></h2>
+<p>The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the <a href="https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket">Docker manual</a>.</p>
+<p>Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:</p>
+<div class="highlight"><pre><span></span><code>docker run -H tcp://your-sacrificial-host:2375 -ti ubuntu
+docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu 
+</code></pre></div>
+<p>If this command does not fail the certificates have not been set up correctly.</p>
+<h2 id="step-5-installing-the-node-exporter">Step 5: Installing the node exporter<a class="headerlink" href="#step-5-installing-the-node-exporter" title="Permanent link">&para;</a></h2>
+<p>On the gateway host you will need to install the <a href="https://github.com/prometheus/node_exporter">Prometheus node exporter</a> to make metrics such as disk space usage available to your monitoring system. Please read <a href="https://github.com/prometheus/node_exporter/blob/master/README.md">their readme on how to do this</a>.</p>
+<h2 id="step-6-building-the-guest-image">Step 6: Building the guest image<a class="headerlink" href="#step-6-building-the-guest-image" title="Permanent link">&para;</a></h2>
+<p>Since our sacrificial host will have no internet access you will need to upload the <a href="https://github.com/ContainerSSH/guest-image">guest image files</a>. You can do this by exporting the image using <code>docker export</code>, then uploading the tar file to the host and using <code>docker import</code> to import it into the Docker daemon.</p>
+<p>Optionally, you can build your custom image and create an <code>ubuntu</code> user in the image to give the attacker a more realistic system.</p>
+<h2 id="step-7-creating-the-containerssh-configuration-file">Step 7: Creating the ContainerSSH configuration file<a class="headerlink" href="#step-7-creating-the-containerssh-configuration-file" title="Permanent link">&para;</a></h2>
+<p>Finally, we can create the ContainerSSH configuration file on the gateway host. Let's create a few directories:</p>
+<div class="highlight"><pre><span></span><code>mkdir -p /srv/containerssh/config/
+mkdir -p /srv/containerssh/audit/
+</code></pre></div>
+<p>Then we generate the host key. This should be written in <code>/srv/containerssh/ssh_host_rsa_key</code>.</p>
+<div class="highlight"><pre><span></span><code>openssl genrsa
+</code></pre></div>
+<p>Then we can create the config file in <code>/srv/containerssh/config.yaml</code></p>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
+  <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">warning</span>
+<span class="nt">ssh</span><span class="p">:</span>
+  <span class="nt">banner</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+
+    <span class="no">********************************************************************</span>
+                               <span class="no">Warning!</span>
+    <span class="no">********************************************************************</span>
+
+    <span class="no">This is a honeypot. All information, including IP address, username,</span>
+    <span class="no">password, any commands you type, or files you upload will be visible</span>
+    <span class="no">to the honeypot.</span>
+
+    <span class="no">If you do not agree disconnect now.</span>
+
+    <span class="no">********************************************************************</span>
+
+  <span class="nt">hostkeys</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/ssh_host_rsa_key</span>
+<span class="nt">backend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
+<span class="nt">docker</span><span class="p">:</span>
+  <span class="nt">connection</span><span class="p">:</span>
+    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp://SACRIFICIAL-HOST-IP:2376</span>
+    <span class="nt">cert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+      <span class="no">-----BEGIN CERTIFICATE-----</span>
+      <span class="no">&lt;client certificate here&gt;</span>
+      <span class="no">-----END CERTIFICATE-----</span>
+    <span class="nt">key</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+      <span class="no">-----BEGIN RSA PRIVATE KEY-----</span>
+      <span class="no">&lt;client key here&gt;</span>
+      <span class="no">-----END RSA PRIVATE KEY-----</span>
+    <span class="nt">cacert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+      <span class="no">-----BEGIN CERTIFICATE-----</span>
+      <span class="no">&lt;CA certificate here&gt;</span>
+      <span class="no">-----END CERTIFICATE-----</span>
+  <span class="nt">execution</span><span class="p">:</span>
+    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Never</span>
+    <span class="nt">container</span><span class="p">:</span>
+      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">containerssh/test-guest</span>
+      <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bitcoin</span>
+      <span class="c1"># Disable network in the container</span>
+      <span class="nt">networkdisabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="c1"># Force running as user 1000</span>
+      <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+      <span class="c1"># Optionally set working directory</span>
+      <span class="nt">workingdir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/ubuntu</span>
+    <span class="nt">host</span><span class="p">:</span>
+      <span class="c1"># Don&#39;t let the attacker write to the root FS.</span>
+      <span class="nt">readonlyrootfs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">resources</span><span class="p">:</span>
+        <span class="c1"># 10% of CPU</span>
+        <span class="nt">cpuperiod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
+        <span class="nt">cpuquota</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+        <span class="c1"># 50 MB of memory with swap</span>
+        <span class="nt">memoryswap</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">52428800</span>
+        <span class="nt">memoryswappiness</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
+        <span class="c1"># 25 MB of memory</span>
+        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">26214400</span>
+        <span class="c1"># Reserve 20 MB of memory</span>
+        <span class="nt">memoryreservation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000000</span>
+        <span class="c1"># Max 1000 processes to prevent fork bombs</span>
+        <span class="nt">pidslimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+      <span class="nt">tmpfs</span><span class="p">:</span>
+        <span class="c1"># Create writable directories in memory</span>
+        <span class="nt">/tmp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
+        <span class="nt">/run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
+        <span class="nt">/home/ubuntu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
+<span class="nt">metrics</span><span class="p">:</span>
+  <span class="nt">enable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;0.0.0.0:9101&quot;</span>
+  <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;/metrics&quot;</span>
+<span class="nt">audit</span><span class="p">:</span>
+  <span class="nt">enable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
+  <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
+  <span class="nt">intercept</span><span class="p">:</span>
+    <span class="nt">stdin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">stdout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">stderr</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">passwords</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">s3</span><span class="p">:</span>
+    <span class="c1"># Local directory to store the audit log temporarily.</span>
+    <span class="nt">local</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/log/containerssh/audit/</span>
+    <span class="nt">accessKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-ACCESS-KEY-HERE</span>
+    <span class="nt">secretKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-SECRET-KEY-HERE</span>
+    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-REGION</span>
+    <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-BUCKET-NAME</span>
+    <span class="c1"># Optional: set your S3 endpoint</span>
+    <span class="nt">endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://YOUR-S3-ENDPOINT</span>
+    <span class="nt">metadata</span><span class="p">:</span>
+      <span class="c1"># Which metadata fields to set in the object storage.</span>
+      <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">ip</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">auth</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://127.0.0.1:8080&quot;</span>
+<span class="nt">configserver</span><span class="p">:</span>
+  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://127.0.0.1:8080/config&quot;</span>
+</code></pre></div>
+<h2 id="step-7-starting-containerssh">Step 7: Starting ContainerSSH<a class="headerlink" href="#step-7-starting-containerssh" title="Permanent link">&para;</a></h2>
+<p>Now you are ready to start ContainerSSH:</p>
+<div class="highlight"><pre><span></span><code>docker run -d \
+  --restart=always \
+  -v /srv/containerssh/config/:/etc/containerssh/ \
+  -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
+  --net=host \
+  containerssh/containerssh:0.4.0-PR4
+</code></pre></div>
+<h2 id="step-8-starting-the-auth-config-server">Step 8: Starting the auth-config server<a class="headerlink" href="#step-8-starting-the-auth-config-server" title="Permanent link">&para;</a></h2>
+<p>Next, we'll need the auth-config server to let the users in:</p>
+<div class="highlight"><pre><span></span><code>docker run -d \
+  --restart=always \
+  -p 127.0.0.1:8080:8080 \
+  -e CONTAINERSSH_ALLOW_ALL=1 \
+  containerssh/containerssh-test-authconfig:0.4.0-PR4
+</code></pre></div>
+<h2 id="step-9-redirecting-port-22">Step 9: Redirecting port 22<a class="headerlink" href="#step-9-redirecting-port-22" title="Permanent link">&para;</a></h2>
+<p>As a final step we will need to redirect port 22 to port 2222:</p>
+<div class="highlight"><pre><span></span><code>iptables -t nat -I PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
+</code></pre></div>
+<p>You will need to use the firewall facilities of your OS to make this rule persistent.</p>
+<h2 id="step-10-setting-up-monitoring">Step 10: Setting up monitoring<a class="headerlink" href="#step-10-setting-up-monitoring" title="Permanent link">&para;</a></h2>
+<p>Please set up monitoring for both the host metrics (such as disk space usage) and <a href="https://containerssh.io/reference/metrics/">ContainerSSH itself</a> in your Prometheus instance.</p>
+<h2 id="further-hardening">Further hardening<a class="headerlink" href="#further-hardening" title="Permanent link">&para;</a></h2>
+<p>This creates a honeypot that lets attackers access a container. However, in a real world scenario you may want to integrate micro virtual machines instead of containers for better security, such as <a href="https://firecracker-microvm.github.io/">Firecracker</a>. Alternatively, you may want to investigate tools like <a href="https://github.com/google/gvisor">gVisor</a> which implement a separate security layer for your container. This is beyond the scope of this guide.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Overview
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../docker-elk/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Logging to the ELK stack with Docker and Fluentd
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; ContainerSSH Contributors | <a href="/about/">About Us</a> | <a href="/about/packages/">Packages</a> | <a href="/about/security/">Security</a> | <a href="/deprecations/">Deprecations</a> | <a href="/about/license/">MIT License</a> | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a> | <a href="/about/privacy/">Privacy Policy</a> | <a href="/about/imprint/">Imprint</a><br /> <a href="https://www.linuxfoundation.org/trademark-usage/">Kubernetes and Linux are trademarks of The Linux Foundation.</a> <a href="https://www.docker.com/legal/trademark-guidelines">Docker and the Docker logo are trademarks of Docker, Inc.</a>
+
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://github.com/ContainerSSH" target="_blank" rel="noopener" title="GitHub" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://twitter.com/ContainerSSH" target="_blank" rel="noopener" title="Twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://www.youtube.com/channel/UC0UNgOeDAGTONykuhza9sLA" target="_blank" rel="noopener" title="YouTube" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+      </a>
+    
+      
+      
+      <a href="https://hub.docker.com/orgs/containerssh" target="_blank" rel="noopener" title="Docker Hub" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M349.9 236.3h-66.1v-59.4h66.1v59.4zm0-204.3h-66.1v60.7h66.1V32zm78.2 144.8H362v59.4h66.1v-59.4zm-156.3-72.1h-66.1v60.1h66.1v-60.1zm78.1 0h-66.1v60.1h66.1v-60.1zm276.8 100c-14.4-9.7-47.6-13.2-73.1-8.4-3.3-24-16.7-44.9-41.1-63.7l-14-9.3-9.3 14c-18.4 27.8-23.4 73.6-3.7 103.8-8.7 4.7-25.8 11.1-48.4 10.7H2.4c-8.7 50.8 5.8 116.8 44 162.1 37.1 43.9 92.7 66.2 165.4 66.2 157.4 0 273.9-72.5 328.4-204.2 21.4.4 67.6.1 91.3-45.2 1.5-2.5 6.6-13.2 8.5-17.1l-13.3-8.9zm-511.1-27.9h-66v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm78.1 0h-66.1v59.4h66.1v-59.4zm-78.1-72.1h-66.1v60.1h66.1v-60.1z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+      
+        <script src="../../javascript/tables.js"></script>
+      
+    
+  </body>
+</html>
