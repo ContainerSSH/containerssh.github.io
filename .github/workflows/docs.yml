@@ -51,12 +51,15 @@ jobs:
           path: artifacts
       - name: Deploy
         run: |
-          rsync -az --exclude=.git --delete ./artifacts/ ./dist/ && \
-          cd dist && \
-          git config user.name "GitHub Actions" && \
-          git config user.email noreply@github.com && \
-          git add . && \
-          git commit -m "Website publish" && \
-          git push --set-upstream --force origin gh-pages
+          set -euo pipefail
+          rsync -az --exclude=.git --delete ./artifacts/ ./dist/
+          cd dist
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+          git add .
+          if ! git diff-index --quiet HEAD --; then
+            git commit -m "Website publish"
+            git push --set-upstream --force origin gh-pages
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
