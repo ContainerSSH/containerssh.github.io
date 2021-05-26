@@ -8,63 +8,18 @@ The Reference Manual provides reference material for ContainerSSH 0.4 and is ori
 
 This manual contains documentation on how to set up, configure, monitor, and secure the ContainerSSH installation. If you need a one minute primer on how ContainerSSH works please [watch this video](https://www.youtube.com/watch?v=Cs9OrnPi2IM).
 
-## Changes since ContainerSSH 0.3
+## Changes since ContainerSSH 0.4.0
 
-ContainerSSH 0.4 is major overhaul to the internal structure. As such, this release contains several major improvements to the stability of ContainerSSH. The reference manual for ContainerSSH 0.3 is [available here](../index.md).
+ContainerSSH 0.4.1 is a bugfix release resolving several issues with the previous release. The reference manual for ContainerSSH 0.4.0 is [available here](0.4.0/index.md).
 
-### Audit logging
+### Incorrect handling of container configuration with Docker backend
 
-The most visible improvement of this release is the new [audit logging facility](audit.md). Audit logging allows operators to capture everything that is happening within an SSH connection, including passwords, keys, typed commands, or SFTP uploads. The audit log can automatically be uploaded to an S3-compatible object storage.
+The 0.4.0 release introduced [a bug discovered by a user](https://github.com/ContainerSSH/ContainerSSH/issues/201) which prevented setting the ContainerSSH image from the configuration server. The reason behind this failure was the incorrect JSON serialization. This release fixes the serialization and restores the correct way of operations.
 
-### SSH proxying
+### Incorrect handling of Kubernetes configuration
 
-This release also adds a new [SSH proxy backend](sshproxy.md) that can be used to forward connections to a backing SSH server. Using this in conjunction with the audit logging facility makes it possible to use ContainerSSH as an auditing and dynamic forwarding SSH proxy.
+Kubernetes uses a different YAML serialization library which lead to it being impossible to set volume parameters and potentially other options in the configuration file [as discovered by a user](https://github.com/ContainerSSH/ContainerSSH/issues/209). This release fixes this issue by using the Kubernetes YAML serialization for the Kubernetes configuration only.
 
-### Improved logging
+### Incorrect handling of the password/pubkey options
 
-This release also adds significant improvements to logging. This release adds several hundred log messages across all levels to make debugging potential failures and reporting errors much easier. Most of these log messages have been added with the average operator in mind and the details are sent in the debug log level, which is disabled by default. 
- 
-Furthermore, we have added a new log format as well as two new log outputs. You can now log in text and JSON formats to stdout, files, or syslog.
-
-Finally, we have added a unique message code to each log message that makes it easier to look up the corresponding documentation in the [code list](codes.md) and determine if a log message is cause for concern or not.
-
-The details are described in the [logging reference](logging.md).
-
-### Security filters
-
-The new [security module](security.md) adds a the ability to create a fine-grained filter what interactions over SSH are allowed and which ones should be blocked.
-
-### The Kubernetes backend
-
-The new [Kubernetes backend](kubernetes.md) replaces the previous [KubeRun backend](kuberun.md). The new Kubernetes backend supports two modes of operation: running a pod per session (multiple per connection) or one pod per connection, using the `exec` facility. Support for the new [ContainerSSH agent](https://github.com/containerssh/agent) means that the Kubernetes backend now has support for all functions in SSH.
-
-The full list of changes is described in the [KubeRun deprecation notice](/deprecations/kuberun.md).
-
-### The Docker backend
-
-The new [Docker backend](docker.md) replaces the previous [DockerRun backend](dockerrun.md). The new Docker backend supports two modes of operation: running a pod per session (multiple per connection) or one pod per connection, using the `exec` facility. Support for the new [ContainerSSH agent](https://github.com/containerssh/agent) means that the Docker backend now has support for all functions in SSH.
-
-The full list of changes is described in the [DockerRun deprecation notice](/deprecations/dockerrun.md).
-
-### Scoped SSH configuration
-
-In order to facilitate multiple daemons in a single binary the SSH `listen` configuration is now located under the `ssh` key. 
-
-The change is described in the [listen deprecation notice](/deprecations/listen.md).
-
-### Unified connectionId for authentication and configuration webhooks
-
-In the previous version ContainerSSH sent a `sessionId` field to the authentication and configuration servers. This is now replaced with the opaque `connectionId`, which is mirrored in log files.
-
-The change is described in the [sessionId deprecation notice](/deprecations/sessionId.md).
-
-### SSH key format
-
-In the previous version ContainerSSH sent the SSH key in the OpenSSH binary format in the `publicKeyBase64` field. This format was not easy to integrate and it is now replaced with the `publicKey` field containing the SSH key in the authorized key format.
-
-The change is described in the [publicKeyBase64 deprecation notice](/deprecations/publicKeyBase64.md).
-
-### Webhooks now use `POST`
-
-In the previous version of ContainerSSH the webhooks were sent using the `GET` method. This is now changed to `POST`.
-
+The previous version [ignored the `password` and `pubkey` options](https://github.com/ContainerSSH/ContainerSSH/issues/167) in the authentication section and sent all requests to the authentication server regardless of the setting. This release fixes that and restores the function of these options to the way they worked in version 0.3.

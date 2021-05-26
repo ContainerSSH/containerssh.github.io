@@ -34,12 +34,12 @@ log:
 Next we will create a Dockerfile for ContainerSSH. We need to do this because ContainerSSH runs as non-root by default, but we won't have access to the Docker socket like this. Hence, our `Dockerfile` is rather simple:
 
 ```Dockerfile
-FROM containerssh/containerssh:0.4.0-PR4
+FROM containerssh/containerssh:0.4.1
 USER 0
 ```
 
 !!! warning
-    Do not use this for production. See the [DockerRun reference manual](https://containerssh.io/reference/dockerrun/) for details how to harden your setup.
+    Do not use this for production. See the [Docker reference manual](https://containerssh.io/reference/docker/) for details how to harden your setup.
     
 Now we can create the SSH host keys. You can do this using OpenSSL by running `openssl genrsa`. For testing purposes you can use the [dummy key from the example repo](https://github.com/ContainerSSH/examples/blob/main/logging-elk-stack/ssh_host_rsa_key). The key should be saved as `ssh_host_rsa_key`.
 
@@ -64,7 +64,7 @@ services:
       source: /var/run/docker.sock
       target: /var/run/docker.sock
   authconfig:
-    image: containerssh/containerssh-test-authconfig:0.4.0-PR4
+    image: containerssh/containerssh-test-authconfig:0.4.1
 ```
 
 That's it, now we can start ContainerSSH using `docker-compose up` and log in using `ssh foo@localhost -p 2222` with the password `bar`.
