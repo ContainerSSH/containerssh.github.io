@@ -102,7 +102,7 @@
           <div class="md-announce__inner md-grid md-typeset">
             
   <a href="/blog/2021/04/01/containerssh-0-4/">
-      ContainerSSH 0.4: Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
+      ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
   </a>
 
           </div>
@@ -311,7 +311,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../blog/2021/04/13/devlog-oauth2/" class="md-tabs__link">
+      <a href="../blog/2021/05/26/containerssh-0-4-1/" class="md-tabs__link">
         Blog
       </a>
     </li>
@@ -798,79 +798,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changes-since-containerssh-03" class="md-nav__link">
-    Changes since ContainerSSH 0.3
+  <a href="#changes-since-containerssh-040" class="md-nav__link">
+    Changes since ContainerSSH 0.4.0
   </a>
   
-    <nav class="md-nav" aria-label="Changes since ContainerSSH 0.3">
+    <nav class="md-nav" aria-label="Changes since ContainerSSH 0.4.0">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#audit-logging" class="md-nav__link">
-    Audit logging
+  <a href="#incorrect-handling-of-container-configuration-with-docker-backend" class="md-nav__link">
+    Incorrect handling of container configuration with Docker backend
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ssh-proxying" class="md-nav__link">
-    SSH proxying
+  <a href="#incorrect-handling-of-kubernetes-configuration" class="md-nav__link">
+    Incorrect handling of Kubernetes configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#improved-logging" class="md-nav__link">
-    Improved logging
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security-filters" class="md-nav__link">
-    Security filters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-kubernetes-backend" class="md-nav__link">
-    The Kubernetes backend
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-docker-backend" class="md-nav__link">
-    The Docker backend
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scoped-ssh-configuration" class="md-nav__link">
-    Scoped SSH configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unified-connectionid-for-authentication-and-configuration-webhooks" class="md-nav__link">
-    Unified connectionId for authentication and configuration webhooks
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh-key-format" class="md-nav__link">
-    SSH key format
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webhooks-now-use-post" class="md-nav__link">
-    Webhooks now use POST
+  <a href="#incorrect-handling-of-the-passwordpubkey-options" class="md-nav__link">
+    Incorrect handling of the password/pubkey options
   </a>
   
 </li>
@@ -1365,11 +1316,479 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1" type="checkbox" id="__nav_6_10_1" >
       
       <label class="md-nav__link" for="__nav_6_10_1">
+        0.4.0
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="0.4.0" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          0.4.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_3" type="checkbox" id="__nav_6_10_1_3" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_3">
+        SSH
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SSH" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          SSH
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/ssh/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/features/" class="md-nav__link">
+        Supported features
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_4" type="checkbox" id="__nav_6_10_1_4" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_4">
+        Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Backends" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Backends
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/backends/" class="md-nav__link">
+        Backend selection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/sshproxy/" class="md-nav__link">
+        SSH proxy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/dockerrun/" class="md-nav__link">
+        DockerRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/kuberun/" class="md-nav__link">
+        KubeRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_5" type="checkbox" id="__nav_6_10_1_5" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_5">
+        Webhooks and APIs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Webhooks and APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/auth/" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/configserver/" class="md-nav__link">
+        Configuration server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_6" type="checkbox" id="__nav_6_10_1_6" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_6">
+        Customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Customization" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/image/" class="md-nav__link">
+        Creating Guest Images
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_7" type="checkbox" id="__nav_6_10_1_7" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_7">
+        Monitoring
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Monitoring" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Monitoring
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/audit/" class="md-nav__link">
+        Audit logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_8" type="checkbox" id="__nav_6_10_1_8" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_8">
+        Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Security" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/security/" class="md-nav__link">
+        Restrictions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/hardening/" class="md-nav__link">
+        Hardening guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_9" type="checkbox" id="__nav_6_10_1_9" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_9">
+        Troubleshooting
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Troubleshooting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/troubleshooting/" class="md-nav__link">
+        Troubleshooting guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="0.4.0/codes/" class="md-nav__link">
+        Message codes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2" type="checkbox" id="__nav_6_10_2" >
+      
+      <label class="md-nav__link" for="__nav_6_10_2">
         0.3
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="0.3" data-md-level="3">
-        <label class="md-nav__title" for="__nav_6_10_1">
+        <label class="md-nav__title" for="__nav_6_10_2">
           <span class="md-nav__icon md-icon"></span>
           0.3
         </label>
@@ -1407,14 +1826,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_3" type="checkbox" id="__nav_6_10_1_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_3" type="checkbox" id="__nav_6_10_2_3" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_3">
+      <label class="md-nav__link" for="__nav_6_10_2_3">
         Backends
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Backends" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_3">
+        <label class="md-nav__title" for="__nav_6_10_2_3">
           <span class="md-nav__icon md-icon"></span>
           Backends
         </label>
@@ -1470,14 +1889,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_4" type="checkbox" id="__nav_6_10_1_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_4" type="checkbox" id="__nav_6_10_2_4" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_4">
+      <label class="md-nav__link" for="__nav_6_10_2_4">
         Webhooks and APIs
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_4">
+        <label class="md-nav__title" for="__nav_6_10_2_4">
           <span class="md-nav__icon md-icon"></span>
           Webhooks and APIs
         </label>
@@ -1533,14 +1952,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_5" type="checkbox" id="__nav_6_10_1_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_5" type="checkbox" id="__nav_6_10_2_5" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_5">
+      <label class="md-nav__link" for="__nav_6_10_2_5">
         Monitoring
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Monitoring" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_5">
+        <label class="md-nav__title" for="__nav_6_10_2_5">
           <span class="md-nav__icon md-icon"></span>
           Monitoring
         </label>
@@ -1584,14 +2003,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_6" type="checkbox" id="__nav_6_10_1_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_6" type="checkbox" id="__nav_6_10_2_6" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_6">
+      <label class="md-nav__link" for="__nav_6_10_2_6">
         Security
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Security" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_6">
+        <label class="md-nav__title" for="__nav_6_10_2_6">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -1623,14 +2042,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_7" type="checkbox" id="__nav_6_10_1_7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_7" type="checkbox" id="__nav_6_10_2_7" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_7">
+      <label class="md-nav__link" for="__nav_6_10_2_7">
         Customization
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Customization" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_7">
+        <label class="md-nav__title" for="__nav_6_10_2_7">
           <span class="md-nav__icon md-icon"></span>
           Customization
         </label>
@@ -2135,6 +2554,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../blog/2021/05/26/containerssh-0-4-1/" class="md-nav__link">
+         ContainerSSH 0.4.1: Bugfixing Audit & Proxy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../blog/2021/04/13/devlog-oauth2/" class="md-nav__link">
          DevLog: SSH authentication via OAuth2
       </a>
@@ -2227,79 +2658,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#changes-since-containerssh-03" class="md-nav__link">
-    Changes since ContainerSSH 0.3
+  <a href="#changes-since-containerssh-040" class="md-nav__link">
+    Changes since ContainerSSH 0.4.0
   </a>
   
-    <nav class="md-nav" aria-label="Changes since ContainerSSH 0.3">
+    <nav class="md-nav" aria-label="Changes since ContainerSSH 0.4.0">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#audit-logging" class="md-nav__link">
-    Audit logging
+  <a href="#incorrect-handling-of-container-configuration-with-docker-backend" class="md-nav__link">
+    Incorrect handling of container configuration with Docker backend
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#ssh-proxying" class="md-nav__link">
-    SSH proxying
+  <a href="#incorrect-handling-of-kubernetes-configuration" class="md-nav__link">
+    Incorrect handling of Kubernetes configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#improved-logging" class="md-nav__link">
-    Improved logging
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security-filters" class="md-nav__link">
-    Security filters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-kubernetes-backend" class="md-nav__link">
-    The Kubernetes backend
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-docker-backend" class="md-nav__link">
-    The Docker backend
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scoped-ssh-configuration" class="md-nav__link">
-    Scoped SSH configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unified-connectionid-for-authentication-and-configuration-webhooks" class="md-nav__link">
-    Unified connectionId for authentication and configuration webhooks
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh-key-format" class="md-nav__link">
-    SSH key format
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#webhooks-now-use-post" class="md-nav__link">
-    Webhooks now use POST
+  <a href="#incorrect-handling-of-the-passwordpubkey-options" class="md-nav__link">
+    Incorrect handling of the password/pubkey options
   </a>
   
 </li>
@@ -2331,36 +2713,14 @@
 <p>The Reference Manual provides reference material for ContainerSSH 0.4 and is oriented towards system operators wishing to use ContainerSSH on their system.</p>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
 <p>This manual contains documentation on how to set up, configure, monitor, and secure the ContainerSSH installation. If you need a one minute primer on how ContainerSSH works please <a href="https://www.youtube.com/watch?v=Cs9OrnPi2IM">watch this video</a>.</p>
-<h2 id="changes-since-containerssh-03">Changes since ContainerSSH 0.3<a class="headerlink" href="#changes-since-containerssh-03" title="Permanent link">&para;</a></h2>
-<p>ContainerSSH 0.4 is major overhaul to the internal structure. As such, this release contains several major improvements to the stability of ContainerSSH. The reference manual for ContainerSSH 0.3 is <a href="..">available here</a>.</p>
-<h3 id="audit-logging">Audit logging<a class="headerlink" href="#audit-logging" title="Permanent link">&para;</a></h3>
-<p>The most visible improvement of this release is the new <a href="audit/">audit logging facility</a>. Audit logging allows operators to capture everything that is happening within an SSH connection, including passwords, keys, typed commands, or SFTP uploads. The audit log can automatically be uploaded to an S3-compatible object storage.</p>
-<h3 id="ssh-proxying">SSH proxying<a class="headerlink" href="#ssh-proxying" title="Permanent link">&para;</a></h3>
-<p>This release also adds a new <a href="sshproxy/">SSH proxy backend</a> that can be used to forward connections to a backing SSH server. Using this in conjunction with the audit logging facility makes it possible to use ContainerSSH as an auditing and dynamic forwarding SSH proxy.</p>
-<h3 id="improved-logging">Improved logging<a class="headerlink" href="#improved-logging" title="Permanent link">&para;</a></h3>
-<p>This release also adds significant improvements to logging. This release adds several hundred log messages across all levels to make debugging potential failures and reporting errors much easier. Most of these log messages have been added with the average operator in mind and the details are sent in the debug log level, which is disabled by default. </p>
-<p>Furthermore, we have added a new log format as well as two new log outputs. You can now log in text and JSON formats to stdout, files, or syslog.</p>
-<p>Finally, we have added a unique message code to each log message that makes it easier to look up the corresponding documentation in the <a href="codes/">code list</a> and determine if a log message is cause for concern or not.</p>
-<p>The details are described in the <a href="logging/">logging reference</a>.</p>
-<h3 id="security-filters">Security filters<a class="headerlink" href="#security-filters" title="Permanent link">&para;</a></h3>
-<p>The new <a href="security/">security module</a> adds a the ability to create a fine-grained filter what interactions over SSH are allowed and which ones should be blocked.</p>
-<h3 id="the-kubernetes-backend">The Kubernetes backend<a class="headerlink" href="#the-kubernetes-backend" title="Permanent link">&para;</a></h3>
-<p>The new <a href="kubernetes/">Kubernetes backend</a> replaces the previous <a href="kuberun/">KubeRun backend</a>. The new Kubernetes backend supports two modes of operation: running a pod per session (multiple per connection) or one pod per connection, using the <code>exec</code> facility. Support for the new <a href="https://github.com/containerssh/agent">ContainerSSH agent</a> means that the Kubernetes backend now has support for all functions in SSH.</p>
-<p>The full list of changes is described in the <a href="/deprecations/kuberun.md">KubeRun deprecation notice</a>.</p>
-<h3 id="the-docker-backend">The Docker backend<a class="headerlink" href="#the-docker-backend" title="Permanent link">&para;</a></h3>
-<p>The new <a href="docker/">Docker backend</a> replaces the previous <a href="dockerrun/">DockerRun backend</a>. The new Docker backend supports two modes of operation: running a pod per session (multiple per connection) or one pod per connection, using the <code>exec</code> facility. Support for the new <a href="https://github.com/containerssh/agent">ContainerSSH agent</a> means that the Docker backend now has support for all functions in SSH.</p>
-<p>The full list of changes is described in the <a href="/deprecations/dockerrun.md">DockerRun deprecation notice</a>.</p>
-<h3 id="scoped-ssh-configuration">Scoped SSH configuration<a class="headerlink" href="#scoped-ssh-configuration" title="Permanent link">&para;</a></h3>
-<p>In order to facilitate multiple daemons in a single binary the SSH <code>listen</code> configuration is now located under the <code>ssh</code> key. </p>
-<p>The change is described in the <a href="/deprecations/listen.md">listen deprecation notice</a>.</p>
-<h3 id="unified-connectionid-for-authentication-and-configuration-webhooks">Unified connectionId for authentication and configuration webhooks<a class="headerlink" href="#unified-connectionid-for-authentication-and-configuration-webhooks" title="Permanent link">&para;</a></h3>
-<p>In the previous version ContainerSSH sent a <code>sessionId</code> field to the authentication and configuration servers. This is now replaced with the opaque <code>connectionId</code>, which is mirrored in log files.</p>
-<p>The change is described in the <a href="/deprecations/sessionId.md">sessionId deprecation notice</a>.</p>
-<h3 id="ssh-key-format">SSH key format<a class="headerlink" href="#ssh-key-format" title="Permanent link">&para;</a></h3>
-<p>In the previous version ContainerSSH sent the SSH key in the OpenSSH binary format in the <code>publicKeyBase64</code> field. This format was not easy to integrate and it is now replaced with the <code>publicKey</code> field containing the SSH key in the authorized key format.</p>
-<p>The change is described in the <a href="/deprecations/publicKeyBase64.md">publicKeyBase64 deprecation notice</a>.</p>
-<h3 id="webhooks-now-use-post">Webhooks now use <code>POST</code><a class="headerlink" href="#webhooks-now-use-post" title="Permanent link">&para;</a></h3>
-<p>In the previous version of ContainerSSH the webhooks were sent using the <code>GET</code> method. This is now changed to <code>POST</code>.</p>
+<h2 id="changes-since-containerssh-040">Changes since ContainerSSH 0.4.0<a class="headerlink" href="#changes-since-containerssh-040" title="Permanent link">&para;</a></h2>
+<p>ContainerSSH 0.4.1 is a bugfix release resolving several issues with the previous release. The reference manual for ContainerSSH 0.4.0 is <a href="0.4.0/">available here</a>.</p>
+<h3 id="incorrect-handling-of-container-configuration-with-docker-backend">Incorrect handling of container configuration with Docker backend<a class="headerlink" href="#incorrect-handling-of-container-configuration-with-docker-backend" title="Permanent link">&para;</a></h3>
+<p>The 0.4.0 release introduced <a href="https://github.com/ContainerSSH/ContainerSSH/issues/201">a bug discovered by a user</a> which prevented setting the ContainerSSH image from the configuration server. The reason behind this failure was the incorrect JSON serialization. This release fixes the serialization and restores the correct way of operations.</p>
+<h3 id="incorrect-handling-of-kubernetes-configuration">Incorrect handling of Kubernetes configuration<a class="headerlink" href="#incorrect-handling-of-kubernetes-configuration" title="Permanent link">&para;</a></h3>
+<p>Kubernetes uses a different YAML serialization library which lead to it being impossible to set volume parameters and potentially other options in the configuration file <a href="https://github.com/ContainerSSH/ContainerSSH/issues/209">as discovered by a user</a>. This release fixes this issue by using the Kubernetes YAML serialization for the Kubernetes configuration only.</p>
+<h3 id="incorrect-handling-of-the-passwordpubkey-options">Incorrect handling of the password/pubkey options<a class="headerlink" href="#incorrect-handling-of-the-passwordpubkey-options" title="Permanent link">&para;</a></h3>
+<p>The previous version <a href="https://github.com/ContainerSSH/ContainerSSH/issues/167">ignored the <code>password</code> and <code>pubkey</code> options</a> in the authentication section and sent all requests to the authentication server regardless of the setting. This release fixes that and restores the function of these options to the way they worked in version 0.3.</p>
                 
                   
                 

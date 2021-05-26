@@ -102,7 +102,7 @@
           <div class="md-announce__inner md-grid md-typeset">
             
   <a href="/blog/2021/04/01/containerssh-0-4/">
-      ContainerSSH 0.4: Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
+      ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy <strong>is now available</strong>! Read more &raquo;
   </a>
 
           </div>
@@ -311,7 +311,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../blog/2021/04/13/devlog-oauth2/" class="md-tabs__link">
+      <a href="../../blog/2021/05/26/containerssh-0-4-1/" class="md-tabs__link">
         Blog
       </a>
     </li>
@@ -1372,11 +1372,479 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1" type="checkbox" id="__nav_6_10_1" >
       
       <label class="md-nav__link" for="__nav_6_10_1">
+        0.4.0
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="0.4.0" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_10_1">
+          <span class="md-nav__icon md-icon"></span>
+          0.4.0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/installation/" class="md-nav__link">
+        Installation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_3" type="checkbox" id="__nav_6_10_1_3" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_3">
+        SSH
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SSH" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          SSH
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/ssh/" class="md-nav__link">
+        Configuration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/features/" class="md-nav__link">
+        Supported features
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_4" type="checkbox" id="__nav_6_10_1_4" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_4">
+        Backends
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Backends" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          Backends
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/backends/" class="md-nav__link">
+        Backend selection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/sshproxy/" class="md-nav__link">
+        SSH proxy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/dockerrun/" class="md-nav__link">
+        DockerRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/kuberun/" class="md-nav__link">
+        KubeRun (deprecated)
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_5" type="checkbox" id="__nav_6_10_1_5" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_5">
+        Webhooks and APIs
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          Webhooks and APIs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/auth/" class="md-nav__link">
+        Authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/configserver/" class="md-nav__link">
+        Configuration server
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/api/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_6" type="checkbox" id="__nav_6_10_1_6" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_6">
+        Customization
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Customization" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          Customization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/image/" class="md-nav__link">
+        Creating Guest Images
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_7" type="checkbox" id="__nav_6_10_1_7" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_7">
+        Monitoring
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Monitoring" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Monitoring
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/logging/" class="md-nav__link">
+        Logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/audit/" class="md-nav__link">
+        Audit logging
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_8" type="checkbox" id="__nav_6_10_1_8" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_8">
+        Security
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Security" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          Security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/security/" class="md-nav__link">
+        Restrictions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/hardening/" class="md-nav__link">
+        Hardening guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_9" type="checkbox" id="__nav_6_10_1_9" >
+      
+      <label class="md-nav__link" for="__nav_6_10_1_9">
+        Troubleshooting
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Troubleshooting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_6_10_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          Troubleshooting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/troubleshooting/" class="md-nav__link">
+        Troubleshooting guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0.4.0/codes/" class="md-nav__link">
+        Message codes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2" type="checkbox" id="__nav_6_10_2" >
+      
+      <label class="md-nav__link" for="__nav_6_10_2">
         0.3
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="0.3" data-md-level="3">
-        <label class="md-nav__title" for="__nav_6_10_1">
+        <label class="md-nav__title" for="__nav_6_10_2">
           <span class="md-nav__icon md-icon"></span>
           0.3
         </label>
@@ -1414,14 +1882,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_3" type="checkbox" id="__nav_6_10_1_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_3" type="checkbox" id="__nav_6_10_2_3" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_3">
+      <label class="md-nav__link" for="__nav_6_10_2_3">
         Backends
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Backends" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_3">
+        <label class="md-nav__title" for="__nav_6_10_2_3">
           <span class="md-nav__icon md-icon"></span>
           Backends
         </label>
@@ -1477,14 +1945,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_4" type="checkbox" id="__nav_6_10_1_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_4" type="checkbox" id="__nav_6_10_2_4" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_4">
+      <label class="md-nav__link" for="__nav_6_10_2_4">
         Webhooks and APIs
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Webhooks and APIs" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_4">
+        <label class="md-nav__title" for="__nav_6_10_2_4">
           <span class="md-nav__icon md-icon"></span>
           Webhooks and APIs
         </label>
@@ -1540,14 +2008,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_5" type="checkbox" id="__nav_6_10_1_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_5" type="checkbox" id="__nav_6_10_2_5" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_5">
+      <label class="md-nav__link" for="__nav_6_10_2_5">
         Monitoring
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Monitoring" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_5">
+        <label class="md-nav__title" for="__nav_6_10_2_5">
           <span class="md-nav__icon md-icon"></span>
           Monitoring
         </label>
@@ -1591,14 +2059,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_6" type="checkbox" id="__nav_6_10_1_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_6" type="checkbox" id="__nav_6_10_2_6" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_6">
+      <label class="md-nav__link" for="__nav_6_10_2_6">
         Security
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Security" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_6">
+        <label class="md-nav__title" for="__nav_6_10_2_6">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -1630,14 +2098,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_1_7" type="checkbox" id="__nav_6_10_1_7" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_10_2_7" type="checkbox" id="__nav_6_10_2_7" >
       
-      <label class="md-nav__link" for="__nav_6_10_1_7">
+      <label class="md-nav__link" for="__nav_6_10_2_7">
         Customization
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Customization" data-md-level="4">
-        <label class="md-nav__title" for="__nav_6_10_1_7">
+        <label class="md-nav__title" for="__nav_6_10_2_7">
           <span class="md-nav__icon md-icon"></span>
           Customization
         </label>
@@ -2136,6 +2604,18 @@
           Blog
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/2021/05/26/containerssh-0-4-1/" class="md-nav__link">
+         ContainerSSH 0.4.1: Bugfixing Audit & Proxy
+      </a>
+    </li>
+  
+
           
             
   
@@ -3202,7 +3682,7 @@
         </a>
       
       
-        <a href="../0.3/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../0.4.0/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">

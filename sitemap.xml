@@ -164,6 +164,90 @@
      <lastmod>2021-05-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/installation/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/ssh/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/features/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/backends/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/docker/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/kubernetes/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/sshproxy/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/dockerrun/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/kuberun/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/auth/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/configserver/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/api/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/image/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/logging/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/audit/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/metrics/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/security/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/hardening/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/troubleshooting/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/reference/0.4.0/codes/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://containerssh.io/reference/0.3/</loc>
      <lastmod>2021-05-26</lastmod>
      <changefreq>daily</changefreq>
@@ -305,6 +389,10 @@
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://containerssh.io/development/tools/docker/</loc>
+     <lastmod>2021-05-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://containerssh.io/blog/2021/05/26/containerssh-0-4-1/</loc>
      <lastmod>2021-05-26</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
