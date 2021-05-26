@@ -105,6 +105,35 @@ nav:
           - Troubleshooting guide: reference/troubleshooting.md
           - Message codes: reference/codes.md
       - Old releases:
+          - 0.4.0:
+              - 'Overview': reference/0.4.0/index.md
+              - 'Installation': reference/0.4.0/installation.md
+              - 'SSH':
+                  - 'Configuration': reference/0.4.0/ssh.md
+                  - 'Supported features': reference/0.4.0/features.md
+              - 'Backends':
+                  - 'Backend selection': reference/0.4.0/backends.md
+                  - 'Docker': reference/0.4.0/docker.md
+                  - 'Kubernetes': reference/0.4.0/kubernetes.md
+                  - 'SSH proxy': reference/0.4.0/sshproxy.md
+                  - 'DockerRun (deprecated)': reference/0.4.0/dockerrun.md
+                  - 'KubeRun (deprecated)': reference/0.4.0/kuberun.md
+              - Webhooks and APIs:
+                  - 'Authentication': reference/0.4.0/auth.md
+                  - 'Configuration server': reference/0.4.0/configserver.md
+                  - 'API': reference/0.4.0/api/index.md
+              - Customization:
+                  - 'Creating Guest Images': reference/0.4.0/image.md
+              - Monitoring:
+                  - 'Logging': reference/0.4.0/logging.md
+                  - 'Audit logging': reference/0.4.0/audit.md
+                  - 'Metrics': reference/0.4.0/metrics.md
+              - Security:
+                  - 'Restrictions': reference/0.4.0/security.md
+                  - 'Hardening guide': reference/0.4.0/hardening.md
+              - Troubleshooting:
+                  - Troubleshooting guide: reference/0.4.0/troubleshooting.md
+                  - Message codes: reference/0.4.0/codes.md
           - 0.3:
             - 'Overview': reference/0.3/index.md
             - Installation: reference/0.3/installation.md
@@ -153,6 +182,7 @@ nav:
           - Snyk: development/tools/snyk.md
           - Docker: development/tools/docker.md
   - Blog:
+      - "ContainerSSH 0.4.1: Bugfixing Audit & Proxy": blog/2021/05/26/containerssh-0-4-1.md
       - "DevLog: SSH authentication via OAuth2": blog/2021/04/13/devlog-oauth2.md
       - "ContainerSSH 0.4: Audit & Proxy": blog/2021/04/01/containerssh-0-4.md
       - We messed up: blog/2021/03/19/we-messed-up.md

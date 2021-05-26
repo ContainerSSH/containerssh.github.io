@@ -13,7 +13,7 @@
   "info": {
     "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://containerssh.io/ for details.)",
     "title": "ContainerSSH Authentication and Configuration Server",
-    "version": "0.4.1"
+    "version": "0.4.0"
   },
   "host": "localhost",
   "basePath": "/",
@@ -176,7 +176,7 @@
           "$ref": "#/definitions/Config"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-package": "github.com/containerssh/configuration"
     },
     "AuthResponseBody": {
       "type": "object",
@@ -685,7 +685,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-package": "github.com/containerssh/configuration"
     },
     "ConfigResponseBody": {
       "type": "object",
@@ -698,34 +698,92 @@
           "$ref": "#/definitions/AppConfig"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-package": "github.com/containerssh/configuration"
     },
     "ConnectionConfig": {
+      "description": "goland:noinspection GoVetStructTag",
       "type": "object",
-      "title": "ConnectionConfig configures how to connect to dockerd.",
+      "title": "ConnectionConfig configures the connection to the Kubernetes cluster.",
       "properties": {
-        "cacert": {
-          "description": "CaCert is the CA certificate for Docker connection embedded in the configuration in PEM format.",
+        "bearerToken": {
+          "description": "BearerToken contains a bearer (service) token for authentication.",
           "type": "string",
-          "x-go-name": "CaCert"
+          "x-go-name": "BearerToken"
+        },
+        "bearerTokenFile": {
+          "description": "BearerTokenFile points to a file containing a bearer (service) token for authentication.\nSet to /var/run/secrets/kubernetes.io/serviceaccount/token to use service token in a Kubernetes kubeConfigCluster.",
+          "type": "string",
+          "x-go-name": "BearerTokenFile"
+        },
+        "burst": {
+          "description": "Burst indicates the maximum burst for throttle.",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Burst"
+        },
+        "cacert": {
+          "description": "CAData contains a PEM-encoded trusted root certificates for the server.",
+          "type": "string",
+          "x-go-name": "CAData"
+        },
+        "cacertFile": {
+          "description": "CAFile points to a file that contains the CA certificate for authentication.",
+          "type": "string",
+          "x-go-name": "CAFile"
         },
         "cert": {
-          "description": "Cert is the client certificate in PEM format embedded in the configuration.",
+          "description": "CertData contains a PEM-encoded certificate for TLS client certificate authentication.",
           "type": "string",
-          "x-go-name": "Cert"
+          "x-go-name": "CertData"
+        },
+        "certFile": {
+          "description": "CertFile points to a file that contains the client certificate used for authentication.",
+          "type": "string",
+          "x-go-name": "CertFile"
         },
         "host": {
-          "description": "Host is the docker connect URL",
+          "description": "Host is a host string, a host:port pair, or a URL to the Kubernetes apiserver. Defaults to kubernetes.default.svc.",
           "type": "string",
           "x-go-name": "Host"
         },
         "key": {
-          "description": "Key is the client key in PEM format embedded in the configuration.",
+          "description": "KeyData contains a PEM-encoded client key for TLS client certificate authentication.",
           "type": "string",
-          "x-go-name": "Key"
+          "x-go-name": "KeyData"
+        },
+        "keyFile": {
+          "description": "KeyFile points to a file that contains the client key used for authentication.",
+          "type": "string",
+          "x-go-name": "KeyFile"
+        },
+        "password": {
+          "description": "Password is the password for basic authentication.",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "path": {
+          "description": "APIPath is a sub-path that points to the API root. Defaults to /api",
+          "type": "string",
+          "x-go-name": "APIPath"
+        },
+        "qps": {
+          "description": "QPS indicates the maximum QPS to the master from this client. Defaults to 5.",
+          "type": "number",
+          "format": "float",
+          "x-go-name": "QPS"
+        },
+        "serverName": {
+          "description": "ServerName sets the server name to be set in the SNI and used by the client for TLS verification.",
+          "type": "string",
+          "x-go-name": "ServerName"
+        },
+        "username": {
+          "description": "Username is the username for basic authentication.",
+          "type": "string",
+          "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "Consistency": {
       "type": "string",
@@ -1086,7 +1144,7 @@
           "x-go-name": "Key"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "DockerRunContainerConfig": {
       "description": "goland:noinspection GoNameStartsWithPackageName,GoDeprecation",
@@ -1125,7 +1183,7 @@
           "$ref": "#/definitions/Duration"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "DownwardAPIProjection": {
       "description": "Note that this is identical to a downwardAPI volume source without the default\nmode.",
@@ -1638,6 +1696,11 @@
       "type": "object",
       "title": "Represents an ephemeral volume that is handled by a normal storage driver.",
       "properties": {
+        "readOnly": {
+          "description": "Specifies a read-only configuration for the volume.\nDefaults to false (read/write).\n+optional",
+          "type": "boolean",
+          "x-go-name": "ReadOnly"
+        },
         "volumeClaimTemplate": {
           "$ref": "#/definitions/PersistentVolumeClaimTemplate"
         }
@@ -1723,13 +1786,13 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "ExecutionMode": {
       "description": "ExecutionModeConnection launches one container per SSH connection (default), while ExecutionModeSession launches\none container per SSH session.",
       "type": "string",
       "title": "ExecutionMode determines when a container is launched.",
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "ExecutionPolicy": {
       "type": "string",
@@ -2548,7 +2611,7 @@
       "description": "ImagePullPolicyAlways means that the container image will be pulled on every connection.\nImagePullPolicyIfNotPresent means the image will be pulled if the image is not present locally, an empty tag, or\nthe \"latest\" tag was specified.\nImagePullPolicyNever means that the image will be never pulled, and if the image is not available locally the\nconnection will fail.",
       "type": "string",
       "title": "ImagePullPolicy drives how and when images are pulled. The values are closely aligned with the Kubernetes image pull\npolicy.",
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "ImageSummary": {
       "description": "ImageSummary image summary",
@@ -2717,7 +2780,7 @@
           "$ref": "#/definitions/Duration"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "KubeRunConnectionConfig": {
       "description": "Deprecated: use ConnectionConfig insteead.\ngoland:noinspection GoDeprecation",
@@ -2810,7 +2873,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "KubeRunPodConfig": {
       "description": "Deprecated: Use PodConfig instead.\ngoland:noinspection GoDeprecation",
@@ -2863,7 +2926,7 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "LabelSelector": {
       "description": "A label selector is a label query over a set of resources. The result of matchLabels and\nmatchExpressions are ANDed. An empty label selector matches all objects. A null\nlabel selector matches no objects.\n+structType=atomic",
@@ -2938,7 +3001,7 @@
           "$ref": "#/definitions/Platform"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "github.com/containerssh/docker"
     },
     "Lifecycle": {
       "description": "Lifecycle describes actions that the management system should take in response to container lifecycle\nevents. For the PostStart and PreStop lifecycle handlers, management of the container blocks\nuntil the action is complete, unless the container process fails, in which case the handler is aborted.",
@@ -4083,11 +4146,8 @@
         "labelSelector": {
           "$ref": "#/definitions/LabelSelector"
         },
-        "namespaceSelector": {
-          "$ref": "#/definitions/LabelSelector"
-        },
         "namespaces": {
-          "description": "namespaces specifies a static list of namespace names that the term applies to.\nThe term is applied to the union of the namespaces listed in this field\nand the ones selected by namespaceSelector.\nnull or empty namespaces list and null namespaceSelector means \"this pod's namespace\"\n+optional",
+          "description": "namespaces specifies which namespaces the labelSelector applies to (matches against);\nnull or empty list means \"this pod's namespace\"\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -4185,7 +4245,7 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "PodDNSConfig": {
       "description": "PodDNSConfig defines the DNS parameters of a pod in addition to\nthose generated from DNSPolicy.",
@@ -4479,7 +4539,7 @@
           "x-go-name": "Subdomain"
         },
         "terminationGracePeriodSeconds": {
-          "description": "Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request.\nValue must be non-negative integer. The value zero indicates stop immediately via\nthe kill signal (no opportunity to shut down).\nIf this value is nil, the default grace period will be used instead.\nThe grace period is the duration in seconds after the processes running in the pod are sent\na termination signal and the time when the processes are forcibly halted with a kill signal.\nSet this value longer than the expected cleanup time for your process.\nDefaults to 30 seconds.\n+optional",
+          "description": "Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request.\nValue must be non-negative integer. The value zero indicates delete immediately.\nIf this value is nil, the default grace period will be used instead.\nThe grace period is the duration in seconds after the processes running in the pod are sent\na termination signal and the time when the processes are forcibly halted with a kill signal.\nSet this value longer than the expected cleanup time for your process.\nDefaults to 30 seconds.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "TerminationGracePeriodSeconds"
@@ -4654,12 +4714,6 @@
         },
         "tcpSocket": {
           "$ref": "#/definitions/TCPSocketAction"
-        },
-        "terminationGracePeriodSeconds": {
-          "description": "Optional duration in seconds the pod needs to terminate gracefully upon probe failure.\nThe grace period is the duration in seconds after the processes running in the pod are sent\na termination signal and the time when the processes are forcibly halted with a kill signal.\nSet this value longer than the expected cleanup time for your process.\nIf this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this\nvalue overrides the value provided by the pod spec.\nValue must be non-negative integer. The value zero indicates stop immediately via\nthe kill signal (no opportunity to shut down).\nThis is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.\n+optional",
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "TerminationGracePeriodSeconds"
         },
         "timeoutSeconds": {
           "description": "Number of seconds after which the probe times out.\nDefaults to 1 second. Minimum value is 1.\nMore info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes\n+optional",
@@ -5547,7 +5601,7 @@
           "$ref": "#/definitions/Duration"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "github.com/containerssh/kubernetes"
     },
     "TmpfsOptions": {
       "type": "object",
