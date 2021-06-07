@@ -7,7 +7,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+        <meta name="description" content="We are announcing the immediate availability of ContainerSSH 0.4.1: Bugfixing Audit & Proxy">
       
       
       
@@ -27,10 +27,12 @@
   
   
   
+    
+  
   <meta property="og:type" content="website">
   <meta property="og:title" content="ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy">
   <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
-  <meta property="og:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+  <meta property="og:description" content="We are announcing the immediate availability of ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy">
   <meta property="og:url" content="https://containerssh.io/blog/2021/05/26/containerssh-0-4-1/">
   <meta property="og:image" content="https://containerssh.io/images/social.png">
   
@@ -38,7 +40,7 @@
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
   <meta name="twitter:title" content="ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy">
-  <meta name="twitter:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+  <meta name="twitter:description" content="We are announcing the immediate availability of ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy">
   <meta name="twitter:image" content="https://containerssh.io/images/social.png">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
   <meta name="google-site-verification" content="VN4-Orfu-TOf9hXInR_ZdaZXQJDiak-dmPuaBc9TlwE" />
@@ -130,7 +132,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-               ContainerSSH 0.4.1: Bugfixing Audit & Proxy
+              ContainerSSH 0.4.1: Bugfixing Audit & Proxy
             
           </span>
         </div>
@@ -2703,6 +2705,8 @@
                 
                 
                 <h1 id="containerssh-041-bugfixing-audit-proxy">ContainerSSH 0.4.1: Bugfixing Audit &amp; Proxy<a class="headerlink" href="#containerssh-041-bugfixing-audit-proxy" title="Permanent link">&para;</a></h1>
+<div class="blog-meta"><small>May 26, 2021</small></div>
+
 <p>ContainerSSH 0.4.1 is <a href="/downloads/">now available</a> and contains several bugfixes for the previous version. We encourage all users to upgrade. </p>
 <h2 id="changes-in-detail">Changes in detail<a class="headerlink" href="#changes-in-detail" title="Permanent link">&para;</a></h2>
 <p>This release fixes 3 bugs that were introduced with the refactor to version 0.4.0. These are:</p>
@@ -2742,6 +2746,8 @@
 <p>The authentication server could just reject those authentication methods, but in order to cut down on 404 entries in the logs we added these options. This release restores the aforementioned functionality.</p>
 <h2 id="upgrading-to-the-new-release">Upgrading to the new release<a class="headerlink" href="#upgrading-to-the-new-release" title="Permanent link">&para;</a></h2>
 <p>If you haven't upgraded to version 0.4.0 yet please see the <a href="../../../04/01/containerssh-0-4/">0.4.0 announcement</a> for details on what changed from version 0.3. If you have already upgraded to 0.4.0 we recommend testing the new release for you scenario before upgrading and scheduling a brief downtime as you upgrade both the auth-config servers and ContainerSSH itself.</p>
+                
+                  
                 
               
               
