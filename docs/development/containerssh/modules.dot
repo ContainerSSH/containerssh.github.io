@@ -13,6 +13,7 @@ digraph ContainerSSH {
     configuration [url="https://github.com/containerssh/configuration"]
     docker [url="https://github.com/containerssh/docker"]
     sshproxy [url="https://github.com/containerssh/sshproxy"]
+    health [url="https://github.com/containerssh/health"]
     http [url="https://github.com/containerssh/http"]
     kubernetes [url="https://github.com/containerssh/kubernetes"]
     log [url="https://github.com/containerssh/log"]
@@ -76,6 +77,7 @@ digraph ContainerSSH {
     configuration -> docker [color="#0600FF"]
     configuration -> sshproxy [color="#0600FF"]
     configuration -> geoip [color="#0600FF"]
+    configuration -> health [color="#0600FF"]
     configuration -> http [color="#0600FF"]
     configuration -> kubernetes [color="#0600FF"]
     configuration -> log [color="#0600FF"]
@@ -116,6 +118,10 @@ digraph ContainerSSH {
     metrics -> log [color="#fce700"]
     metrics -> service [color="#fce700"]
     metrics -> structutils [color="#fce700"]
+
+    health -> http [color="#fce700"]
+    health -> log [color="#fce700"]
+    health -> service [color="#fce700"]
 
     metricsintegration -> geoip [color="#c400fc"]
     metricsintegration -> metrics [color="#c400fc"]
