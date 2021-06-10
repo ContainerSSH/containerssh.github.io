@@ -5,13 +5,10 @@
 ---
 - name: Sanja Bonic
   github: sanjabonic
-  website: https://pasztor.at
-  linkedin: sanjabonic
+  website: https://debugged.it
 - name: Janos Pasztor
   github: janoszen
-  twitter: janoszen
-  website: https://pasztor.at
-  linkedin: janoszen
+  website: https://debugged.it
 - name: Richard Kovacs
   github: mhmxs
   twitter: mhmxs
