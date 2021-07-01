@@ -523,7 +523,7 @@ class ContributorsFileReader:
 
     def get_sorted_contributors(self) -> List[Contributor]:
         contributors: List[Contributor] = []
-        with open(self.file, "r") as fh:
+        with open(self.file, "r", encoding='utf8') as fh:
             public_contributors = yaml.load(fh.read(), Loader=yaml.BaseLoader)
         for public_contributor in public_contributors:
             contributor = Contributor()
