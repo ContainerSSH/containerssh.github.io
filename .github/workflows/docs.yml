@@ -26,6 +26,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Build
         run: mkdocs build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
