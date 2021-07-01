@@ -5,9 +5,6 @@ This guide will lead you through the steps of creating an SSH honeypot with Cont
 !!! danger
     Creating SSH honeypots with a real Linux backend is inherently dangerous. Any local privilege escalation could lead to the attacker taking over your host system. While this tutorial represents the best practices in building a honeypot, the responsibility of securing your installation ultimately rests upon you. **Please do not attempt this unless you are intimately familiar with securing container environments.** [Docker has really good documentation on this topic.](https://docs.docker.com/engine/security/)
     
-!!! warning
-    This guide is written for the upcoming 0.4 release of ContainerSSH. You can [read the reference manual for this version here](../reference/index.md).
-    
 ## Step 1: Infrastructure
 
 In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the `gateway` VM and the second one `sacrificial` VM. Ideally, the `sacrificial` VM should run on its own dedicated physical hardware to prevent leakage of secrets due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.
