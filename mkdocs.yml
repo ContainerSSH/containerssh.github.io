@@ -89,7 +89,10 @@ nav:
           - 'DockerRun (deprecated)': reference/dockerrun.md
           - 'KubeRun (deprecated)': reference/kuberun.md
       - Webhooks and APIs:
-          - 'Authentication': reference/auth.md
+          - 'Authentication':
+              - 'Overview': reference/auth.md
+              - 'Webhook': reference/auth-webhook.md
+              - 'OAuth2': reference/auth-oauth2.md
           - 'Configuration server': reference/configserver.md
           - 'API': reference/api/index.md
       - Customization:
@@ -98,13 +101,44 @@ nav:
           - 'Logging': reference/logging.md
           - 'Audit logging': reference/audit.md
           - 'Metrics': reference/metrics.md
+          - 'Health check endpoint': reference/health.md
       - Security:
           - 'Restrictions': reference/security.md
           - 'Hardening guide': reference/hardening.md
+          - 'HTTP and TLS': reference/http.md
       - Troubleshooting:
           - Troubleshooting guide: reference/troubleshooting.md
           - Message codes: reference/codes.md
       - Old releases:
+          - 0.4.1:
+              - 'Overview': reference/0.4.1/index.md
+              - 'Installation': reference/0.4.1/installation.md
+              - 'SSH':
+                  - 'Configuration': reference/0.4.1/ssh.md
+                  - 'Supported features': reference/0.4.1/features.md
+              - 'Backends':
+                  - 'Backend selection': reference/0.4.1/backends.md
+                  - 'Docker': reference/0.4.1/docker.md
+                  - 'Kubernetes': reference/0.4.1/kubernetes.md
+                  - 'SSH proxy': reference/0.4.1/sshproxy.md
+                  - 'DockerRun (deprecated)': reference/0.4.1/dockerrun.md
+                  - 'KubeRun (deprecated)': reference/0.4.1/kuberun.md
+              - Webhooks and APIs:
+                  - 'Authentication': reference/0.4.1/auth.md
+                  - 'Configuration server': reference/0.4.1/configserver.md
+                  - 'API': reference/0.4.1/api/index.md
+              - Customization:
+                  - 'Creating Guest Images': reference/0.4.1/image.md
+              - Monitoring:
+                  - 'Logging': reference/0.4.1/logging.md
+                  - 'Audit logging': reference/0.4.1/audit.md
+                  - 'Metrics': reference/0.4.1/metrics.md
+              - Security:
+                  - 'Restrictions': reference/0.4.1/security.md
+                  - 'Hardening guide': reference/0.4.1/hardening.md
+              - Troubleshooting:
+                  - Troubleshooting guide: reference/0.4.1/troubleshooting.md
+                  - Message codes: reference/0.4.1/codes.md
           - 0.4.0:
               - 'Overview': reference/0.4.0/index.md
               - 'Installation': reference/0.4.0/installation.md
