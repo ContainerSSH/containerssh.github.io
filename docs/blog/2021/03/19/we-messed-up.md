@@ -33,7 +33,7 @@ The `<version>` tag in this case should be replaced with your ContainerSSH versi
 These images should have never made it to the Docker Hub, our testing procedures (obviously lacking) should have caught this and [we are determined to fix them](https://github.com/ContainerSSH/images/issues/1). **We are very sorry for the inconvenience and the potential outage this issue has caused.**
 
 !!! tip "Please reach out to us"
-    If you need to reach out quickly you can [tag or DM us in Twitter](https://twitter.com/ContainerSSH) or [tag the @ContainerSSH role on the Debugged.it Discord](https://discord.gg/CFMMqwS) to notify the core maintainers.
+    If you need to reach out quickly you can [tag or DM us in Twitter](https://twitter.com/ContainerSSH) to notify the core maintainers.
 
 ## Versioning in the future
 
