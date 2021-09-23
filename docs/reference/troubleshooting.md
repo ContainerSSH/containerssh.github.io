@@ -73,7 +73,6 @@ You can raise your question in one of the following channels:
 
 - [As a GitHub issue.](https://github.com/ContainerSSH/ContainerSSH/issues/new/choose)
 - [As a discussion post.](https://github.com/ContainerSSH/ContainerSSH/discussions)
-- [On the debugged.it Discord.](https://debugged.it/discord)
 
 Please link the debug logs and configuration from a [GitHub Gist](http://gist.github.com) or a [Pastebin](https://pastebin.com).
 
