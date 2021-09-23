@@ -14,7 +14,7 @@ Please read the [hardening guide](../reference/hardening.md) if you intend to us
 
 ContainerSSH is in use by several companies in production and has caused no issues or crashes. That being said, it is very early in its development and the API and configuration file format may still change.
 
-If you intend to use ContainerSSH in production please read the [hardening guide](../reference/hardening.md) and [feel free to reach out](https://pasztor.at/discord/).
+If you intend to use ContainerSSH in production please read the [hardening guide](../reference/hardening.md).
 
 ## Does ContainerSSH delete containers after it is done?
 
