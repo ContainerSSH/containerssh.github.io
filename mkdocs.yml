@@ -41,6 +41,9 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/ContainerSSH
       name: GitHub
+    - icon: fontawesome/brands/slack
+      link: https://join.slack.com/t/containerssh/shared_invite/zt-w2ulatkm-hjGHk8OaxQCBX79XKJHAQQ
+      name: Slack
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/ContainerSSH
       name: Twitter

@@ -4,6 +4,8 @@ title: Developing ContainerSSH
 
 **Welcome! And a big thank you for wanting to contribute!** This page will explain how to get started with contributing to ContainerSSH. This guide will help you through the basics of getting development up and running.
 
+If you have any questions regarding ContainerSSH, you may want to join the [ContainerSSH Slack](https://join.slack.com/t/containerssh/shared_invite/zt-w2ulatkm-hjGHk8OaxQCBX79XKJHAQQ).
+
 <div class="grid">
 <div class="grid__box">
 <h2>Getting started</h2>
