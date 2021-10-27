@@ -228,7 +228,7 @@ Then we create the `role` and `rolebinding` resources in the `containerssh-guest
 ```bash
 kubectl create role containerssh \
   -n containerssh-guests \
-  --verb=* \
+  --verb="*" \
   --resource=pods \
   --resource=pods/logs \
   --resource=pods/exec
