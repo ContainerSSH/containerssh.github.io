@@ -3694,7 +3694,7 @@
 <p>Then we create the <code>role</code> and <code>rolebinding</code> resources in the <code>containerssh-guests</code> namespace to allow the service accounts to create pods:</p>
 <div class="highlight"><pre><span></span><code>kubectl create role containerssh <span class="se">\</span>
   -n containerssh-guests <span class="se">\</span>
-  --verb<span class="o">=</span>* <span class="se">\</span>
+  --verb<span class="o">=</span><span class="s2">&quot;*&quot;</span> <span class="se">\</span>
   --resource<span class="o">=</span>pods <span class="se">\</span>
   --resource<span class="o">=</span>pods/logs <span class="se">\</span>
   --resource<span class="o">=</span>pods/exec
