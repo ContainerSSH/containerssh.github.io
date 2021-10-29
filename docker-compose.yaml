@@ -1,0 +1,11 @@
+---
+version: '3.8'
+services:
+  mkdocs:
+    build: .
+    volumes:
+      - type: bind
+        source: .
+        target: /srv/site
+    ports:
+      - "8080:8080"
