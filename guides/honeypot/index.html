@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/guides/honeypot/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3244,103 +3243,103 @@ mkdir -p /srv/containerssh/audit/
 <div class="highlight"><pre><span></span><code>openssl genrsa
 </code></pre></div>
 <p>Then we can create the config file in <code>/srv/containerssh/config.yaml</code></p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">warning</span>
-<span class="nt">ssh</span><span class="p">:</span>
-  <span class="nt">banner</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">warning</span><span class="w"></span>
+<span class="nt">ssh</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">banner</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
 
-    <span class="no">********************************************************************</span>
-                               <span class="no">Warning!</span>
-    <span class="no">********************************************************************</span>
+<span class="w">    </span><span class="no">********************************************************************</span><span class="w"></span>
+<span class="w">                               </span><span class="no">Warning!</span><span class="w"></span>
+<span class="w">    </span><span class="no">********************************************************************</span><span class="w"></span>
 
-    <span class="no">This is a honeypot. All information, including IP address, username,</span>
-    <span class="no">password, any commands you type, or files you upload will be visible</span>
-    <span class="no">to the honeypot.</span>
+<span class="w">    </span><span class="no">This is a honeypot. All information, including IP address, username,</span><span class="w"></span>
+<span class="w">    </span><span class="no">password, any commands you type, or files you upload will be visible</span><span class="w"></span>
+<span class="w">    </span><span class="no">to the honeypot.</span><span class="w"></span>
 
-    <span class="no">If you do not agree disconnect now.</span>
+<span class="w">    </span><span class="no">If you do not agree disconnect now.</span><span class="w"></span>
 
-    <span class="no">********************************************************************</span>
+<span class="w">    </span><span class="no">********************************************************************</span><span class="w"></span>
 
-  <span class="nt">hostkeys</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/ssh_host_rsa_key</span>
-<span class="nt">backend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
-<span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp://SACRIFICIAL-HOST-IP:2376</span>
-    <span class="nt">cert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;client certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN RSA PRIVATE KEY-----</span>
-      <span class="no">&lt;client key here&gt;</span>
-      <span class="no">-----END RSA PRIVATE KEY-----</span>
-    <span class="nt">cacert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;CA certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Never</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">containerssh/test-guest</span>
-      <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bitcoin</span>
-      <span class="c1"># Disable network in the container</span>
-      <span class="nt">networkdisabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="c1"># Force running as user 1000</span>
-      <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-      <span class="c1"># Optionally set working directory</span>
-      <span class="nt">workingdir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/ubuntu</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="c1"># Don&#39;t let the attacker write to the root FS.</span>
-      <span class="nt">readonlyrootfs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="c1"># 10% of CPU</span>
-        <span class="nt">cpuperiod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
-        <span class="nt">cpuquota</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-        <span class="c1"># 50 MB of memory with swap</span>
-        <span class="nt">memoryswap</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">52428800</span>
-        <span class="nt">memoryswappiness</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
-        <span class="c1"># 25 MB of memory</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">26214400</span>
-        <span class="c1"># Reserve 20 MB of memory</span>
-        <span class="nt">memoryreservation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000000</span>
-        <span class="c1"># Max 1000 processes to prevent fork bombs</span>
-        <span class="nt">pidslimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-      <span class="nt">tmpfs</span><span class="p">:</span>
-        <span class="c1"># Create writable directories in memory</span>
-        <span class="nt">/tmp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
-        <span class="nt">/run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
-        <span class="nt">/home/ubuntu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span>
-<span class="nt">metrics</span><span class="p">:</span>
-  <span class="nt">enable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">listen</span><span class="p">:</span> <span class="s">&quot;0.0.0.0:9101&quot;</span>
-  <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;/metrics&quot;</span>
-<span class="nt">audit</span><span class="p">:</span>
-  <span class="nt">enable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">format</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binary</span>
-  <span class="nt">storage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">s3</span>
-  <span class="nt">intercept</span><span class="p">:</span>
-    <span class="nt">stdin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">stdout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">stderr</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">passwords</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">s3</span><span class="p">:</span>
-    <span class="c1"># Local directory to store the audit log temporarily.</span>
-    <span class="nt">local</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/log/containerssh/audit/</span>
-    <span class="nt">accessKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-ACCESS-KEY-HERE</span>
-    <span class="nt">secretKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-SECRET-KEY-HERE</span>
-    <span class="nt">region</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-REGION</span>
-    <span class="nt">bucket</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YOUR-S3-BUCKET-NAME</span>
-    <span class="c1"># Optional: set your S3 endpoint</span>
-    <span class="nt">endpoint</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://YOUR-S3-ENDPOINT</span>
-    <span class="nt">metadata</span><span class="p">:</span>
-      <span class="c1"># Which metadata fields to set in the object storage.</span>
-      <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="nt">ip</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="nt">auth</span><span class="p">:</span>
-  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://127.0.0.1:8080&quot;</span>
-<span class="nt">configserver</span><span class="p">:</span>
-  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://127.0.0.1:8080/config&quot;</span>
+<span class="w">  </span><span class="nt">hostkeys</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/ssh_host_rsa_key</span><span class="w"></span>
+<span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span><span class="w"></span>
+<span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tcp://SACRIFICIAL-HOST-IP:2376</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client key here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;CA certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Never</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/test-guest</span><span class="w"></span>
+<span class="w">      </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bitcoin</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Disable network in the container</span><span class="w"></span>
+<span class="w">      </span><span class="nt">networkdisabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Force running as user 1000</span><span class="w"></span>
+<span class="w">      </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Optionally set working directory</span><span class="w"></span>
+<span class="w">      </span><span class="nt">workingdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/ubuntu</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Don&#39;t let the attacker write to the root FS.</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readonlyrootfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># 10% of CPU</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpuperiod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpuquota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># 50 MB of memory with swap</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryswap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">52428800</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryswappiness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># 25 MB of memory</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26214400</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Reserve 20 MB of memory</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryreservation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20000000</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Max 1000 processes to prevent fork bombs</span><span class="w"></span>
+<span class="w">        </span><span class="nt">pidslimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tmpfs</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Create writable directories in memory</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/tmp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/home/ubuntu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k,uid=1000,gid=1000</span><span class="w"></span>
+<span class="nt">metrics</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">listen</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.0.0.0:9101&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/metrics&quot;</span><span class="w"></span>
+<span class="nt">audit</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">enable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary</span><span class="w"></span>
+<span class="w">  </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3</span><span class="w"></span>
+<span class="w">  </span><span class="nt">intercept</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">stdin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">stdout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">stderr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">passwords</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Local directory to store the audit log temporarily.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">local</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/log/containerssh/audit/</span><span class="w"></span>
+<span class="w">    </span><span class="nt">accessKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR-S3-ACCESS-KEY-HERE</span><span class="w"></span>
+<span class="w">    </span><span class="nt">secretKey</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR-S3-SECRET-KEY-HERE</span><span class="w"></span>
+<span class="w">    </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR-S3-REGION</span><span class="w"></span>
+<span class="w">    </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR-S3-BUCKET-NAME</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Optional: set your S3 endpoint</span><span class="w"></span>
+<span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://YOUR-S3-ENDPOINT</span><span class="w"></span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Which metadata fields to set in the object storage.</span><span class="w"></span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">ip</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="nt">auth</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:8080&quot;</span><span class="w"></span>
+<span class="nt">configserver</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:8080/config&quot;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="step-7-starting-containerssh">Step 7: Starting ContainerSSH<a class="headerlink" href="#step-7-starting-containerssh" title="Permanent link">&para;</a></h2>
 <p>Now you are ready to start ContainerSSH:</p>
@@ -3472,10 +3471,10 @@ mkdir -p /srv/containerssh/audit/
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

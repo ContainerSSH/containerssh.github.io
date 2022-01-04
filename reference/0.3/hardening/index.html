@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/reference/0.3/hardening/">
       
       <link rel="icon" href="../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3122,31 +3121,31 @@
 <h2 id="securing-your-auth-server">Securing your auth server<a class="headerlink" href="#securing-your-auth-server" title="Permanent link">&para;</a></h2>
 <p>Your authentication server contains all your secrets and is therefore a prime target. ContainerSSH delegates any and all access checking to the authentication server. Therefore, you need to make sure it prevents brute force attacks.</p>
 <p>Furthermore, you should make sure that the authentication server cannot be accessed from anywhere else. You can do this using firewalls. Alternatively, you can configure ContainerSSH to use client certificates to authenticate itself:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span>
-    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:8080</span>
-    <span class="nt">cacert</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">expected</span><span class="nv"> </span><span class="s">CA</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
-    <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2s</span>
-    <span class="nt">cert</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:8080</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">expected</span><span class="nv"> </span><span class="s">CA</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="securing-your-config-server">Securing your config server<a class="headerlink" href="#securing-your-config-server" title="Permanent link">&para;</a></h2>
 <p>Similar to your authentication server you can also secure the config server in a similar manner:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configserver</span><span class="p">:</span>
-    <span class="nt">timeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2s</span>
-    <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:8080/config</span>
-    <span class="nt">cacert</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">expected</span><span class="nv"> </span><span class="s">CA</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
-    <span class="nt">cert</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configserver</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2s</span><span class="w"></span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://127.0.0.1:8080/config</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">expected</span><span class="nv"> </span><span class="s">CA</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">certificate</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">client</span><span class="nv"> </span><span class="s">key</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">PEM</span><span class="nv"> </span><span class="s">format</span><span class="nv"> </span><span class="s">here&quot;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="disabling-command-execution">Disabling command execution<a class="headerlink" href="#disabling-command-execution" title="Permanent link">&para;</a></h2>
 <p>You can disable the execution of custom SSH commands through the configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">dockerrun</span><span class="p">:</span>
-    <span class="nt">config</span><span class="p">:</span>
-        <span class="nt">disableCommand</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">dockerrun</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">disableCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nt">kuberun</span><span class="p">:</span>
-    <span class="nt">pod</span><span class="p">:</span>
-        <span class="nt">disableCommand</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">kuberun</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pod</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">disableCommand</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -3256,10 +3255,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

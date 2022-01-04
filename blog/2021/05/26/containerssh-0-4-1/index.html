@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/blog/2021/05/26/containerssh-0-4-1/">
       
       <link rel="icon" href="../../../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -50,10 +50,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -68,10 +68,9 @@
     
       <link rel="stylesheet" href="../../../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../../../..":"../../../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3121,27 +3120,27 @@
 <p>Thanks to GitHub users <a href="https://github.com/ne-bknn">ne-bknn</a> and <a href="https://github.com/tomcsi">tomcsi</a> for reporting these issues.</p>
 <h2 id="incorrect-json-serializationdeserialization-from-the-configuration-server-when-using-the-docker-backend">Incorrect JSON serialization/deserialization from the configuration server when using the Docker backend<a class="headerlink" href="#incorrect-json-serializationdeserialization-from-the-configuration-server-when-using-the-docker-backend" title="Permanent link">&para;</a></h2>
 <p>When refactoring ContainerSSH for version 0.4.0 we implemented the JSON serialization and deserialization for the Docker backend incorrectly <a href="https://github.com/containerssh/containerssh/issues/201">as reported by GitHub user ne-bknn</a>. The returned JSON from the configuration server had this structure:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;docker&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;execution&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;Launch&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;Launch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>The <code>Launch</code> component is not supposed to be in this structure and should be inlined. The serialization is now fixed and the <code>Launch</code> component is removed.</p>
 <h2 id="incorrect-yaml-deserialization-when-using-the-kubernetes-backend">Incorrect YAML deserialization when using the Kubernetes backend<a class="headerlink" href="#incorrect-yaml-deserialization-when-using-the-kubernetes-backend" title="Permanent link">&para;</a></h2>
 <p>Another serialization issue <a href="https://github.com/containerssh/containerssh/issues/209">has been reported by GitHub user tomcsi</a>. This issue has been present since version 0.3 where we added Kubernetes support. Kubernetes uses its own YAML serialization and <a href="https://sigs.k8s.io/yaml">deserialization library</a> based on <a href="https://github.com/ghodss/yaml">ghodss/yaml</a>. This library doesn't add separate YAML tags to the configuration structures, but instead uses the JSON tags. This prevented using several Kubernetes configuration options, such as the <code>hostPath</code> volume type:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
-<span class="nt">kubernetes</span><span class="p">:</span>
-  <span class="nt">pod</span><span class="p">:</span>
-    <span class="nt">spec</span><span class="p">:</span>
-      <span class="nt">volumes</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">home</span>
-          <span class="nt">hostPath</span><span class="p">:</span>
-            <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/ubuntu</span>
-            <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Directory</span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes</span><span class="w"></span>
+<span class="nt">kubernetes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home</span><span class="w"></span>
+<span class="w">          </span><span class="nt">hostPath</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/ubuntu</span><span class="w"></span>
+<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Directory</span><span class="w"></span>
 </code></pre></div>
 <p>We have now introduced using the Kubernetes YAML decoding library for the Kubernetes and KubeRun backends only to facilitate proper serialization. </p>
 <h2 id="authentication-server-ignores-password-and-pubkey-options">Authentication server ignores password and pubkey options<a class="headerlink" href="#authentication-server-ignores-password-and-pubkey-options" title="Permanent link">&para;</a></h2>
@@ -3253,10 +3252,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

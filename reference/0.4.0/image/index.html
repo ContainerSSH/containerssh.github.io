@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/reference/0.4.0/image/">
       
       <link rel="icon" href="../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3075,10 +3074,10 @@ COPY --from=agent /usr/bin/containerssh-agent /usr/bin/containerssh-agent
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Installing the binaries</label><div class="tabbed-content">
 <p>To use this method go to the <a href="https://github.com/ContainerSSH/agent/releases">latest release from the releases section</a> and verify it against our <a href="https://containerssh.io/gpg.txt">https://containerssh.io/gpg.txt</a> key (<code>3EE5B012FA7B400CD952601E4689F1F0F358FABA</code>).</p>
 <p>On an Ubuntu image build this would involve the following steps:</p>
-<div class="highlight"><pre><span></span><code><span class="k">ARG</span> <span class="nv">AGENT_GPG_FINGERPRINT</span><span class="o">=</span>3EE5B012FA7B400CD952601E4689F1F0F358FABA
-<span class="k">ARG</span> <span class="nv">AGENT_GPG_SOURCE</span><span class="o">=</span>https://containerssh.io/gpg.txt
+<div class="highlight"><pre><span></span><code><span class="k">ARG</span><span class="w"> </span><span class="nv">AGENT_GPG_FINGERPRINT</span><span class="o">=</span>3EE5B012FA7B400CD952601E4689F1F0F358FABA
+<span class="k">ARG</span><span class="w"> </span><span class="nv">AGENT_GPG_SOURCE</span><span class="o">=</span>https://containerssh.io/gpg.txt
 
-<span class="k">RUN</span> <span class="nb">echo</span> <span class="s2">&quot;\e[1;32mInstalling ContainerSSH guest agent...\e[0m&quot;</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="k">RUN</span><span class="w"> </span><span class="nb">echo</span> <span class="s2">&quot;\e[1;32mInstalling ContainerSSH guest agent...\e[0m&quot;</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
     <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive apt-get -o Dpkg::Options::<span class="o">=</span><span class="s1">&#39;--force-confold&#39;</span> update <span class="o">&amp;&amp;</span> <span class="se">\</span>
     <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive apt-get -o Dpkg::Options::<span class="o">=</span><span class="s1">&#39;--force-confold&#39;</span> -fuy --allow-downgrades --allow-remove-essential --allow-change-held-packages install gpg <span class="o">&amp;&amp;</span> <span class="se">\</span>
     wget -q -O - https://api.github.com/repos/containerssh/agent/releases/latest <span class="p">|</span> grep browser_download_url <span class="p">|</span> grep -e <span class="s2">&quot;agent_.*_linux_amd64.deb&quot;</span> <span class="p">|</span> awk <span class="s1">&#39; { print $2 } &#39;</span> <span class="p">|</span> sed -e <span class="s1">&#39;s/&quot;//g&#39;</span> &gt; /tmp/assets.txt <span class="o">&amp;&amp;</span> <span class="se">\</span>
@@ -3102,15 +3101,15 @@ COPY --from=agent /usr/bin/containerssh-agent /usr/bin/containerssh-agent
 </div>
 <p>Guest image support is enabled by default in the <a href="../docker/">Docker</a> and <a href="../kubernetes/">Kubernetes</a> backends, but can be disabled as shown below. The <a href="../kuberun/">KubeRun</a> and <a href="../dockerrun/">DockerRun</a> backends do not support the guest agent. </p>
 <div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Docker</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">disableAgent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">disableAgent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Kubernetes</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
-  <span class="nt">pod</span><span class="p">:</span>
-    <span class="nt">disableAgent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">disableAgent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -3218,10 +3217,10 @@ COPY --from=agent /usr/bin/containerssh-agent /usr/bin/containerssh-agent
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

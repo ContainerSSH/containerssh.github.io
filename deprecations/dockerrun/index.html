@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/deprecations/dockerrun/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -50,10 +50,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -68,10 +68,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3042,65 +3041,65 @@
 <p>This page explains how to switch to the new backend.</p>
 <h2 id="changing-the-configuration-structure">Changing the configuration structure<a class="headerlink" href="#changing-the-configuration-structure" title="Permanent link">&para;</a></h2>
 <p>The new configuration is structured into 3 components:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="c1"># These options were on the root level of the dockerrun configuration.</span>
-    <span class="nt">host</span><span class="p">:</span>
-    <span class="nt">cacert</span><span class="p">:</span>
-    <span class="nt">cert</span><span class="p">:</span>
-    <span class="nt">key</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="c1"># These options are moved here from the old dockerrun -&gt; config option.</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="c1"># ...</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="c1"># ...</span>
-    <span class="nt">network</span><span class="p">:</span>
-      <span class="c1"># ...</span>
-    <span class="nt">platform</span><span class="p">:</span>
-      <span class="c1"># ...</span>
-    <span class="nt">containername</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># These options were on the root level of the dockerrun configuration.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># These options are moved here from the old dockerrun -&gt; config option.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">containername</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
 
-    <span class="c1"># Subsystems that can be requested.</span>
-    <span class="nt">subsystems</span><span class="p">:</span>
-      <span class="nt">sftp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/usr/lib/openssh/sftp-server</span>
+<span class="w">    </span><span class="c1"># Subsystems that can be requested.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">subsystems</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">sftp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/lib/openssh/sftp-server</span><span class="w"></span>
 
-    <span class="c1"># the &quot;disableCommand&quot; option has been removed and is configured in the</span>
-    <span class="c1"># &quot;security&quot; option.</span>
+<span class="w">    </span><span class="c1"># the &quot;disableCommand&quot; option has been removed and is configured in the</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># &quot;security&quot; option.</span><span class="w"></span>
 
-    <span class="c1"># Pick an image pull policy from &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;. See below.</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="s">&quot;IfNotPresent&quot;</span>
+<span class="w">    </span><span class="c1"># Pick an image pull policy from &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;. See below.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;IfNotPresent&quot;</span><span class="w"></span>
 
-    <span class="c1"># Execution mode, see below.</span>
-    <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">connection</span>
-    <span class="c1"># Idle command for the new &quot;connection&quot; mode, see below.</span>
-    <span class="nt">idleCommand</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;/bin/sh&quot;</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;-c&quot;</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;sleep</span><span class="nv"> </span><span class="s">infinity</span><span class="nv"> </span><span class="s">&amp;</span><span class="nv"> </span><span class="s">PID=$!;</span><span class="nv"> </span><span class="s">trap</span><span class="nv"> </span><span class="s">\&quot;kill</span><span class="nv"> </span><span class="s">$PID\&quot;</span><span class="nv"> </span><span class="s">INT</span><span class="nv"> </span><span class="s">TERM;</span><span class="nv"> </span><span class="s">wait&quot;</span>
-    <span class="c1"># Shell command  for the new &quot;connection&quot; mode, see below.</span>
-    <span class="nt">shellCommand</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;/bin/bash&quot;</span>
-    <span class="c1"># Path to the new ContainerSSH Guest Agent.</span>
-    <span class="nt">agentPath</span><span class="p">:</span> <span class="s">&quot;/usr/bin/containerssh-agent&quot;</span>
-    <span class="c1"># Disable the ContainerSSH guest agent.</span>
-    <span class="nt">disableAgent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># Execution mode, see below.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">connection</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Idle command for the new &quot;connection&quot; mode, see below.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">idleCommand</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/bin/sh&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;-c&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;sleep</span><span class="nv"> </span><span class="s">infinity</span><span class="nv"> </span><span class="s">&amp;</span><span class="nv"> </span><span class="s">PID=$!;</span><span class="nv"> </span><span class="s">trap</span><span class="nv"> </span><span class="s">\&quot;kill</span><span class="nv"> </span><span class="s">$PID\&quot;</span><span class="nv"> </span><span class="s">INT</span><span class="nv"> </span><span class="s">TERM;</span><span class="nv"> </span><span class="s">wait&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Shell command  for the new &quot;connection&quot; mode, see below.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">shellCommand</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/bin/bash&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Path to the new ContainerSSH Guest Agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">agentPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/bin/containerssh-agent&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Disable the ContainerSSH guest agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">disableAgent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 
-  <span class="nt">timeouts</span><span class="p">:</span>
-    <span class="c1"># This section replaces the dockerrun -&gt; config -&gt; timeout option.</span>
+<span class="w">  </span><span class="nt">timeouts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># This section replaces the dockerrun -&gt; config -&gt; timeout option.</span><span class="w"></span>
 
-    <span class="c1"># Timeout for a container to start.</span>
-    <span class="nt">containerStart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for a container to stop.</span>
-    <span class="nt">containerStop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for a shell or command to start.</span>
-    <span class="nt">commandStart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for HTTP calls</span>
-    <span class="nt">http</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15s</span>
-    <span class="c1"># Timeout for signal requests</span>
-    <span class="nt">signal</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for window change requests</span>
-    <span class="nt">window</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
+<span class="w">    </span><span class="c1"># Timeout for a container to start.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">containerStart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for a container to stop.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">containerStop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for a shell or command to start.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">commandStart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for HTTP calls</span><span class="w"></span>
+<span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for signal requests</span><span class="w"></span>
+<span class="w">    </span><span class="nt">signal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for window change requests</span><span class="w"></span>
+<span class="w">    </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
 </code></pre></div>
 <h2 id="the-new-execution-modes">The new execution modes<a class="headerlink" href="#the-new-execution-modes" title="Permanent link">&para;</a></h2>
 <p>The new <code>docker</code> backend supports two execution modes: <code>connection</code> or <code>session</code>. The old <code>dockerrun</code> backend worked identical to the <code>session</code> mode, where each command execution within an SSH connection would cause a new container to be started.</p>
@@ -3113,12 +3112,12 @@
 <h2 id="the-guest-agent">The guest agent<a class="headerlink" href="#the-guest-agent" title="Permanent link">&para;</a></h2>
 <p>ContainerSSH 0.4 also includes support for the new <a href="https://github.com/containerssh/agent">ContainerSSH Guest Agent</a> that enables support for various features the Docker API does not provide, such as sending signals to processes.</p>
 <p>The agent <a href="https://github.com/containerssh/agent">must be included into the guest image</a> in order to work. When the agent is included it can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="c1"># Path to the new ContainerSSH Guest Agent.</span>
-    <span class="nt">agentPath</span><span class="p">:</span> <span class="s">&quot;/usr/bin/containerssh-agent&quot;</span>
-    <span class="c1"># Disable the ContainerSSH guest agent.</span>
-    <span class="nt">disableAgent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Path to the new ContainerSSH Guest Agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">agentPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/bin/containerssh-agent&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Disable the ContainerSSH guest agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">disableAgent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3130,10 +3129,10 @@
 <p class="admonition-title">Tip</p>
 <p>Docker has added ContainerSSH as an <a href="https://www.docker.com/community/open-source/application">Open Source Community Application</a>. Pulls to <code>containerssh/containerssh</code> and the default guest image <code>containerssh/containerssh-guest-image</code> are excluded from the rate limits.</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="c1"># Pick an image pull policy from &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;. See below.</span>
-    <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="s">&quot;IfNotPresent&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Pick an image pull policy from &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;. See below.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;IfNotPresent&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>The following options are supported:</p>
 <dl>
@@ -3147,9 +3146,9 @@
 <h2 id="removing-the-disablecommand-option">Removing the <code>disableCommand</code> option<a class="headerlink" href="#removing-the-disablecommand-option" title="Permanent link">&para;</a></h2>
 <p>The <code>disableCommand</code> option was added to ContainerSSH to prevent connecting users to run a custom application. This filled a similar role to the <code>ForceCommand</code> option in OpenSSH: it prevented connecting users to launch custom commands.</p>
 <p>However, this command was separately implemented in the <code>kuberun</code> and in the <code>dockerrun</code> backend. This was not maintainable, so it was moved into the <code>security</code> module and can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">security</span><span class="p">:</span>
-  <span class="nt">command</span><span class="p">:</span>
-    <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">disable</span>
+<div class="highlight"><pre><span></span><code><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disable</span><span class="w"></span>
 </code></pre></div>
 
               
@@ -3220,10 +3219,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

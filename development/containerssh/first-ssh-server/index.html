@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/development/containerssh/first-ssh-server/">
       
       <link rel="icon" href="../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3058,84 +3057,84 @@
 </div>
 <h2 id="step-1-the-basic-loop">Step 1: The basic loop<a class="headerlink" href="#step-1-the-basic-loop" title="Permanent link">&para;</a></h2>
 <p>Let's start off easy: implementing a TCP server. On *NIX systems listen sockets can be started using the <code>listen()</code> system call and Go follows that pattern nicely:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">listener</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span> <span class="s">&quot;0.0.0.0:2222&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nx">listener</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0.0.0.0:2222&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>However, <code>net.Listen</code> does not accept connections, it merely opens a listen socket telling the system kernel that it should not reject connections coming to the specified port.</p>
 <p>Now we need to accept any incoming connections. Let's do that:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">tcpConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span><span class="w"></span>
 </code></pre></div>
 <p>This call will <em>block</em> until a client connects or the listen socket is closed. Let's ignore the second case and focus on the first. With <code>tcpConn</code> we now have an open plain text TCP connection. We can read from it, we can write to it, but until we call <code>listener.Accept()</code> again we won't get any new connections. So let's put it in a loop:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="p">{</span>
-    <span class="nx">tcpConn</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>Cool, so now we can accept multiple connections! However, these are still just plain text connections, so let's make them into an SSH connection:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sshConn</span><span class="p">,</span> <span class="nx">chans</span><span class="p">,</span> <span class="nx">reqs</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">NewServerConn</span><span class="p">(</span><span class="nx">tcpConn</span><span class="p">,</span> <span class="nx">sshConfig</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nx">sshConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="p">,</span><span class="w"> </span><span class="nx">reqs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewServerConn</span><span class="p">(</span><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">sshConfig</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>We won't go into the details of <code>sshConfig</code> here, let's focus on the returned variables instead. The first returned variable, <code>sshConn</code> is the raw SSH connection. If you use an IDE you can use code completion to figure out some useful methods it contains, for example for closing the connection.</p>
 <p>More interesting to us are the <code>chans</code> and <code>reqs</code> variables, however. The <code>chans</code> variable contains a <a href="https://gobyexample.com/channels">Go channel</a> containing SSH channel request. When a client wants to open a new channel we can read from this Go channel and process the request. (Confusing, we know, two things with the same name.)</p>
 <p>The <code>reqs</code> variable is also a Go channel, but it contains global requests. We won't deal with these now, so let's disregard these completely:</p>
-<div class="highlight"><pre><span></span><code><span class="k">go</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">DiscardRequests</span><span class="p">(</span><span class="nx">reqs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">DiscardRequests</span><span class="p">(</span><span class="nx">reqs</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>As you can see we used the <code>go</code> keyword. This is running the method called in a <a href="https://gobyexample.com/goroutines">goroutine</a>. If you are coming from another programming language you can imagine these as multi-threaded coroutines. Suffice it to say, they won't block our main loop.</p>
 <p>Back to the <code>chans</code>, let's deal with them too. Let's handle them in a method called <code>handleChannels</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">go</span> <span class="nx">handleChannels</span><span class="p">(</span><span class="nx">sshConn</span><span class="p">,</span> <span class="nx">chans</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="nx">handleChannels</span><span class="p">(</span><span class="nx">sshConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>This method will be rather simple:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">handleChannels</span><span class="p">(</span><span class="nx">conn</span> <span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span> <span class="nx">chans</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="nx">newChannel</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">chans</span> <span class="p">{</span>
-        <span class="k">go</span> <span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span> <span class="nx">newChannel</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">handleChannels</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">newChannel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">chans</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>For each new channel we open yet another goroutine. Fear not, goroutines are <em>very</em> cheap in Go.</p>
 <p>Let's deal with that channel:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span> <span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span> <span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span> <span class="nx">newChannel</span> <span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">newChannel</span><span class="p">.</span><span class="nx">ChannelType</span><span class="p">();</span> <span class="nx">t</span> <span class="o">!=</span> <span class="s">&quot;session&quot;</span> <span class="p">{</span>
-        <span class="nx">_</span> <span class="p">=</span> <span class="nx">newChannel</span><span class="p">.</span><span class="nx">Reject</span><span class="p">(</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">UnknownChannelType</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;unknown channel type: %s&quot;</span><span class="p">,</span> <span class="nx">t</span><span class="p">))</span>
-        <span class="k">return</span>
-    <span class="p">}</span>
-    <span class="nx">channel</span><span class="p">,</span> <span class="nx">requests</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">newChannel</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
-    <span class="c1">//...</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span><span class="w"> </span><span class="nx">newChannel</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">ChannelType</span><span class="p">();</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;session&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">Reject</span><span class="p">(</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">UnknownChannelType</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;unknown channel type: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">channel</span><span class="p">,</span><span class="w"> </span><span class="nx">requests</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>So far so good, we reject all non-session channels and otherwise accept. The <code>channel</code> contains the reference to the channel, which is also an <code>io.Reader</code> and an <code>io.Writer</code> for <code>stdin</code> and <code>stdout</code>. The <code>requests</code> variable is a go channel containing SSH channel-specific requests.</p>
 <p>Now, let's use <a href="https://docker.io">Docker</a> as our backend. It's simple and it's <a href="https://docs.docker.com/engine/api/v1.40/">really well documented</a>. On a *NIX system we can create a Docker client like this:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">docker</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
-    <span class="s">&quot;unix:///var/run/docker.sock&quot;</span><span class="p">,</span>
-    <span class="kc">nil</span><span class="p">,</span>
-    <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
-<span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nx">docker</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;unix:///var/run/docker.sock&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="kc">nil</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
 </code></pre></div>
 <p>Now we can loop over the requests and handle them, one by one:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="nx">req</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">requests</span> <span class="p">{</span>
-    <span class="nx">reply</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">success</span> <span class="kt">bool</span><span class="p">,</span> <span class="nx">message</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="nx">req</span><span class="p">.</span><span class="nx">WantReply</span> <span class="p">{</span>
-            <span class="nx">err</span> <span class="o">:=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Reply</span><span class="p">(</span><span class="nx">success</span><span class="p">,</span> <span class="nx">message</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
-                <span class="nx">closeConnections</span><span class="p">()</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nx">handleRequest</span><span class="p">(</span>
-        <span class="c1">//...</span>
-    <span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">requests</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">reply</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">success</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">WantReply</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Reply</span><span class="p">(</span><span class="nx">success</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nx">closeConnections</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nx">handleRequest</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="c1">//...</span><span class="w"></span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>As you can see, the requests may need a reply, so we are constructing a simplified function to send a reply back to the SSH client.</p>
 <p>For the final piece of our puzzle, let's implement the <code>handleRequest</code> method. For simplicity let's implement a switch-case:</p>
-<div class="highlight"><pre><span></span><code><span class="k">switch</span> <span class="nx">req</span><span class="p">.</span><span class="nx">Type</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="s">&quot;env&quot;</span><span class="p">:</span>
-        <span class="c1">// Save environment variables for later use</span>
-    <span class="k">case</span> <span class="s">&quot;pty-req&quot;</span><span class="p">:</span>
-        <span class="c1">// Set the TTY flag on the Docker client to true later</span>
-    <span class="k">case</span> <span class="s">&quot;window-change&quot;</span><span class="p">:</span>
-        <span class="c1">// Use the ContainerResize method on the Docker client later</span>
-    <span class="k">case</span> <span class="s">&quot;shell&quot;</span><span class="p">:</span>
-        <span class="c1">// Create a container and run it</span>
-    <span class="k">case</span> <span class="s">&quot;exec&quot;</span><span class="p">:</span>
-        <span class="c1">// Create a container and run it</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;env&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Save environment variables for later use</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;pty-req&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Set the TTY flag on the Docker client to true later</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;window-change&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Use the ContainerResize method on the Docker client later</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;shell&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Create a container and run it</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;exec&quot;</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Create a container and run it</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>That's it! You can find the details on how to run a container in our highly simplified <a href="https://github.com/ContainerSSH/minicontainerssh/blob/master/main.go">minicontainerssh example</a>. We have skipped many parts like error handling, but it should give you a good overview of how an SSH server in Go works and how it interacts with the container backend.</p>
 <p>Now you are ready to dive into the <a href="../internal-architecture/">internal architecture of ContainerSSH</a>. </p>
@@ -3243,10 +3242,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

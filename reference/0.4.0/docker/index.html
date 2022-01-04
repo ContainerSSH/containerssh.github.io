@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/reference/0.4.0/docker/">
       
       <link rel="icon" href="../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3350,69 +3349,69 @@
 </div>
 <h2 id="the-base-configuration-structure">The base configuration structure<a class="headerlink" href="#the-base-configuration-structure" title="Permanent link">&para;</a></h2>
 <p>In order to use the Docker backend you must specify the following configuration entries via the configuration file or the configuration server:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker</span>
-<span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">&lt;connection configuration here&gt;</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">&lt;execution configuration here&gt;</span>
-  <span class="nt">timeouts</span><span class="p">:</span>
-    <span class="l l-Scalar l-Scalar-Plain">&lt;timeouts configuration here&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker</span><span class="w"></span>
+<span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;connection configuration here&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;execution configuration here&gt;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">timeouts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;timeouts configuration here&gt;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="configuring-connection-parameters">Configuring connection parameters<a class="headerlink" href="#configuring-connection-parameters" title="Permanent link">&para;</a></h2>
 <p>The Docker backend defaults to connecting to the Docker Engine using the Docker socket. The default location for this is on UNIX systems is <code>unix:///var/run/docker.sock</code>, on Windows <code>npipe:////./pipe/docker_engine</code>. ContainerSSH must have permissions to access the Docker socket.</p>
 <p>The Docker socket location can be changed with the <code>host</code> option:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:2375</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:2375</span><span class="w"></span>
 </code></pre></div>
 <p>However, <strong>exposing Docker without certificate authentication is dangerous</strong>. It is recommended to <a href="https://docs.docker.com/engine/security/https/">generate a certificate for authentication</a> and pass it to ContainerSSH using the following options:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;ip and port of the Docker engine&gt;</span>
-    <span class="nt">cert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;client certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN RSA PRIVATE KEY-----</span>
-      <span class="no">&lt;client key here&gt;</span>
-      <span class="no">-----END RSA PRIVATE KEY-----</span>
-    <span class="nt">cacert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;CA certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ip and port of the Docker engine&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client key here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;CA certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
 </code></pre></div>
 <h2 id="configuring-container-execution">Configuring container execution<a class="headerlink" href="#configuring-container-execution" title="Permanent link">&para;</a></h2>
 <p>Container execution options can be specified as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh</span>
-      <span class="l l-Scalar l-Scalar-Plain">&lt;other container options&gt;</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">&lt;host options&gt;</span>
-    <span class="nt">network</span><span class="p">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">&lt;network options&gt;</span>
-    <span class="nt">platform</span><span class="p">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">&lt;platform options&gt;</span>
-    <span class="nt">containerName</span><span class="p">:</span> <span class="s">&quot;&lt;container</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">here&gt;&quot;</span>
-    <span class="l l-Scalar l-Scalar-Plain">&lt;ContainerSSH-specific options here&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&lt;other container options&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&lt;host options&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&lt;network options&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">&lt;platform options&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">containerName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;container</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">here&gt;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">&lt;ContainerSSH-specific options here&gt;</span><span class="w"></span>
 </code></pre></div>
 <p>The <code>container</code>, <code>host</code>, <code>network</code>, and <code>platform</code> options contain settings described in the <a href="https://docs.docker.com/engine/api/v1.41/#operation/ContainerCreate">Docker API</a>.</p>
 <p>The <code>containerName</code> option contains the name for the container. If the a container already exists with the same name the container creation will fail, so this should be left empty for most use cases.</p>
 <h3 id="basic-container-configuration">Basic container configuration<a class="headerlink" href="#basic-container-configuration" title="Permanent link">&para;</a></h3>
 <p>The basic configuration options are as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh</span>
-      <span class="nt">env</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">VAR=value</span>
-      <span class="c1"># cmd is only respected in session mode, see below.</span>
-      <span class="nt">cmd</span><span class="p">:</span> 
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/run/this/command</span>
-      <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh</span><span class="w"></span>
+<span class="w">      </span><span class="nt">env</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VAR=value</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># cmd is only respected in session mode, see below.</span><span class="w"></span>
+<span class="w">      </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/this/command</span><span class="w"></span>
+<span class="w">      </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu</span><span class="w"></span>
 </code></pre></div>
 <h3 id="mounting-volumes">Mounting volumes<a class="headerlink" href="#mounting-volumes" title="Permanent link">&para;</a></h3>
 <p>Volumes can be mounted in 3 ways:</p>
@@ -3423,11 +3422,11 @@
 </ol>
 <h4 id="bind-mounts">Bind mounts<a class="headerlink" href="#bind-mounts" title="Permanent link">&para;</a></h4>
 <p><strong>Bind mounts</strong> mount a directory from the host into the container. The syntax is fairly simple:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">binds</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="s">&quot;/path-on-the-host:/path-in-the-container[:options]&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">binds</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;/path-on-the-host:/path-in-the-container[:options]&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>Instead of the host path you can also specify a volume name. The following options are suported:</p>
 <dl>
@@ -3444,42 +3443,42 @@
 </dl>
 <h4 id="mounts">Mounts<a class="headerlink" href="#mounts" title="Permanent link">&para;</a></h4>
 <p>The <strong>mounts</strong> option give you more flexibility to mount something, including using a volume driver. This is especially useful when mounting a volume from an external storage, for example NFS. It can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">mounts</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/in/container</span>
-          <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;volume name, host path, etc&gt;</span>
-          <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;bind|volume|tmpfs|npipe&gt;</span>
-          <span class="nt">readonly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span>
-          <span class="nt">consistency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;default|consistent|cached|delegated&gt;</span>
-          <span class="c1"># For bind type only:</span>
-          <span class="nt">bindoptions</span><span class="p">:</span>
-            <span class="nt">propagation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;private|rprivate|shared|rshared|slave|rslave&gt;</span>
-            <span class="c1">#Disable recursive bind mount</span>
-            <span class="nt">nonrecursive</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span>
-          <span class="c1"># For volume type only:</span>
-          <span class="nt">volumeoptions</span><span class="p">:</span> 
-            <span class="c1"># Disable copying files from the image to the volume</span>
-            <span class="nt">nocopy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span> 
-            <span class="nt">labels</span><span class="p">:</span>
-              <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
-            <span class="nt">driverconfig</span><span class="p">:</span>
-              <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">drivername</span>
-              <span class="nt">options</span><span class="p">:</span>
-                <span class="nt">&lt;driveroption&gt;</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;drivervalue&gt;</span>
-          <span class="c1"># For tmpfs type only:</span>
-          <span class="nt">tmpfsoptions</span><span class="p">:</span>
-            <span class="nt">sizebytes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;size in bytes&gt;</span>
-            <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0755</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">mounts</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/in/container</span><span class="w"></span>
+<span class="w">          </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;volume name, host path, etc&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;bind|volume|tmpfs|npipe&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="nt">readonly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="nt">consistency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;default|consistent|cached|delegated&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="c1"># For bind type only:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">bindoptions</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">propagation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;private|rprivate|shared|rshared|slave|rslave&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="c1">#Disable recursive bind mount</span><span class="w"></span>
+<span class="w">            </span><span class="nt">nonrecursive</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="c1"># For volume type only:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">volumeoptions</span><span class="p">:</span><span class="w"> </span>
+<span class="w">            </span><span class="c1"># Disable copying files from the image to the volume</span><span class="w"></span>
+<span class="w">            </span><span class="nt">nocopy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true|false&gt;</span><span class="w"> </span>
+<span class="w">            </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value</span><span class="w"></span>
+<span class="w">            </span><span class="nt">driverconfig</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">drivername</span><span class="w"></span>
+<span class="w">              </span><span class="nt">options</span><span class="p">:</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&lt;driveroption&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;drivervalue&gt;</span><span class="w"></span>
+<span class="w">          </span><span class="c1"># For tmpfs type only:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">tmpfsoptions</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">sizebytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;size in bytes&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0755</span><span class="w"></span>
 </code></pre></div>
 <h4 id="tmpfs">tmpfs<a class="headerlink" href="#tmpfs" title="Permanent link">&para;</a></h4>
 <p>The tmpfs method provides a temporary filesystem in memory. The contents are deleted when the container is removed.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">tmpfs</span><span class="p">:</span>
-        <span class="nt">/container/directory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;options&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tmpfs</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/container/directory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;options&gt;</span><span class="w"></span>
 </code></pre></div>
 <p>The detailed options for tmpfs can be found on the <a href="https://man7.org/linux/man-pages/man5/tmpfs.5.html">tmpfs man page</a>.</p>
 <h3 id="other-options">Other options<a class="headerlink" href="#other-options" title="Permanent link">&para;</a></h3>
@@ -3572,21 +3571,21 @@
 <h3 id="securing-the-docker-socket">Securing the Docker socket<a class="headerlink" href="#securing-the-docker-socket" title="Permanent link">&para;</a></h3>
 <p>Since ContainerSSH should never run as root it is recommended to access the Docker socket over TCP. In order to secure the TCP connection Docker will need certificates. The detailed description of this process is described in the <a href="https://docs.docker.com/engine/security/https/">Docker documentation</a>.</p>
 <p>The certificates can be provided for ContainerSSH using the following fields:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">connection</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;ip and port of the Docker engine&gt;</span>
-    <span class="nt">cert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;client certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
-    <span class="nt">key</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN RSA PRIVATE KEY-----</span>
-      <span class="no">&lt;client key here&gt;</span>
-      <span class="no">-----END RSA PRIVATE KEY-----</span>
-    <span class="nt">cacert</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-      <span class="no">-----BEGIN CERTIFICATE-----</span>
-      <span class="no">&lt;CA certificate here&gt;</span>
-      <span class="no">-----END CERTIFICATE-----</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">connection</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;ip and port of the Docker engine&gt;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;client key here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END RSA PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">    </span><span class="nt">cacert</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----BEGIN CERTIFICATE-----</span><span class="w"></span>
+<span class="w">      </span><span class="no">&lt;CA certificate here&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="no">-----END CERTIFICATE-----</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -3594,10 +3593,10 @@
 </div>
 <h3 id="preventing-root-escalation">Preventing root escalation<a class="headerlink" href="#preventing-root-escalation" title="Permanent link">&para;</a></h3>
 <p>Under normal circumstances a user running as root inside a container cannot access resources outside the container. However, in the event of a container escape vulnerability in Docker it is prudent not to run container workloads as root. For example, you can set the container to run at uid <code>1000</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
 </code></pre></div>
 <p>If root is required inside the container <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace mapping</a>. There are a few steps required to make this happen:</p>
 <p>First, you need to create the files called <code>/etc/subuid</code> and <code>/etc/subgid</code>. These files have the following format:</p>
@@ -3616,10 +3615,10 @@
 <div class="highlight"><pre><span></span><code>dockerd --userns-remap<span class="o">=</span><span class="s2">&quot;&lt;UID&gt;:&lt;GID&gt;&quot;</span>
 </code></pre></div>
 <p>Alternatively, you can configure this per-container in ContainerSSH:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">usernsmode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;UID&gt;:&lt;GID&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">usernsmode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;UID&gt;:&lt;GID&gt;</span><span class="w"></span>
 </code></pre></div>
 <p>In both cases the passed UID and GID must map to the entries in <code>/etc/subuid</code> and <code>/etc/subgid</code>.</p>
 <div class="admonition warning">
@@ -3633,26 +3632,26 @@
 <p>There are two cases here:</p>
 <p>If <strong>the directory</strong> the user can write to <strong>is mounted using a volume</strong> the attacker can fill up the storage that is mounted. You can pass per-user mounts from the <a href="../configserver/">configuration server</a> that mount volumes that are unique to the connecting user. This way the user can only fill up their own disk. The specific implementation depends on your volume driver.</p>
 <p>If <strong>the directory</strong> the user can write to <strong>is not mounted</strong> the user can fill up the container image. This is a much more subtle way of filling up the disk and can only be mitigated partially as limiting disk space per-container is not supported in every backend configuration. You can enable storage limits in ContainerSSH like this:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">storageopt</span><span class="p">:</span>
-        <span class="nt">size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">524288000</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">storageopt</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">524288000</span><span class="w"></span>
 </code></pre></div>
 <p>However, make sure to test if this works on your Docker configuration. When using <code>overlayfs2</code> on an <code>ext4</code> filesystem this does not work, you may have to switch to <code>xfs</code> or move to <code>devicemapper</code> to make use of this option.</p>
 <p>Some directories, such as <code>/tmp</code> or <code>/run</code> can also be put on tmpfs to store in memory. This can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">tmpfs</span><span class="p">:</span>
-        <span class="nt">/tmp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k</span>
-        <span class="nt">/run</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">tmpfs</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/tmp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k</span><span class="w"></span>
+<span class="w">        </span><span class="nt">/run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rw,noexec,nosuid,size=65536k</span><span class="w"></span>
 </code></pre></div>
 <p>To prevent storage exhaustion it is recommended to set the root FS to be read only:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">readonlyrootfs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">readonlyrootfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
@@ -3660,95 +3659,95 @@
 </div>
 <h3 id="preventing-memory-exhaustion">Preventing memory exhaustion<a class="headerlink" href="#preventing-memory-exhaustion" title="Permanent link">&para;</a></h3>
 <p>Users can also try to exhaust the available memory to potentially crash the server. This can be prevented using the following configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">26214400</span>
-        <span class="c1"># Soft limit</span>
-        <span class="nt">memoryreservation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000000</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26214400</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Soft limit</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryreservation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20000000</span><span class="w"></span>
 </code></pre></div>
 <p>The memory is specified in bytes.</p>
 <p>In addition it is recommended to enable <a href="https://docs.docker.com/engine/install/linux-postinstall/#your-kernel-does-not-support-cgroup-swap-limit-capabilities">cgroup swap limit support</a>. This allows for limiting the totoal memory + swap usage:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="nt">memoryswap</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">26214400</span>
-        <span class="c1"># Tune how likely the container is to be swapped out</span>
-        <span class="nt">memoryswappiness</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">90</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryswap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">26214400</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Tune how likely the container is to be swapped out</span><span class="w"></span>
+<span class="w">        </span><span class="nt">memoryswappiness</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span><span class="w"></span>
 </code></pre></div>
 <p>If the host still runs out of memory the OOM killer will try to kill a process to free up memory. The OOM killer can be tuned using the following options:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="c1"># Tune how likely the OOM killer is to kill this container</span>
-      <span class="nt">oomscoreadj</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
-      <span class="nt">resources</span><span class="p">:</span>
-          <span class="c1"># Disable OOM killer for this container</span>
-          <span class="nt">oomkilldisable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Tune how likely the OOM killer is to kill this container</span><span class="w"></span>
+<span class="w">      </span><span class="nt">oomscoreadj</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="c1"># Disable OOM killer for this container</span><span class="w"></span>
+<span class="w">          </span><span class="nt">oomkilldisable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h3 id="preventing-cpu-exhaustion">Preventing CPU exhaustion<a class="headerlink" href="#preventing-cpu-exhaustion" title="Permanent link">&para;</a></h3>
 <p>A malicious user can also exhaust the CPU by running CPU-heavy workloads. This can be prevented by setting the following options:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="c1"># Limit which cores the container should run on</span>
-        <span class="nt">cpusetcpus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1-3,5</span>
-        <span class="c1"># Limit which Memory nodes the container should run on (For NUMA systems)</span>
-        <span class="nt">cpusetmems</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1-3,5</span>
-        <span class="c1"># CPU scheduling period in microseconds</span>
-        <span class="nt">cpuperiod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
-        <span class="c1"># CPU quota to allocate tho the container</span>
-        <span class="nt">cpuquota</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-        <span class="c1"># As above, but for realtime tasks (guaranteed CPU time)</span>
-        <span class="nt">cpurealtimeperiod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
-        <span class="nt">cpurealtimequota</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Limit which cores the container should run on</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpusetcpus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1-3,5</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Limit which Memory nodes the container should run on (For NUMA systems)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpusetmems</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1-3,5</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># CPU scheduling period in microseconds</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpuperiod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># CPU quota to allocate tho the container</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpuquota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># As above, but for realtime tasks (guaranteed CPU time)</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpurealtimeperiod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w"></span>
+<span class="w">        </span><span class="nt">cpurealtimequota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
 </code></pre></div>
 <h3 id="preventing-process-exhaustion">Preventing process exhaustion<a class="headerlink" href="#preventing-process-exhaustion" title="Permanent link">&para;</a></h3>
 <p>You can also limit the number of processes that can be launched inside the container:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="nt">pidslimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">pidslimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
 </code></pre></div>
 <h3 id="limiting-network-access">Limiting network access<a class="headerlink" href="#limiting-network-access" title="Permanent link">&para;</a></h3>
 <p>In some use cases you don't want a user to be able to access resources on the network apart from the SSH connection. This can be achieved by disabling network inside the container:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">container</span><span class="p">:</span>
-      <span class="nt">networkdisabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">networkdisabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h3 id="limiting-disk-io">Limiting disk I/O<a class="headerlink" href="#limiting-disk-io" title="Permanent link">&para;</a></h3>
 <p>Docker has a built-in facility to limit the disk I/O by IOPS and by bytes per second. This can be done using the following configuration structure:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span>
-  <span class="nt">execution</span><span class="p">:</span>
-    <span class="nt">host</span><span class="p">:</span>
-      <span class="nt">resources</span><span class="p">:</span>
-        <span class="c1"># Set relative weight against other containers</span>
-        <span class="nt">blkioweight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;weight number&gt;</span> 
-        <span class="c1"># Set relative weight against other containers</span>
-        <span class="nt">blkioweightdevice</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span>
-            <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;weight number&gt;</span>
-        <span class="c1"># Read BPS</span>
-        <span class="nt">blkiodevicereadbps</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span>
-            <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;bytes per second&gt;</span>
-        <span class="c1"># Write BPS</span>
-        <span class="nt">blkiodevicewritebps</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span>
-            <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;bytes per second&gt;</span>
-        <span class="c1"># Read IOps</span>
-        <span class="nt">blkiodevicereadiops</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span>
-            <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;IO per second&gt;</span>
-        <span class="c1"># Write IOps</span>
-        <span class="nt">blkiodevicewriteiops</span><span class="p">:</span>
-          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span>
-            <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;IO per second&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">docker</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">execution</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Set relative weight against other containers</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkioweight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;weight number&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="c1"># Set relative weight against other containers</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkioweightdevice</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;weight number&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Read BPS</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkiodevicereadbps</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;bytes per second&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Write BPS</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkiodevicewritebps</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;bytes per second&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Read IOps</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkiodevicereadiops</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;IO per second&gt;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># Write IOps</span><span class="w"></span>
+<span class="w">        </span><span class="nt">blkiodevicewriteiops</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;device path&gt;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;IO per second&gt;</span><span class="w"></span>
 </code></pre></div>
 <p>The <strong>device path</strong> has to be a path to a <strong>block device</strong>, e.g. <code>/dev/vda</code>. It does not work on filesystems or character devices.</p>
 
@@ -3855,10 +3854,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

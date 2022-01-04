@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/guides/docker-elk/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -52,10 +52,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -70,10 +70,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3101,22 +3100,22 @@
 <p>In order to follow this guide you will need a local Docker setup similar to that in the <a href="../../getting-started/">quick start guide</a>.</p>
 <h2 id="step-1-starting-containerssh">Step 1: Starting ContainerSSH<a class="headerlink" href="#step-1-starting-containerssh" title="Permanent link">&para;</a></h2>
 <p>As with the quick start guide, we will be starting ContainerSSH using docker-compose. To do this we will first create our ContainerSSH configuration called <code>config.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">ssh</span><span class="p">:</span>
-  <span class="nt">hostkeys</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/var/secrets/ssh_host_rsa_key</span>
-<span class="nt">auth</span><span class="p">:</span>
-  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://authconfig:8080&quot;</span>
-<span class="nt">configserver</span><span class="p">:</span>
-  <span class="nt">url</span><span class="p">:</span> <span class="s">&quot;http://authconfig:8080/config&quot;</span>
-<span class="nt">dockerrun</span><span class="p">:</span>
-  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">unix:///var/run/docker.sock</span>
-<span class="nt">log</span><span class="p">:</span>
-  <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">debug</span>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span><span class="w"></span>
+<span class="nt">ssh</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hostkeys</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/secrets/ssh_host_rsa_key</span><span class="w"></span>
+<span class="nt">auth</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://authconfig:8080&quot;</span><span class="w"></span>
+<span class="nt">configserver</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://authconfig:8080/config&quot;</span><span class="w"></span>
+<span class="nt">dockerrun</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unix:///var/run/docker.sock</span><span class="w"></span>
+<span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">debug</span><span class="w"></span>
 </code></pre></div>
 <p>Next we will create a Dockerfile for ContainerSSH. We need to do this because ContainerSSH runs as non-root by default, but we won't have access to the Docker socket like this. Hence, our <code>Dockerfile</code> is rather simple:</p>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">containerssh/containerssh:0.4.1</span>
-<span class="k">USER</span><span class="s"> 0</span>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">containerssh/containerssh:0.4.1</span>
+<span class="k">USER</span><span class="w"> </span><span class="s">0</span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3124,25 +3123,25 @@
 </div>
 <p>Now we can create the SSH host keys. You can do this using OpenSSL by running <code>openssl genrsa</code>. For testing purposes you can use the <a href="https://github.com/ContainerSSH/examples/blob/main/logging-elk-stack/ssh_host_rsa_key">dummy key from the example repo</a>. The key should be saved as <code>ssh_host_rsa_key</code>.</p>
 <p>The final piece of the puzzle is creating the <code>docker-compose.yaml</code> file:</p>
-<div class="highlight"><pre><span></span><code><span class="nn">---</span>
-<span class="nt">version</span><span class="p">:</span> <span class="s">&#39;3.2&#39;</span>
-<span class="nt">services</span><span class="p">:</span>
-  <span class="nt">containerssh</span><span class="p">:</span>
-    <span class="nt">build</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.</span>
-    <span class="nt">ports</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:2222:2222</span>
-    <span class="nt">volumes</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bind</span>
-      <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./config.yaml</span>
-      <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/config.yaml</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bind</span>
-      <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./ssh_host_rsa_key</span>
-      <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/secrets/ssh_host_rsa_key</span>
-    <span class="p p-Indicator">-</span> <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bind</span>
-      <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
-      <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span>
-  <span class="nt">authconfig</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-test-authconfig:0.4.1</span>
+<div class="highlight"><pre><span></span><code><span class="nn">---</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.2&#39;</span><span class="w"></span>
+<span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">containerssh</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1:2222:2222</span><span class="w"></span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config.yaml</span><span class="w"></span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/config.yaml</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./ssh_host_rsa_key</span><span class="w"></span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/secrets/ssh_host_rsa_key</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bind</span><span class="w"></span>
+<span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span><span class="w"></span>
+<span class="w">      </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock</span><span class="w"></span>
+<span class="w">  </span><span class="nt">authconfig</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-test-authconfig:0.4.1</span><span class="w"></span>
 </code></pre></div>
 <p>That's it, now we can start ContainerSSH using <code>docker-compose up</code> and log in using <code>ssh foo@localhost -p 2222</code> with the password <code>bar</code>.</p>
 <h2 id="step-2-adding-fluentd">Step 2: Adding Fluentd<a class="headerlink" href="#step-2-adding-fluentd" title="Permanent link">&para;</a></h2>
@@ -3175,55 +3174,55 @@
 <p>The container named <code>elasticsearch</code> will be started later.</p>
 </div>
 <p>Now that we have the config ready we can create the Fluentd <code>Dockerfile</code> in the <code>fluentd</code> folder:</p>
-<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">fluent/fluentd:v1.12.0-debian-1.0</span>
-<span class="k">USER</span><span class="s"> root</span>
-<span class="k">RUN</span> <span class="o">[</span><span class="s2">&quot;gem&quot;</span>, <span class="s2">&quot;install&quot;</span>, <span class="s2">&quot;fluent-plugin-elasticsearch&quot;</span>, <span class="s2">&quot;--no-document&quot;</span>, <span class="s2">&quot;--version&quot;</span>, <span class="s2">&quot;5.0.1&quot;</span><span class="o">]</span>
-<span class="k">USER</span><span class="s"> fluent</span>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">fluent/fluentd:v1.12.0-debian-1.0</span>
+<span class="k">USER</span><span class="w"> </span><span class="s">root</span>
+<span class="k">RUN</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;gem&quot;</span>, <span class="s2">&quot;install&quot;</span>, <span class="s2">&quot;fluent-plugin-elasticsearch&quot;</span>, <span class="s2">&quot;--no-document&quot;</span>, <span class="s2">&quot;--version&quot;</span>, <span class="s2">&quot;5.0.1&quot;</span><span class="o">]</span>
+<span class="k">USER</span><span class="w"> </span><span class="s">fluent</span>
 </code></pre></div>
 <p>Everything is in place, let's add Fluentd to our <code>docker-compose.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-  <span class="c1"># ...</span>
-  <span class="nt">fluentd</span><span class="p">:</span>
-    <span class="nt">build</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./fluentd</span>
-    <span class="nt">volumes</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./fluentd/conf:/fluentd/etc</span>
-    <span class="nt">ports</span><span class="p">:</span>
-      <span class="c1"># We need to expose these ports to the host so the Docker engine can log to it.</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:24224:24224&quot;</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:24224:24224/udp&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">  </span><span class="nt">fluentd</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./fluentd</span><span class="w"></span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./fluentd/conf:/fluentd/etc</span><span class="w"></span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># We need to expose these ports to the host so the Docker engine can log to it.</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:24224:24224&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:24224:24224/udp&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>And finally, let's change the ContainerSSH part of the same file to send logs to Fluentd:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-  <span class="nt">containerssh</span><span class="p">:</span>
-    <span class="c1">#...</span>
-    <span class="nt">logging</span><span class="p">:</span>
-      <span class="nt">driver</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fluentd</span>
-      <span class="nt">options</span><span class="p">:</span>
-        <span class="c1"># This address is from the perspective of the Docker daemon</span>
-        <span class="s">&quot;fluentd-address&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;127.0.0.1:24224&quot;</span>
-        <span class="c1"># This is the tag we match in the Fluentd config.</span>
-        <span class="s">&quot;tag&quot;</span><span class="p p-Indicator">:</span> <span class="s">&quot;containerssh.{{.ID}}&quot;</span>
-    <span class="nt">depends_on</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">fluentd</span>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">containerssh</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">#...</span><span class="w"></span>
+<span class="w">    </span><span class="nt">logging</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fluentd</span><span class="w"></span>
+<span class="w">      </span><span class="nt">options</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># This address is from the perspective of the Docker daemon</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;fluentd-address&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;127.0.0.1:24224&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="c1"># This is the tag we match in the Fluentd config.</span><span class="w"></span>
+<span class="w">        </span><span class="s">&quot;tag&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;containerssh.{{.ID}}&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fluentd</span><span class="w"></span>
 </code></pre></div>
 <p>Now everything is done and we can start the modified setup by running <code>docker-compose build</code> and then <code>docker-compose up</code>.</p>
 <h2 id="step-3-starting-the-elk-stack">Step 3: Starting the ELK stack<a class="headerlink" href="#step-3-starting-the-elk-stack" title="Permanent link">&para;</a></h2>
 <p>For our test setup we'll start a single-node Elasticsearch and Kibana by adding them to our <code>docker-compose.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
-  <span class="c1"># ...</span>
-  <span class="nt">elasticsearch</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docker.elastic.co/elasticsearch/elasticsearch:7.10.2</span>
-    <span class="nt">container_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch</span>
-    <span class="nt">environment</span><span class="p">:</span>
-      <span class="c1"># We are running ElasticSearch in single-node mode.</span>
-      <span class="c1"># Do we need to say this is not production ready?</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;discovery.type=single-node&quot;</span>
-  <span class="nt">kibana</span><span class="p">:</span>
-    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kibana:7.10.1</span>
-    <span class="nt">ports</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="s">&quot;127.0.0.1:5601:5601&quot;</span>
-    <span class="nt">depends_on</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">elasticsearch</span>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># ...</span><span class="w"></span>
+<span class="w">  </span><span class="nt">elasticsearch</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docker.elastic.co/elasticsearch/elasticsearch:7.10.2</span><span class="w"></span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># We are running ElasticSearch in single-node mode.</span><span class="w"></span>
+<span class="w">      </span><span class="c1"># Do we need to say this is not production ready?</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;discovery.type=single-node&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kibana</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kibana:7.10.1</span><span class="w"></span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;127.0.0.1:5601:5601&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">elasticsearch</span><span class="w"></span>
 </code></pre></div>
 <p>Now we're all done so we can start the stack with <code>docker-compose up</code>.</p>
 <h2 id="step-4-configuring-kibana">Step 4: Configuring Kibana<a class="headerlink" href="#step-4-configuring-kibana" title="Permanent link">&para;</a></h2>
@@ -3340,10 +3339,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

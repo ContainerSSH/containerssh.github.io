@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/reference/0.3/auth/">
       
       <link rel="icon" href="../../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../../..":"../../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3180,8 +3179,8 @@
 <p>ContainerSSH does not know your users and their passwords. Therefore, it calls out to a microservice that you have to provide. Your service can verify the users, passwords, and SSH keys. You will have to provide the microservice URL in the configuration.</p>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
 <p>The authentication webhook can be configured in the main configuration using the following structure:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;options&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;options&gt;</span><span class="w"></span>
 </code></pre></div>
 <p>The following options are supported:</p>
 <table>
@@ -3303,9 +3302,9 @@ cfssl gencert <span class="se">\</span>
   containerssh-csr.json <span class="p">|</span> cfssljson -bare containerssh
 </code></pre></div>
 <p>The resulting <code>containerssh.pem</code> and <code>containerssh-key.pem</code> should then be added to the configuration as client credentials:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">cert</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh.pem</span>
-  <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh-key.pem</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh.pem</span><span class="w"></span>
+<span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh-key.pem</span><span class="w"></span>
 </code></pre></div>
 <h2 id="the-authentication-webhook">The authentication webhook<a class="headerlink" href="#the-authentication-webhook" title="Permanent link">&para;</a></h2>
 <p>The authentication webhook is a simple JSON <code>POST</code> request to which the server must respond with a JSON response.</p>
@@ -3315,28 +3314,28 @@ cfssl gencert <span class="se">\</span>
 </div>
 <h3 id="password-authentication">Password authentication<a class="headerlink" href="#password-authentication" title="Permanent link">&para;</a></h3>
 <p>On password authentication the authentication server will receive the following request to the <code>/password</code> endpoint:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sessionId&quot;</span><span class="p">:</span> <span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;passwordBase64&quot;</span><span class="p">:</span> <span class="s2">&quot;Base 64-encoded password&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;passwordBase64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Base 64-encoded password&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="public-key-authentication">Public key authentication<a class="headerlink" href="#public-key-authentication" title="Permanent link">&para;</a></h3>
 <p>On public key authentication the authentication server will receive the following request to the <code>/pubkey</code> endpoint:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-    <span class="nt">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;sessionId&quot;</span><span class="p">:</span> <span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;publicKeyBase64&quot;</span><span class="p">:</span> <span class="s2">&quot;Base64-encoded public key in the OpenSSH wire format&quot;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;publicKeyBase64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Base64-encoded public key in the OpenSSH wire format&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>The public key will be sent in the authorized key format.</p>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
 <p>Both endpoints need to respond with an <code>application/json</code> response of the following content:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;success&quot;</span><span class="p">:</span> <span class="kc">true</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
               
@@ -3442,10 +3441,10 @@ cfssl gencert <span class="se">\</span>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

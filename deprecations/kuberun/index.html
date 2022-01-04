@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/deprecations/kuberun/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -50,10 +50,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -68,10 +68,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3042,32 +3041,32 @@
 <p>This page explains how to switch to the new backend.</p>
 <h2 id="changing-the-configuration-structure">Changing the configuration structure<a class="headerlink" href="#changing-the-configuration-structure" title="Permanent link">&para;</a></h2>
 <p>The new configuration structure is very similar to the old <code>kuberun</code> structure. The most important change is the relocated and more detailed timeouts section:  </p>
-<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
-  <span class="nt">timeouts</span><span class="p">:</span>
-    <span class="c1"># Timeout for a container to start.</span>
-    <span class="nt">podStart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for a container to stop.</span>
-    <span class="nt">podStop</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for a shell or command to start.</span>
-    <span class="nt">commandStart</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for HTTP calls</span>
-    <span class="nt">http</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15s</span>
-    <span class="c1"># Timeout for signal requests</span>
-    <span class="nt">signal</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
-    <span class="c1"># Timeout for window change requests</span>
-    <span class="nt">window</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60s</span>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">timeouts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for a container to start.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">podStart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for a container to stop.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">podStop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for a shell or command to start.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">commandStart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for HTTP calls</span><span class="w"></span>
+<span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for signal requests</span><span class="w"></span>
+<span class="w">    </span><span class="nt">signal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Timeout for window change requests</span><span class="w"></span>
+<span class="w">    </span><span class="nt">window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60s</span><span class="w"></span>
 </code></pre></div>
 <p>This replaces the old <code>kubernetes</code> &rarr; <code>connection</code> &rarr; <code>timeout</code> option.</p>
 <p>The configuration now also moves the <code>kubernetes</code> &rarr; <code>pod</code> &rarr; <code>namespace</code> option to the new <code>metadata</code> section, which is can now be fully customized with Kubernetes pod metadata. The <code>podSpec</code> option was renamed <code>spec</code> to align with Kubernetes:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
-  <span class="nt">pod</span><span class="p">:</span>
-    <span class="nt">metadata</span><span class="p">:</span>
-      <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
-      <span class="nt">generateName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myPodNamePrefix-</span>
-      <span class="nt">labels</span><span class="p">:</span>
-        <span class="nt">foo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
-  <span class="c1"># Rename podSpec</span>
-  <span class="nt">spec</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span><span class="w"></span>
+<span class="w">      </span><span class="nt">generateName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myPodNamePrefix-</span><span class="w"></span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">foo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bar</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Rename podSpec</span><span class="w"></span>
+<span class="w">  </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
 </code></pre></div>
 <p>Please run <code>kubectl explain pod.metadata</code> for the full list of options.</p>
 <h2 id="the-new-execution-modes">The new execution modes<a class="headerlink" href="#the-new-execution-modes" title="Permanent link">&para;</a></h2>
@@ -3081,12 +3080,12 @@
 <h2 id="the-guest-agent">The guest agent<a class="headerlink" href="#the-guest-agent" title="Permanent link">&para;</a></h2>
 <p>ContainerSSH 0.4 also includes support for the new <a href="https://github.com/containerssh/agent">ContainerSSH Guest Agent</a> that enables several features the Kubernetes API does not support support. For example, the guest agent enables waiting for ContainerSSH to attach to the process in <code>session</code> mode before starting the desired program. <strong>It is strongly recommended to enable the guest agent for Kubernetes</strong> as the API misses several features required for proper operations.</p>
 <p>The agent <a href="https://github.com/containerssh/agent">must be included into the guest image</a> in order to work. When the agent is included it can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
-  <span class="nt">pod</span><span class="p">:</span>
-    <span class="c1"># Path to the new ContainerSSH Guest Agent.</span>
-    <span class="nt">agentPath</span><span class="p">:</span> <span class="s">&quot;/usr/bin/containerssh-agent&quot;</span>
-    <span class="c1"># Disable the ContainerSSH guest agent.</span>
-    <span class="nt">disableAgent</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Path to the new ContainerSSH Guest Agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">agentPath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/usr/bin/containerssh-agent&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Disable the ContainerSSH guest agent.</span><span class="w"></span>
+<span class="w">    </span><span class="nt">disableAgent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -3095,9 +3094,9 @@
 <h2 id="removing-the-disablecommand-option">Removing the <code>disableCommand</code> option<a class="headerlink" href="#removing-the-disablecommand-option" title="Permanent link">&para;</a></h2>
 <p>The <code>disableCommand</code> option was added to ContainerSSH to prevent connecting users to run a custom application. This filled a similar role to the <code>ForceCommand</code> option in OpenSSH: it prevented connecting users to launch custom commands.</p>
 <p>However, this command was separately implemented in the <code>kuberun</code> and in the <code>dockerrun</code> backend. This was not maintainable, so it was moved into the <code>security</code> module and can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">security</span><span class="p">:</span>
-  <span class="nt">command</span><span class="p">:</span>
-    <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">disable</span>
+<div class="highlight"><pre><span></span><code><span class="nt">security</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">disable</span><span class="w"></span>
 </code></pre></div>
 <h2 id="removing-the-insecure-option">Removing the <code>insecure</code> option<a class="headerlink" href="#removing-the-insecure-option" title="Permanent link">&para;</a></h2>
 <p>We are also removing the <code>insecure</code> option from the connection configuration and no longer support connecting a Kubernetes cluster without certificate verification. Using the <code>insecure</code> option represents the worst practices in terms of security. If you are using it, please set up a proper CA infrastructure.</p>
@@ -3170,10 +3169,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

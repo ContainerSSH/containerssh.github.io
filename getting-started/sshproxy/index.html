@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/getting-started/sshproxy/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3055,23 +3054,23 @@
 <p>The SSH proxy backend does not launch containers, instead it connects to a second SSH server and forwards the connections to that backend.</p>
 <h2 id="the-base-configuration-structure">The base configuration structure<a class="headerlink" href="#the-base-configuration-structure" title="Permanent link">&para;</a></h2>
 <p>The minimum configuration is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sshproxy</span>
-<span class="nt">sshproxy</span><span class="p">:</span>
-  <span class="c1"># Add the backend server here</span>
-  <span class="nt">server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span>
-  <span class="c1"># Set the following option to true to reuse the connecting user&#39;s username.</span>
-  <span class="nt">usernamePassThrough</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="c1"># Or specify a username manually</span>
-  <span class="nt">username</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root</span>
-  <span class="c1"># Specify the password</span>
-  <span class="nt">password</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">changeme</span>
-  <span class="c1"># Or the private key. This can reference a file or be added directly.</span>
-  <span class="nt">privateKey</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-    <span class="no">-----BEGIN OPENSSH PRIVATE KEY-----</span>
-    <span class="no">...</span>
-  <span class="c1"># Provide all fingerprints of the backing SSH server&#39;s host keys:</span>
-  <span class="nt">allowedHostKeyFingerprints</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SHA256:...</span>
+<div class="highlight"><pre><span></span><code><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sshproxy</span><span class="w"></span>
+<span class="nt">sshproxy</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Add the backend server here</span><span class="w"></span>
+<span class="w">  </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Set the following option to true to reuse the connecting user&#39;s username.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">usernamePassThrough</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Or specify a username manually</span><span class="w"></span>
+<span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Specify the password</span><span class="w"></span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">changeme</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Or the private key. This can reference a file or be added directly.</span><span class="w"></span>
+<span class="w">  </span><span class="nt">privateKey</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">    </span><span class="no">-----BEGIN OPENSSH PRIVATE KEY-----</span><span class="w"></span>
+<span class="w">    </span><span class="no">...</span><span class="w"></span>
+<span class="w">  </span><span class="c1"># Provide all fingerprints of the backing SSH server&#39;s host keys:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">allowedHostKeyFingerprints</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SHA256:...</span><span class="w"></span>
 </code></pre></div>
 <p>Read more in the <a href="../../reference/sshproxy/">SSH proxy reference manual &raquo;</a></p>
 
@@ -3178,10 +3177,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

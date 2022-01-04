@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/reference/logging/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.816931ca.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bb3983ee.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
           
           
@@ -66,10 +66,9 @@
     
       <link rel="stylesheet" href="../../css/custom.css?v7">
     
-    <script>function __md_scope(e,t,_){return new URL(_||(t===localStorage?"../..":"../.."),location).pathname+"."+e}function __md_get(e,t=localStorage,_){return JSON.parse(t.getItem(__md_scope(e,t,_)))}function __md_set(e,t,_=localStorage,o){try{_.setItem(__md_scope(e,_,o),JSON.stringify(t))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-
 
     
     
@@ -3178,8 +3177,8 @@
 <hr />
 <h2 id="configuring-the-minimum-log-level">Configuring the minimum log level<a class="headerlink" href="#configuring-the-minimum-log-level" title="Permanent link">&para;</a></h2>
 <p>You can configure the minimum log level by adding the following to your configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">level</span><span class="p">:</span> <span class="s">&quot;info&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;info&quot;</span><span class="w"></span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -3199,21 +3198,21 @@
 <hr />
 <h2 id="configuring-the-log-format">Configuring the log format<a class="headerlink" href="#configuring-the-log-format" title="Permanent link">&para;</a></h2>
 <p>ContainerSSH can log in both text and newline-delimited JSON (<code>ljson</code>) format. You can change the format with the following setting:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">format</span><span class="p">:</span> <span class="s">&quot;ljson&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ljson&quot;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="the-json-log-format">The JSON log format<a class="headerlink" href="#the-json-log-format" title="Permanent link">&para;</a></h3>
 <p>The LJSON format outputs a JSON-formatted string per log message. For file and stdout these JSON messages are separated by a newline from each other.</p>
 <p>When writing to the <code>stdout</code> or <code>file</code> destinations the format is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-  <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;Timestamp in RFC3339 format&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;the log level&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;ERROR_CODE_HERE&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;the message (optional)&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;details&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">&quot;the detail object if any (optional)&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="s2">&quot;Timestamp in RFC3339 format&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;the log level&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="s2">&quot;ERROR_CODE_HERE&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;the message (optional)&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s2">&quot;the detail object if any (optional)&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>When writing to syslog the format is the same, but does not contain the <code>timestamp</code> and <code>level</code> fields as they are redundant. The error codes are documented in the <a href="../codes/">troubleshooting section</a>.</p>
 <h3 id="the-text-log-format">The text log format<a class="headerlink" href="#the-text-log-format" title="Permanent link">&para;</a></h3>
@@ -3228,20 +3227,20 @@
 <hr />
 <h2 id="setting-the-output">Setting the output<a class="headerlink" href="#setting-the-output" title="Permanent link">&para;</a></h2>
 <p>The output configuration of ContainerSSH is the following:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">destination</span><span class="p">:</span> <span class="s">&quot;stdout|file|syslog&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">&lt;other destination options&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stdout|file|syslog&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;other destination options&gt;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="writing-to-the-stdout">Writing to the stdout<a class="headerlink" href="#writing-to-the-stdout" title="Permanent link">&para;</a></h3>
 <p>The stdout destination is the simplest: it will write error messages to the standard output of ContainerSSH. This is the default logging method.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">destination</span><span class="p">:</span> <span class="s">&quot;stdout&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stdout&quot;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="writing-to-a-file">Writing to a file<a class="headerlink" href="#writing-to-a-file" title="Permanent link">&para;</a></h3>
 <p>You can write to a specific file using the following options:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">destination</span><span class="p">:</span> <span class="s">&quot;file&quot;</span>
-  <span class="nt">file</span><span class="p">:</span> <span class="s">&quot;/var/log/containerssh/containerssh.log&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;file&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/var/log/containerssh/containerssh.log&quot;</span><span class="w"></span>
 </code></pre></div>
 <p>ContainerSSH will write to the specified file in the specified format.</p>
 <div class="admonition tip">
@@ -3251,17 +3250,17 @@
 <h3 id="writing-to-syslog">Writing to syslog<a class="headerlink" href="#writing-to-syslog" title="Permanent link">&para;</a></h3>
 <p>ContainerSSH supports writing to syslog via a Unix socket or UDP. TCP syslog is not supported due to the complexity of maintaining a stable connection and buffering messages between disconnects.</p>
 <p>Syslog can be configured as follows:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span>
-  <span class="nt">destination</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">syslog</span>
-  <span class="nt">syslog</span><span class="p">:</span>
-    <span class="c1"># Change to IP and port for UDP</span>
-    <span class="nt">destination</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/dev/log</span>
-    <span class="c1"># See below for supported names</span>
-    <span class="nt">facility</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">auth</span>
-    <span class="c1"># Program name to log as</span>
-    <span class="nt">tag</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ContainerSSH</span>
-    <span class="c1"># Log PID with program name</span>
-    <span class="nt">pid</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">log</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">syslog</span><span class="w"></span>
+<span class="w">  </span><span class="nt">syslog</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Change to IP and port for UDP</span><span class="w"></span>
+<span class="w">    </span><span class="nt">destination</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/dev/log</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># See below for supported names</span><span class="w"></span>
+<span class="w">    </span><span class="nt">facility</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Program name to log as</span><span class="w"></span>
+<span class="w">    </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ContainerSSH</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Log PID with program name</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <p>The following facilities are supported:</p>
 <ul>
@@ -3391,10 +3390,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.01824240.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.361d90f1.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a87c2adc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
