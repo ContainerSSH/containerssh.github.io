@@ -92,7 +92,10 @@ nav:
           - 'DockerRun (deprecated)': reference/dockerrun.md
           - 'KubeRun (deprecated)': reference/kuberun.md
       - Webhooks and APIs:
-          - 'Authentication': reference/auth.md
+          - 'Authentication':
+              - 'Overview': reference/auth.md
+              - 'Webhook': reference/auth-webhook.md
+              - 'OAuth2': reference/auth-oauth2.md
           - 'Configuration server': reference/configserver.md
           - 'API': reference/api/index.md
       - Customization:
@@ -101,13 +104,44 @@ nav:
           - 'Logging': reference/logging.md
           - 'Audit logging': reference/audit.md
           - 'Metrics': reference/metrics.md
+          - 'Health check endpoint': reference/health.md
       - Security:
           - 'Restrictions': reference/security.md
           - 'Hardening guide': reference/hardening.md
+          - 'HTTP and TLS': reference/http.md
       - Troubleshooting:
           - Troubleshooting guide: reference/troubleshooting.md
           - Message codes: reference/codes.md
-      - Old releases:
+      - Upcoming and old releases:
+          - Upcoming:
+            - 'Overview': reference/upcoming/index.md
+            - 'Installation': reference/upcoming/installation.md
+            - 'SSH':
+                - 'Configuration': reference/upcoming/ssh.md
+                - 'Supported features': reference/upcoming/features.md
+            - 'Backends':
+                - 'Backend selection': reference/upcoming/backends.md
+                - 'Docker': reference/upcoming/docker.md
+                - 'Kubernetes': reference/upcoming/kubernetes.md
+                - 'SSH proxy': reference/upcoming/sshproxy.md
+            - Authentication:
+                - 'Overview': reference/upcoming/auth.md
+                - 'Webhook': reference/upcoming/auth-webhook.md
+                - 'oAuth2': reference/upcoming/auth-oauth2.md
+                - 'Kerberos': reference/upcoming/auth-kerberos.md
+            - Customization:
+                - 'Configuration server': reference/upcoming/configserver.md
+                - 'Creating Guest Images': reference/upcoming/image.md
+            - Monitoring:
+                - 'Logging': reference/upcoming/logging.md
+                - 'Audit logging': reference/upcoming/audit.md
+                - 'Metrics': reference/upcoming/metrics.md
+            - Security:
+                - 'Restrictions': reference/upcoming/security.md
+                - 'Hardening guide': reference/upcoming/hardening.md
+            - Troubleshooting:
+                - Troubleshooting guide: reference/upcoming/troubleshooting.md
+                - Message codes: reference/upcoming/codes.md
           - 0.4.0:
               - 'Overview': reference/0.4.0/index.md
               - 'Installation': reference/0.4.0/installation.md
@@ -231,26 +265,6 @@ plugins:
         'getting-started/backends/dockerrun.md': 'getting-started/docker.md'
         'getting-started/backends/kuberun.md': 'getting-started/kubernetes.md'
         'metrics.md': 'reference/metrics.md'
-        'reference/upcoming/index.md': reference/index.md
-        'reference/upcoming/installation.md': reference/installation.md
-        'reference/upcoming/ssh.md': reference/ssh.md
-        'reference/upcoming/backends.md': reference/backends.md
-        'reference/upcoming/docker.md': reference/docker.md
-        'reference/upcoming/kubernetes.md': reference/kubernetes.md
-        'reference/upcoming/dockerrun.md': reference/dockerrun.md
-        'reference/upcoming/kuberun.md': reference/kuberun.md
-        'reference/upcoming/auth.md': reference/auth.md
-        'reference/upcoming/configserver.md': reference/configserver.md
-        'reference/upcoming/api/index.md': reference/api/index.md
-        'reference/upcoming/image.md': reference/image.md
-        'reference/upcoming/logging.md': reference/logging.md
-        'reference/upcoming/audit.md': reference/audit.md
-        'reference/upcoming/metrics.md': reference/metrics.md
-        'reference/upcoming/security.md': reference/security.md
-        'reference/upcoming/hardening.md': reference/hardening.md
-        'reference/upcoming/troubleshooting.md': reference/troubleshooting.md
-        'reference/upcoming/codes.md': reference/codes.md
-        'reference/upcoming/sshproxy.md': reference/sshproxy.md
 extra_css:
   - css/custom.css?v7
 extra_javascript:

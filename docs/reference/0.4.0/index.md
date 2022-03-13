@@ -1,14 +1,14 @@
-title: ContainerSSH Reference Manual
+title: ContainerSSH 0.4.0 Reference Manual
 
 {{ reference_outdated() }}
 
-<h1>ContainerSSH Reference Manual</h1>
+<h1>ContainerSSH 0.4.0 Reference Manual</h1>
 
 The Reference Manual provides reference material for ContainerSSH 0.4 and is oriented towards system operators wishing to use ContainerSSH on their system.
 
 ## Introduction
 
-This manual contains documentation on how to set up, configure, monitor, and secure the ContainerSSH installation. If you need a one minute primer on how ContainerSSH works please [watch this video](https://www.youtube.com/watch?v=Cs9OrnPi2IM).
+This manual contains documentation on how to set up, configure, monitor, and secure the ContainerSSH installation. If you need a one-minute primer on how ContainerSSH works please [watch this video](https://www.youtube.com/watch?v=Cs9OrnPi2IM).
 
 ## Changes since ContainerSSH 0.3
 
