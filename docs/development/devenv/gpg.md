@@ -1,13 +1,10 @@
 ---
-title: Setting up GPG for code signing
+title: Setting up GPG for code signing (optional)
 ---
 
-<h1>Setting up GPG for code signing</h1>
+<h1>Setting up GPG for code signing (optional)</h1>
 
-ContainerSSH requires all contributors to sign their commits using GPG. GPG authenticates the committer using their GPG key. This serves two purposes:
-
-1. **Security.** In Git anyone can make commit in the name of anyone. Using GPG commits makes sure we don't accidentally merge a commit pretending to be one of the core contributors.
-2. **Licensing.** As you may notice, we don't have a Contributor License Agreement to make it as simple as possible for people to contribute. By signing your commits we verify that you have indeed made that commit yourself and you presumably understand that this software is open source under the MIT license. It's not 100% legally bullet proof, but it's a good tradeoff preventing contributors from having to read several pages of legalese.
+You can sign your commits with your GPG key. This is currently optional for ContainerSSH contributors.
 
 ## Setting up GPG
 

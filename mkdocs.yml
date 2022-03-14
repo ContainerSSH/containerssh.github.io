@@ -193,7 +193,7 @@ nav:
       - Coding Style: development/code-style.md
       - Development Environment:
           - Overview: development/devenv/index.md
-          - Installing GPG: development/devenv/gpg.md
+          - Installing GPG (optional): development/devenv/gpg.md
           - Installing Golang: development/devenv/golang.md
           - Installing the QA tools: development/devenv/qa.md
           - Installing Docker: development/devenv/docker.md
