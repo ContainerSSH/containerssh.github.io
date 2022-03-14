@@ -27,7 +27,7 @@
   
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Installing GPG">
+  <meta property="og:title" content="Installing GPG (optional)">
   <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
   <meta property="og:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
   <meta property="og:url" content="https://containerssh.io/development/devenv/gpg/">
@@ -36,7 +36,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
-  <meta name="twitter:title" content="Installing GPG">
+  <meta name="twitter:title" content="Installing GPG (optional)">
   <meta name="twitter:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
   <meta name="twitter:image" content="https://containerssh.io/images/social.png">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
@@ -44,7 +44,7 @@
 
     
       
-        <title>Setting up GPG for code signing - ContainerSSH: Launch containers on demand</title>
+        <title>Setting up GPG for code signing (optional) - ContainerSSH: Launch containers on demand</title>
       
     
     
@@ -132,7 +132,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setting up GPG for code signing
+              Setting up GPG for code signing (optional)
             
           </span>
         </div>
@@ -1066,71 +1066,10 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5_1" type="checkbox" id="__nav_6_5_1" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_5_1">
-          Authentication
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Authentication" data-md-level="3">
-        <label class="md-nav__title" for="__nav_6_5_1">
-          <span class="md-nav__icon md-icon"></span>
-          Authentication
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../../reference/auth/" class="md-nav__link">
-        Overview
+        Authentication
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../reference/auth-webhook.md" class="md-nav__link">
-        Webhook
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../reference/auth-oauth2.md" class="md-nav__link">
-        OAuth2
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -3118,12 +3057,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Installing GPG
+          Installing GPG (optional)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Installing GPG
+        Installing GPG (optional)
       </a>
       
         
@@ -3734,13 +3673,9 @@
 
 
 
-<h1>Setting up GPG for code signing</h1>
+<h1>Setting up GPG for code signing (optional)</h1>
 
-<p>ContainerSSH requires all contributors to sign their commits using GPG. GPG authenticates the committer using their GPG key. This serves two purposes:</p>
-<ol>
-<li><strong>Security.</strong> In Git anyone can make commit in the name of anyone. Using GPG commits makes sure we don't accidentally merge a commit pretending to be one of the core contributors.</li>
-<li><strong>Licensing.</strong> As you may notice, we don't have a Contributor License Agreement to make it as simple as possible for people to contribute. By signing your commits we verify that you have indeed made that commit yourself and you presumably understand that this software is open source under the MIT license. It's not 100% legally bullet proof, but it's a good tradeoff preventing contributors from having to read several pages of legalese.</li>
-</ol>
+<p>You can sign your commits with your GPG key. This is currently optional for ContainerSSH contributors.</p>
 <h2 id="setting-up-gpg">Setting up GPG<a class="headerlink" href="#setting-up-gpg" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Linux / WSL</label><div class="tabbed-content">
 <p>On Linux or Windows Subsystem for Linux GPG is already included in the package manager. You can install it using the following commands:</p>

@@ -1068,71 +1068,10 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5_1" type="checkbox" id="__nav_6_5_1" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_5_1">
-          Authentication
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Authentication" data-md-level="3">
-        <label class="md-nav__title" for="__nav_6_5_1">
-          <span class="md-nav__icon md-icon"></span>
-          Authentication
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../auth/" class="md-nav__link">
-        Overview
+        Authentication
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../auth-webhook.md" class="md-nav__link">
-        Webhook
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../auth-oauth2.md" class="md-nav__link">
-        OAuth2
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1784,6 +1723,13 @@
           <li class="md-nav__item">
   <a href="#public-key-authentication" class="md-nav__link">
     Public key authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authorization" class="md-nav__link">
+    Authorization
   </a>
   
 </li>
@@ -3179,7 +3125,7 @@
   
     <li class="md-nav__item">
       <a href="../../../development/devenv/gpg/" class="md-nav__link">
-        Installing GPG
+        Installing GPG (optional)
       </a>
     </li>
   
@@ -3721,6 +3667,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#authorization" class="md-nav__link">
+    Authorization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#response" class="md-nav__link">
     Response
   </a>
@@ -3779,55 +3732,93 @@
 </tr>
 </tbody>
 </table>
-<p>Additional options here are described on the <a href="../http/#http-client-configuration">HTTP and TLS</a> page. The <code>url</code> field must be provided.</p>
+<p>Additional options here are described on the <a href="../http/#http-client-configuration">HTTP and TLS</a> page. The <code>url</code> field
+must be provided.</p>
 <h2 id="the-authentication-webhook">The authentication webhook<a class="headerlink" href="#the-authentication-webhook" title="Permanent link">&para;</a></h2>
 <p>The authentication webhook is a simple JSON <code>POST</code> request to which the server must respond with a JSON response.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We have an <a href="../api/authconfig">OpenAPI document</a> available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>We provide a <a href="https://github.com/ContainerSSH/auth">Go library</a> to create an authentication server.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users it should take into account that a user is allowed to try multiple authentication attempts (currently hard-coded to 6 per connection) before they are disconnected. Some of the authentication attempts (e.g. public keys) happen automatically on the client side without the user having any influence on them. Furthermore, ContainerSSH retries failed HTTP calls. To be effective the authentication server should count the unique connection identifiers seen in the <code>connectionId</code> field and implement a lock-out based on these.</p>
-</div>
+<p>!!! note We have an <a href="../api/authconfig">OpenAPI document</a> available for the authentication and configuration server. You
+can check the exact values available there, or use the OpenAPI document to generate parts of your server code.</p>
+<p>!!! tip We provide a <a href="https://github.com/ContainerSSH/libcontainerssh">Go library</a> to create an authentication server.</p>
+<p>!!! warning A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users
+it should take into account that a user is allowed to try multiple authentication attempts (currently hard-coded to 6
+per connection) before they are disconnected. Some of the authentication attempts (e.g. public keys) happen
+automatically on the client side without the user having any influence on them. Furthermore, ContainerSSH retries failed
+HTTP calls. To be effective the authentication server should count the unique connection identifiers seen in
+the <code>connectionId</code> field and implement a lock-out based on these.</p>
 <h3 id="password-authentication">Password authentication<a class="headerlink" href="#password-authentication" title="Permanent link">&para;</a></h3>
 <p>On password authentication the authentication server will receive the following request to the <code>/password</code> endpoint:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;connectionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;passwordBase64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Base 64-encoded password&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;connectionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;clientVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SSH client version string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;passwordBase64&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Base 64-encoded password&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h3 id="public-key-authentication">Public key authentication<a class="headerlink" href="#public-key-authentication" title="Permanent link">&para;</a></h3>
 <p>On public key authentication the authentication server will receive the following request to the <code>/pubkey</code> endpoint:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;connectionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh-rsa ...&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;connectionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh-rsa ...&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <p>The public key will be sent in the authorized key format.</p>
+<h3 id="authorization">Authorization<a class="headerlink" href="#authorization" title="Permanent link">&para;</a></h3>
+<p>When the separate authorization webhook is configured, you will receive a separate request on the <code>/authz</code> endpoint. This is most useful when the primary authentication was done via other methods, such as <a href="../auth-oauth2/">oAuth2</a> or <a href="../auth-kerberos/">Kerberos</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;authenticatedUsername&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username obtained during authentication&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;remoteAddress&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1:1234&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;connectionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;An opaque ID for the SSH connection&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;clientVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SSH client version string&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;metadata_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;metadata_value&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;env_variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;env variable value&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;/path/to/file&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64-encoded contents of the file&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
 <p>Both endpoints need to respond with an <code>application/json</code> response of the following content:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;authenticatedUsername&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;username that was verified&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;key2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;metadata_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;metadata_value&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;env_variable_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;env variable value&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;/path/to/file&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64-encoded contents of the file&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="nt">&quot;sensitive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="err">|</span><span class="kc">false</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">  </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </code></pre></div>
-<p>The <code>metadata</code> field is a key-value map of strings that will be passed to the configuration server and can be exposed as environment variables on the various backends if desired. It is optional to return.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>We provide a <a href="https://github.com/containerssh/auth">Go library to implement a authentication server</a>.</p>
-</div>
+<p>!!! tip We provide a <a href="https://github.com/containerssh/libcontainerssh">Go library to implement an authentication server</a>.</p>
 
               
             </article>
