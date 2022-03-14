@@ -92,10 +92,7 @@ nav:
           - 'DockerRun (deprecated)': reference/dockerrun.md
           - 'KubeRun (deprecated)': reference/kuberun.md
       - Webhooks and APIs:
-          - 'Authentication':
-              - 'Overview': reference/auth.md
-              - 'Webhook': reference/auth-webhook.md
-              - 'OAuth2': reference/auth-oauth2.md
+          - 'Authentication': reference/auth.md
           - 'Configuration server': reference/configserver.md
           - 'API': reference/api/index.md
       - Customization:
