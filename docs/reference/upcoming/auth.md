@@ -58,6 +58,14 @@ method is always tied to one backend.
 | Keyboard-interactive      | :material-close:      | :material-check-bold: | :material-close:      |
 | GSSAPI                    | :material-close:      | :material-close:      | :material-check-bold: |
 
+## Authorization
+
+ContainerSSH offers a separate webhook to process authorization after the authentication is complete. This is a
+webhook-only feature that lets you compare the username entered in SSH and the username that has been authenticated.
+
+This is especially useful for non-webhook authentication methods, such as Kerberos and oAuth2. The details of the
+authorization protocol are described on the [webhook page](auth-webhook.md).
+
 ## Configuration
 
 You can configure the authentication with the following options:
@@ -82,6 +90,10 @@ auth:
     method: ""|kerberos
     kerberos:
       <kerberos options>
+  authz:
+    method: ""|webhook
+    webhook: 
+      <webhook options>
 ```
 
 ### Detailed configuration options

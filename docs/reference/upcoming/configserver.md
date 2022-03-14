@@ -25,14 +25,35 @@ The configuration webhook is a simple JSON `POST` request to which the server mu
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
 !!! tip
-    We provide a [Go library](https://github.com/ContainerSSH/configuration) to create a configuration server.
+    We provide a [Go library](https://github.com/ContainerSSH/libcontainerssh) to create a configuration server.
     
 The config server will receive a request in following format:
 
 ```json
 {
-  "username":"ssh username",
-  "connectionId": "ssh session ID"
+  "username": "username",
+  "authenticatedUsername": "username obtained during authentication",
+  "remoteAddress": "127.0.0.1:1234",
+  "connectionId": "An opaque ID for the SSH connection",
+  "clientVersion": "SSH client version string",
+  "metadata": {
+    "metadata_name": {
+      "value": "metadata_value",
+      "sensitive": true|false
+    }
+  },
+  "environment": {
+    "env_variable_name": {
+      "value": "env variable value",
+      "sensitive": true|false
+    }
+  },
+  "files": {
+    "/path/to/file": {
+      "value": "base64-encoded contents of the file",
+      "sensitive": true|false
+    }
+  }
 }
 ```
 
@@ -42,6 +63,24 @@ The configuration server will have to respond with the following response accomp
 {
   "config": {
     // Provide a partial configuration here 
+  },
+  "metadata": {
+    "metadata_name": {
+      "value": "metadata_value",
+      "sensitive": true|false
+    }
+  },
+  "environment": {
+    "env_variable_name": {
+      "value": "env variable value",
+      "sensitive": true|false
+    }
+  },
+  "files": {
+    "/path/to/file": {
+      "value": "base64-encoded contents of the file",
+      "sensitive": true|false
+    }
   }
 }
 ```
@@ -56,4 +95,4 @@ Currently only the following options can be set from the configuration server:
 - [Security](security.md)
 
 !!! tip
-    We provide a [Go library to implement a config server](https://github.com/containerssh/configuration).
+    We provide a [Go library to implement a config server](https://github.com/containerssh/libcontainerssh).
