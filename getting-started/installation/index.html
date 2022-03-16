@@ -1234,20 +1234,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/health.md" class="md-nav__link">
-        Health check endpoint
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -1305,20 +1291,6 @@
     <li class="md-nav__item">
       <a href="../../reference/hardening/" class="md-nav__link">
         Hardening guide
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/http.md" class="md-nav__link">
-        HTTP and TLS
       </a>
     </li>
   
@@ -3578,6 +3550,7 @@
 <span class="nt">auth</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://your-auth-server/</span><span class="w"></span>
 </code></pre></div>
+<p>Please generate your host key by running <code>openssl genrsa &gt; /path/to/your/host.key</code>.</p>
 <p>ContainerSSH can then be started by running <code>./containerssh --config /path/to/your/config.yaml</code></p>
 </div>
 <div class="tabbed-block">
@@ -3588,7 +3561,7 @@
 <span class="nt">auth</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://your-auth-server/</span><span class="w"></span>
 </code></pre></div>
-<p>You can then run ContainerSSH with the following command line:</p>
+<p>Please generate your host key by running <code>openssl genrsa &gt; /path/to/your/host.key</code>. You can then run ContainerSSH with the following command line:</p>
 <div class="highlight"><pre><span></span><code>docker run -d <span class="se">\</span>
   -v /srv/containerssh/config.yaml:/etc/containerssh/config.yaml <span class="se">\</span>
   -v /srv/containerssh/host.key:/var/run/secrets/host.key <span class="se">\</span>
@@ -3597,65 +3570,157 @@
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>When running ContainerSSH inside a Kubernetes cluster you must furst create a <code>Secret</code> that contains the host key.</p>
-<div class="highlight"><pre><span></span><code>openssl genrsa <span class="p">|</span> kubectl create secret generic containerssh-hostkey --from-file<span class="o">=</span>host.key<span class="o">=</span>/dev/stdin
+<p>In this example we will deploy ContainerSSH into the <code>containerssh</code> namespace, and the pods for the connections in
+the <code>containerssh-guests</code> namespace. To do that we will first create the <code>containerssh</code> namespace:</p>
+<div class="highlight"><pre><span></span><code>kubectl create ns containerssh
 </code></pre></div>
-<p>Next, you can create a ConfigMap to hold the ContainerSSH configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="o">(</span> cat <span class="s">&lt;&lt; EOF </span>
-<span class="s">ssh:</span>
-<span class="s">  hostkeys:</span>
-<span class="s">    - /etc/containerssh/host.key</span>
-<span class="s">auth:</span>
-<span class="s">  url: http://your-auth-server/</span>
-<span class="s">EOF</span>
-<span class="o">)</span> <span class="p">|</span> kubectl create configmap containerssh-config --from-file<span class="o">=</span>config.yaml<span class="o">=</span>/dev/stdin
+<p>We will then create a secret containing the host key:</p>
+<div class="highlight"><pre><span></span><code>openssl genrsa <span class="p">|</span> kubectl create secret generic -n  containerssh-hostkey --from-file<span class="o">=</span>host.key<span class="o">=</span>/dev/stdin
 </code></pre></div>
-<p>Then you can create a deployment to run ContainerSSH:</p>
-<div class="highlight"><pre><span></span><code><span class="o">(</span> cat <span class="s">&lt;&lt; EOF </span>
-<span class="s">apiVersion: apps/v1</span>
-<span class="s">kind: Deployment</span>
-<span class="s">metadata:</span>
-<span class="s">  name: containerssh</span>
-<span class="s">  labels:</span>
-<span class="s">    app: containerssh</span>
-<span class="s">spec:</span>
-<span class="s">  replicas: 1</span>
-<span class="s">  selector:</span>
-<span class="s">    matchLabels:</span>
-<span class="s">      app: containerssh</span>
-<span class="s">  template:</span>
-<span class="s">    metadata:</span>
-<span class="s">      labels:</span>
-<span class="s">        app: containerssh</span>
-<span class="s">    spec:</span>
-<span class="s">      containers:</span>
-<span class="s">      - name: containerssh</span>
-<span class="s">        image: containerssh/containerssh:0.4</span>
-<span class="s">        ports:</span>
-<span class="s">        - containerPort: 2222</span>
-<span class="s">        volumeMounts:</span>
-<span class="s">        - name: hostkey</span>
-<span class="s">          mountPath: /etc/containerssh/host.key</span>
-<span class="s">          subPath: host.key</span>
-<span class="s">          readOnly: true</span>
-<span class="s">        - name: config</span>
-<span class="s">          mountPath: /etc/containerssh/config.yaml</span>
-<span class="s">          subPath: config.yaml</span>
-<span class="s">          readOnly: true</span>
-<span class="s">      volumes:</span>
-<span class="s">      - name: hostkey</span>
-<span class="s">        secret:</span>
-<span class="s">          secretName: containerssh-hostkey</span>
-<span class="s">      - name: config</span>
-<span class="s">        configMap:</span>
-<span class="s">          name: containerssh-config</span>
-<span class="s">EOF</span>
-<span class="o">)</span> <span class="p">|</span> kubectl apply -f -
+<p>Finally, we will deploy ContainerSSH. Feel free to customize the manifest below:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a namespace to put ContainerSSH guest pods in</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-guests</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="c1"># Create a service account ContainerSSH can use</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span><span class="w"></span>
+<span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="c1"># Create a role ContainerSSH can use</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-guests</span><span class="w"></span>
+<span class="nt">rules</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pods</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pods/logs</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pods/exec</span><span class="w"></span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;*&#39;</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="c1"># Bind the role to the service account</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RoleBinding</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-guests</span><span class="w"></span>
+<span class="nt">roleRef</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Role</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nt">subjects</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="c1"># Create a ContainerSSH config to use the service account in the pod itself.</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">data</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">config.yaml</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
+<span class="w">    </span><span class="no">ssh:</span><span class="w"></span>
+<span class="w">      </span><span class="no">hostkeys:</span><span class="w"></span>
+<span class="w">        </span><span class="no">- /etc/containerssh/host.key</span><span class="w"></span>
+<span class="w">    </span><span class="no">auth:</span><span class="w"></span>
+<span class="w">      </span><span class="no">url: http://authconfig:8080</span><span class="w"></span>
+<span class="w">    </span><span class="no">log:</span><span class="w"></span>
+<span class="w">      </span><span class="no">level: debug</span><span class="w"></span>
+<span class="w">    </span><span class="no">backend: kubernetes</span><span class="w"></span>
+<span class="w">    </span><span class="no">kubernetes:</span><span class="w"></span>
+<span class="w">      </span><span class="no">connection:</span><span class="w"></span>
+<span class="w">        </span><span class="no">host: kubernetes.default.svc</span><span class="w"></span>
+<span class="w">        </span><span class="no">cacertFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt</span><span class="w"></span>
+<span class="w">        </span><span class="no">bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token</span><span class="w"></span>
+<span class="w">      </span><span class="no">pod:</span><span class="w"></span>
+<span class="w">        </span><span class="no">metadata:</span><span class="w"></span>
+<span class="w">          </span><span class="no">namespace: containerssh</span><span class="w"></span>
+<span class="w">        </span><span class="no">spec:</span><span class="w"></span>
+<span class="w">          </span><span class="no">containers:</span><span class="w"></span>
+<span class="w">            </span><span class="no">- name: shell</span><span class="w"></span>
+<span class="w">              </span><span class="no">image: containerssh/containerssh-guest-image</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-config</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nn">---</span><span class="w"></span>
+<span class="c1"># Deploy ContainerSSH with the service account and configmap applied.</span><span class="w"></span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">automountServiceAccountToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">securityContext</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">runAsNonRoot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">        </span><span class="nt">readOnlyRootFilesystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh:0.4.1</span><span class="w"></span>
+<span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span><span class="w"></span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2222</span><span class="w"></span>
+<span class="w">          </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span><span class="w"></span>
+<span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/host.key</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hostkey</span><span class="w"></span>
+<span class="w">          </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">host.key</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/etc/containerssh/config.yaml</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
+<span class="w">          </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">          </span><span class="nt">subPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config.yaml</span><span class="w"></span>
+<span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span><span class="w"></span>
+<span class="w">      </span><span class="nt">serviceAccount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">      </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hostkey</span><span class="w"></span>
+<span class="w">        </span><span class="nt">secret</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-hostkey</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">configMap</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh-config</span><span class="w"></span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config</span><span class="w"></span>
 </code></pre></div>
-<p>Finally, you can create a service to expose the SSH port. You can customize this to create a loadbalancer or nodeport to make SSH publicly available. See <code>kubectl expose --help</code> for details.  </p>
-<div class="highlight"><pre><span></span><code>kubectl expose deployment containerssh <span class="se">\</span>
-    --port<span class="o">=</span><span class="m">2222</span> --target-port<span class="o">=</span><span class="m">2222</span> <span class="se">\</span>
-    --name<span class="o">=</span>containerssh
+<p>Finally, you will want to expose the ContainerSSH service to the outside world. You can do this either with a NodePort or a Loadbalancer-type resource:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span><span class="w"></span>
+<span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="nt">spec</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ipFamilies</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IPv4</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IPv6</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ipFamilyPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PreferDualStack</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2222</span><span class="w"></span>
+<span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TCP</span><span class="w"></span>
+<span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2222</span><span class="w"></span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh</span><span class="w"></span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NodePort</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
