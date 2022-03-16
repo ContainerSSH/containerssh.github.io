@@ -3566,7 +3566,9 @@
 
 <h1>Installation</h1>
 
-<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Standalone</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Standalone</label><label for="__tabbed_1_2">Docker</label><label for="__tabbed_1_3">Kubernetes</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>ContainerSSH can be deployed outside of a container. On our <a href="../../downloads/">downloads page</a> we provide binaries for Linux, Windows, and MacOS. We also provide DEB, RPM and APK (Alpine Linux) packages.</p>
 <p>Before running ContainerSSH you will need to create a <code>config.yaml</code> file that tells ContainerSSH where to find the SSH host key and the <a href="../auth/">authentication server</a>. The minimum configuration file looks like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ssh</span><span class="p">:</span><span class="w"></span>
@@ -3585,7 +3587,7 @@
 </div>
 <p>ContainerSSH can then be started by running <code>./containerssh --config /path/to/your/config.yaml</code></p>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Docker</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>When deploying in Docker you must first prepare a configuration file that tells ContainerSSH where to find the SSH host key and the <a href="../auth/">authentication server</a>. The minimum configuration file looks like this:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">ssh</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">hostkeys</span><span class="p">:</span><span class="w"></span>
@@ -3609,7 +3611,7 @@
   containerssh/containerssh:0.4
 </code></pre></div>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Kubernetes</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>When running ContainerSSH inside a Kubernetes cluster you must furst create a <code>Secret</code> that contains the host key.</p>
 <div class="highlight"><pre><span></span><code>openssl genrsa <span class="p">|</span> kubectl create secret generic containerssh-hostkey --from-file<span class="o">=</span>host.key<span class="o">=</span>/dev/stdin
 </code></pre></div>
@@ -3677,6 +3679,7 @@
 <div class="admonition warning">
 <p class="admonition-title">Note</p>
 <p>This still does not configure ContainerSSH to use Kubernetes as a container backend. This is described in detail in the <a href="../kubernetes/">Kubernetes backend section</a>.</p>
+</div>
 </div>
 </div>
 </div>

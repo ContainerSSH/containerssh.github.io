@@ -3638,32 +3638,35 @@
 <div class="highlight"><pre><span></span><code>golangci-lint run -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen
 </code></pre></div>
 <p>Please follow the instructions below:</p>
-<div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Linux / WSL</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / WSL</label><label for="__tabbed_1_2">Windows</label><label for="__tabbed_1_3">Brew (MacOS)</label><label for="__tabbed_1_4">MacPorts (MacOS)</label><label for="__tabbed_1_5">Manual (All platforms)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
 <li>Go to the <a href="https://github.com/golangci/golangci-lint/releases">GitHub releases of golangci-lint</a> and download the latest Linux <code>.tar.gz</code>.</li>
 <li>Extract the file to a directory in your path (e.g. <code>~/bin/go</code>).</li>
 <li>Add executable rights to the file (e.g. <code>chmod +x ~/bin/go/golangci-lint</code>).</li>
 </ol>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Windows</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
 <li>Go to the <a href="https://github.com/golangci/golangci-lint/releases">GitHub releases of golangci-lint</a> and download the latest Windows ZIP.</li>
 <li>Extract the <code>golangci-lint.exe</code> to your <code>%USERPROFILE%/go/bin</code> directory. </li>
 </ol>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">Brew (MacOS)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>brew install golangci-lint
 </code></pre></div>
 </div>
-<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">MacPorts (MacOS)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>sudo port install golangci-lint
 </code></pre></div>
 </div>
-<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">Manual (All platforms)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
 <li>Go to the <a href="https://github.com/golangci/golangci-lint/releases">GitHub releases of golangci-lint</a> and download the latest archive for your platform.</li>
 <li>Extract the <code>golangci-lint</code> to the <code>go/bin</code> directory in your home directory.</li>
 </ol>
+</div>
 </div>
 </div>
 

@@ -3677,7 +3677,9 @@
 
 <p>You can sign your commits with your GPG key. This is currently optional for ContainerSSH contributors.</p>
 <h2 id="setting-up-gpg">Setting up GPG<a class="headerlink" href="#setting-up-gpg" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Linux / WSL</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Linux / WSL</label><label for="__tabbed_1_2">Windows</label><label for="__tabbed_1_3">MacOS</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>On Linux or Windows Subsystem for Linux GPG is already included in the package manager. You can install it using the following commands:</p>
 <p><strong>Ubuntu</strong>
 <div class="highlight"><pre><span></span><code>sudo apt-get update
@@ -3697,10 +3699,10 @@ sudo apt-get install gnupg2
 <p>You may want to install the <a href="https://www.openpgp.org/software/kleopatra/">Kleopatra GUI</a> for easier access.</p>
 </div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Windows</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><a href="https://gpg4win.org/">GPG4Win</a> is a full suite for managing GPG keys on Windows. We recommend installing it with the Kleopatra GUI.</p>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">MacOS</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><strong>Homebrew</strong>
 <div class="highlight"><pre><span></span><code>brew install gnupg2
 </code></pre></div>
@@ -3711,8 +3713,11 @@ sudo apt-get install gnupg2
 <a href="https://gpgtools.org/">GPGTools</a> offers a graphical version of GPG.</p>
 </div>
 </div>
+</div>
 <h2 id="creating-your-gpg-key">Creating your GPG key<a class="headerlink" href="#creating-your-gpg-key" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">CLI (GPG 2.1.17+)</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">CLI (GPG 2.1.17+)</label><label for="__tabbed_2_2">Kleopatra</label><label for="__tabbed_2_3">GPGTools (MacOS)</label><label for="__tabbed_2_4">CLI (GPG 2.1.16-)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>Run the following command:
 <div class="highlight"><pre><span></span><code>gpg --full-generate-key
 </code></pre></div></p>
@@ -3722,7 +3727,7 @@ sudo apt-get install gnupg2
 <li>When prompted for your <strong>user information</strong> make sure that the <strong>e-mail address matches your GitHub e-mail and the one in your Git config</strong>, otherwise your push may be rejected. If you do not wish to publish your e-mail address <a href="https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/setting-your-commit-email-address#setting-your-commit-email-address-in-git">GitHub gives you a privacy option</a>.</li>
 </ul>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Kleopatra</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>Select File &rarr; New Key Pair...</li>
 <li>Select "Create a personal OpenPGP key pair"</li>
@@ -3730,13 +3735,13 @@ sudo apt-get install gnupg2
 <li>Follow the wizard to create your GPG key.</li>
 </ul>
 </div>
-<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">GPGTools (MacOS)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>Please follow the <a href="https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail">GPGTools guide to create your key</a>.</li>
 <li>When prompted for your <strong>user information</strong> make sure that the <strong>e-mail address matches your GitHub e-mail and the one in your Git config</strong>, otherwise your push may be rejected. If you do not wish to publish your e-mail address <a href="https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/setting-your-commit-email-address#setting-your-commit-email-address-in-git">GitHub gives you a privacy option</a>.</li>
 </ul>
 </div>
-<input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><label for="__tabbed_2_4">CLI (GPG 2.1.16-)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>Run the following command:
 <div class="highlight"><pre><span></span><code>gpg --default-new-key-algo rsa4096 --gen-key
 </code></pre></div></p>
@@ -3747,8 +3752,11 @@ sudo apt-get install gnupg2
 </ul>
 </div>
 </div>
+</div>
 <h2 id="adding-your-key-to-github">Adding your key to GitHub<a class="headerlink" href="#adding-your-key-to-github" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">CLI</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">CLI</label><label for="__tabbed_3_2">Kleopatra</label><label for="__tabbed_3_3">GPGTools (MacOS)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>First, list your GPG keys with the key IDs:</p>
 <div class="highlight"><pre><span></span><code>$ gpg --list-secret-keys --keyid-format LONG
 ------------------------------------------------
@@ -3760,7 +3768,7 @@ sec   rsa4096/YOUR-KEY-ID 2020-06-18 [SC]
 </code></pre></div>
 <p>Go to <a href="https://github.com/settings/keys">GitHub &rarr; Settings &rarr; SSH and GPG keys</a> and add a GPG key. Paste the key you just copied into the interface.</p>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Kleopatra</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>Right click the key generated in the previous step.</li>
 <li>Select "Export...".</li>
@@ -3770,7 +3778,7 @@ sec   rsa4096/YOUR-KEY-ID 2020-06-18 [SC]
 <li>Go to <a href="https://github.com/settings/keys">GitHub &rarr; Settings &rarr; SSH and GPG keys</a> and add a GPG key. Paste the key you just copied into the interface.</li>
 </ul>
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">GPGTools (MacOS)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <ul>
 <li>Select the previously generated key.</li>
 <li>Click the "Export" icon in the toolbar.</li>
@@ -3781,8 +3789,11 @@ sec   rsa4096/YOUR-KEY-ID 2020-06-18 [SC]
 </ul>
 </div>
 </div>
+</div>
 <h2 id="setting-up-gpg-signing-in-git">Setting up GPG signing in Git<a class="headerlink" href="#setting-up-gpg-signing-in-git" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Global</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Global</label><label for="__tabbed_4_2">Per repository</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>This method sets up automatic code signing for all git repositories on your computer. Run the following commands under your user account:</p>
 <div class="highlight"><pre><span></span><code>git config --global user.name &quot;Your Name&quot;
 git config --global user.email &quot;your-gpg-email@example.com&quot;
@@ -3791,7 +3802,7 @@ git config --global tag.gpgsign true
 git config --global user.signingkey YOUR-KEY-ID
 </code></pre></div>
 </div>
-<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">Per repository</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>Run the following commands <strong>in the directory</strong> where you cloned the repository:</p>
 <div class="highlight"><pre><span></span><code>git config user.name &quot;Your Name&quot;
 git config user.email &quot;your-gpg-email@example.com&quot;
@@ -3802,6 +3813,7 @@ git config user.signingkey YOUR-KEY-ID
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This method sets up GPG signing in a single repository. You must configure this <strong>every time you clone a new ContainerSSH repository</strong>.  </p>
+</div>
 </div>
 </div>
 </div>

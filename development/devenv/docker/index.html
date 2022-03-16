@@ -3569,15 +3569,18 @@
 <h1>Installing Docker</h1>
 
 <p>The <code>dockerrun</code> backend requires Docker to create containers. You will need this if you test against this backend.</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Windows / MacOS</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows / MacOS</label><label for="__tabbed_1_2">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>As a simple way to get Docker running we recommend installing <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Linux</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>Docker provides convenience scripts to install Docker on Linux:</p>
 <div class="highlight"><pre><span></span><code>curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 </code></pre></div>
 <p>Alternatively, please follow the <a href="https://docs.docker.com/engine/install/">manual installation steps</a> to get Docker running.</p>
+</div>
 </div>
 </div>
 

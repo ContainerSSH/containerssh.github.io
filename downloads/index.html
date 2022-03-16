@@ -3645,7 +3645,9 @@
 
 <h2 id="latest-release-041-released-may-26-2021">Latest release (0.4.1, released May 26, 2021)<a class="headerlink" href="#latest-release-041-released-may-26-2021" title="Permanent link">&para;</a></h2>
 <p><a href="/reference/" class="md-button">Read the reference manual &raquo;</a></p>
-<div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Container</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Container</label><label for="__tabbed_1_2">Linux</label><label for="__tabbed_1_3">MacOS</label><label for="__tabbed_1_4">Windows</label><label for="__tabbed_1_5">FreeBSD</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>ContainerSSH can be installed in a containerized system (Kubernetes, Docker, Podman) by referencing the following image names:</p>
 <div class="highlight"><pre><span></span><code>containerssh/containerssh:0.4
 containerssh/containerssh:0.4.1
@@ -3660,17 +3662,18 @@ quay.io/containerssh/containerssh:0.4.1
 <p>Each of these tags will see updates as we update the base Alpine Linux image to apply security fixes. If you need to roll back to an exact previous image you can reference the image by build date, e.g. <code>0.4.1-20210526</code>. The list of images can be found on the <a href="https://hub.docker.com/r/containerssh/containerssh/tags?page=1&amp;ordering=last_updated&amp;name=0.4">Docker Hub</a>.</p>
 </div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Linux</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_linux_amd64.tar.gz" class="md-button">x86 (.tar.gz)</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_linux_amd64.deb" class="md-button">x86 (.deb)</a> <a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_linux_amd64.rpm" class="md-button">x86 (.rpm)</a></p>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">MacOS</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_darwin_amd64.tar.gz" class="md-button">Intel (.tar.gz)</a></p>
 </div>
-<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Windows</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_windows_amd64.zip" class="md-button">.zip</a></p>
 </div>
-<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">FreeBSD</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><a href="https://github.com/ContainerSSH/ContainerSSH/releases/download/v0.4.1/containerssh_0.4.1_freebsd_amd64.tar.gz" class="md-button">.tar.gz</a></p>
+</div>
 </div>
 </div>
 <hr />

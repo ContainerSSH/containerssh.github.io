@@ -3742,13 +3742,16 @@
 <p>Apart from turning on logging you can also use network monitoring to debug <a href="../auth/">authentication</a> and <a href="../configserver/">configuration</a> webhook failures. Even if the connection itself is encrypted, using a tool like <a href="https://www.tcpdump.org/">tcpdump</a> or <a href="https://www.wireshark.org/">Wireshark</a> can give you useful clues if the connection is even established correctly or if something is failing on a connection level.</p>
 <h2 id="debugging-container-backend-failures">Debugging container backend failures<a class="headerlink" href="#debugging-container-backend-failures" title="Permanent link">&para;</a></h2>
 <p>When it comes to interacting with container backend you can also use logs as well as network monitoring to determine basic failures. Furthermore, both Docker and Kubernetes provide the ability to monitor events that are happening to get an idea of what's going on.</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Docker</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Docker</label><label for="__tabbed_1_2">Kubernetes</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>docker events
 </code></pre></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Kubernetes</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>kubectl get events --watch
 </code></pre></div>
+</div>
 </div>
 </div>
 <h2 id="debugging-with-strace">Debugging with strace<a class="headerlink" href="#debugging-with-strace" title="Permanent link">&para;</a></h2>

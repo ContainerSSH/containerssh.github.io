@@ -3709,35 +3709,44 @@
 <p>This setup will let any password authenticate. Only use it for testing.</p>
 </div>
 <h2 id="step-1-set-up-a-dockerized-environment">Step 1: Set up a Dockerized environment<a class="headerlink" href="#step-1-set-up-a-dockerized-environment" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Docker</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Docker</label><label for="__tabbed_1_2">Kubernetes</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>To run this quick start please make sure you have a working <a href="https://docs.docker.com/get-docker/">Docker environment</a> and a working <a href="https://docs.docker.com/compose/">docker-compose</a>.</p>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Kubernetes</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>To run this quick start please make sure you have a working Kubernetes environment. We recommend setting up <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>, <a href="https://k3s.io/">k3s</a>, or <a href="https://kind.sigs.k8s.io/">Kubernetes in Docker</a>.</p>
+</div>
 </div>
 </div>
 <h2 id="step-2-download-the-sample-files">Step 2: Download the sample files<a class="headerlink" href="#step-2-download-the-sample-files" title="Permanent link">&para;</a></h2>
 <p>Please download the contents of the <a href="https://github.com/ContainerSSH/examples/tree/main/quick-start">example directory</a> from the source code repository.</p>
 <h2 id="step-3-launch-containerssh">Step 3: Launch ContainerSSH<a class="headerlink" href="#step-3-launch-containerssh" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Docker</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Docker</label><label for="__tabbed_2_2">Kubernetes</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>In the downloaded directory run <code>docker-compose up -d</code>.</p>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Kubernetes</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>In the downloaded directory run <code>kubectl apply -f kubernetes.yaml</code>.</p>
+</div>
 </div>
 </div>
 <h2 id="step-4-logging-in">Step 4: Logging in<a class="headerlink" href="#step-4-logging-in" title="Permanent link">&para;</a></h2>
 <p>Run <code>ssh foo@localhost -p 2222</code> on the same machine via a new terminal window. This is your test client. You should be able to log in with any password.</p>
 <p>Alternatively you can also try the user <code>busybox</code> to land in a Busybox container.</p>
 <h2 id="step-5-cleaning-up">Step 5: Cleaning up<a class="headerlink" href="#step-5-cleaning-up" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Docker</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Docker</label><label for="__tabbed_3_2">Kubernetes</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <p>Once you're done, you can shut down the server using the <code>docker-compose down</code>, then remove the images using <code>docker-compose rm</code>.</p>
 <p>Finally, you can also remove the guest image:</p>
 <div class="highlight"><pre><span></span><code>docker image rm containerssh/containerssh-guest-image
 </code></pre></div>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Kubernetes</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>Once you're done, you can shut down the server by running <code>kubectl delete -f kubernetes.yaml</code>.</p>
+</div>
 </div>
 </div>
 <h2 id="step-6-making-it-productive">Step 6: Making it productive<a class="headerlink" href="#step-6-making-it-productive" title="Permanent link">&para;</a></h2>
