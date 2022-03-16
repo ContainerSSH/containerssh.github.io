@@ -56,7 +56,7 @@
     openssl genrsa | kubectl create secret generic -n  containerssh-hostkey --from-file=host.key=/dev/stdin
     ```
 
-    Finally, we will deploy ContainerSSH. Feel free to customize the manifest below:
+    Finally, we will deploy ContainerSSH. Please customize as needed, especially the ContainerSSH configuration.
 
     ```yaml
     # Create a namespace to put ContainerSSH guest pods in
