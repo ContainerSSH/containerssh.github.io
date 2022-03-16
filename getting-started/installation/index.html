@@ -3577,7 +3577,7 @@ the <code>containerssh-guests</code> namespace. To do that we will first create 
 <p>We will then create a secret containing the host key:</p>
 <div class="highlight"><pre><span></span><code>openssl genrsa <span class="p">|</span> kubectl create secret generic -n  containerssh-hostkey --from-file<span class="o">=</span>host.key<span class="o">=</span>/dev/stdin
 </code></pre></div>
-<p>Finally, we will deploy ContainerSSH. Feel free to customize the manifest below:</p>
+<p>Finally, we will deploy ContainerSSH. Please customize as needed, especially the ContainerSSH configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a namespace to put ContainerSSH guest pods in</span><span class="w"></span>
 <span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace</span><span class="w"></span>
