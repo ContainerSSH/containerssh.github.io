@@ -507,6 +507,8 @@ class GitHubClient:
                     pr.checks_status = prEntry["commits"]["nodes"][0]["commit"]["statusCheckRollup"]["state"]
                 except KeyError:
                     pr.checks_status = "UNKNOWN"
+                except TypeError:
+                    pr.checks_status = "UNKNOWN"
                 prs.append(pr)
             finished = not issueData["data"]["organization"]["repository"]["pullRequests"]["pageInfo"][
                 "hasNextPage"]

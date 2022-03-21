@@ -3,9 +3,9 @@
 
 === "Standalone"
 
-    ContainerSSH can be deployed outside of a container. On our [downloads page](../downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB and RPM packages.
+    ContainerSSH can be deployed outside of a container. On our [downloads page](../../downloads/index.md) we provide binaries for Linux, Windows, and MacOS. We also provide DEB and RPM packages.
     
-    Before running ContainerSSH you will need to create a `config.yaml` file that tells ContainerSSH where to find the SSH host key and the [authentication server](authserver.md). The minimum configuration file looks like this:
+    Before running ContainerSSH you will need to create a `config.yaml` file that tells ContainerSSH where to find the SSH host key and the [authentication server](auth.md). The minimum configuration file looks like this:
     
     ```yaml
     ssh:
@@ -21,7 +21,7 @@
 
 === "Docker"
 
-    When deploying in Docker you must first prepare a configuration file that tells ContainerSSH where to find the SSH host key and the [authentication server](authserver.md). The minimum configuration file looks like this:
+    When deploying in Docker you must first prepare a configuration file that tells ContainerSSH where to find the SSH host key and the [authentication server](auth.md). The minimum configuration file looks like this:
     
     ```yaml
     ssh:
