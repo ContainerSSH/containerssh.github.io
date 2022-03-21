@@ -6,8 +6,6 @@ title: Development Dashboard
     {% for milestone in get_milestones() %}
     ## [{{ milestone.title }}]({{ milestone.url }})
     
-    {{ milestone.description}}
-    
     {% for issue in milestone.issues %}- [{% if not issue.open %}X{% else %} {% endif %}] [{{issue.title}}]({{ issue.url }})
     {% endfor %}{% endfor %}
 
