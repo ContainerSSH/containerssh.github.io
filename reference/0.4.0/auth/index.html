@@ -3974,7 +3974,7 @@ cfssl gencert <span class="se">\</span>
   containerssh-csr.json <span class="p">|</span> cfssljson -bare containerssh
 </code></pre></div>
 <p>The resulting <code>containerssh.pem</code> and <code>containerssh-key.pem</code> should then be added to the configuration as client credentials:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">cert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh.pem</span><span class="w"></span>
 <span class="w">  </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/containerssh-key.pem</span><span class="w"></span>
 </code></pre></div>
