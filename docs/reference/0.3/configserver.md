@@ -11,7 +11,7 @@ ContainerSSH has the ability to configure the backend and the launched container
 The configserver webhook can be configured in the main configuration using the following structure:
 
 ```yaml
-configuration:
+configserver:
   <options>
 ```
 
@@ -113,7 +113,7 @@ cfssl gencert \
 The resulting `containerssh.pem` and `containerssh-key.pem` should then be added to the configuration as client credentials:
 
 ```yaml
-configuration:
+configserver:
   cert: /path/to/containerssh.pem
   key: /path/to/containerssh-key.pem
 ```

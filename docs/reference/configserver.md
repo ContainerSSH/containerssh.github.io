@@ -9,7 +9,7 @@ ContainerSSH has the ability to configure the backend and the launched container
 The configserver webhook can be configured in the main configuration using the following structure:
 
 ```yaml
-configuration:
+configserver:
   <options>
 ```
 

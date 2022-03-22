@@ -148,7 +148,7 @@ cfssl gencert \
 The resulting `containerssh.pem` and `containerssh-key.pem` should then be added to the configuration as client credentials:
 
 ```yaml
-configuration:
+auth:
   cert: /path/to/containerssh.pem
   key: /path/to/containerssh-key.pem
 ```
