@@ -628,3 +628,18 @@ def declare_variables(variables, macro):
     You are reading the reference manual of an upcoming release. [Read the current manual &raquo;](/reference/)
 '''
 
+    @macro
+    def grid_start(size=2):
+        return '<div class="grid grid--{0}">'.format(size)
+
+    @macro
+    def grid_end():
+        return '</div>'
+
+    @macro
+    def grid_item_start():
+        return '<div class="grid__box">'
+
+    @macro
+    def grid_item_end():
+        return '</div>'

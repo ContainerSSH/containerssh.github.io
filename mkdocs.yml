@@ -57,6 +57,8 @@ extra:
 nav:
   - Home: index.md
   - Use cases:
+      - Lab: usecases/lab.md
+      - Debugging a production system: usecases/debugging.md
       - Web hosting: usecases/webhosting.md
       - Learning environments: usecases/learning.md
       - Honeypots: usecases/honeypots.md
@@ -131,10 +133,12 @@ nav:
             - Monitoring:
                 - 'Logging': reference/upcoming/logging.md
                 - 'Audit logging': reference/upcoming/audit.md
+                - 'Health checks': reference/upcoming/health.md
                 - 'Metrics': reference/upcoming/metrics.md
             - Security:
                 - 'Restrictions': reference/upcoming/security.md
                 - 'Hardening guide': reference/upcoming/hardening.md
+            - 'HTTP client and server': reference/upcoming/http.md
             - Troubleshooting:
                 - Troubleshooting guide: reference/upcoming/troubleshooting.md
                 - Message codes: reference/upcoming/codes.md
