@@ -7,7 +7,7 @@ Granting developer access to a production system is often problematic or even im
 1. Access to production systems should be restricted on an as-needed basis, not all developers should have access to it.
 2. Auditing changes to a production system is a must.
 
-## How a traditional setup looks like
+## What a traditional setup looks like
 
 1. Only a limited number of system administrators have access.
 2. Changes can only be made using a CI system.
@@ -17,18 +17,18 @@ Granting developer access to a production system is often problematic or even im
 
 ## How ContainerSSH helps
 
-1. Dynamically allow users access based on automation from your ticketing system.
+1. Dynamically allow users access based on automation from your ticketing system or web interface.
 2. Audit log every SSH command and file uploads accurately.
-3. Create narrowly-scoped containers that only have read only access.
+3. Create narrowly-scoped containers with read only access.
 4. No PAM modifications needed, no access to the host operating system.
 
 ## How to build it
 
-The goal is that developers request access by ticket, and if approved, get time-limited access to the production environment. In our case we will configure ContainerSSH to authenticate against [OpenPolicyAgent](https://www.openpolicyagent.org/) or your [custom authentication server](../reference/auth.md). 
+The goal is that developers get time-limited access to the production environment. In our case, we will configure ContainerSSH to authenticate against [OpenPolicyAgent](https://www.openpolicyagent.org/) or your [custom authentication server](../reference/auth.md). 
 
 First, [install ContainerSSH with a base setup](../reference/installation.md). Configure the backend to [Docker](../reference/docker.md) or [Kubernetes](../reference/kubernetes.md) as desired. Please read the "Securing Docker" or "Securing Kubernetes" sections for your environment.
 
-When a developer requests access via a ticket, use the automation in your ticketing system to create a user entry in the OPA JSON file, or a database for the current access. (You can use [external data](https://www.openpolicyagent.org/docs/latest/external-data/) with OPA to use an external database.) Now, [configure ContainerSSH](../reference/auth.md) to send authentication requests to your OPA instance or custom server.
+When a developer requests access via a ticket or web interface, use automation to create a user entry in the OPA JSON file, or a database for the current access. (You can use [external data](https://www.openpolicyagent.org/docs/latest/external-data/) with OPA to use an external database.) Now, [configure ContainerSSH](../reference/auth.md) to send authentication requests to your OPA instance or custom server.
 
 Now, make sure that the container image contains all the debugging tools you need for your system, such as a database client. See [the image creation reference manual for details](../reference/image.md).
 
