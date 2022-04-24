@@ -14,12 +14,12 @@ hide:
 {{ grid_item_end() }}
 {{ grid_item_start() }}
 <h2>Debug a production system</h2>
-<p>Do you need to grant <strong>production access to your developers</strong>? Do you need to give them their usual tools, but log all changes? Do you need to create short-lived credentials for the database? With ContainerSSH you can do all of that and more.</p>
+<p>Provide <strong>production access to your developers</strong>, give them their usual tools while logging all changes, create short-lived credentials for the database.</p>
 <p><a href="usecases/debugging/" class="md-button">Read more »</a></p>
 {{ grid_item_end() }}
 {{ grid_item_start() }}
 <h2>Run a honeypot</h2>
-<p>Study SSH attack patterns up close. Drop attackers safely into network-isolated containers or even virtual machines, and <strong>capture their every move</strong> using the audit logging ContainerSSH provides. The built-in S3 upload makes sure you don't lose your data.</p>
+<p>Study SSH attack patterns up close. Drop attackers safely into network-isolated containers or even virtual machines, and <strong>capture their every move</strong> using the audit logging ContainerSSH provides. The built-in S3 upload ensures you don't lose your data.</p>
 <p><a href="usecases/honeypots/" class="md-button">Read more »</a></p>
 {{ grid_item_end() }}
 {{ grid_end() }}
