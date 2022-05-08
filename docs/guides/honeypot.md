@@ -9,7 +9,7 @@ This guide will lead you through the steps of creating an SSH honeypot with Cont
 
 In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the `gateway` VM and the second one `sacrificial` VM. Ideally, the `sacrificial` VM should run on its own dedicated physical hardware to prevent leakage of secrets due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.
 
-Furthermore, you will need an S3-compatible object storage to upload [audit logs](/reference/audit.md) and we will need a [Prometheus](https://prometheus.io/) installation for monitoring.
+Furthermore, you will need an S3-compatible object storage to upload [audit logs](../reference/audit.md) and we will need a [Prometheus](https://prometheus.io/) installation for monitoring.
 
 We strongly recommend automating the setup with a tool like [Terraform](https://terraform.io) to rapidly apply security updates.
 
@@ -35,7 +35,7 @@ Once your Docker socket is exposed you should test if it can be accessed without
 
 ```
 docker run -H tcp://your-sacrificial-host:2375 -ti ubuntu
-docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu 
+docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu
 ```
 
 If this command does not fail the certificates have not been set up correctly.
