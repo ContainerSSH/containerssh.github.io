@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/guides/honeypot/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.14">
     
   
   
@@ -48,10 +48,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8c5ef100.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3de6f41f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9647289d.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
           
           
@@ -3825,7 +3825,7 @@
 </div>
 <h2 id="step-1-infrastructure">Step 1: Infrastructure<a class="headerlink" href="#step-1-infrastructure" title="Permanent link">&para;</a></h2>
 <p>In order to set up a honeypot securely you will need at least two hosts: one to run ContainerSSH and the second to run the container infrastructure the attacker is dropped into. We'll call the first host the <code>gateway</code> VM and the second one <code>sacrificial</code> VM. Ideally, the <code>sacrificial</code> VM should run on its own dedicated physical hardware to prevent leakage of secrets due to CPU bugs. Both VMs need sufficient disk space to hold audit logs and containers.</p>
-<p>Furthermore, you will need an S3-compatible object storage to upload <a href="/reference/audit.md">audit logs</a> and we will need a <a href="https://prometheus.io/">Prometheus</a> installation for monitoring.</p>
+<p>Furthermore, you will need an S3-compatible object storage to upload <a href="../../reference/audit/">audit logs</a> and we will need a <a href="https://prometheus.io/">Prometheus</a> installation for monitoring.</p>
 <p>We strongly recommend automating the setup with a tool like <a href="https://terraform.io">Terraform</a> to rapidly apply security updates.</p>
 <h2 id="step-2-firewalling-the-gateway">Step 2: Firewalling the gateway<a class="headerlink" href="#step-2-firewalling-the-gateway" title="Permanent link">&para;</a></h2>
 <p>You should set up the <code>gateway</code> host in such a way that it is visible from the Internet. You will need the following firewall rules:</p>
@@ -3841,7 +3841,7 @@
 <p>The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the <a href="https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket">Docker manual</a>.</p>
 <p>Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:</p>
 <div class="highlight"><pre><span></span><code>docker run -H tcp://your-sacrificial-host:2375 -ti ubuntu
-docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu 
+docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu
 </code></pre></div>
 <p>If this command does not fail the certificates have not been set up correctly.</p>
 <h2 id="step-5-installing-the-node-exporter">Step 5: Installing the node exporter<a class="headerlink" href="#step-5-installing-the-node-exporter" title="Permanent link">&para;</a></h2>
@@ -4089,7 +4089,7 @@ mkdir -p /srv/containerssh/audit/
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.748e2769.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c2e1ee47.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
