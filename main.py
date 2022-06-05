@@ -4,7 +4,6 @@ import json
 import re
 from datetime import datetime, timezone
 import os
-import pprint
 import requests
 import yaml
 from typing import List, Dict, Optional
@@ -15,8 +14,7 @@ class Contributor:
     github: str
     website: str
     linkedin: str
-    staff: bool
-    contributions: int
+    core: bool
     avatar_url: str
 
 
@@ -27,7 +25,7 @@ class GitHubUser:
 
 
 class GitHubContributor(GitHubUser):
-    contributions: int
+    pass
 
 
 class GitHubOrg:
@@ -105,16 +103,7 @@ class GitHubClient:
         if request.status_code == 200:
             return request.json()
         else:
-            pprint.pprint(request)
             raise Exception("Failed to run GitHub query")
-
-    def is_staff(self, github_login: str) -> bool:
-        if not self._token:
-            return False
-        for member in self.get_org(self._org_name).members:
-            if member.login == github_login:
-                return True
-        return False
 
     def get_org(self, org_login: str) -> GitHubOrg:
         if not self._token:
@@ -166,51 +155,25 @@ class GitHubClient:
             contributor = GitHubContributor()
             contributor.name = "Fake Contributor"
             contributor.login = username
-            contributor.contributions = 0
             contributor.avatar_url = "about:blank"
             return contributor
         if username in self._contributors:
             return self._contributors[username]
         finished = False
-        after = None
         contributor = GitHubContributor()
         while not finished:
             contributorData = self.query("""
-                query($login: String!, $orgId: ID, $after: String) {
+                query($login: String!) {
                   user(login: $login) {
                     name
                     login
                     avatarUrl
-                    contributionsCollection (organizationID: $orgId) {
-                      commitContributionsByRepository(maxRepositories: 100) {
-                        contributions (first: 100, after: $after) {
-                          pageInfo {
-                            hasNextPage
-                            endCursor
-                          }
-                          nodes {
-                            repository {
-                              name
-                            }
-                            commitCount
-                          }
-                        }
-                      }
-                    }
                   }
                 }
-                """, {'login': username, 'orgId': self._org.id, 'after': after})
+                """, {'login': username})
             contributor.name = contributorData["data"]["user"]["name"]
             contributor.login = contributorData["data"]["user"]["login"]
             contributor.avatar_url = contributorData["data"]["user"]["avatarUrl"]
-            contributions = 0
-            for contribution in contributorData["data"]["user"]["contributionsCollection"][
-                "commitContributionsByRepository"]:
-
-                for node in contribution["contributions"]["nodes"]:
-                    contributions = contributions + node["commitCount"]
-            contributor.contributions = contributions
-            # TODO: handle case where there are more than 100 contributions
             finished = True
         self._contributors[username] = contributor
         return contributor
@@ -532,6 +495,10 @@ class ContributorsFileReader:
             contributor.name = public_contributor["name"]
             contributor.github = public_contributor["github"]
             try:
+                contributor.core = public_contributor["core"]
+            except KeyError:
+                contributor.core = False
+            try:
                 contributor.twitter = public_contributor["twitter"]
             except KeyError:
                 contributor.twitter = None
@@ -543,13 +510,11 @@ class ContributorsFileReader:
                 contributor.linkedin = public_contributor["linkedin"]
             except KeyError:
                 contributor.linkedin = None
-            contributor.staff = self.client.is_staff(contributor.github)
             github_contributor = self.client.get_contributor(contributor.github)
             contributor.avatar_url = github_contributor.avatar_url
-            contributor.contributions = github_contributor.contributions
             contributors.append(contributor)
-        contributors = list(reversed(sorted(contributors, key=lambda c: c.contributions)))
-        contributors = sorted(contributors, key=lambda c: not c.staff)
+        contributors = list(sorted(contributors, key=lambda c: c.name))
+        contributors = sorted(contributors, key=lambda c: not c.core)
         return contributors
 
 

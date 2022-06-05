@@ -6,9 +6,11 @@
 - name: Sanja Bonic
   github: sanjacodes
   website: https://debugged.it
+  core: true
 - name: Janos Bonic
   github: janosdebugs
   website: https://debugged.it
+  core: true
 - name: Richard Kovacs
   github: mhmxs
   twitter: mhmxs
@@ -16,11 +18,13 @@
 - name: Bence Santha
   github: bencurio
   twitter: ecrazor1911
+  core: true
 - name: Montgomery Edwards⁴⁴⁸
   github: x448
 - name: Nikos Tsipinakis
   github: tsipinakis
   website: https://nikos.dev
+  core: true
 - name: Duc Tran
   github: ductnn
   website: https://ductn.info
