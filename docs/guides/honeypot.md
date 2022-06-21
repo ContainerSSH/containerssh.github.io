@@ -34,8 +34,8 @@ The next step involves creating a CA infrastructure so ContainerSSH can authenti
 Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:
 
 ```
-docker run -H tcp://your-sacrificial-host:2375 -ti ubuntu
-docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu
+docker -H tcp://your-sacrificial-host:2375 run -ti ubuntu
+docker -H tcp://your-sacrificial-host:2376 run -ti ubuntu
 ```
 
 If this command does not fail the certificates have not been set up correctly.
@@ -174,7 +174,7 @@ Now you are ready to start ContainerSSH:
 ```
 docker run -d \
   --restart=always \
-  -v /srv/containerssh/config/:/etc/containerssh/ \
+  -v /srv/containerssh/:/etc/containerssh/ \
   -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
   --net=host \
   containerssh/containerssh:0.4.1
