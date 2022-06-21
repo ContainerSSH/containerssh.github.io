@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/guides/honeypot/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.2">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
     
   
   
@@ -48,7 +48,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.5d38496d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
@@ -3841,8 +3841,8 @@
 <h2 id="step-4-creating-certificates-for-authentication-on-the-sacrificial-host">Step 4: Creating certificates for authentication on the sacrificial host<a class="headerlink" href="#step-4-creating-certificates-for-authentication-on-the-sacrificial-host" title="Permanent link">&para;</a></h2>
 <p>The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the <a href="https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket">Docker manual</a>.</p>
 <p>Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:</p>
-<div class="highlight"><pre><span></span><code>docker run -H tcp://your-sacrificial-host:2375 -ti ubuntu
-docker run -H tcp://your-sacrificial-host:2376 -ti ubuntu
+<div class="highlight"><pre><span></span><code>docker -H tcp://your-sacrificial-host:2375 run -ti ubuntu
+docker -H tcp://your-sacrificial-host:2376 run -ti ubuntu
 </code></pre></div>
 <p>If this command does not fail the certificates have not been set up correctly.</p>
 <h2 id="step-5-installing-the-node-exporter">Step 5: Installing the node exporter<a class="headerlink" href="#step-5-installing-the-node-exporter" title="Permanent link">&para;</a></h2>
@@ -3961,7 +3961,7 @@ mkdir -p /srv/containerssh/audit/
 <p>Now you are ready to start ContainerSSH:</p>
 <div class="highlight"><pre><span></span><code>docker run -d \
   --restart=always \
-  -v /srv/containerssh/config/:/etc/containerssh/ \
+  -v /srv/containerssh/:/etc/containerssh/ \
   -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
   --net=host \
   containerssh/containerssh:0.4.1
@@ -4089,10 +4089,10 @@ mkdir -p /srv/containerssh/audit/
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b028fd86.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.7f366e99.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a877e258.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
