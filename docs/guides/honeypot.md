@@ -157,6 +157,7 @@ audit:
     bucket: YOUR-S3-BUCKET-NAME
     # Optional: set your S3 endpoint
     endpoint: https://YOUR-S3-ENDPOINT
+    pathStyleAccess: true
     metadata:
       # Which metadata fields to set in the object storage.
       username: true
@@ -173,11 +174,17 @@ Now you are ready to start ContainerSSH:
 
 ```
 docker run -d \
-  --restart=always \
+  --restart=always --name containerssh \
   -v /srv/containerssh/:/etc/containerssh/ \
   -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
   --net=host \
   containerssh/containerssh:0.4.1
+```
+
+Then we need to give container access to the audit log directory:
+
+```
+docker exec -d --user root containerssh chown 1022:1022 /var/log/containerssh/audit
 ```
 
 ## Step 8: Starting the auth-config server
