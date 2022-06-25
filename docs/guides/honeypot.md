@@ -157,6 +157,7 @@ audit:
     bucket: YOUR-S3-BUCKET-NAME
     # Optional: set your S3 endpoint
     endpoint: https://YOUR-S3-ENDPOINT
+    # Optional: use path-style access for buckets
     pathStyleAccess: true
     metadata:
       # Which metadata fields to set in the object storage.
@@ -170,21 +171,21 @@ configserver:
 
 ## Step 7: Starting ContainerSSH
 
+Before starting ContainerSSH, `chown` the audit directory so ContainerSSH can write to it:
+
+```
+chown 1022:1022 /srv/containerssh/audit
+```
+
 Now you are ready to start ContainerSSH:
 
 ```
 docker run -d \
-  --restart=always --name containerssh \
+  --restart=always \
   -v /srv/containerssh/:/etc/containerssh/ \
   -v /srv/containerssh/audit/:/var/log/containerssh/audit/ \
   --net=host \
   containerssh/containerssh:0.4.1
-```
-
-Then we need to give container access to the audit log directory:
-
-```
-docker exec -d --user root containerssh chown 1022:1022 /var/log/containerssh/audit
 ```
 
 ## Step 8: Starting the auth-config server
