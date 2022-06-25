@@ -85,6 +85,7 @@ audit:
     endpoint: "https://your-custom-s3-url" # Optional
     uploadPartSize: 5242880 # In bytes, min: 5MB, max: 5GB
     acl: "public-read" # Optional, in case you want to set an ACL
+    pathStyleAccess: true # Optional, use path-style access for buckets
     metadata:
       username: true # Expose username via S3 metadata. Defaults to false.
       ip: true # Expose IP address via S3 metadata. Defaults to false.
