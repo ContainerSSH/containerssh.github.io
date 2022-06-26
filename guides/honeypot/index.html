@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://containerssh.io/guides/honeypot/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.6">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.8">
     
   
   
@@ -48,7 +48,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.4a0965b7.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.1d29e8d0.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
@@ -3948,6 +3948,8 @@ mkdir -p /srv/containerssh/audit/
 <span class="w">    </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YOUR-S3-BUCKET-NAME</span><span class="w"></span>
 <span class="w">    </span><span class="c1"># Optional: set your S3 endpoint</span><span class="w"></span>
 <span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://YOUR-S3-ENDPOINT</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># Optional: use path-style access for buckets</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pathStyleAccess</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 <span class="w">    </span><span class="nt">metadata</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="c1"># Which metadata fields to set in the object storage.</span><span class="w"></span>
 <span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
@@ -3958,6 +3960,9 @@ mkdir -p /srv/containerssh/audit/
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://127.0.0.1:8080/config&quot;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="step-7-starting-containerssh">Step 7: Starting ContainerSSH<a class="headerlink" href="#step-7-starting-containerssh" title="Permanent link">&para;</a></h2>
+<p>Before starting ContainerSSH, <code>chown</code> the audit directory so ContainerSSH can write to it:</p>
+<div class="highlight"><pre><span></span><code>chown 1022:1022 /srv/containerssh/audit
+</code></pre></div>
 <p>Now you are ready to start ContainerSSH:</p>
 <div class="highlight"><pre><span></span><code>docker run -d \
   --restart=always \
@@ -4089,10 +4094,10 @@ mkdir -p /srv/containerssh/audit/
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.85cb4492.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a877e258.min.js"></script>
+      <script src="../../assets/javascripts/bundle.0238f547.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
