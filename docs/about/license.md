@@ -1,14 +1,8 @@
 <h1>License</h1>
 
-This website and the ContainerSSH source code is distributed under the [Apache 2.0 license](https://github.com/ContainerSSH/community/blob/main/LICENSE) with the following exceptions:
+The ContainerSSH source code is distributed under the [Apache 2.0 license](https://opensource.org/licenses/Apache-2.0). This website any any documentation for ContainerSSH is distributed under the [Creative Commons Attribution 4.0 International license](https://creativecommons.org/licenses/by/4.0/).
 
-1. To keep things fair the ContainerSSH name, logos, and graphic assets located in the [branding repository](https://github.com/ContainerSSH/branding/) may only be used in accordance with the [ContainerSSH brand license](https://github.com/ContainerSSH/branding/blob/main/LICENSE.md).
-2. Company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines.
-3. Some decorative images are licensed from [Unsplash](https://unsplash.com/license).
-4. MkDocs is distributed under the BSD license.
-5. Material for MkDocs is distributed under the MIT license.
-
-ContainerSSH binaries contain open source components under the following licenses:
+The ContainerSSH binary contains open source components under the following licenses:
 
 - MIT, MIT-0
 - BSD
@@ -17,3 +11,7 @@ ContainerSSH binaries contain open source components under the following license
 - ISC
 
 Details of these licenses can be found in the `NOTICE.md` file published with each release or by running `containerssh --license`.
+
+## Trademarks
+
+Company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines.

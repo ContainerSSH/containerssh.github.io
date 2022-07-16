@@ -271,12 +271,12 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
 copyright: >
-  Copyright &copy; ContainerSSH Contributors
+  Copyright &copy; ContainerSSH Contributors | Creative Commons Attribution 4.0 International License
   | <a href="/about/">About Us</a>
   | <a href="/about/packages/">Packages</a>
   | <a href="/about/security/">Security</a>
   | <a href="/deprecations/">Deprecations</a>
-  | <a href="/about/license/">MIT License</a>
+  | <a href="/about/license/">License</a>
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
   | <a href="/about/privacy/">Privacy Policy</a>
   | <a href="/about/imprint/">Imprint</a><br />

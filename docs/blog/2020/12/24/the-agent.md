@@ -1,6 +1,6 @@
 title: Announcing the ContainerSSH Guest Agent
 description: The new ContainerSSH guest agent will level the playing field across container backends.
-image: images/blog/the-agent/preview.png
+
 
 # Announcing the ContainerSSH Guest Agent
 <div class="blog-meta"><small>December 24, 2020</small></div>
