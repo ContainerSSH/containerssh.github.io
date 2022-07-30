@@ -31,7 +31,42 @@ On the firewall side, the sacrificial host should not allow any outbound connect
 
 The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the [Docker manual](https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket).
 
-Make sure your `dockerd` has a high enough `nofile` so it can run enough number of containers at the same time.
+Depending on how you start the Docker daemon after CA setup, you may need to set `nofile` to a high enough value (e.g., `65535`), so the daemon can run enough number of containers at the same time.
+
+- If you start Docker daemon in command line, refer to [Docker daemon config guide](https://docs.docker.com/config/daemon/#configure-the-docker-daemon) and set both both `Hard` and `Soft` of `default-ulimits.nofile` to your value.
+
+- If you start Docker daemon with `systemd`, it should already have `LimitNOFILE=infinity` in its default config file (verify via `systemctl cat docker`).
+
+    You only need to override `ExecStart` to run `dockerd` with TLS:
+
+    ```bash
+    TARGET_DIR="$(systemctl cat docker | grep docker.service | awk '{print $NF}').d"
+    mkdir "$TARGET_DIR"
+    vi "$TARGET_DIR/override.conf"
+    ```
+    Add the following content:
+    ```ini
+    [Service]
+    ExecStart=
+    ExecStart=/usr/bin/dockerd \
+      -H fd:// --containerd=/run/containerd/containerd.sock \
+      --tlsverify --tlscacert=<path_to_cacert>\
+      --tlskey=<path_to_server_key> \
+      --tlscert=<path_to_server_cert> \
+      -H=0.0.0.0:2376
+    ```
+    Then reload the config and restart `dockerd` via
+    ```bash
+    systemctl daemon-reload
+    systemctl restart docker
+    ```
+
+To verify your `nofile` configuration:
+
+```
+cat /proc/$(pidof dockerd)/limits
+```
+You should see `Max open files` with your configured values.
 
 Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:
 
