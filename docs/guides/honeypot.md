@@ -31,6 +31,8 @@ On the firewall side, the sacrificial host should not allow any outbound connect
 
 The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the [Docker manual](https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket).
 
+Make sure your `dockerd` has a high enough `nofile` so it can run enough number of containers at the same time.
+
 Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:
 
 ```
