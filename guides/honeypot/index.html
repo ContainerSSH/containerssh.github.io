@@ -3840,6 +3840,38 @@
 <p>On the firewall side, the sacrificial host should not allow any outbound connections and only allow inbound connections on TCP port 2376 from the <code>gateway</code> host.</p>
 <h2 id="step-4-creating-certificates-for-authentication-on-the-sacrificial-host">Step 4: Creating certificates for authentication on the sacrificial host<a class="headerlink" href="#step-4-creating-certificates-for-authentication-on-the-sacrificial-host" title="Permanent link">&para;</a></h2>
 <p>The next step involves creating a CA infrastructure so ContainerSSH can authenticate against the Docker daemon on the sacrificial host. This is described in the <a href="https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket">Docker manual</a>.</p>
+<p>Depending on how you start the Docker daemon after CA setup, you may need to set <code>nofile</code> to a high enough value (e.g., <code>65535</code>), so the daemon can run enough number of containers at the same time.</p>
+<ul>
+<li>
+<p>If you start Docker daemon in command line, refer to <a href="https://docs.docker.com/config/daemon/#configure-the-docker-daemon">Docker daemon config guide</a> and set both both <code>Hard</code> and <code>Soft</code> of <code>default-ulimits.nofile</code> to your value.</p>
+</li>
+<li>
+<p>If you start Docker daemon with <code>systemd</code>, it should already have <code>LimitNOFILE=infinity</code> in its default config file (verify via <code>systemctl cat docker</code>).</p>
+<p>You only need to override <code>ExecStart</code> to run <code>dockerd</code> with TLS:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nv">TARGET_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>systemctl cat docker <span class="p">|</span> grep docker.service <span class="p">|</span> awk <span class="s1">&#39;{print $NF}&#39;</span><span class="k">)</span><span class="s2">.d&quot;</span>
+mkdir <span class="s2">&quot;</span><span class="nv">$TARGET_DIR</span><span class="s2">&quot;</span>
+vi <span class="s2">&quot;</span><span class="nv">$TARGET_DIR</span><span class="s2">/override.conf&quot;</span>
+</code></pre></div>
+Add the following content:
+<div class="highlight"><pre><span></span><code><span class="k">[Service]</span><span class="w"></span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="w"></span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/dockerd \</span><span class="w"></span>
+<span class="w">  </span><span class="na">-H fd:// --containerd</span><span class="o">=</span><span class="s">/run/containerd/containerd.sock \</span><span class="w"></span>
+<span class="w">  </span><span class="na">--tlsverify --tlscacert</span><span class="o">=</span><span class="s">&lt;path_to_cacert&gt;\</span><span class="w"></span>
+<span class="w">  </span><span class="na">--tlskey</span><span class="o">=</span><span class="s">&lt;path_to_server_key&gt; \</span><span class="w"></span>
+<span class="w">  </span><span class="na">--tlscert</span><span class="o">=</span><span class="s">&lt;path_to_server_cert&gt; \</span><span class="w"></span>
+<span class="w">  </span><span class="na">-H</span><span class="o">=</span><span class="s">0.0.0.0:2376</span><span class="w"></span>
+</code></pre></div>
+Then reload the config and restart <code>dockerd</code> via
+<div class="highlight"><pre><span></span><code>systemctl daemon-reload
+systemctl restart docker
+</code></pre></div></p>
+</li>
+</ul>
+<p>To verify your <code>nofile</code> configuration:</p>
+<p><div class="highlight"><pre><span></span><code>cat /proc/$(pidof dockerd)/limits
+</code></pre></div>
+You should see <code>Max open files</code> with your configured values.</p>
 <p>Once your Docker socket is exposed you should test if it can be accessed without certificates. Running the following two commands from the gateway host without configuring the certificates should fail:</p>
 <div class="highlight"><pre><span></span><code>docker -H tcp://your-sacrificial-host:2375 run -ti ubuntu
 docker -H tcp://your-sacrificial-host:2376 run -ti ubuntu
