@@ -53,7 +53,7 @@
     We will then create a secret containing the host key:
     
     ```bash
-    openssl genrsa | kubectl create secret generic -n  containerssh-hostkey --from-file=host.key=/dev/stdin
+    openssl genrsa | kubectl create secret generic -n containerssh containerssh-hostkey --from-file=host.key=/dev/stdin
     ```
 
     Finally, we will deploy ContainerSSH. Please customize as needed, especially the ContainerSSH configuration.
