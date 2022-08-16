@@ -154,7 +154,6 @@
           automountServiceAccountToken: true
           securityContext:
             runAsNonRoot: true
-            readOnlyRootFilesystem: true
           containers:
           - image: containerssh/containerssh:0.4.1
             imagePullPolicy: IfNotPresent
@@ -171,6 +170,8 @@
               name: config
               readOnly: true
               subPath: config.yaml
+            securityContext:
+              readOnlyRootFilesystem: true
           restartPolicy: Always
           serviceAccount: containerssh
           serviceAccountName: containerssh
