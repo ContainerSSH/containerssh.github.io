@@ -14,4 +14,5 @@ Details of these licenses can be found in the `NOTICE.md` file published with ea
 
 ## Trademarks
 
+The Linux Foundation® (TLF) has registered trademarks and uses trademarks. For a list of TLF trademarks, see <a href="https://www.linuxfoundation.org/trademark-usage/">Trademark Usage</a>.
 Company marks such as GitHub, Docker, Twitter, etc. Trademarks are properties of their respective owners and may only be used according to their trademark guidelines.
