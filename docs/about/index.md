@@ -4,6 +4,9 @@ title: About ContainerSSH
 
 ContainerSSH is a *fully open source community-driven project*. If you would like to know more about our contribution and decision making process, check out the [ContainerSSH Working Group Charter](https://github.com/ContainerSSH/community/blob/main/CHARTER.md). This project is made with ❤️ by the following group of volunteers.
 
+![Cloud Native Computing Foundation](/images/logos/cncf-color.svg)<br />
+We are a Cloud Native Computing Foundation sandbox project.
+
 ## Working Group
 
 ### Chairs

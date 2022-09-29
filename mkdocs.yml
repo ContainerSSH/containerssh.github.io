@@ -43,11 +43,8 @@ extra:
       link: https://github.com/ContainerSSH
       name: GitHub
     - icon: fontawesome/brands/slack
-      link: https://join.slack.com/t/containerssh/shared_invite/zt-w2ulatkm-hjGHk8OaxQCBX79XKJHAQQ
-      name: Slack
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/ContainerSSH
-      name: Twitter
+      link: https://communityinviter.com/apps/cloud-native/cncf
+      name: CNCF Slack
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/channel/UC0UNgOeDAGTONykuhza9sLA
       name: YouTube
@@ -271,7 +268,7 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js
   - javascript/tables.js
 copyright: >
-  Copyright &copy; ContainerSSH Contributors | Creative Commons Attribution 4.0 International License
+  Copyright &copy; The ContainerSSH Contributors
   | <a href="/about/">About Us</a>
   | <a href="/about/packages/">Packages</a>
   | <a href="/about/security/">Security</a>
@@ -279,5 +276,7 @@ copyright: >
   | <a href="/about/license/">License</a>
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
   | <a href="/about/privacy/">Privacy Policy</a>
-  | <a href="/about/imprint/">Imprint</a><br />
-  <a href="https://www.linuxfoundation.org/trademark-usage/">Kubernetes and Linux are trademarks of The Linux Foundation.</a> <a href="https://www.docker.com/legal/trademark-guidelines">Docker and the Docker logo are trademarks of Docker, Inc.</a>
+  | <a href="/about/imprint/">Imprint</a><br /><br />
+  <img src="/images/logos/cncf-white.svg" alt="Cloud Native Computing Foundation" /><br />
+  We are a Cloud Native Computing Foundation sandbox project.<br /><br />
+  The Linux Foundation® (TLF) has registered trademarks and uses trademarks. For a list of TLF trademarks, see <a href="https://www.linuxfoundation.org/trademark-usage/">Trademark Usage</a>. <a href="https://www.docker.com/legal/trademark-guidelines">Docker and the Docker logo are trademarks of Docker, Inc.</a>
