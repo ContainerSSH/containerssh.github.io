@@ -147,4 +147,15 @@ You can sign your commits with your GPG key. This is currently optional for Cont
     !!! warning
         This method sets up GPG signing in a single repository. You must configure this **every time you clone a new ContainerSSH repository**.  
         
+## Invoking GPG-AGENT
+
+`gpg-agent` is a daemon to manage secret (private) keys independently from any protocol. You should always add the following lines to your .bashrc or whatever initialization file is used for all shell invocations:
+
+```
+GPG_TTY=$(tty)
+export GPG_TTY
+```
+
+For more information, please read [this](https://www.gnupg.org/documentation/manuals/gnupg/Invoking-GPG_002dAGENT.html).
+
 That's it! You can now continue with [setting up the toolchain](golang.md)!  
