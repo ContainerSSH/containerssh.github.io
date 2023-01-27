@@ -49,4 +49,4 @@ Your server will need to respond with the following JSON:
 !!! tip
     We provide a [Go library to implement a authentication server](https://github.com/containerssh/auth).
 
-You can read more in the [reference manual](/reference/auth.md)
+You can read more in the [reference manual](/reference/auth)
