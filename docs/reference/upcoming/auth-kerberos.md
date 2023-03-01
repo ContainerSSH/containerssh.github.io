@@ -20,24 +20,19 @@ auth:
   password:
     method: kerberos
     kerberos:
-      keytab: ./internal/test/krb/krb5.keytab
-      configPath: krb5.conf
+      keytab: /path/to/krb5.keytab
+      configPath: /path/to/krb5.conf
   gssapi:
     method: kerberos
     kerberos:
-      keytab: ./internal/test/krb/krb5.keytab
-      configPath: krb5.conf
+      keytab: /path/to/krb5.keytab
+      configPath: /path/to/krb5.conf
 ```
 
 This will allow logging in either via passwordless login using kerberos tickets (GSS-Api authentication) or by typing the users password.
 
 An example `krb5.conf` file looks like this:
 ```
-[logging]
- default = FILE:/var/log/krb5libs.log
- kdc = FILE:/var/log/krb5kdc.log
- admin_server = FILE:/var/log/kadmind.log
-
 [libdefaults]
  default_realm = TESTING.CONTAINERSSH.IO
  dns_lookup_realm = false
