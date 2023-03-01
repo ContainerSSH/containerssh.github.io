@@ -582,14 +582,14 @@ def declare_variables(variables, macro):
     @macro
     def reference_outdated():
         return '''
-!!! danger "Old manual"
+!!! warning "Old manual"
     You are reading the reference manual of an older release. [Read the current manual &raquo;](/reference/)
 '''
 
     @macro
     def reference_upcoming():
         return '''
-!!! danger "Upcoming release"
+!!! warning "Upcoming release"
     You are reading the reference manual of an upcoming release. [Read the current manual &raquo;](/reference/)
 '''
 
