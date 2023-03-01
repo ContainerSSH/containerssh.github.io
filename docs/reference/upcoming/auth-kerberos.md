@@ -7,8 +7,9 @@ title: Kerberos authentication
 This page details setting up Kerberos authentication for ContainerSSH. The ContainerSSH kerberos backend can utilize your existing Kerberos/Active-Directory infrastructure to provide authentication for ContainerSSH. The Kerberos backend supports the standard kerberos authentication protocol (GSSAPI) which provides passwordless authentication given that a valid user principal is available on the users device. Failing that, the Kerberos backend can also perform password based authentication. If a correct password is provided ContainerSSH will generate a principal for the user and place it inside the container at a configurable location. This allows users to authenticate to other services without retyping their passwords.
 
 To use the kerberos backend you'll need two things:
- 1) A service keytab
- 2) A valid kerberos config file (krb5.conf) for your infrastructure
+
+* A service keytab
+* A valid kerberos config file (`krb5.conf`) for your infrastructure
 
 ## Configuration 
 
@@ -84,4 +85,25 @@ In other words, `enforceUsername` makes sure that `authenticatedUsername == requ
 In cases where it is desirable for some users to be able to log in with a different username than their own, this setting can be disabled. In this mode, it is **strongly advised** to use an authorization webhook to control the autnorization. In the authorization webhook both the authenticated username and the requested username are provided so any custom logic can be implemented.
 
 !!! danger Do not disable enforceUsername without an authorization webhook configured
-By disabling `enforceUsername` you are disabling a very important security mechanism that ensures that each user can only access his own account. By disabling this setting without an authorization server guarding logins means that **any user can log in as any username including root**.
+
+    By disabling `enforceUsername` you are disabling a very important security mechanism that ensures that each user can only access his own account. By disabling this setting without an authorization server guarding logins means that **any user can log in as any username including root**.
+
+## Credential Forwarding
+
+ContainerSSH can place a kerberos ticket to the file specified in `credentialCachePath` inside the container. This ticket can be used to authenticate to any other kerberos-enabled service with the users credentials. In order for a ticket to be placed the following conditions have to be satisfied:
+
+1. The parent directory of `credentialCachePath` needs to exist and writable
+2. The ContainerSSH agent needs to be enabled and present inside the container
+3. The user has to have used a forwardable kerberos ticket when logging in via GSSAPI _or_ the user must have logged in via password authentication.
+
+If these 3 conditions hold true then the users ticket-granting-ticket will be written to `credentialCachePath`. Please note that in order for the credential cache to be picked up by kerberos the path needs to be configured as such in `/etc/krb5.conf`, or the equivalent kerberos configuration file.
+
+!!! info Setting the credential cache path in Kerberos
+
+    The relevant configuration setting in the kerberos configuration is `default_ccache_name`. An example snippet is:
+    ```
+    [libdefaults]
+    default_ccache_name = FILE:/tmp/krb5cc
+    ```
+
+When a user logs in using passwordless (GSSAPI) authentication and the users ticket has forwarding enabled then the forwardable ticket will be written to the file specified by `credentialCachePath` 
