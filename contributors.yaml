@@ -3,10 +3,6 @@
 # edit this file on GitHub and provide your name/alias and GitHub link. We will pull your avatar from GitHub.
 # Name and GitHub are required, the rest is optional
 ---
-- name: Sanja Bonic
-  github: sanjacodes
-  website: https://debugged.it
-  core: true
 - name: Janos Bonic
   github: janosdebugs
   website: https://debugged.it
