@@ -114,6 +114,7 @@ nav:
             - 'SSH':
                 - 'Configuration': reference/upcoming/ssh.md
                 - 'Supported features': reference/upcoming/features.md
+                - 'Connection forwarding': reference/upcoming/forwarding.md
             - 'Backends':
                 - 'Backend selection': reference/upcoming/backends.md
                 - 'Docker': reference/upcoming/docker.md

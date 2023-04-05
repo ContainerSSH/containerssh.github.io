@@ -28,6 +28,12 @@ security:
       - <enable-this-subsystem>
     deny:
       - <disable-this-subsystem>
+  forwarding:
+    reverseForwardingMode: enable
+    forwardingMode: enable
+    socketForwardingMode: enable
+    socketListenMode: enable
+    x11ForwardingMode: enable
   tty:
     mode: enable|disable
   signal:
