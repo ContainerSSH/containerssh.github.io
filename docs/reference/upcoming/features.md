@@ -15,8 +15,8 @@ This table contains the list of currently supported SSH features in ContainerSSH
 | Window dimension change | :material-check-bold: | [RFC 4254 section 6.7](https://tools.ietf.org/html/rfc4254#section-6.7) |
 | Return exit statuses | :material-check-bold: | [RFC 4254 section 6.10](https://tools.ietf.org/html/rfc4254#section-6.10) | 
 | Return exit signals | :material-check-bold: | [RFC 4254 section 6.10](https://tools.ietf.org/html/rfc4254#section-6.10) | 
-| TCP/IP port forwarding | :material-close: | [RFC 4254 section 7](https://tools.ietf.org/html/rfc4254#page-16) |
-| X11 forwarding | :material-close: | [RFC 4254 section 6.2](https://tools.ietf.org/html/rfc4254#page-11) |
+| TCP/IP port forwarding | :material-check-bold: | [RFC 4254 section 7](https://tools.ietf.org/html/rfc4254#page-16) |
+| X11 forwarding | :material-check-bold: | [RFC 4254 section 6.2](https://tools.ietf.org/html/rfc4254#page-11) |
 | SSH agent forwarding (OpenSSH extension: `auth-agent-req@openssh.com`) | :material-close: | [draft-ietf-secsh-agent-02](https://tools.ietf.org/html/draft-ietf-secsh-agent-02) |
 | Keepalive (OpenSSH extension: `keepalive@openssh.com`) | :material-check-bold: | |
 | No more sessions (OpenSSH extension: `no-more-sessions@openssh.com`) | :material-close: | |
