@@ -20,7 +20,7 @@
         <link rel="next" href="installation/">
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.1">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
     
   
   
@@ -54,7 +54,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.402914a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7a7fce14.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -1555,9 +1555,36 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#port-socket-and-x11-forwarding" class="md-nav__link">
+    Port, socket and X11 forwarding
+  </a>
+  
+    <nav class="md-nav" aria-label="Port, socket and X11 forwarding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forward-reverse-port-forwarding" class="md-nav__link">
+    Forward &amp; Reverse port forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-proxying-support-eg-socks" class="md-nav__link">
+    Connection proxying support (e.g. SOCKS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#x11-forwarding" class="md-nav__link">
     X11 forwarding
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1661,6 +1688,20 @@
     <li class="md-nav__item">
       <a href="features/" class="md-nav__link">
         Supported features
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="forwarding/" class="md-nav__link">
+        Connection forwarding
       </a>
     </li>
   
@@ -3810,9 +3851,36 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#port-socket-and-x11-forwarding" class="md-nav__link">
+    Port, socket and X11 forwarding
+  </a>
+  
+    <nav class="md-nav" aria-label="Port, socket and X11 forwarding">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#forward-reverse-port-forwarding" class="md-nav__link">
+    Forward &amp; Reverse port forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-proxying-support-eg-socks" class="md-nav__link">
+    Connection proxying support (e.g. SOCKS)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#x11-forwarding" class="md-nav__link">
     X11 forwarding
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3895,9 +3963,32 @@
 <p><a class="md-button" href="auth/">Read more »</a></p>
 <h2 id="metadata-handling-and-passing">Metadata handling and passing<a class="headerlink" href="#metadata-handling-and-passing" title="Permanent link">&para;</a></h2>
 <h2 id="deploying-files">Deploying files<a class="headerlink" href="#deploying-files" title="Permanent link">&para;</a></h2>
-<p>As we have added metadata handling to the </p>
 <h2 id="ssh-certificate-information">SSH certificate information<a class="headerlink" href="#ssh-certificate-information" title="Permanent link">&para;</a></h2>
-<h2 id="x11-forwarding">X11 forwarding<a class="headerlink" href="#x11-forwarding" title="Permanent link">&para;</a></h2>
+<h2 id="port-socket-and-x11-forwarding">Port, socket and X11 forwarding<a class="headerlink" href="#port-socket-and-x11-forwarding" title="Permanent link">&para;</a></h2>
+<p>From this release support for forward and reverse port forwarding is supported natively. For these features the ContainerSSH agent has to be anbled as the agent acts as the entry &amp; exit points of the connections inside the container.</p>
+<p>The features implemented correspond to the openssh commands:</p>
+<h3 id="forward-reverse-port-forwarding">Forward &amp; Reverse port forwarding<a class="headerlink" href="#forward-reverse-port-forwarding" title="Permanent link">&para;</a></h3>
+<p>Example: Forward port 8080 on the local host the service running on port 8080 on the remote container
+<div class="highlight"><pre><span></span><code>ssh -L 8080:127.0.0.1:8080 user@example.org
+</code></pre></div></p>
+<p>Example: Forward connections from a socket on the local machine to a socket in the container
+<div class="highlight"><pre><span></span><code>ssh -L /path/to/local/socket:/path/to/remote/socket
+</code></pre></div></p>
+<p>Example: Forward connections from port 8080 on the container to the service running on port 8080 on the local machine
+<div class="highlight"><pre><span></span><code>ssh -R 8080:127.0.0.1:8080
+</code></pre></div></p>
+<p>Example: Forward connections from a socket on the container to a socket on the local machine
+<div class="highlight"><pre><span></span><code>ssh -L /path/to/local/socket:/path/to/remote/socket
+</code></pre></div></p>
+<h3 id="connection-proxying-support-eg-socks">Connection proxying support (e.g. SOCKS)<a class="headerlink" href="#connection-proxying-support-eg-socks" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>ssh -D 8080 user@example.com
+</code></pre></div>
+<p>You can then use ContainerSSH as a proxy with anything that supports the SOCKS protocol (e.g. Firefox)</p>
+<h3 id="x11-forwarding">X11 forwarding<a class="headerlink" href="#x11-forwarding" title="Permanent link">&para;</a></h3>
+<p><div class="highlight"><pre><span></span><code>ssh -X user@example.com
+</code></pre></div>
+Any X11 applications launched within the container will be visible on the local machine</p>
+<p><a class="md-button" href="forwarding/">Read more »</a></p>
 <h2 id="ssh-keepalives">SSH keepalives<a class="headerlink" href="#ssh-keepalives" title="Permanent link">&para;</a></h2>
 <h2 id="health-check-endpoint">Health check endpoint<a class="headerlink" href="#health-check-endpoint" title="Permanent link">&para;</a></h2>
 <h2 id="bugfixes-to-the-prometheus-integration">Bugfixes to the Prometheus integration<a class="headerlink" href="#bugfixes-to-the-prometheus-integration" title="Permanent link">&para;</a></h2>
@@ -3983,7 +4074,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.b78d2936.min.js"></script>
+      <script src="../../assets/javascripts/bundle.407015b8.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       

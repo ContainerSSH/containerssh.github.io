@@ -11,15 +11,15 @@
       
       
       
-        <link rel="canonical" href="https://containerssh.io/development/devenv/">
+        <link rel="canonical" href="https://containerssh.io/reference/upcoming/forwarding/">
       
       
-        <link rel="prev" href="../code-style/">
+        <link rel="prev" href="../features/">
       
       
-        <link rel="next" href="gpg/">
+        <link rel="next" href="../backends/">
       
-      <link rel="icon" href="../../images/logo.svg">
+      <link rel="icon" href="../../../images/logo.svg">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
     
   
@@ -33,16 +33,16 @@
   
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Overview">
+  <meta property="og:title" content="Connection forwarding">
   <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
   <meta property="og:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
-  <meta property="og:url" content="https://containerssh.io/development/devenv/">
+  <meta property="og:url" content="https://containerssh.io/reference/upcoming/forwarding/">
   <meta property="og:image" content="https://containerssh.io/images/social.png">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
-  <meta name="twitter:title" content="Overview">
+  <meta name="twitter:title" content="Connection forwarding">
   <meta name="twitter:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
   <meta name="twitter:image" content="https://containerssh.io/images/social.png">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
@@ -50,14 +50,14 @@
 
     
       
-        <title>Setting up your development environment - ContainerSSH: Launch containers on demand</title>
+        <title>Connection Forwarding - ContainerSSH: Launch containers on demand</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7a7fce14.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7a7fce14.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
       
       
 
@@ -67,9 +67,9 @@
       
     
     
-      <link rel="stylesheet" href="../../css/custom.css?v7">
+      <link rel="stylesheet" href="../../../css/custom.css?v7">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -94,7 +94,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#step-1-create-a-github-account" class="md-skip">
+        <a href="#supported-clients" class="md-skip">
           Skip to content
         </a>
       
@@ -120,9 +120,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="ContainerSSH: Launch containers on demand" class="md-header__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+    <a href="../../.." title="ContainerSSH: Launch containers on demand" class="md-header__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
       
-  <img src="../../images/logo.svg" alt="logo">
+  <img src="../../../images/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -138,7 +138,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setting up your development environment
+              Connection Forwarding
             
           </span>
         </div>
@@ -217,7 +217,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Home
     </a>
   </li>
@@ -232,7 +232,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../usecases/lab/" class="md-tabs__link">
+      <a href="../../../usecases/lab/" class="md-tabs__link">
         Use cases
       </a>
     </li>
@@ -248,7 +248,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../getting-started/" class="md-tabs__link">
+      <a href="../../../getting-started/" class="md-tabs__link">
         Getting started
       </a>
     </li>
@@ -264,7 +264,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../guides/" class="md-tabs__link">
+      <a href="../../../guides/" class="md-tabs__link">
         Guides
       </a>
     </li>
@@ -277,26 +277,10 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../downloads/" class="md-tabs__link">
+    <a href="../../../downloads/" class="md-tabs__link">
       Downloads
     </a>
   </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../reference/" class="md-tabs__link">
-        Reference manual
-      </a>
-    </li>
-  
 
       
         
@@ -310,7 +294,23 @@
   
   
     <li class="md-tabs__item">
-      <a href="../" class="md-tabs__link md-tabs__link--active">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Reference manual
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../development/" class="md-tabs__link">
         Development
       </a>
     </li>
@@ -326,7 +326,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../blog/2021/05/26/containerssh-0-4-1/" class="md-tabs__link">
+      <a href="../../../blog/2021/05/26/containerssh-0-4-1/" class="md-tabs__link">
         Blog
       </a>
     </li>
@@ -359,9 +359,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="ContainerSSH: Launch containers on demand" class="md-nav__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+    <a href="../../.." title="ContainerSSH: Launch containers on demand" class="md-nav__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
       
-  <img src="../../images/logo.svg" alt="logo">
+  <img src="../../../images/logo.svg" alt="logo">
 
     </a>
     ContainerSSH: Launch containers on demand
@@ -390,7 +390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -432,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/lab/" class="md-nav__link">
+      <a href="../../../usecases/lab/" class="md-nav__link">
         Lab
       </a>
     </li>
@@ -446,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/debugging/" class="md-nav__link">
+      <a href="../../../usecases/debugging/" class="md-nav__link">
         Debugging a production system
       </a>
     </li>
@@ -460,7 +460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/webhosting/" class="md-nav__link">
+      <a href="../../../usecases/webhosting/" class="md-nav__link">
         Web hosting
       </a>
     </li>
@@ -474,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/learning/" class="md-nav__link">
+      <a href="../../../usecases/learning/" class="md-nav__link">
         Learning environments
       </a>
     </li>
@@ -488,7 +488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/honeypots/" class="md-nav__link">
+      <a href="../../../usecases/honeypots/" class="md-nav__link">
         Honeypots
       </a>
     </li>
@@ -502,7 +502,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usecases/security/" class="md-nav__link">
+      <a href="../../../usecases/security/" class="md-nav__link">
         Security
       </a>
     </li>
@@ -551,7 +551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../../../getting-started/" class="md-nav__link">
         Quick Start
       </a>
     </li>
@@ -565,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/architecture/" class="md-nav__link">
+      <a href="../../../getting-started/architecture/" class="md-nav__link">
         Architecture
       </a>
     </li>
@@ -579,7 +579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -593,7 +593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/configuration/" class="md-nav__link">
+      <a href="../../../getting-started/configuration/" class="md-nav__link">
         Configuration
       </a>
     </li>
@@ -607,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/authserver/" class="md-nav__link">
+      <a href="../../../getting-started/authserver/" class="md-nav__link">
         Authentication Server
       </a>
     </li>
@@ -650,7 +650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/backends/" class="md-nav__link">
+      <a href="../../../getting-started/backends/" class="md-nav__link">
         Selecting a Backend
       </a>
     </li>
@@ -664,7 +664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/docker/" class="md-nav__link">
+      <a href="../../../getting-started/docker/" class="md-nav__link">
         The Docker Backend
       </a>
     </li>
@@ -678,7 +678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/kubernetes/" class="md-nav__link">
+      <a href="../../../getting-started/kubernetes/" class="md-nav__link">
         The Kubernetes Backend
       </a>
     </li>
@@ -692,7 +692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/sshproxy/" class="md-nav__link">
+      <a href="../../../getting-started/sshproxy/" class="md-nav__link">
         The SSH Proxy Backend
       </a>
     </li>
@@ -713,7 +713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/faq/" class="md-nav__link">
+      <a href="../../../getting-started/faq/" class="md-nav__link">
         FAQ
       </a>
     </li>
@@ -727,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/getting-help/" class="md-nav__link">
+      <a href="../../../getting-started/getting-help/" class="md-nav__link">
         Getting Help
       </a>
     </li>
@@ -776,7 +776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guides/" class="md-nav__link">
+      <a href="../../../guides/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -790,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guides/honeypot/" class="md-nav__link">
+      <a href="../../../guides/honeypot/" class="md-nav__link">
         Honeypot
       </a>
     </li>
@@ -804,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guides/docker-elk/" class="md-nav__link">
+      <a href="../../../guides/docker-elk/" class="md-nav__link">
         Logging to the ELK stack with Docker and Fluentd
       </a>
     </li>
@@ -826,7 +826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../downloads/" class="md-nav__link">
+      <a href="../../../downloads/" class="md-nav__link">
         Downloads
       </a>
     </li>
@@ -839,14 +839,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
       
       
       
@@ -855,7 +857,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           Reference manual
@@ -868,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -882,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/installation/" class="md-nav__link">
+      <a href="../../installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -925,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/ssh/" class="md-nav__link">
+      <a href="../../ssh/" class="md-nav__link">
         Configuration
       </a>
     </li>
@@ -939,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/features/" class="md-nav__link">
+      <a href="../../features/" class="md-nav__link">
         Supported features
       </a>
     </li>
@@ -989,7 +991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/backends/" class="md-nav__link">
+      <a href="../../backends/" class="md-nav__link">
         Backend selection
       </a>
     </li>
@@ -1003,7 +1005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/docker/" class="md-nav__link">
+      <a href="../../docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -1017,7 +1019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/kubernetes/" class="md-nav__link">
+      <a href="../../kubernetes/" class="md-nav__link">
         Kubernetes
       </a>
     </li>
@@ -1031,7 +1033,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/sshproxy/" class="md-nav__link">
+      <a href="../../sshproxy/" class="md-nav__link">
         SSH proxy
       </a>
     </li>
@@ -1045,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/dockerrun/" class="md-nav__link">
+      <a href="../../dockerrun/" class="md-nav__link">
         DockerRun (deprecated)
       </a>
     </li>
@@ -1059,7 +1061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/kuberun/" class="md-nav__link">
+      <a href="../../kuberun/" class="md-nav__link">
         KubeRun (deprecated)
       </a>
     </li>
@@ -1109,7 +1111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/auth/" class="md-nav__link">
+      <a href="../../auth/" class="md-nav__link">
         Authentication
       </a>
     </li>
@@ -1123,7 +1125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configserver/" class="md-nav__link">
+      <a href="../../configserver/" class="md-nav__link">
         Configuration server
       </a>
     </li>
@@ -1137,7 +1139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         API
       </a>
     </li>
@@ -1187,7 +1189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/image/" class="md-nav__link">
+      <a href="../../image/" class="md-nav__link">
         Creating Guest Images
       </a>
     </li>
@@ -1237,7 +1239,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/logging/" class="md-nav__link">
+      <a href="../../logging/" class="md-nav__link">
         Logging
       </a>
     </li>
@@ -1251,7 +1253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/audit/" class="md-nav__link">
+      <a href="../../audit/" class="md-nav__link">
         Audit logging
       </a>
     </li>
@@ -1265,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/metrics/" class="md-nav__link">
+      <a href="../../metrics/" class="md-nav__link">
         Metrics
       </a>
     </li>
@@ -1315,7 +1317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/security/" class="md-nav__link">
+      <a href="../../security/" class="md-nav__link">
         Restrictions
       </a>
     </li>
@@ -1329,7 +1331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/hardening/" class="md-nav__link">
+      <a href="../../hardening/" class="md-nav__link">
         Hardening guide
       </a>
     </li>
@@ -1379,7 +1381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/troubleshooting/" class="md-nav__link">
+      <a href="../../troubleshooting/" class="md-nav__link">
         Troubleshooting guide
       </a>
     </li>
@@ -1393,7 +1395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/codes/" class="md-nav__link">
+      <a href="../../codes/" class="md-nav__link">
         Message codes
       </a>
     </li>
@@ -1412,16 +1414,18 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10" checked>
       
       
       
@@ -1430,7 +1434,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_10_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6_10">
           <span class="md-nav__icon md-icon"></span>
           Upcoming and old releases
@@ -1441,14 +1445,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10_1" checked>
       
       
       
@@ -1457,7 +1463,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_10_1_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_10_1_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6_10_1">
           <span class="md-nav__icon md-icon"></span>
           Upcoming
@@ -1470,7 +1476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1484,7 +1490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/installation/" class="md-nav__link">
+      <a href="../installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -1496,14 +1502,16 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10_1_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_10_1_3" checked>
       
       
       
@@ -1512,7 +1520,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_10_1_3_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_10_1_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_6_10_1_3">
           <span class="md-nav__icon md-icon"></span>
           SSH
@@ -1525,7 +1533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/ssh/" class="md-nav__link">
+      <a href="../ssh/" class="md-nav__link">
         Configuration
       </a>
     </li>
@@ -1539,7 +1547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/features/" class="md-nav__link">
+      <a href="../features/" class="md-nav__link">
         Supported features
       </a>
     </li>
@@ -1551,11 +1559,55 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../reference/upcoming/forwarding/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Connection forwarding
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Connection forwarding
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#supported-clients" class="md-nav__link">
+    Supported clients
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1601,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/backends/" class="md-nav__link">
+      <a href="../backends/" class="md-nav__link">
         Backend selection
       </a>
     </li>
@@ -1615,7 +1667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/docker/" class="md-nav__link">
+      <a href="../docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -1629,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/kubernetes/" class="md-nav__link">
+      <a href="../kubernetes/" class="md-nav__link">
         Kubernetes
       </a>
     </li>
@@ -1643,7 +1695,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/sshproxy/" class="md-nav__link">
+      <a href="../sshproxy/" class="md-nav__link">
         SSH proxy
       </a>
     </li>
@@ -1691,7 +1743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/auth/" class="md-nav__link">
+      <a href="../auth/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -1705,7 +1757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/auth-webhook/" class="md-nav__link">
+      <a href="../auth-webhook/" class="md-nav__link">
         Webhook
       </a>
     </li>
@@ -1719,7 +1771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/auth-oauth2/" class="md-nav__link">
+      <a href="../auth-oauth2/" class="md-nav__link">
         oAuth2
       </a>
     </li>
@@ -1733,7 +1785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/auth-kerberos/" class="md-nav__link">
+      <a href="../auth-kerberos/" class="md-nav__link">
         Kerberos
       </a>
     </li>
@@ -1781,7 +1833,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/configserver/" class="md-nav__link">
+      <a href="../configserver/" class="md-nav__link">
         Configuration server
       </a>
     </li>
@@ -1795,7 +1847,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/image/" class="md-nav__link">
+      <a href="../image/" class="md-nav__link">
         Creating Guest Images
       </a>
     </li>
@@ -1843,7 +1895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/logging/" class="md-nav__link">
+      <a href="../logging/" class="md-nav__link">
         Logging
       </a>
     </li>
@@ -1857,7 +1909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/audit/" class="md-nav__link">
+      <a href="../audit/" class="md-nav__link">
         Audit logging
       </a>
     </li>
@@ -1871,7 +1923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/health/" class="md-nav__link">
+      <a href="../health/" class="md-nav__link">
         Health checks
       </a>
     </li>
@@ -1885,7 +1937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/metrics/" class="md-nav__link">
+      <a href="../metrics/" class="md-nav__link">
         Metrics
       </a>
     </li>
@@ -1933,7 +1985,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/security/" class="md-nav__link">
+      <a href="../security/" class="md-nav__link">
         Restrictions
       </a>
     </li>
@@ -1947,7 +1999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/hardening/" class="md-nav__link">
+      <a href="../hardening/" class="md-nav__link">
         Hardening guide
       </a>
     </li>
@@ -1968,7 +2020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/http/" class="md-nav__link">
+      <a href="../http/" class="md-nav__link">
         HTTP client and server
       </a>
     </li>
@@ -2009,7 +2061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/troubleshooting/" class="md-nav__link">
+      <a href="../troubleshooting/" class="md-nav__link">
         Troubleshooting guide
       </a>
     </li>
@@ -2023,7 +2075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/upcoming/codes/" class="md-nav__link">
+      <a href="../codes/" class="md-nav__link">
         Message codes
       </a>
     </li>
@@ -2078,7 +2130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/" class="md-nav__link">
+      <a href="../../0.4.0/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -2092,7 +2144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/installation/" class="md-nav__link">
+      <a href="../../0.4.0/installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -2133,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/ssh/" class="md-nav__link">
+      <a href="../../0.4.0/ssh/" class="md-nav__link">
         Configuration
       </a>
     </li>
@@ -2147,7 +2199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/features/" class="md-nav__link">
+      <a href="../../0.4.0/features/" class="md-nav__link">
         Supported features
       </a>
     </li>
@@ -2195,7 +2247,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/backends/" class="md-nav__link">
+      <a href="../../0.4.0/backends/" class="md-nav__link">
         Backend selection
       </a>
     </li>
@@ -2209,7 +2261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/docker/" class="md-nav__link">
+      <a href="../../0.4.0/docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -2223,7 +2275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/kubernetes/" class="md-nav__link">
+      <a href="../../0.4.0/kubernetes/" class="md-nav__link">
         Kubernetes
       </a>
     </li>
@@ -2237,7 +2289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/sshproxy/" class="md-nav__link">
+      <a href="../../0.4.0/sshproxy/" class="md-nav__link">
         SSH proxy
       </a>
     </li>
@@ -2251,7 +2303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/dockerrun/" class="md-nav__link">
+      <a href="../../0.4.0/dockerrun/" class="md-nav__link">
         DockerRun (deprecated)
       </a>
     </li>
@@ -2265,7 +2317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/kuberun/" class="md-nav__link">
+      <a href="../../0.4.0/kuberun/" class="md-nav__link">
         KubeRun (deprecated)
       </a>
     </li>
@@ -2313,7 +2365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/auth/" class="md-nav__link">
+      <a href="../../0.4.0/auth/" class="md-nav__link">
         Authentication
       </a>
     </li>
@@ -2327,7 +2379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/configserver/" class="md-nav__link">
+      <a href="../../0.4.0/configserver/" class="md-nav__link">
         Configuration server
       </a>
     </li>
@@ -2341,7 +2393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/api/" class="md-nav__link">
+      <a href="../../0.4.0/api/" class="md-nav__link">
         API
       </a>
     </li>
@@ -2389,7 +2441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/image/" class="md-nav__link">
+      <a href="../../0.4.0/image/" class="md-nav__link">
         Creating Guest Images
       </a>
     </li>
@@ -2437,7 +2489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/logging/" class="md-nav__link">
+      <a href="../../0.4.0/logging/" class="md-nav__link">
         Logging
       </a>
     </li>
@@ -2451,7 +2503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/audit/" class="md-nav__link">
+      <a href="../../0.4.0/audit/" class="md-nav__link">
         Audit logging
       </a>
     </li>
@@ -2465,7 +2517,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/metrics/" class="md-nav__link">
+      <a href="../../0.4.0/metrics/" class="md-nav__link">
         Metrics
       </a>
     </li>
@@ -2513,7 +2565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/security/" class="md-nav__link">
+      <a href="../../0.4.0/security/" class="md-nav__link">
         Restrictions
       </a>
     </li>
@@ -2527,7 +2579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/hardening/" class="md-nav__link">
+      <a href="../../0.4.0/hardening/" class="md-nav__link">
         Hardening guide
       </a>
     </li>
@@ -2575,7 +2627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/troubleshooting/" class="md-nav__link">
+      <a href="../../0.4.0/troubleshooting/" class="md-nav__link">
         Troubleshooting guide
       </a>
     </li>
@@ -2589,7 +2641,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.4.0/codes/" class="md-nav__link">
+      <a href="../../0.4.0/codes/" class="md-nav__link">
         Message codes
       </a>
     </li>
@@ -2644,7 +2696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/" class="md-nav__link">
+      <a href="../../0.3/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -2658,7 +2710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/installation/" class="md-nav__link">
+      <a href="../../0.3/installation/" class="md-nav__link">
         Installation
       </a>
     </li>
@@ -2699,7 +2751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/backends/" class="md-nav__link">
+      <a href="../../0.3/backends/" class="md-nav__link">
         Backend selection
       </a>
     </li>
@@ -2713,7 +2765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/dockerrun/" class="md-nav__link">
+      <a href="../../0.3/dockerrun/" class="md-nav__link">
         DockerRun
       </a>
     </li>
@@ -2727,7 +2779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/kuberun/" class="md-nav__link">
+      <a href="../../0.3/kuberun/" class="md-nav__link">
         KubeRun
       </a>
     </li>
@@ -2775,7 +2827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/auth/" class="md-nav__link">
+      <a href="../../0.3/auth/" class="md-nav__link">
         Authentication
       </a>
     </li>
@@ -2789,7 +2841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/configserver/" class="md-nav__link">
+      <a href="../../0.3/configserver/" class="md-nav__link">
         Configuration server
       </a>
     </li>
@@ -2803,7 +2855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/api/" class="md-nav__link">
+      <a href="../../0.3/api/" class="md-nav__link">
         API
       </a>
     </li>
@@ -2851,7 +2903,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/logging/" class="md-nav__link">
+      <a href="../../0.3/logging/" class="md-nav__link">
         Logging
       </a>
     </li>
@@ -2865,7 +2917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/metrics/" class="md-nav__link">
+      <a href="../../0.3/metrics/" class="md-nav__link">
         Metrics
       </a>
     </li>
@@ -2913,7 +2965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/hardening/" class="md-nav__link">
+      <a href="../../0.3/hardening/" class="md-nav__link">
         Hardening guide
       </a>
     </li>
@@ -2961,7 +3013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/0.3/image/" class="md-nav__link">
+      <a href="../../0.3/image/" class="md-nav__link">
         Creating a guest image
       </a>
     </li>
@@ -3002,16 +3054,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
       
       
       
@@ -3020,7 +3070,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7">
           <span class="md-nav__icon md-icon"></span>
           Development
@@ -3033,7 +3083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../development/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -3047,7 +3097,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/" class="md-nav__link">
+      <a href="../../../development/getting-started/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -3061,7 +3111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dashboard/" class="md-nav__link">
+      <a href="../../../development/dashboard/" class="md-nav__link">
         Dashboard
       </a>
     </li>
@@ -3075,7 +3125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../code-style/" class="md-nav__link">
+      <a href="../../../development/code-style/" class="md-nav__link">
         Coding Style
       </a>
     </li>
@@ -3087,18 +3137,16 @@
               
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
       
       
       
@@ -3107,7 +3155,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_7_5">
           <span class="md-nav__icon md-icon"></span>
           Development Environment
@@ -3118,104 +3166,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Overview
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../development/devenv/" class="md-nav__link">
         Overview
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-create-a-github-account" class="md-nav__link">
-    Step 1: Create a GitHub account
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-installing-git" class="md-nav__link">
-    Step 2: Installing Git
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-creating-a-gpg-key" class="md-nav__link">
-    Step 3: Creating a GPG key
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-installing-golang" class="md-nav__link">
-    Step 4: Installing Golang
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-installing-the-qa-tools" class="md-nav__link">
-    Step 5: Installing the QA tools
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-installing-docker" class="md-nav__link">
-    Step 6: Installing Docker
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-7-installing-kubernetes" class="md-nav__link">
-    Step 7: Installing Kubernetes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-8-setting-up-your-ide" class="md-nav__link">
-    Step 8: Setting up your IDE
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-9-website" class="md-nav__link">
-    Step 9: Website
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3227,7 +3182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="gpg/" class="md-nav__link">
+      <a href="../../../development/devenv/gpg/" class="md-nav__link">
         Installing GPG (optional)
       </a>
     </li>
@@ -3241,7 +3196,7 @@
   
   
     <li class="md-nav__item">
-      <a href="golang/" class="md-nav__link">
+      <a href="../../../development/devenv/golang/" class="md-nav__link">
         Installing Golang
       </a>
     </li>
@@ -3255,7 +3210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="qa/" class="md-nav__link">
+      <a href="../../../development/devenv/qa/" class="md-nav__link">
         Installing the QA tools
       </a>
     </li>
@@ -3269,7 +3224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="docker/" class="md-nav__link">
+      <a href="../../../development/devenv/docker/" class="md-nav__link">
         Installing Docker
       </a>
     </li>
@@ -3283,7 +3238,7 @@
   
   
     <li class="md-nav__item">
-      <a href="kubernetes/" class="md-nav__link">
+      <a href="../../../development/devenv/kubernetes/" class="md-nav__link">
         Installing Kubernetes
       </a>
     </li>
@@ -3297,7 +3252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="ide/" class="md-nav__link">
+      <a href="../../../development/devenv/ide/" class="md-nav__link">
         Setting up your IDE
       </a>
     </li>
@@ -3311,7 +3266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="website/" class="md-nav__link">
+      <a href="../../../development/devenv/website/" class="md-nav__link">
         Setting up the website
       </a>
     </li>
@@ -3361,7 +3316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../containerssh/" class="md-nav__link">
+      <a href="../../../development/containerssh/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -3375,7 +3330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../containerssh/ssh/" class="md-nav__link">
+      <a href="../../../development/containerssh/ssh/" class="md-nav__link">
         Understanding SSH
       </a>
     </li>
@@ -3389,7 +3344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../containerssh/first-ssh-server/" class="md-nav__link">
+      <a href="../../../development/containerssh/first-ssh-server/" class="md-nav__link">
         Writing your first SSH server
       </a>
     </li>
@@ -3403,7 +3358,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../containerssh/internal-architecture/" class="md-nav__link">
+      <a href="../../../development/containerssh/internal-architecture/" class="md-nav__link">
         Internal Architecture
       </a>
     </li>
@@ -3453,7 +3408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../releases/" class="md-nav__link">
+      <a href="../../../development/releases/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -3467,7 +3422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../releases/libraries/" class="md-nav__link">
+      <a href="../../../development/releases/libraries/" class="md-nav__link">
         Libraries
       </a>
     </li>
@@ -3481,7 +3436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../releases/binaries/" class="md-nav__link">
+      <a href="../../../development/releases/binaries/" class="md-nav__link">
         Binaries
       </a>
     </li>
@@ -3531,7 +3486,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/" class="md-nav__link">
+      <a href="../../../development/tools/" class="md-nav__link">
         Overview
       </a>
     </li>
@@ -3545,7 +3500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/github/" class="md-nav__link">
+      <a href="../../../development/tools/github/" class="md-nav__link">
         GitHub
       </a>
     </li>
@@ -3559,7 +3514,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/terraform/" class="md-nav__link">
+      <a href="../../../development/tools/terraform/" class="md-nav__link">
         Terraform
       </a>
     </li>
@@ -3573,7 +3528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/snyk/" class="md-nav__link">
+      <a href="../../../development/tools/snyk/" class="md-nav__link">
         Snyk
       </a>
     </li>
@@ -3587,7 +3542,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tools/docker/" class="md-nav__link">
+      <a href="../../../development/tools/docker/" class="md-nav__link">
         Docker
       </a>
     </li>
@@ -3643,7 +3598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2021/05/26/containerssh-0-4-1/" class="md-nav__link">
+      <a href="../../../blog/2021/05/26/containerssh-0-4-1/" class="md-nav__link">
          ContainerSSH 0.4.1: Bugfixing Audit & Proxy
       </a>
     </li>
@@ -3657,7 +3612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2021/04/13/devlog-oauth2/" class="md-nav__link">
+      <a href="../../../blog/2021/04/13/devlog-oauth2/" class="md-nav__link">
          DevLog: SSH authentication via OAuth2
       </a>
     </li>
@@ -3671,7 +3626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2021/04/01/containerssh-0-4/" class="md-nav__link">
+      <a href="../../../blog/2021/04/01/containerssh-0-4/" class="md-nav__link">
          ContainerSSH 0.4: Audit & Proxy
       </a>
     </li>
@@ -3685,7 +3640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2021/03/19/we-messed-up/" class="md-nav__link">
+      <a href="../../../blog/2021/03/19/we-messed-up/" class="md-nav__link">
          We messed up
       </a>
     </li>
@@ -3699,7 +3654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2020/12/24/the-agent/" class="md-nav__link">
+      <a href="../../../blog/2020/12/24/the-agent/" class="md-nav__link">
          Announcing the ContainerSSH Guest Agent
       </a>
     </li>
@@ -3713,7 +3668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../blog/2020/11/25/the-road-to-0-4/" class="md-nav__link">
+      <a href="../../../blog/2020/11/25/the-road-to-0-4/" class="md-nav__link">
          The Road to ContainerSSH 0.4
       </a>
     </li>
@@ -3752,64 +3707,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step-1-create-a-github-account" class="md-nav__link">
-    Step 1: Create a GitHub account
+  <a href="#supported-clients" class="md-nav__link">
+    Supported clients
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-installing-git" class="md-nav__link">
-    Step 2: Installing Git
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-creating-a-gpg-key" class="md-nav__link">
-    Step 3: Creating a GPG key
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-installing-golang" class="md-nav__link">
-    Step 4: Installing Golang
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-installing-the-qa-tools" class="md-nav__link">
-    Step 5: Installing the QA tools
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-installing-docker" class="md-nav__link">
-    Step 6: Installing Docker
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-7-installing-kubernetes" class="md-nav__link">
-    Step 7: Installing Kubernetes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-8-setting-up-your-ide" class="md-nav__link">
-    Step 8: Setting up your IDE
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-9-website" class="md-nav__link">
-    Step 9: Website
+  <a href="#configuration" class="md-nav__link">
+    Configuration
   </a>
   
 </li>
@@ -3832,28 +3738,35 @@
   
 
 
-<h1>Setting up your development environment</h1>
+<h1>Connection Forwarding</h1>
 
-<p>Welcome! This guide will help you set up your development environment for writing ContainerSSH code. We recommend to following this guide step by step, even when you have already set up some of them yourself.</p>
-<h2 id="step-1-create-a-github-account">Step 1: Create a GitHub account<a class="headerlink" href="#step-1-create-a-github-account" title="Permanent link">&para;</a></h2>
-<p>ContainerSSH development is exclusively handled on GitHub. In order to send code or website contributions you will need to <a href="https://github.com/join">create a GitHub account</a>. Once you have an account we also recommend <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/about-two-factor-authentication">setting up two-factor authentication</a>.</p>
-<h2 id="step-2-installing-git">Step 2: Installing Git<a class="headerlink" href="#step-2-installing-git" title="Permanent link">&para;</a></h2>
-<p>Unless you plan to develop exclusively on the GitHub web interface you will also need to install Git on your computer. We support development on Windows, Linux, and MacOS, feel free to use any of those operating systems. Please follow <a href="https://github.com/git-guides/install-git">the GitHub guide to install Git</a> on your operating system.</p>
-<h2 id="step-3-creating-a-gpg-key">Step 3: Creating a GPG key<a class="headerlink" href="#step-3-creating-a-gpg-key" title="Permanent link">&para;</a></h2>
-<p>Git is a distributed versioning system and you can make commits in the name of others. In order to verify committer identity (for both security and licencing purposes) we require all commits to be signed using GPG.</p>
-<p>Please follow our <a href="gpg/">GPG for Git guide</a> to enable code signing on your machine..</p>
-<h2 id="step-4-installing-golang">Step 4: Installing Golang<a class="headerlink" href="#step-4-installing-golang" title="Permanent link">&para;</a></h2>
-<p>To compile the code you will need Golang. We have a <a href="golang/">guide to install Golang</a> on various platforms.</p>
-<h2 id="step-5-installing-the-qa-tools">Step 5: Installing the QA tools<a class="headerlink" href="#step-5-installing-the-qa-tools" title="Permanent link">&para;</a></h2>
-<p>To make sure there are no latent errors are creeping in we are using some <a href="qa/">QA tools you will need</a>.</p>
-<h2 id="step-6-installing-docker">Step 6: Installing Docker<a class="headerlink" href="#step-6-installing-docker" title="Permanent link">&para;</a></h2>
-<p>The <code>dockerrun</code> backend requires Docker to be installed. <a href="docker/">Please install Docker</a> to develop against.</p>
-<h2 id="step-7-installing-kubernetes">Step 7: Installing Kubernetes<a class="headerlink" href="#step-7-installing-kubernetes" title="Permanent link">&para;</a></h2>
-<p>The <code>kuberun</code> backend requires Kubernetes to be installed. <a href="kubernetes/">Please install a lightweight Kubernetes</a> to develop against.</p>
-<h2 id="step-8-setting-up-your-ide">Step 8: Setting up your IDE<a class="headerlink" href="#step-8-setting-up-your-ide" title="Permanent link">&para;</a></h2>
-<p>We have a <a href="ide/">guide to set up VSCode and Goland</a> as your IDE.</p>
-<h2 id="step-9-website">Step 9: Website<a class="headerlink" href="#step-9-website" title="Permanent link">&para;</a></h2>
-<p>This website requires a <a href="website/">Python to run locally</a>. <a href="website/">This guide</a> explains the details of setting it up.</p>
+<div class="admonition warning">
+<p class="admonition-title">Upcoming release</p>
+<p>You are reading the reference manual of an upcoming release. <a href="/reference/">Read the current manual &raquo;</a></p>
+</div>
+<p>This page details setting up connection forwarding for ContainerSSH. Connection forwarding works by having the ContainerSSH agent act as the proxy when a connection forwarding is placed. Connection forwarding comes in multiple flavours: You can ask for the listening end to be either on the client or inside the container, and respectively you can choose listen from a ip:port combo or a named/unix socket and send to either an ip:port combo or a named socket. Additionally, the direct forward option is also supported which enables the usage of the SOCKS proxy support in OpenSSH. Finally, X11 forwarding is also supported.</p>
+<h2 id="supported-clients">Supported clients<a class="headerlink" href="#supported-clients" title="Permanent link">&para;</a></h2>
+<p>We have tested the following clients and know them to work:</p>
+<ul>
+<li>OpenSSH</li>
+</ul>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Forwarding is disabled by default, you can enable it via the <a href="../security/">security settings</a>. Currently only enable/disable directives are supported, no filtering rules. In order for specific ports to be forwarded, or a specific forwarding function please consult the documentation of your SSH Client. </p>
+<p>In order to enable all forwarding functionality the following config can be used:</p>
+<div class="highlight"><pre><span></span><code>    forwarding:
+        reverseForwardingMode: enable
+        forwardingMode: enable
+        socketForwardingMode: enable
+        socketListenMode: enable
+        x11ForwardingMode: enable
+</code></pre></div>
+<ul>
+<li>The <code>reverseForwardingMode</code> setting how to treat reverse port forwarding requests from the container to the client.</li>
+<li>The <code>forwardingMode</code> setting configures how to treat port forwarding requests from the client to the container. Enabling this setting also allows using ContainerSSH as a SOCKs proxy.</li>
+<li>The <code>socketForwardingMode</code> setting configures how to treat connection requests from the client to a unix socket in the container.</li>
+<li>The <code>socketListenMode</code> setting configures how to treat requests to listen for connections to a unix socket in the container.</li>
+<li>The <code>x11ForwardingMode</code> setting configures how to treat X11 forwarding requests from the container to the client</li>
+</ul>
 
 
 
@@ -3932,14 +3845,14 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.407015b8.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.407015b8.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
-        <script src="../../javascript/tables.js"></script>
+        <script src="../../../javascript/tables.js"></script>
       
     
   </body>
