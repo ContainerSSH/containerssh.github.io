@@ -45,11 +45,52 @@ As part of our authentication and authorization overhaul we added a separate web
 
 ## Deploying files
 
-As we have added metadata handling to the 
-
 ## SSH certificate information
 
-## X11 forwarding
+## Port, socket and X11 forwarding
+
+From this release support for forward and reverse port forwarding is supported natively. For these features the ContainerSSH agent has to be anbled as the agent acts as the entry & exit points of the connections inside the container.
+
+The features implemented correspond to the openssh commands:
+
+### Forward & Reverse port forwarding
+
+Example: Forward port 8080 on the local host the service running on port 8080 on the remote container
+```
+ssh -L 8080:127.0.0.1:8080 user@example.org
+```
+
+Example: Forward connections from a socket on the local machine to a socket in the container
+```
+ssh -L /path/to/local/socket:/path/to/remote/socket
+```
+
+Example: Forward connections from port 8080 on the container to the service running on port 8080 on the local machine
+```
+ssh -R 8080:127.0.0.1:8080
+```
+
+Example: Forward connections from a socket on the container to a socket on the local machine
+```
+ssh -L /path/to/local/socket:/path/to/remote/socket
+```
+
+### Connection proxying support (e.g. SOCKS)
+
+```
+ssh -D 8080 user@example.com
+```
+
+You can then use ContainerSSH as a proxy with anything that supports the SOCKS protocol (e.g. Firefox)
+
+### X11 forwarding
+
+```
+ssh -X user@example.com
+```
+Any X11 applications launched within the container will be visible on the local machine
+
+[Read more »](forwarding.md){: .md-button}
 
 ## SSH keepalives
 
