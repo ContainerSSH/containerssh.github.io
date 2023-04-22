@@ -26,12 +26,14 @@ must be provided.
 
 The authentication webhook is a simple JSON `POST` request to which the server must respond with a JSON response.
 
-!!! note We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You
-can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
+!!! note
+    We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
-!!! tip We provide a [Go library](https://github.com/ContainerSSH/libcontainerssh) to create an authentication server.
+!!! tip
+    We provide a [Go library](https://github.com/ContainerSSH/libcontainerssh) to create an authentication server.
 
-!!! warning A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users
+!!! warning
+    A warning about rate limiting: if the authentication server desires to do rate limiting for connecting users
 it should take into account that a user is allowed to try multiple authentication attempts (currently hard-coded to 6
 per connection) before they are disconnected. Some of the authentication attempts (e.g. public keys) happen
 automatically on the client side without the user having any influence on them. Furthermore, ContainerSSH retries failed
@@ -101,7 +103,11 @@ When the separate authorization webhook is configured, you will receive a separa
 
 ### Response
 
-Both endpoints need to respond with an `application/json` response of the following content:
+When responding the authentication server has the opportunity to define extra metadata, environment variables or files for the user connection. All three are forwarded to all following requests (e.g. webhook -> authz -> config) made and can be used to influence authentication or configuration decisions, the environment variables are added to the users environment when the connection is established and the files are placed in the container before the users command executes.
+
+If any metadata, environment variables or files are marked as sensitive they will not be re-transmitted with further webhook calls but they will be taken account of and added to the users environment or, in case of files, placed in the container. This can be used to limit exposure in case the file contains sensitive information e.g. users credentials.
+
+All endpoints need to respond with an `application/json` response of the following content:
 
 ```json
 {
@@ -128,5 +134,6 @@ Both endpoints need to respond with an `application/json` response of the follow
 }
 ```
 
-!!! tip We provide a [Go library to implement an authentication server](https://github.com/containerssh/libcontainerssh).
+!!! tip
+    We provide a [Go library to implement an authentication server](https://github.com/containerssh/libcontainerssh).
 
