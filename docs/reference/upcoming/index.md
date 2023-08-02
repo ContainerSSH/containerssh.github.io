@@ -94,8 +94,72 @@ Any X11 applications launched within the container will be visible on the local 
 
 ## SSH keepalives
 
+Explicit support has been added for SSH KeepAlives. Previously, keepalives received from the client would wield an unknown global command warning and flood the logs, keepalives are now handled transparently and do not generate a warning.
+
+Additionally, support has been added to send keepalives to all clients from the server at a pre-defined interval. This can be configured with the following parameters:
+
+```yaml
+ssh:
+    // The interval that keepalive messages are sent to each client, defaults to 0 which disables the feature (no keepalives are sent).
+    clientAliveInterval: 10s
+    // The number of unanswered keepalives before ContainerSSH considers a client unresponsive and kills the connection, defaults to 3.
+    clientAliveCountMax: 3
+```
+
+This can be useful if ContainerSSH is sitting behind a load balancer which automatically kills idle connections after a pre-defined interval. A keepalive will keep the connection active as long as the client is responsive.
+
 ## Health check endpoint
+
+A new health check service has been created that can be used with Kubernetes or loadbalancers to automatically remove unhealthy ContainerSSH instances from the pool.
+
+[Read more »](health.md){: .md-button}
 
 ## Bugfixes to the Prometheus integration
 
+The name of some prometheus metrics and units has been altered to adhere to the convension of the metric name ending with the unit.
+
+In detail the following metrics have been modified:
+
+* `containerssh_auth_server_requests`:
+    - Name changed to `containerssh_auth_server_requests_total`
+    - Unit name change from `requests` to `requests_total`
+* `containerssh_auth_server_failures`: 
+    - Name changed to `containerssh_auth_server_failures_total`
+    - Unit name change from `requests` to `failures_total`
+* `containerssh_auth_success`: 
+    - Name changed to `containerssh_auth_success_total`
+    - Unit name change from `requests` to `success_total`
+* `containerssh_auth_failures`:
+    - Name changed to `containerssh_auth_failures_total`
+    - Unit name change from `requests` to `failures_total`
+
+
+* `containerssh_backend_requests`:
+    - Name changed to `containerssh_backend_requests_total`
+    - Unit name change from `requests` to `requests_total`
+* `containerssh_backend_errors`:
+    - Name changed to `containerssh_backend_errors_total`
+    - Unit name change from `requests` to `errors_total`
+
+
+* `containerssh_config_server_requests`:
+    - Name changed to `containerssh_config_server_requests_total`
+    - Unit name change from `requests` to `requests_total`
+* `containerssh_config_server_failures`:
+    - Name changed to `containerssh_config_server_failures_total`
+    - Unit name change from `requests` to `failures_total`
+
+* `containerssh_ssh_connections`:
+    - Name changed to `containerssh_ssh_connections_total`
+    - Unit name change from `connections` to `connections_total`
+* `containerssh_ssh_handshake_successful`:
+    - Name changed to `containerssh_ssh_successful_handshakes_total`
+    - Unit name change from `handshakes` to `handshakes_total`
+* `containerssh_ssh_handshake_failed`:
+    - Name changed to `containerssh_ssh_failed_handshakes_total`
+    - Unit name change from `handshakes` to `handshakes_total`
+
+
 ## Removal of the deprecated DockerRun and KubeRun backends
+
+Following the deprecation notice in the previous versions, the dockerrun and kuberun backends have been removed. The updated [docker](./docker.md) and [kubernetes](./kubernetes.md) backends should be used instead.

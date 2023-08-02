@@ -40,10 +40,9 @@ At first glance keyboard-interactive authentication is very similar to password 
 method the SSH server can provide customized questions to the client, to which the user has to provide answers. There
 can also be multiple consecutive questions and answers.
 
-### GSSAPI
+### GSSAPI / Kerberos
 
-GSSAPI is a cryptographic authentication method that is embedded into the SSH encryption itself. It is mainly used as
-part of Kerberos authentication. This is often used in corporate systems to auto-login users.
+GSSAPI is a generic authentication interface for peer-to-peer authentication. It is mainly used as part of Kerberos authentication, which is the only implementation supported by ContainerSSH. It is often used in corporate environment to authenticate using existing Active-Directory or FreeIPA systems and support passwordless authentication.
 
 ## Authentication backends supported by ContainerSSH
 
@@ -60,8 +59,8 @@ method is always tied to one backend.
 
 ## Authorization
 
-ContainerSSH offers a separate webhook to process authorization after the authentication is complete. This is a
-webhook-only feature that lets you compare the username entered in SSH and the username that has been authenticated.
+ContainerSSH offers a separate webhook to process authorization after the authentication is complete. This lets you
+compare the username entered in SSH and the username that has been authenticated.
 
 This is especially useful for non-webhook authentication methods, such as Kerberos and oAuth2. The details of the
 authorization protocol are described on the [webhook page](auth-webhook.md).

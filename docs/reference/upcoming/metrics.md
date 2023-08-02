@@ -26,29 +26,41 @@ Additionally, all options in the HTTP server section on the [HTTP and TLS](http.
 
 You can configure Prometheus to grab the following metrics:
 
-`containerssh_auth_server_failures`
-: Number of failed requests to the authentication server since start.
+`containerssh_config_server_requests_total`
+: Number of requests to the configuration server since start.
 
-`containerssh_auth_success`
-: Number of successful authentications since start. Contains labels for `authtype` (`password` or `pubkey`) and `country` (see below).
-
-`containerssh_auth_failures`
-: Number of failed authentications since start. Contains labels for `authtype` (`password` or `pubkey`) and `country` (see below).
-
-`containerssh_config_server_failures`
+`containerssh_config_server_failures_total`
 : Number of failed requests to the configuration server since start.
 
-`containerssh_ssh_connections`
+`containerssh_backend_requests_total`
+: Number of requests to the backend (docker, kubernetes etc) since start.
+
+`containerssh_backend_errors_total`
+: Number of failed requests to the backend (docker, kubernetes etc) since start.
+
+`containerssh_auth_server_requests_total`
+: Number of requests to the authentication server since start.
+
+`containerssh_auth_server_failures_total`
+: Number of failed requests to the authentication server since start.
+
+`containerssh_auth_success_total`
+: Number of successful authentications since start. Contains labels for `authtype` (`password`, `pubkey` etc) and `country` (see below).
+
+`containerssh_auth_failures_total`
+: Number of failed authentications since start. Contains labels for `authtype` (`password`, `pubkey` etc) and `country` (see below).
+
+`containerssh_ssh_connections_total`
 : Number of SSH connections since start. Contains a label for `country` (see below).
 
-`containerssh_ssh_handshake_successful`
+`containerssh_ssh_current_connections`
+: Number of currently active SSH connections. Contains a label for `country` (see below).
+
+`containerssh_ssh_successful_handshakes_total`
 : Number of successful SSH handshakes since start. Contains a label for `country` (see below).
 
-`containerssh_ssh_handshake_failed`
+`containerssh_ssh_failed_handshakes_total`
 : Number of failed SSH handshakes since start. Contains a label for `country` (see below).
-
-`containerssh_ssh_current_connections`
-: Number of currently open SSH connections. Contains a label for `country` (see below).
 
 ## Country identification
 

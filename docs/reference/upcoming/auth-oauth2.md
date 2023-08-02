@@ -4,6 +4,9 @@ title: oAuth2 authentication
 
 {{ reference_upcoming() }}
 
+!!! warning "Feature Preview"
+    oAuth2 support is considered as a feature preview as it doesn't have adequate test coverate
+
 This page details setting up the oAuth2 authentication for ContainerSSH. oAuth2 uses the keyboard-interactive authentication mechanism, which is supported by most, but not all SSH clients. ContainerSSH supports GitHub, GitHub Enterprise, and OIDC-compliant oAuth2 servers for authentication (such as KeyCloak, Microsoft Active Directory Federation Services, etc).
 
 ## Supported clients
@@ -16,30 +19,27 @@ We have tested the following clients and know them to work:
 - Filezilla
 
 ## Configuration
-    
-
-
-## Configuration
 
 The configuration structure for OAuth2 authentication looks as follows:
 
 ```yaml
 auth:
-  method: oauth2
-  oauth2:
-    clientId: "client ID string"
-    clientSecret: "client secret string"
-    provider: oidc|github
-    github:
-      <GitHub configuration>
-    oidc:
-      <OIDC configuration>
-    qrCodeClients:
-      - <Client version string regexps that should be sent an ASCII QR code>
-    deviceFlowClients:
-      - <Client version string regexps to use the device flow with>
-    redirect:
-      <configuration for the redirect server>
+  keyboardInteractive:
+    method: oauth2
+    oauth2:
+      clientId: "client ID string"
+      clientSecret: "client secret string"
+      provider: oidc|github
+      github:
+        <GitHub configuration>
+      oidc:
+        <OIDC configuration>
+      qrCodeClients:
+        - <Client version string regexps that should be sent an ASCII QR code>
+      deviceFlowClients:
+        - <Client version string regexps to use the device flow with>
+      redirect:
+        <configuration for the redirect server>
 ```
 
 ## Client credentials
@@ -51,6 +51,14 @@ Both OIDC and GitHub needs a client ID and a client secret in order to verify th
 Currently, we support OIDC and GitHub as providers of OAuth2-based authentication.
 
 ### OIDC configuration
+
+OpenID Connect (OIDC) is a popular authentication protocol used for Single-Sign-On. It is supported in popular authentication products such as Keycloak and Microsoft Active Directory Federation Services. The ContainerSSH OIDC provider allows users to authenticate using the same single sign on infrastructure as any web-based service. When a user connects, ContainerSSH will provide the user with the configured OIDC servers authentication url to click on and authenticate. There are two different supported OIDC authentication flows that can be used, the usual authorization flow and the device flow.
+
+### OIDC Device Flow
+
+
+
+### OIDC Authorization Flow
 
 ```yaml
 auth:
@@ -66,6 +74,8 @@ The following configuration options are supported:
 |--------|------|-------------|
 | `deviceFlow` | `bool` | Use device flow when authenticating. Defaults to true. |
 | `authorizationCodeFlow` | `bool` | Use authorization code flow when authenticating. Defaults to true. |
+| `usernameField` | `string` | The field from the result of the userinfo OIDC endpoint to use as the username. Defaults to `sub` |
+| `redirectURI` | 
 
 The device flow takes precedence over the authorization code flow if enabled.
 

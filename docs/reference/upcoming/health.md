@@ -2,7 +2,7 @@
 
 {{ reference_upcoming() }}
 
-The health check endpoint is an HTTP server that returns `ok` and a 200 status code only if all ContainerSSH services are running. This can be used to integrate ContainerSSH with a load balancer.
+The health check endpoint is an HTTP server that returns `ok` and a 200 status code only if all ContainerSSH services are running. This can be used to integrate ContainerSSH with a load balancer. In any other case it'll return "not ok" and a 503 status code.
 
 The health check endpoint has the following options:
 

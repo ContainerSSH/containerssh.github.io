@@ -14,7 +14,10 @@
       hostkeys:
         - /path/to/your/host.key
     auth:
-      url: http://your-auth-server/
+      password:
+        method: webhook
+        webhook:
+          url: http://your-auth-server/
     ```
     
     !!! tip
@@ -34,7 +37,10 @@
       hostkeys:
         - /var/run/secrets/host.key
     auth:
-      url: http://your-auth-server/
+      password:
+        method: webhook
+        webhook:
+          url: http://your-auth-server/
     ```
     
     !!! tip
@@ -69,7 +75,10 @@
       hostkeys:
         - /etc/containerssh/host.key
     auth:
-      url: http://your-auth-server/
+      password:
+        method: webhook
+        webhook:
+          url: http://your-auth-server/
     EOF
     ) | kubectl create configmap containerssh-config --from-file=config.yaml=/dev/stdin
     ```
