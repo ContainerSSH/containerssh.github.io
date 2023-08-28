@@ -17,8 +17,10 @@ The options are as follows:
 | `ciphers` | `[]string` | List of ciphers the server should support. See the [Ciphers](#ciphers) section below. |
 | `kex` | `[]string` | List of key exchange algorithms the server should support. See the [Key exchange](#key-exchange) section below. |
 | `macs` | `[]string` | List of MAC algorithms the server should support. See the [MAC](#mac) section below. | 
-| `banner` | `[]string` | The banner text to presented to any connecting client. |
+| `banner` | `string` | The banner text to presented to any connecting client. |
 | `hostkeys` | `[]string` | List of host keys in PEM format, or file names to read the key from. Generate with `openssl genrsa` |
+| `clientAliveInterval` | `time.Duration` (`string`) | Time interval between keepAlive messages containerssh sends to the client. Defaults to `0`, disabled. Example value:`30s`
+| `clientAliveCountMax` | `int` | Number of missed keepAlive messages before a client is considered disconnected and the connection is closed |
 
 ## Configuring the server version
 

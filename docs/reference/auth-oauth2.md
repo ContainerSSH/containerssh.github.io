@@ -2,12 +2,14 @@ title: OAuth2 authentication
 
 <h1>OAuth2 authentication</h1>
 
-{{ reference_upcoming() }}
+|SSH Authentication method | Password              | Public-Key            |  Keyboard-interactive |  GSSAPI               |
+|--------------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| OAuth2 backend           | :material-close:      | :material-close:      | :material-check-bold: | :material-close:      |
 
 !!! warning "Feature Preview"
     OAuth2 support is considered as a feature preview as it doesn't have adequate test coverate
 
-This page details setting up the OAuth2 authentication for ContainerSSH. OAuth2 uses the keyboard-interactive authentication mechanism, which is supported by most, but not all SSH clients. ContainerSSH supports GitHub, GitHub Enterprise, and OIDC-compliant OAuth2 servers for authentication (such as KeyCloak, Microsoft Active Directory Federation Services, etc).
+The OAuth2 authentication backend authenticates users using any OIDC-compliant OAuth2 servers for authentication (such as KeyCloak, Microsoft Active Directory Federation Services, etc) and features explicit support for GitHub and GitHub Enterprise. Authentication is done using the `keyboard-interactive` SSH authentication mechanism which is supported by most, but not all, SSH clients.
 
 ## Supported clients
 
@@ -52,30 +54,61 @@ Currently, we support OIDC and GitHub as providers of OAuth2-based authenticatio
 
 ### OIDC configuration
 
-OpenID Connect (OIDC) is a popular authentication protocol used for Single-Sign-On. It is supported in popular authentication products such as Keycloak and Microsoft Active Directory Federation Services. The ContainerSSH OIDC provider allows users to authenticate using the same single sign on infrastructure as any web-based service. When a user connects, ContainerSSH will provide the user with the configured OIDC servers authentication url to click on and authenticate. There are two different supported OIDC authentication flows that can be used, the usual authorization flow and the device flow.
+OpenID Connect (OIDC) is a popular authentication protocol used for Single-Sign-On. It is supported in popular authentication products such as Keycloak and Microsoft Active Directory Federation Services. The ContainerSSH OIDC provider allows users to authenticate using the same single sign on infrastructure as any web-based service. When a user connects, ContainerSSH will provide the user with the configured OIDC servers authentication url to click on and authenticate. There are two different supported OIDC authentication flows that can be used, the device flow and the authorization flow.
 
 ### OIDC Device Flow
 
+```yaml
+auth:
+  keyboardInteractive:
+    method: oauth2
+    oauth2:
+      clientId: "your-client-id"
+      clientSecret: "your-client-secret"
+      provider: oidc
+      oidc:
+        url: https://your-oidc-server.example.com/
+        deviceFlow: true|false
+        authorizationFlow: true|false
+        <other oidc options>
+```
 
+The OIDC device flow authentication leverages the SSH Keyboard-interactive authentication method to provide the user with a login URL pointing to the OIDC services device flow page and provides the user with a unique one-time-code to enter into the page in order to be authenticated. Depending on the OIDC implementation used the url that is provided can include the authentication code baked-in the url, in which case the user just has to click 'Authorize' in the SSO page, or in other cases they'd have to enter the provided code in order to be authenticated.
+
+Example user login with OIDC device flow
+```
+$ ssh username@myssh.example.com
+Please click the following link: https://sso.example.com/login/device?code=8B60-2612
+
+Enter the following code: 8B60-2612
+root@containerssh-fxsjd:/#
+```
 
 ### OIDC Authorization Flow
 
 ```yaml
 auth:
-  oauth2:
-    provider: oidc
-    oidc:
-      <OIDC configuration>
+  keyboardInteractive:
+    method: oauth2
+    oauth2:
+      clientId: "your-client-id"
+      clientSecret: "your-client-secret"
+      provider: oidc
+      oidc:
+        url: https://your-oidc-server.example.com/
+        deviceFlow: true|false
+        authorizationCodeFlow: true|false
+        <other oidc options>
 ```
 
 The following configuration options are supported:
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `deviceFlow` | `bool` | Use device flow when authenticating. Defaults to true. |
-| `authorizationCodeFlow` | `bool` | Use authorization code flow when authenticating. Defaults to true. |
+| `deviceFlow` | `bool` | Use device flow when authenticating. Defaults to false. |
+| `authorizationCodeFlow` | `bool` | Use authorization code flow when authenticating. Defaults to false. |
 | `usernameField` | `string` | The field from the result of the userinfo OIDC endpoint to use as the username. Defaults to `sub` |
-| `redirectURI` | 
+| `redirectURI` | `string` | The URI the client is returned to after successful authorization flow authentication. |
 
 The device flow takes precedence over the authorization code flow if enabled.
 
@@ -87,6 +120,8 @@ All further options are described on the [HTTP and TLS](http.md#http-client-conf
 auth:
   oauth2:
     provider: github
+    clientId: "your-client-id"
+    clientSecret: "your-client-secret"
     github:
       <GitHub-specific options>
 ```

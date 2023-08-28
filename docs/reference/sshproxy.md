@@ -1,7 +1,7 @@
 
 <h1>The SSH proxy backend</h1>
 
-The SSH proxy backend does not launch containers, instead it connects to a second SSH server and forwards the connections to that backend. This allows for using the [audit log](audit.md) to inspect SSH traffic, or to dynamically forwarding connections using the [configuration webhook](configserver.md).
+The SSH proxy backend does not launch containers, instead it connects to a second SSH server and forwards the connections to that backend. This allows for using the [audit log](audit.md) to inspect SSH traffic, or to dynamically forwarding connections using the [configuration server](configserver.md).
 
 ## The base configuration structure
 

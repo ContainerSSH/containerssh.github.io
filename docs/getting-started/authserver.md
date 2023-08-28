@@ -42,7 +42,8 @@ Your server will need to respond with the following JSON:
 
 ```json
 {
-  "success": true
+  "success": true,
+  "authenticatedUsername": "foo",
 }
 ```
 

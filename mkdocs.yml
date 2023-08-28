@@ -85,27 +85,31 @@ nav:
       - 'Installation': reference/installation.md
       - 'SSH':
           - 'Configuration': reference/ssh.md
-          - 'Supported features': reference/features.md
+          - 'Supported Features': reference/features.md
+          - 'Connection Forwarding': reference/forwarding.md
       - 'Backends':
-          - 'Backend selection': reference/backends.md
+          - 'Backend Selection': reference/backends.md
           - 'Docker': reference/docker.md
           - 'Kubernetes': reference/kubernetes.md
           - 'SSH proxy': reference/sshproxy.md
-          - 'DockerRun (deprecated)': reference/dockerrun.md
-          - 'KubeRun (deprecated)': reference/kuberun.md
-      - Webhooks and APIs:
-          - 'Authentication': reference/auth.md
-          - 'Configuration server': reference/configserver.md
-          - 'API': reference/api/index.md
+      - Authentication:
+          - 'Authentication Overview': reference/auth.md
+          - 'Kerberos': reference/auth-kerberos.md
+          - 'Webhook': reference/auth-webhook.md
+          - 'OAuth2/OIDC & Github': reference/auth-oauth2.md
       - Customization:
+          - 'Configuration Server': reference/configserver.md
           - 'Creating Guest Images': reference/image.md
+          - 'API': reference/api/index.md
       - Monitoring:
           - 'Logging': reference/logging.md
-          - 'Audit logging': reference/audit.md
+          - 'Audit Logging': reference/audit.md
           - 'Metrics': reference/metrics.md
+          - 'Health Check': reference/health.md
       - Security:
           - 'Restrictions': reference/security.md
-          - 'Hardening guide': reference/hardening.md
+          - 'HTTP Client and Server': reference/http.md
+          - 'Hardening Guide': reference/hardening.md
       - Troubleshooting:
           - Troubleshooting guide: reference/troubleshooting.md
           - Message codes: reference/codes.md

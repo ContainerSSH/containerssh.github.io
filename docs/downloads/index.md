@@ -19,7 +19,7 @@
     Our container images are built on **Alpine Linux (x86, 64 bit)**.
     
     !!! tip "Note about container image versioning"
-        We provide the images with multiple version tags. `latest` will always reference the latest image build of the latest stable version. `0.4` will always reference the latest image build of the latest 0.4 version, and `0.4.0` will always reference the latest image build of 0.4.1.
+        We provide the images with multiple version tags. `latest` will always reference the latest image build of the latest stable version. `0.4` will always reference the latest image build of the latest 0.4 version, and `0.4.1` will always reference the latest image build of 0.4.1.
         
         Each of these tags will see updates as we update the base Alpine Linux image to apply security fixes. If you need to roll back to an exact previous image you can reference the image by build date, e.g. `0.4.1-20210526`. The list of images can be found on the [Docker Hub](https://hub.docker.com/r/containerssh/containerssh/tags?page=1&ordering=last_updated&name=0.4).
 

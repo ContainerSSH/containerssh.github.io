@@ -5,7 +5,7 @@ title: Authentication
 {{ reference_upcoming() }}
 
 ContainerSSH does not have a built-in user database. It needs to use external services to verify user credentials, such
-as a webhook, oAuth2, or Kerberos. This page describes what authentication methods ContainerSSH supports and how you can
+as a webhook, OAuth2, or Kerberos. This page describes what authentication methods ContainerSSH supports and how you can
 tie them to your external authentication databases.
 
 ## SSH authentication methods
@@ -50,7 +50,7 @@ ContainerSSH supports a number of authentication backends. The table below summa
 which SSH authentication method. You can configure multiple backends in parallel, but one SSH authentication
 method is always tied to one backend.
 
-| SSH authentication method | Webhook               | oAuth2                | Kerberos              |
+| SSH authentication method | Webhook               | OAuth2                | Kerberos              |
 |---------------------------|-----------------------|-----------------------|-----------------------|
 | Password                  | :material-check-bold: | :material-close:      | :material-check-bold: |
 | Public key                | :material-check-bold: | :material-close:      | :material-close:      |
@@ -62,7 +62,7 @@ method is always tied to one backend.
 ContainerSSH offers a separate webhook to process authorization after the authentication is complete. This lets you
 compare the username entered in SSH and the username that has been authenticated.
 
-This is especially useful for non-webhook authentication methods, such as Kerberos and oAuth2. The details of the
+This is especially useful for non-webhook authentication methods, such as Kerberos and OAuth2. The details of the
 authorization protocol are described on the [webhook page](auth-webhook.md).
 
 ## Configuration
@@ -98,5 +98,5 @@ auth:
 ### Detailed configuration options
 
 - [Webhook configuration options](auth-webhook.md)
-- [oAuth2 configuration options](auth-oauth2.md)
+- [OAuth2 configuration options](auth-oauth2.md)
 - [Kerberos configuration options](auth-kerberos.md)

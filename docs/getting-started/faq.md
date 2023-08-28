@@ -34,15 +34,15 @@ No, ContainerSSH does not support SCP and since [OpenSSH is dropping SCP support
 
 ## Does ContainerSSH support TCP port forwarding?
 
-Yes, starting from version 0.5 (Unreleased)
+Yes, starting from version 0.5.
 
 ## Does ContainerSSH support SSH agent forwarding?
 
-Yes, starting from version 0.5 (Unreleased)
+No, but it is a planned feature.
 
 ## Does ContainerSSH support X11 forwarding?
 
-Yes, starting from version 0.5 (Unreleased)
+Yes, starting from version 0.5.
 
 ## Does ContainerSSH support forwarding signals?
 

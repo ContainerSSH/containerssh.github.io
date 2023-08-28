@@ -57,7 +57,7 @@ If you wish to use SFTP you have to add an SFTP server (`apt install openssh-sft
     !!! warning
     The release signing process is experimental and is likely to change in the future.
 
-Guest image support is enabled by default in the [Docker](docker.md) and [Kubernetes](kubernetes.md) backends, but can be disabled as shown below. The [KubeRun](kuberun.md) and [DockerRun](dockerrun.md) backends do not support the guest agent. 
+Guest image support is enabled by default in the [Docker](docker.md) and [Kubernetes](kubernetes.md) backends, but can be disabled as shown below. 
 
 === "Docker"
 
