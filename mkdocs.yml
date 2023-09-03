@@ -228,8 +228,6 @@ nav:
 plugins:
   - search
   - macros
-  - blog:
-      format: ""
   - redirects:
       redirect_maps:
         'security.md': 'about/security.md'
