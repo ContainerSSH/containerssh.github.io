@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /reference/upcoming/
-Allow: /
-Sitemap: https://containerssh.github.io/sitemap.xml
