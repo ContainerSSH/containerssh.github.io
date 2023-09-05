@@ -1,0 +1,18 @@
+digraph architecture {
+    rankdir=LR;
+    concentrate=true;
+    graph [splines=line, nodesep=0.2, fontname="Arial", concentrate=true]
+    node [width=2, shape=box, style=filled, fillcolor=black, color=red, fontcolor=white, fontsize=10, fontname="Arial", penwidth=3]
+    edge [penwidth=2, color="#00C900", arrowsize=0.5, tailclip=true, fontsize=10]
+
+    subgraph {
+        node [height=2, width=1]
+        User -> ContainerSSH [label="1"]
+    }
+
+    subgraph {
+        ContainerSSH -> "Auth Server" [label="2"];
+        ContainerSSH -> "Config Server" [label="3"]
+        ContainerSSH -> "Docker/Podman/Kubernetes" [label="4"]
+    }
+}
