@@ -6,8 +6,6 @@ on:
   pull_request:
     branches-ignore:
       - 'gh-pages'
-  schedule:
-    - cron: '0 * * * *'
 jobs:
   build:
     name: Build
@@ -24,44 +22,18 @@ jobs:
           architecture: x64
       - name: Install requirements.txt
         run: pip install -r requirements.txt
-      - name: Build
-        run: mkdocs build
+      - name: Setup git
+        run: |
+          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+          git fetch origin gh-pages
+      - name: Deploy upcoming
+        run: mike deploy upcoming --push
+        if: github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: site
-          path: site/*
-          if-no-files-found: error
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs:
-      - build
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-          path: dist
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: site
-          path: artifacts
-      - name: Deploy
-        run: |
-          set -euo pipefail
-          rsync -az --exclude=.git --delete ./artifacts/ ./dist/
-          cd dist
-          git config user.name "ContainerSSH Build Agent"
-          git config user.email 86986082+containersshbuilder@users.noreply.github.com
-          git add .
-          if ! git diff-index --quiet HEAD --; then
-            git commit -m "Website publish"
-            git push --set-upstream --force origin gh-pages
-          fi
+      - name: Deploy version
+        run: mike deploy "$GITHUB_REF_NAME" --push
+        if: startsWith(github.ref, 'refs/heads/v')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
