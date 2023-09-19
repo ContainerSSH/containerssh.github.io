@@ -278,6 +278,6 @@ copyright: >
   | <a href="https://github.com/ContainerSSH/branding/blob/main/README.md">Brand assets</a>
   | <a href="/about/privacy/">Privacy Policy</a>
   | <a href="/about/imprint/">Imprint</a><br /><br />
-  <img src="images/logos/cncf-white.svg" alt="Cloud Native Computing Foundation" /><br />
+  <img src="/images/logos/cncf-white.svg" alt="Cloud Native Computing Foundation" /><br />
   We are a Cloud Native Computing Foundation sandbox project.<br /><br />
   The Linux Foundation® (TLF) has registered trademarks and uses trademarks. For a list of TLF trademarks, see <a href="https://www.linuxfoundation.org/trademark-usage/">Trademark Usage</a>. <a href="https://www.docker.com/legal/trademark-guidelines">Docker and the Docker logo are trademarks of Docker, Inc.</a>
