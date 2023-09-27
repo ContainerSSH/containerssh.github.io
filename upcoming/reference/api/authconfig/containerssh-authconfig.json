@@ -11,13 +11,38 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://containerssh.io/ for details.)",
+    "description": "This OpenAPI document describes the API endpoints that are required for implementing an authentication\nand configuration server for ContainerSSH. (See https://github.com/containerssh/libcontainerssh for details.)",
     "title": "ContainerSSH Authentication and Configuration Server",
-    "version": "0.4.1"
+    "version": "0.5.0"
   },
   "host": "localhost",
   "basePath": "/",
   "paths": {
+    "/authz": {
+      "post": {
+        "description": "Authorization",
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "authz",
+        "parameters": [
+          {
+            "description": "The authorization request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorizationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/AuthResponse"
+          }
+        }
+      }
+    },
     "/config": {
       "post": {
         "description": "Fetches the configuration for a user/session",
@@ -139,60 +164,145 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
-    "AllowedHostKeyFingerprints": {
-      "type": "array",
-      "title": "AllowedHostKeyFingerprints is a list of fingerprints that ContainerSSH is allowed to connect to.",
-      "items": {
-        "type": "string"
-      },
-      "x-go-package": "github.com/containerssh/sshproxy"
-    },
     "AppConfig": {
       "description": "goland:noinspection GoDeprecation",
       "type": "object",
       "title": "AppConfig is the root configuration object of ContainerSSH.",
       "properties": {
         "backend": {
-          "description": "Backend defines which backend to use. This option can be changed from the config server.",
-          "type": "string",
-          "x-go-name": "Backend"
+          "$ref": "#/definitions/Backend"
         },
         "docker": {
-          "$ref": "#/definitions/Config"
+          "$ref": "#/definitions/DockerConfig"
         },
         "dockerrun": {
-          "$ref": "#/definitions/DockerRunConfig"
+          "description": "DockerRun is a placeholder for the removed DockerRun backend. Filling this with anything but nil will yield a\nvalidation error.",
+          "x-go-name": "DockerRun"
+        },
+        "health": {
+          "$ref": "#/definitions/HealthConfig"
         },
         "kubernetes": {
-          "$ref": "#/definitions/Config"
+          "$ref": "#/definitions/KubernetesConfig"
         },
         "kuberun": {
-          "$ref": "#/definitions/KubeRunConfig"
+          "description": "KubeRun is a placeholder for the removed DockerRun backend. Filling this with anything but nil will yield a\nvalidation error.",
+          "x-go-name": "KubeRun"
         },
         "security": {
-          "$ref": "#/definitions/Config"
+          "$ref": "#/definitions/SecurityConfig"
         },
         "sshproxy": {
-          "$ref": "#/definitions/Config"
+          "$ref": "#/definitions/SSHProxyConfig"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "AuthConfig": {
+      "description": "AuthConfig contains authorization information for connecting to a Registry",
+      "type": "object",
+      "properties": {
+        "auth": {
+          "type": "string",
+          "x-go-name": "Auth"
+        },
+        "email": {
+          "description": "Email is an optional value associated with the username.\nThis field is deprecated and will be removed in a later\nversion of docker.",
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "identitytoken": {
+          "description": "IdentityToken is used to authenticate the user and get\nan access token for the registry.",
+          "type": "string",
+          "x-go-name": "IdentityToken"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "registrytoken": {
+          "description": "RegistryToken is a bearer token to be sent to a registry",
+          "type": "string",
+          "x-go-name": "RegistryToken"
+        },
+        "serveraddress": {
+          "type": "string",
+          "x-go-name": "ServerAddress"
+        },
+        "username": {
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "github.com/docker/docker/api/types"
     },
     "AuthResponseBody": {
       "type": "object",
       "title": "ResponseBody is a response to authentication requests.",
       "required": [
+        "remoteAddress",
+        "connectionId",
+        "username",
         "success"
       ],
       "properties": {
+        "authenticatedUsername": {
+          "description": "AuthenticatedUsername contains the username that was actually verified. This may differ from LoginUsername when,\nfor example OAuth2 or Kerberos authentication is used. This field is empty until the authentication phase is\ncompleted.",
+          "type": "string",
+          "x-go-name": "AuthenticatedUsername"
+        },
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
+          "type": "string",
+          "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
+          "type": "string",
+          "x-go-name": "RemoteAddress"
+        },
         "success": {
           "description": "Success indicates if the authentication was successful.",
           "type": "boolean",
           "x-go-name": "Success"
+        },
+        "username": {
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
+          "type": "string",
+          "x-go-name": "Username"
         }
       },
       "x-go-name": "ResponseBody",
-      "x-go-package": "github.com/containerssh/auth"
+      "x-go-package": "go.containerssh.io/libcontainerssh/auth"
     },
     "AuthenticateOKBody": {
       "description": "AuthenticateOKBody authenticate o k body",
@@ -213,11 +323,74 @@
       },
       "x-go-package": "github.com/docker/docker/api/types/registry"
     },
+    "AuthorizationRequest": {
+      "description": "AuthorizationRequest is the authorization request used after some\nauthentication methods (e.g. kerberos) to determine whether users are\nallowed to access the service",
+      "type": "object",
+      "required": [
+        "remoteAddress",
+        "connectionId",
+        "username"
+      ],
+      "properties": {
+        "authenticatedUsername": {
+          "description": "AuthenticatedUsername contains the username that was actually verified. This may differ from LoginUsername when,\nfor example OAuth2 or Kerberos authentication is used. This field is empty until the authentication phase is\ncompleted.",
+          "type": "string",
+          "x-go-name": "AuthenticatedUsername"
+        },
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
+          "type": "string",
+          "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
+          "type": "string",
+          "x-go-name": "RemoteAddress"
+        },
+        "username": {
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/auth"
+    },
     "AzureDataDiskCachingMode": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
     "AzureDataDiskKind": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -275,6 +448,36 @@
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
+    },
+    "Backend": {
+      "type": "string",
+      "title": "Backend holds the possible values for backend selector.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "BinaryMetadataValue": {
+      "type": "object",
+      "title": "BinaryValue is a value containing binary data. The value is a binary data type.",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "sensitive": {
+          "description": "Sensitive indicates that the metadata value contains sensitive data and should not be transmitted to\nservers unnecessarily.",
+          "type": "boolean",
+          "x-go-name": "Sensitive"
+        },
+        "value": {
+          "description": "Value contains the binary data for the current value.",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint8"
+          },
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-name": "BinaryValue",
+      "x-go-package": "go.containerssh.io/libcontainerssh/metadata"
     },
     "BindOptions": {
       "type": "object",
@@ -424,23 +627,18 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
-    "Cipher": {
-      "description": "Cipher is the SSH cipher",
+    "CipherSuite": {
       "type": "string",
-      "x-go-package": "github.com/containerssh/sshserver"
+      "title": "CipherSuite is the cipher suite used for TLS connections.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
-    "CipherList": {
-      "description": "CipherList is a list of supported ciphers",
+    "CipherSuiteList": {
       "type": "array",
+      "title": "CipherSuiteList is a list of cipher suites. This type is provided for easier unmarshaling from a list or string.",
       "items": {
-        "$ref": "#/definitions/Cipher"
+        "$ref": "#/definitions/CipherSuite"
       },
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
-    "ClientVersion": {
-      "type": "string",
-      "title": "ClientVersion is a string that is issued to the client when connecting.",
-      "x-go-package": "github.com/containerssh/sshproxy"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "CommandConfig": {
       "type": "object",
@@ -455,10 +653,10 @@
           "x-go-name": "Allow"
         },
         "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
+          "$ref": "#/definitions/SecurityExecutionPolicy"
         }
       },
-      "x-go-package": "github.com/containerssh/security"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "Config": {
       "description": "It should hold only portable information about the container.\nHere, \"portable\" means \"independent from the host we are running on\".\nNon-portable information *should* appear in HostConfig.\nAll fields added to this struct must be marked `omitempty` to keep getting\npredictable hashes from the old `v1Compatibility` configuration.",
@@ -575,6 +773,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "ConfigMapKeySelector": {
+      "description": "+structType=atomic",
       "type": "object",
       "title": "Selects a key from a ConfigMap.",
       "properties": {
@@ -656,76 +855,293 @@
     },
     "ConfigRequest": {
       "type": "object",
-      "title": "ConfigRequest is the request object passed from the client to the config server.",
+      "title": "Request is the request object passed from the client to the config server.",
       "required": [
-        "username",
-        "remoteAddr",
+        "remoteAddress",
         "connectionId",
-        "sessionId"
+        "username"
       ],
       "properties": {
+        "authenticatedUsername": {
+          "description": "AuthenticatedUsername contains the username that was actually verified. This may differ from LoginUsername when,\nfor example OAuth2 or Kerberos authentication is used. This field is empty until the authentication phase is\ncompleted.",
+          "type": "string",
+          "x-go-name": "AuthenticatedUsername"
+        },
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
         "connectionId": {
-          "description": "ConnectionID is a unique opaque ID for the connection from the user.",
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
           "type": "string",
           "x-go-name": "ConnectionID"
         },
-        "remoteAddr": {
-          "description": "RemoteAddr is the IP address (IPv4 or IPv6) of the connecting user.",
-          "type": "string",
-          "x-go-name": "RemoteAddr"
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
         },
-        "sessionId": {
-          "description": "SessionID is an alias for ConnectionID and will be removed in future versions.",
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
           "type": "string",
-          "x-go-name": "SessionID"
+          "x-go-name": "RemoteAddress"
         },
         "username": {
-          "description": "Username is the username passed during authentication.",
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
           "type": "string",
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-name": "Request",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "ConfigResponseBody": {
       "type": "object",
-      "title": "ConfigResponseBody is the structure representing the JSON HTTP response.",
+      "title": "ResponseBody is the structure representing the JSON HTTP response.",
       "required": [
+        "remoteAddress",
+        "connectionId",
+        "username",
         "config"
       ],
       "properties": {
+        "authenticatedUsername": {
+          "description": "AuthenticatedUsername contains the username that was actually verified. This may differ from LoginUsername when,\nfor example OAuth2 or Kerberos authentication is used. This field is empty until the authentication phase is\ncompleted.",
+          "type": "string",
+          "x-go-name": "AuthenticatedUsername"
+        },
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
         "config": {
           "$ref": "#/definitions/AppConfig"
+        },
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
+          "type": "string",
+          "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
+          "type": "string",
+          "x-go-name": "RemoteAddress"
+        },
+        "username": {
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
+          "type": "string",
+          "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/configuration/v2"
+      "x-go-name": "ResponseBody",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
-    "ConnectionConfig": {
+    "ConnectionAuthPendingMetadata": {
+      "description": "ConnectionAuthPendingMetadata is a variant of ConnectionMetadata which is used when the client has already\nprovided a Username, but the authentication has not completed yet.",
       "type": "object",
-      "title": "ConnectionConfig configures how to connect to dockerd.",
+      "required": [
+        "remoteAddress",
+        "connectionId",
+        "username"
+      ],
       "properties": {
-        "cacert": {
-          "description": "CaCert is the CA certificate for Docker connection embedded in the configuration in PEM format.",
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
           "type": "string",
-          "x-go-name": "CaCert"
+          "x-go-name": "ClientVersion"
         },
-        "cert": {
-          "description": "Cert is the client certificate in PEM format embedded in the configuration.",
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
           "type": "string",
-          "x-go-name": "Cert"
+          "x-go-name": "ConnectionID"
         },
-        "host": {
-          "description": "Host is the docker connect URL",
-          "type": "string",
-          "x-go-name": "Host"
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
         },
-        "key": {
-          "description": "Key is the client key in PEM format embedded in the configuration.",
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
           "type": "string",
-          "x-go-name": "Key"
+          "x-go-name": "RemoteAddress"
+        },
+        "username": {
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
+          "type": "string",
+          "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/metadata"
+    },
+    "ConnectionAuthenticatedMetadata": {
+      "description": "ConnectionAuthenticatedMetadata is a variant of ConnectionMetadata which is used once the authentication has been\ncompleted. It contains the AuthenticatedUsername provided by the authentication system.",
+      "type": "object",
+      "required": [
+        "remoteAddress",
+        "connectionId",
+        "username"
+      ],
+      "properties": {
+        "authenticatedUsername": {
+          "description": "AuthenticatedUsername contains the username that was actually verified. This may differ from LoginUsername when,\nfor example OAuth2 or Kerberos authentication is used. This field is empty until the authentication phase is\ncompleted.",
+          "type": "string",
+          "x-go-name": "AuthenticatedUsername"
+        },
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
+          "type": "string",
+          "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
+          "type": "string",
+          "x-go-name": "RemoteAddress"
+        },
+        "username": {
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
+          "type": "string",
+          "x-go-name": "Username"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/metadata"
+    },
+    "ConnectionMetadata": {
+      "description": "ConnectionMetadata holds a metadata structure passed around with a metadata. Its main purpose is to allow an\nauthentication or authorization module to configure data exposed to the configuration server or the backend.",
+      "type": "object",
+      "required": [
+        "remoteAddress",
+        "connectionId"
+      ],
+      "properties": {
+        "connectionId": {
+          "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
+          "type": "string",
+          "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
+        "remoteAddress": {
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
+          "type": "string",
+          "x-go-name": "RemoteAddress"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/metadata"
     },
     "Consistency": {
       "type": "string",
@@ -737,7 +1153,7 @@
       "title": "A single application container that you want to run within a pod.",
       "properties": {
         "args": {
-          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -745,7 +1161,7 @@
           "x-go-name": "Args"
         },
         "command": {
-          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -1005,6 +1421,7 @@
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
     "DNSPolicy": {
+      "description": "+enum",
       "type": "string",
       "title": "DNSPolicy defines how a pod's DNS will be configured.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -1061,37 +1478,137 @@
       },
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
-    "DockerRunConfig": {
-      "description": "Deprecated: Switch to the more generic \"docker\" backend.\ngoland:noinspection GoNameStartsWithPackageName,GoDeprecation",
+    "DockerConfig": {
       "type": "object",
-      "title": "DockerRunConfig describes the old ContainerSSH 0.3 configuration format that can still be read and used.",
+      "title": "DockerConfig is the base configuration structure of the Docker backend.",
+      "properties": {
+        "connection": {
+          "$ref": "#/definitions/DockerConnectionConfig"
+        },
+        "execution": {
+          "$ref": "#/definitions/DockerExecutionConfig"
+        },
+        "timeouts": {
+          "$ref": "#/definitions/DockerTimeoutConfig"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "DockerConnectionConfig": {
+      "type": "object",
+      "title": "DockerConnectionConfig configures how to connect to dockerd.",
       "properties": {
         "cacert": {
+          "description": "CaCert is the CA certificate for Docker connection embedded in the configuration in PEM format.",
           "type": "string",
           "x-go-name": "CaCert"
         },
         "cert": {
+          "description": "Cert is the client certificate in PEM format embedded in the configuration.",
           "type": "string",
           "x-go-name": "Cert"
         },
-        "config": {
-          "$ref": "#/definitions/DockerRunContainerConfig"
-        },
         "host": {
+          "description": "Host is the docker connect URL.",
           "type": "string",
           "x-go-name": "Host"
         },
         "key": {
+          "description": "Key is the client key in PEM format embedded in the configuration.",
           "type": "string",
           "x-go-name": "Key"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
-    "DockerRunContainerConfig": {
-      "description": "goland:noinspection GoNameStartsWithPackageName,GoDeprecation",
+    "DockerExecutionConfig": {
+      "description": "goland:noinspection GoVetStructTag",
       "type": "object",
-      "title": "Deprecated: Switch to the more generic \"docker\" backend.",
+      "title": "DockerExecutionConfig contains the configuration of what container to run in Docker.",
+      "properties": {
+        "agentPath": {
+          "description": "AgentPath contains the path to the ContainerSSH Guest Agent.",
+          "type": "string",
+          "x-go-name": "AgentPath"
+        },
+        "auth": {
+          "$ref": "#/definitions/AuthConfig"
+        },
+        "container": {
+          "$ref": "#/definitions/Config"
+        },
+        "containername": {
+          "description": "ContainerName is the name of the container to launch. It is recommended to leave this empty, otherwise\nContainerSSH may not be able to start the container if a container with the same name already exists.",
+          "type": "string",
+          "x-go-name": "ContainerName"
+        },
+        "disableAgent": {
+          "description": "DisableAgent enables using the ContainerSSH Guest Agent.",
+          "type": "boolean",
+          "x-go-name": "DisableAgent"
+        },
+        "exposeAuthMetadataAsEnv": {
+          "description": "ExposeAuthMetadataAsEnv lets you expose the authentication metadata (e.g. GITHUB_TOKEN) as an environment variable\nin the container. In contrast to the environment variables set in the SSH connection these environment variables\nare available to all processes in the container, including the idle command.",
+          "type": "boolean",
+          "x-go-name": "ExposeAuthMetadataAsEnv"
+        },
+        "host": {
+          "$ref": "#/definitions/HostConfig"
+        },
+        "idleCommand": {
+          "description": "IdleCommand is the command that runs as the first process in the container in DockerExecutionModeConnection. Ignored in DockerExecutionModeSession.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "IdleCommand"
+        },
+        "imagePullPolicy": {
+          "$ref": "#/definitions/DockerImagePullPolicy"
+        },
+        "mode": {
+          "$ref": "#/definitions/DockerExecutionMode"
+        },
+        "network": {
+          "$ref": "#/definitions/NetworkingConfig"
+        },
+        "platform": {
+          "$ref": "#/definitions/Platform"
+        },
+        "shellCommand": {
+          "description": "ShellCommand is the command used for launching shells when the container is in DockerExecutionModeConnection. Ignored in DockerExecutionModeSession.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ShellCommand"
+        },
+        "subsystems": {
+          "description": "Subsystems contains a map of subsystem names and their corresponding binaries in the container.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Subsystems"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "DockerExecutionMode": {
+      "description": "DockerExecutionModeConnection launches one container per SSH connection (default), while DockerExecutionModeSession launches\none container per SSH session.",
+      "type": "string",
+      "title": "DockerExecutionMode determines when a container is launched.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "DockerImagePullPolicy": {
+      "description": "ImagePullPolicyAlways means that the container image will be pulled on every connection.\nImagePullPolicyIfNotPresent means the image will be pulled if the image is not present locally, an empty tag, or\nthe \"latest\" tag was specified.\nImagePullPolicyNever means that the image will never be pulled, and if the image is not available locally the\nconnection will fail.",
+      "type": "string",
+      "title": "DockerImagePullPolicy drives how and when images are pulled. The values are closely aligned with the Kubernetes image pull\npolicy.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "DockerLaunchConfig": {
+      "type": "object",
+      "title": "DockerLaunchConfig contains the container configuration for the Docker client version 20.",
       "properties": {
         "container": {
           "$ref": "#/definitions/Config"
@@ -1101,10 +1618,6 @@
           "type": "string",
           "x-go-name": "ContainerName"
         },
-        "disableCommand": {
-          "type": "boolean",
-          "x-go-name": "DisableCommand"
-        },
         "host": {
           "$ref": "#/definitions/HostConfig"
         },
@@ -1113,19 +1626,34 @@
         },
         "platform": {
           "$ref": "#/definitions/Platform"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "DockerTimeoutConfig": {
+      "type": "object",
+      "title": "DockerTimeoutConfig drives the various timeouts in the Docker backend.",
+      "properties": {
+        "commandStart": {
+          "$ref": "#/definitions/Duration"
         },
-        "subsystems": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "x-go-name": "Subsystems"
+        "containerStart": {
+          "$ref": "#/definitions/Duration"
         },
-        "timeout": {
+        "containerStop": {
+          "$ref": "#/definitions/Duration"
+        },
+        "http": {
+          "$ref": "#/definitions/Duration"
+        },
+        "signal": {
+          "$ref": "#/definitions/Duration"
+        },
+        "window": {
           "$ref": "#/definitions/Duration"
         }
       },
-      "x-go-package": "github.com/containerssh/docker/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "DownwardAPIProjection": {
       "description": "Note that this is identical to a downwardAPI volume source without the default\nmode.",
@@ -1210,6 +1738,19 @@
       "type": "integer",
       "format": "int64",
       "x-go-package": "time"
+    },
+    "ECDHCurve": {
+      "type": "string",
+      "title": "ECDHCurve is an elliptic curve algorithm.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "ECDHCurveList": {
+      "description": "ECDHCurveList is a list of supported ECDHCurve",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ECDHCurve"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "EmptyDirVolumeSource": {
       "description": "Empty directory volumes support ownership management and SELinux relabeling.",
@@ -1302,32 +1843,6 @@
       },
       "x-go-package": "github.com/docker/docker/api/types/network"
     },
-    "EnvConfig": {
-      "type": "object",
-      "title": "EnvConfig configures setting environment variables.",
-      "properties": {
-        "allow": {
-          "description": "Allow takes effect when Mode is ExecutionPolicyFilter and only allows the specified environment variables to be\nset.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Allow"
-        },
-        "deny": {
-          "description": "Allow takes effect when Mode is not ExecutionPolicyDisable and disallows the specified environment variables to\nbe set.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Deny"
-        },
-        "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
-        }
-      },
-      "x-go-package": "github.com/containerssh/security"
-    },
     "EnvFromSource": {
       "description": "EnvFromSource represents the source of a set of ConfigMaps",
       "type": "object",
@@ -1356,7 +1871,7 @@
           "x-go-name": "Name"
         },
         "value": {
-          "description": "Variable references $(VAR_NAME) are expanded\nusing the previous defined environment variables in the container and\nany service environment variables. If a variable cannot be resolved,\nthe reference in the input string will be unchanged. The $(VAR_NAME)\nsyntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped\nreferences will never be expanded, regardless of whether the variable\nexists or not.\nDefaults to \"\".\n+optional",
+          "description": "Variable references $(VAR_NAME) are expanded\nusing the previously defined environment variables in the container and\nany service environment variables. If a variable cannot be resolved,\nthe reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e.\n\"$$(VAR_NAME)\" will produce the string literal \"$(VAR_NAME)\".\nEscaped references will never be expanded, regardless of whether the variable\nexists or not.\nDefaults to \"\".\n+optional",
           "type": "string",
           "x-go-name": "Value"
         },
@@ -1386,11 +1901,12 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "EphemeralContainer": {
-      "description": "An EphemeralContainer is a container that may be added temporarily to an existing pod for\nuser-initiated activities such as debugging. Ephemeral containers have no resource or\nscheduling guarantees, and they will not be restarted when they exit or when a pod is\nremoved or restarted. If an ephemeral container causes a pod to exceed its resource\nallocation, the pod may be evicted.\nEphemeral containers may not be added by directly updating the pod spec. They must be added\nvia the pod's ephemeralcontainers subresource, and they will appear in the pod spec\nonce added.\nThis is an alpha feature enabled by the EphemeralContainers feature flag.",
+      "description": "To add an ephemeral container, use the ephemeralcontainers subresource of an existing\nPod. Ephemeral containers may not be removed or restarted.\n\nThis is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.",
       "type": "object",
+      "title": "An EphemeralContainer is a temporary container that you may add to an existing Pod for\nuser-initiated activities such as debugging. Ephemeral containers have no resource or\nscheduling guarantees, and they will not be restarted when they exit or when a Pod is\nremoved or restarted. The kubelet may evict a Pod if an ephemeral container causes the\nPod to exceed its resource allocation.",
       "properties": {
         "args": {
-          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -1398,7 +1914,7 @@
           "x-go-name": "Args"
         },
         "command": {
-          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -1441,7 +1957,7 @@
           "x-go-name": "Name"
         },
         "ports": {
-          "description": "Ports are not allowed for ephemeral containers.",
+          "description": "Ports are not allowed for ephemeral containers.\n+optional\n+patchMergeKey=containerPort\n+patchStrategy=merge\n+listType=map\n+listMapKey=containerPort\n+listMapKey=protocol",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ContainerPort"
@@ -1471,7 +1987,7 @@
           "x-go-name": "StdinOnce"
         },
         "targetContainerName": {
-          "description": "If set, the name of the container from PodSpec that this ephemeral container targets.\nThe ephemeral container will be run in the namespaces (IPC, PID, etc) of this container.\nIf not set then the ephemeral container is run in whatever namespaces are shared\nfor the pod. Note that the container runtime must support this feature.\n+optional",
+          "description": "If set, the name of the container from PodSpec that this ephemeral container targets.\nThe ephemeral container will be run in the namespaces (IPC, PID, etc) of this container.\nIf not set then the ephemeral container uses the namespaces configured in the Pod spec.\n\nThe container runtime must implement support for this feature. If the runtime does not\nsupport namespace targeting then the result of setting this field is undefined.\n+optional",
           "type": "string",
           "x-go-name": "TargetContainerName"
         },
@@ -1497,7 +2013,7 @@
           "x-go-name": "VolumeDevices"
         },
         "volumeMounts": {
-          "description": "Pod volumes to mount into the container's filesystem.\nCannot be updated.\n+optional\n+patchMergeKey=mountPath\n+patchStrategy=merge",
+          "description": "Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers.\nCannot be updated.\n+optional\n+patchMergeKey=mountPath\n+patchStrategy=merge",
           "type": "array",
           "items": {
             "$ref": "#/definitions/VolumeMount"
@@ -1517,7 +2033,7 @@
       "type": "object",
       "properties": {
         "args": {
-          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Arguments to the entrypoint.\nThe docker image's CMD is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -1525,7 +2041,7 @@
           "x-go-name": "Args"
         },
         "command": {
-          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax\ncan be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded,\nregardless of whether the variable exists or not.\nCannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
+          "description": "Entrypoint array. Not executed within a shell.\nThe docker image's ENTRYPOINT is used if this is not provided.\nVariable references $(VAR_NAME) are expanded using the container's environment. If a variable\ncannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced\nto a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. \"$$(VAR_NAME)\" will\nproduce the string literal \"$(VAR_NAME)\". Escaped references will never be expanded, regardless\nof whether the variable exists or not. Cannot be updated.\nMore info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell\n+optional",
           "type": "array",
           "items": {
             "type": "string"
@@ -1568,7 +2084,7 @@
           "x-go-name": "Name"
         },
         "ports": {
-          "description": "Ports are not allowed for ephemeral containers.",
+          "description": "Ports are not allowed for ephemeral containers.\n+optional\n+patchMergeKey=containerPort\n+patchStrategy=merge\n+listType=map\n+listMapKey=containerPort\n+listMapKey=protocol",
           "type": "array",
           "items": {
             "$ref": "#/definitions/ContainerPort"
@@ -1619,7 +2135,7 @@
           "x-go-name": "VolumeDevices"
         },
         "volumeMounts": {
-          "description": "Pod volumes to mount into the container's filesystem.\nCannot be updated.\n+optional\n+patchMergeKey=mountPath\n+patchStrategy=merge",
+          "description": "Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers.\nCannot be updated.\n+optional\n+patchMergeKey=mountPath\n+patchStrategy=merge",
           "type": "array",
           "items": {
             "$ref": "#/definitions/VolumeMount"
@@ -1673,68 +2189,6 @@
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
-    },
-    "ExecutionConfig": {
-      "description": "goland:noinspection GoVetStructTag",
-      "type": "object",
-      "title": "ExecutionConfig contains the configuration of what container to run in Docker.",
-      "properties": {
-        "Launch": {
-          "$ref": "#/definitions/LaunchConfig"
-        },
-        "agentPath": {
-          "description": "AgentPath contains the path to the ContainerSSH Guest Agent.",
-          "type": "string",
-          "x-go-name": "AgentPath"
-        },
-        "disableAgent": {
-          "description": "DisableAgent enables using the ContainerSSH Guest Agent.",
-          "type": "boolean",
-          "x-go-name": "DisableAgent"
-        },
-        "idleCommand": {
-          "description": "IdleCommand is the command that runs as the first process in the container in ExecutionModeConnection. Ignored in ExecutionModeSession.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "IdleCommand"
-        },
-        "imagePullPolicy": {
-          "$ref": "#/definitions/ImagePullPolicy"
-        },
-        "mode": {
-          "$ref": "#/definitions/ExecutionMode"
-        },
-        "shellCommand": {
-          "description": "ShellCommand is the command used for launching shells when the container is in ExecutionModeConnection. Ignored in ExecutionModeSession.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "ShellCommand"
-        },
-        "subsystems": {
-          "description": "Subsystems contains a map of subsystem names and their corresponding binaries in the container.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "x-go-name": "Subsystems"
-        }
-      },
-      "x-go-package": "github.com/containerssh/docker/v2"
-    },
-    "ExecutionMode": {
-      "description": "ExecutionModeConnection launches one container per SSH connection (default), while ExecutionModeSession launches\none container per SSH session.",
-      "type": "string",
-      "title": "ExecutionMode determines when a container is launched.",
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
-    },
-    "ExecutionPolicy": {
-      "type": "string",
-      "title": "ExecutionPolicy drives how to treat a certain request.",
-      "x-go-package": "github.com/containerssh/security"
     },
     "FCVolumeSource": {
       "description": "Fibre Channel volumes can only be mounted as read/write once.\nFibre Channel volumes support ownership management and SELinux relabeling.",
@@ -1840,6 +2294,27 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
+    "ForwardingConfig": {
+      "type": "object",
+      "properties": {
+        "forwardingMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        },
+        "reverseForwardingMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        },
+        "socketForwardingMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        },
+        "socketListenMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        },
+        "x11ForwardingMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
     "GCEPersistentDiskVolumeSource": {
       "description": "A GCE PD must exist before mounting to a container. The disk must\nalso be in the same GCE project and zone as the kubelet. A GCE PD\ncan only be mounted as read/write once or read-only many times. GCE\nPDs support ownership management and SELinux relabeling.",
       "type": "object",
@@ -1865,6 +2340,23 @@
           "description": "ReadOnly here will force the ReadOnly setting in VolumeMounts.\nDefaults to false.\nMore info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk\n+optional",
           "type": "boolean",
           "x-go-name": "ReadOnly"
+        }
+      },
+      "x-go-package": "k8s.io/api/core/v1"
+    },
+    "GRPCAction": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "description": "Port number of the gRPC service. Number must be in the range 1 to 65535.",
+          "type": "integer",
+          "format": "int32",
+          "x-go-name": "Port"
+        },
+        "service": {
+          "description": "Service is the name of the service to place in the gRPC HealthCheckRequest\n(see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).\n\nIf this is not specified, the default behavior is defined by gRPC.\n+optional\n+default=\"\"",
+          "type": "string",
+          "x-go-name": "Service"
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
@@ -1937,6 +2429,50 @@
       },
       "x-go-package": "github.com/docker/docker/api/types"
     },
+    "HTTPClientConfiguration": {
+      "description": "HTTPClientConfiguration is the configuration structure for HTTP clients",
+      "type": "object",
+      "properties": {
+        "allowRedirects": {
+          "description": "AllowRedirects sets if the client should honor HTTP redirects. Defaults to false.",
+          "type": "boolean",
+          "x-go-name": "AllowRedirects"
+        },
+        "cacert": {
+          "description": "CACert is either the CA certificate to expect on the server in PEM format\nor the name of a file containing the PEM.",
+          "type": "string",
+          "x-go-name": "CACert"
+        },
+        "cert": {
+          "description": "ClientCert is a PEM containing an x509 certificate to present to the server or a file name containing the PEM.",
+          "type": "string",
+          "x-go-name": "ClientCert"
+        },
+        "cipher": {
+          "$ref": "#/definitions/CipherSuiteList"
+        },
+        "curves": {
+          "$ref": "#/definitions/ECDHCurveList"
+        },
+        "key": {
+          "description": "ClientKey is a PEM containing a private key to use to connect the server or a file name containing the PEM.",
+          "type": "string",
+          "x-go-name": "ClientKey"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        },
+        "tlsVersion": {
+          "$ref": "#/definitions/TLSVersion"
+        },
+        "url": {
+          "description": "URL is the base URL for requests.",
+          "type": "string",
+          "x-go-name": "URL"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
     "HTTPGetAction": {
       "type": "object",
       "title": "HTTPGetAction describes an action based on HTTP Get requests.",
@@ -1985,21 +2521,42 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
-    "Handler": {
-      "description": "Handler defines a specific action that should be taken\nTODO: pass structured data to these actions, and document that data here.",
+    "HTTPServerConfiguration": {
+      "description": "goland:noinspection GoVetStructTag",
       "type": "object",
+      "title": "HTTPServerConfiguration is a structure to configure the simple HTTP server by.",
       "properties": {
-        "exec": {
-          "$ref": "#/definitions/ExecAction"
+        "cert": {
+          "description": "Cert contains either a file to a certificate, or the certificate itself in PEM format to use as a server\ncertificate.",
+          "type": "string",
+          "x-go-name": "Cert"
         },
-        "httpGet": {
-          "$ref": "#/definitions/HTTPGetAction"
+        "cipher": {
+          "$ref": "#/definitions/CipherSuiteList"
         },
-        "tcpSocket": {
-          "$ref": "#/definitions/TCPSocketAction"
+        "clientcacert": {
+          "description": "ClientCACert contains either a file or a certificate in PEM format to verify the connecting clients by.",
+          "type": "string",
+          "x-go-name": "ClientCACert"
+        },
+        "curves": {
+          "$ref": "#/definitions/ECDHCurveList"
+        },
+        "key": {
+          "description": "Key contains either a file name to a private key, or the private key itself in PEM format to use as a server key.",
+          "type": "string",
+          "x-go-name": "Key"
+        },
+        "listen": {
+          "description": "Listen contains the IP and port to listen on.",
+          "type": "string",
+          "x-go-name": "Listen"
+        },
+        "tlsVersion": {
+          "$ref": "#/definitions/TLSVersion"
         }
       },
-      "x-go-package": "k8s.io/api/core/v1"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "HealthConfig": {
       "type": "object",
@@ -2429,6 +2986,7 @@
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
     "HostPathType": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -2544,12 +3102,6 @@
       },
       "x-go-package": "github.com/docker/docker/api/types"
     },
-    "ImagePullPolicy": {
-      "description": "ImagePullPolicyAlways means that the container image will be pulled on every connection.\nImagePullPolicyIfNotPresent means the image will be pulled if the image is not present locally, an empty tag, or\nthe \"latest\" tag was specified.\nImagePullPolicyNever means that the image will be never pulled, and if the image is not available locally the\nconnection will fail.",
-      "type": "string",
-      "title": "ImagePullPolicy drives how and when images are pulled. The values are closely aligned with the Kubernetes image pull\npolicy.",
-      "x-go-package": "github.com/containerssh/docker/v2"
-    },
     "ImageSummary": {
       "description": "ImageSummary image summary",
       "type": "object",
@@ -2653,32 +3205,6 @@
       "type": "string",
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
-    "Kex": {
-      "description": "Kex are the SSH key exchange algorithms",
-      "type": "string",
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
-    "KexList": {
-      "type": "array",
-      "title": "KexList is a list of key exchange algorithms.",
-      "items": {
-        "$ref": "#/definitions/Kex"
-      },
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
-    "KeyAlgo": {
-      "type": "string",
-      "title": "KeyAlgo are supported key algorithms.",
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
-    "KeyAlgoList": {
-      "type": "array",
-      "title": "KeyAlgoList is a list of key algorithms.",
-      "items": {
-        "$ref": "#/definitions/KeyAlgo"
-      },
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
     "KeyToPath": {
       "type": "object",
       "title": "Maps a string key to a path within a volume.",
@@ -2702,27 +3228,26 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
-    "KubeRunConfig": {
-      "description": "Deprecated: use Config instead\ngoland:noinspection GoDeprecation",
+    "KubernetesConfig": {
+      "description": "KubernetesConfig is the base configuration structure for Kubernetes",
       "type": "object",
-      "title": "KubeRunConfig is the legacy configuration structure for the \"kuberun\" backend.",
       "properties": {
         "connection": {
-          "$ref": "#/definitions/KubeRunConnectionConfig"
+          "$ref": "#/definitions/KubernetesConnectionConfig"
         },
         "pod": {
-          "$ref": "#/definitions/KubeRunPodConfig"
+          "$ref": "#/definitions/KubernetesPodConfig"
         },
-        "timeout": {
-          "$ref": "#/definitions/Duration"
+        "timeouts": {
+          "$ref": "#/definitions/KubernetesTimeoutConfig"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
-    "KubeRunConnectionConfig": {
-      "description": "Deprecated: use ConnectionConfig insteead.\ngoland:noinspection GoDeprecation",
+    "KubernetesConnectionConfig": {
+      "description": "goland:noinspection GoVetStructTag",
       "type": "object",
-      "title": "KubeRunConnectionConfig is the legacy connection configuration structure for the \"kuberun\" backend.",
+      "title": "KubernetesConnectionConfig configures the connection to the Kubernetes cluster.",
       "properties": {
         "bearerToken": {
           "description": "BearerToken contains a bearer (service) token for authentication.",
@@ -2765,11 +3290,6 @@
           "type": "string",
           "x-go-name": "Host"
         },
-        "insecure": {
-          "description": "Insecure means that the server should be accessed without TLS verification. This is NOT recommended.",
-          "type": "boolean",
-          "x-go-name": "Insecure"
-        },
         "key": {
           "description": "KeyData contains a PEM-encoded client key for TLS client certificate authentication.",
           "type": "string",
@@ -2801,21 +3321,24 @@
           "type": "string",
           "x-go-name": "ServerName"
         },
-        "timeout": {
-          "$ref": "#/definitions/Duration"
-        },
         "username": {
           "description": "Username is the username for basic authentication.",
           "type": "string",
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
-    "KubeRunPodConfig": {
-      "description": "Deprecated: Use PodConfig instead.\ngoland:noinspection GoDeprecation",
+    "KubernetesExecutionMode": {
+      "description": "KubernetesExecutionModeConnection launches one container per SSH connection (default), while\nKubernetesExecutionModeSession launches one container per SSH session.",
+      "type": "string",
+      "title": "KubernetesExecutionMode determines when a container is launched.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "KubernetesPodConfig": {
+      "description": "goland:noinspection GoVetStructTag",
       "type": "object",
-      "title": "KubeRunPodConfig is the legacy pod configuration structure for the \"kuberun\" backend.",
+      "title": "KubernetesPodConfig describes the pod to launch.",
       "properties": {
         "agentPath": {
           "description": "AgentPath contains the path to the ContainerSSH Guest Agent.",
@@ -2829,30 +3352,58 @@
           "x-go-name": "ConsoleContainerNumber"
         },
         "disableAgent": {
-          "description": "EnableAgent enables using the ContainerSSH Guest Agent.",
+          "description": "DisableAgent disables using the ContainerSSH Guest Agent.",
           "type": "boolean",
-          "x-go-name": "EnableAgent"
+          "x-go-name": "DisableAgent"
         },
-        "disableCommand": {
-          "description": "DisableCommand is a configuration option to support legacy command disabling from the kuberun config.\nSee https://containerssh.io/deprecations/kuberun for details.",
-          "type": "boolean",
-          "x-go-name": "DisableCommand"
+        "exposeAuthMetadataAsAnnotations": {
+          "description": "ExposeAuthMetadataAsAnnotations causes the specified metadata entries received from the authentication process to\nbe exposed in the pod annotations. They are provided as a map, where the key is the authentication metadata entry\nname and the value is the annotation name. The annotation name must conform to Kubernetes annotation name\nrequirements or the pod will not start. The default is to expose no annotations.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "ExposeAuthMetadataAsAnnotations"
         },
-        "namespace": {
-          "description": "Namespace is the namespace to run the pod in.",
-          "type": "string",
-          "x-go-name": "Namespace"
+        "exposeAuthMetadataAsEnv": {
+          "description": "ExposeAuthMetadataAsEnv causes the specified metadata entries received from the authentication process to be\nexposed as environment variables. They are provided as a map, where the key is the authentication metadata entry\nname and the value is the environment variable. The default is to expose no authentication metadata.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "ExposeAuthMetadataAsEnv"
         },
-        "podSpec": {
-          "$ref": "#/definitions/PodSpec"
+        "exposeAuthMetadataAsLabels": {
+          "description": "ExposeAuthMetadataAsLabels causes the specified metadata entries received from the authentication process to be\nexposed in the pod labels. They are provided as a map, where the key is the authentication metadata entry name\nand the value is the label name. The label name must conform to Kubernetes label name requirements or the pod\nwill not start. The default is to expose no labels.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "ExposeAuthMetadataAsLabels"
+        },
+        "idleCommand": {
+          "description": "IdleCommand contains the command to run as the first process in the container. Other commands are executed using the \"exec\" method.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "IdleCommand"
+        },
+        "metadata": {
+          "$ref": "#/definitions/ObjectMeta"
+        },
+        "mode": {
+          "$ref": "#/definitions/KubernetesExecutionMode"
         },
         "shellCommand": {
-          "description": "ShellCommand is the command used for launching shells. This is required when using the ContainerSSH agent.",
+          "description": "ShellCommand is the command used for launching shells when the container. Required in KubernetesExecutionModeConnection and when the agent is used.",
           "type": "array",
           "items": {
             "type": "string"
           },
           "x-go-name": "ShellCommand"
+        },
+        "spec": {
+          "$ref": "#/definitions/PodSpec"
         },
         "subsystems": {
           "description": "Subsystems contains a map of subsystem names and the executable to launch.",
@@ -2863,7 +3414,32 @@
           "x-go-name": "Subsystems"
         }
       },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "KubernetesTimeoutConfig": {
+      "type": "object",
+      "title": "KubernetesTimeoutConfig configures the various timeouts for the Kubernetes backend.",
+      "properties": {
+        "commandStart": {
+          "$ref": "#/definitions/Duration"
+        },
+        "http": {
+          "$ref": "#/definitions/Duration"
+        },
+        "podStart": {
+          "$ref": "#/definitions/Duration"
+        },
+        "podStop": {
+          "$ref": "#/definitions/Duration"
+        },
+        "signal": {
+          "$ref": "#/definitions/Duration"
+        },
+        "window": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "LabelSelector": {
       "description": "A label selector is a label query over a set of resources. The result of matchLabels and\nmatchExpressions are ANDed. An empty label selector matches all objects. A null\nlabel selector matches no objects.\n+structType=atomic",
@@ -2916,45 +3492,37 @@
       },
       "x-go-package": "k8s.io/apimachinery/pkg/apis/meta/v1"
     },
-    "LaunchConfig": {
-      "type": "object",
-      "title": "LaunchConfig contains the container configuration for the Docker client version 20.",
-      "properties": {
-        "container": {
-          "$ref": "#/definitions/Config"
-        },
-        "containername": {
-          "description": "ContainerName is the name of the container to launch. It is recommended to leave this empty, otherwise\nContainerSSH may not be able to start the container if a container with the same name already exists.",
-          "type": "string",
-          "x-go-name": "ContainerName"
-        },
-        "host": {
-          "$ref": "#/definitions/HostConfig"
-        },
-        "network": {
-          "$ref": "#/definitions/NetworkingConfig"
-        },
-        "platform": {
-          "$ref": "#/definitions/Platform"
-        }
-      },
-      "x-go-package": "github.com/containerssh/docker/v2"
-    },
     "Lifecycle": {
       "description": "Lifecycle describes actions that the management system should take in response to container lifecycle\nevents. For the PostStart and PreStop lifecycle handlers, management of the container blocks\nuntil the action is complete, unless the container process fails, in which case the handler is aborted.",
       "type": "object",
       "properties": {
         "postStart": {
-          "$ref": "#/definitions/Handler"
+          "$ref": "#/definitions/LifecycleHandler"
         },
         "preStop": {
-          "$ref": "#/definitions/Handler"
+          "$ref": "#/definitions/LifecycleHandler"
+        }
+      },
+      "x-go-package": "k8s.io/api/core/v1"
+    },
+    "LifecycleHandler": {
+      "description": "LifecycleHandler defines a specific action that should be taken in a lifecycle\nhook. One and only one of the fields, except TCPSocket must be specified.",
+      "type": "object",
+      "properties": {
+        "exec": {
+          "$ref": "#/definitions/ExecAction"
+        },
+        "httpGet": {
+          "$ref": "#/definitions/HTTPGetAction"
+        },
+        "tcpSocket": {
+          "$ref": "#/definitions/TCPSocketAction"
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
     "LocalObjectReference": {
-      "description": "LocalObjectReference contains enough information to let you locate the\nreferenced object inside the same namespace.",
+      "description": "LocalObjectReference contains enough information to let you locate the\nreferenced object inside the same namespace.\n+structType=atomic",
       "type": "object",
       "properties": {
         "name": {
@@ -2981,19 +3549,6 @@
       },
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
-    "MAC": {
-      "type": "string",
-      "title": "MAC are the SSH mac algorithms.",
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
-    "MACList": {
-      "description": "MACList is a list of MAC algorithms",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/MAC"
-      },
-      "x-go-package": "github.com/containerssh/sshserver"
-    },
     "ManagedFieldsEntry": {
       "description": "ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource\nthat the fieldset applies to.",
       "type": "object",
@@ -3019,8 +3574,15 @@
         "operation": {
           "$ref": "#/definitions/ManagedFieldsOperationType"
         },
+        "subresource": {
+          "description": "Subresource is the name of the subresource used to update that object, or\nempty string if the object was updated through the main resource. The\nvalue of this field is used to distinguish between managers, even if they\nshare the same name. For example, a status update will be distinct from a\nregular update using the same manager name.\nNote that the APIVersion field is not related to the Subresource field and\nit always corresponds to the version of the main resource.",
+          "type": "string",
+          "x-go-name": "Subresource"
+        },
         "time": {
-          "$ref": "#/definitions/Time"
+          "description": "Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'\n+optional",
+          "type": "string",
+          "x-go-name": "Time"
         }
       },
       "x-go-package": "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -3029,6 +3591,24 @@
       "type": "string",
       "title": "ManagedFieldsOperationType is the type of operation which lead to a ManagedFieldsEntry being created.",
       "x-go-package": "k8s.io/apimachinery/pkg/apis/meta/v1"
+    },
+    "MetadataValue": {
+      "type": "object",
+      "title": "Value is a string value with extra data connected to it. The value is a string type.",
+      "properties": {
+        "sensitive": {
+          "description": "Sensitive indicates that the metadata value contains sensitive data and should not be transmitted to\nservers unnecessarily.",
+          "type": "boolean",
+          "x-go-name": "Sensitive"
+        },
+        "value": {
+          "description": "Value contains the string for the current value.",
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-name": "Value",
+      "x-go-package": "go.containerssh.io/libcontainerssh/metadata"
     },
     "Mount": {
       "type": "object",
@@ -3063,6 +3643,7 @@
       "x-go-package": "github.com/docker/docker/api/types/mount"
     },
     "MountPropagationMode": {
+      "description": "+enum",
       "type": "string",
       "title": "MountPropagationMode describes mount propagation.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -3127,7 +3708,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "NodeSelector": {
-      "description": "A node selector represents the union of the results of one or more label queries\nover a set of nodes; that is, it represents the OR of the selectors represented\nby the node selector terms.",
+      "description": "A node selector represents the union of the results of one or more label queries\nover a set of nodes; that is, it represents the OR of the selectors represented\nby the node selector terms.\n+structType=atomic",
       "type": "object",
       "properties": {
         "nodeSelectorTerms": {
@@ -3142,7 +3723,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "NodeSelectorOperator": {
-      "description": "A node selector operator is the set of operators that can be used in\na node selector requirement.",
+      "description": "A node selector operator is the set of operators that can be used in\na node selector requirement.\n+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -3170,7 +3751,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "NodeSelectorTerm": {
-      "description": "A null or empty node selector term matches no objects. The requirements of\nthem are ANDed.\nThe TopologySelectorTerm type implements a subset of the NodeSelectorTerm.",
+      "description": "A null or empty node selector term matches no objects. The requirements of\nthem are ANDed.\nThe TopologySelectorTerm type implements a subset of the NodeSelectorTerm.\n+structType=atomic",
       "type": "object",
       "properties": {
         "matchExpressions": {
@@ -3192,7 +3773,13 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
+    "OSName": {
+      "type": "string",
+      "title": "OSName is the set of OS'es that can be used in OS.",
+      "x-go-package": "k8s.io/api/core/v1"
+    },
     "ObjectFieldSelector": {
+      "description": "+structType=atomic",
       "type": "object",
       "title": "ObjectFieldSelector selects an APIVersioned field of an object.",
       "properties": {
@@ -3227,7 +3814,9 @@
           "x-go-name": "ClusterName"
         },
         "creationTimestamp": {
-          "$ref": "#/definitions/Time"
+          "description": "CreationTimestamp is a timestamp representing the server time when this object was\ncreated. It is not guaranteed to be set in happens-before order across separate operations.\nClients may not set this value. It is represented in RFC3339 form and is in UTC.\n\nPopulated by the system.\nRead-only.\nNull for lists.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n+optional",
+          "type": "string",
+          "x-go-name": "CreationTimestamp"
         },
         "deletionGracePeriodSeconds": {
           "description": "Number of seconds allowed for this object to gracefully terminate before\nit will be removed from the system. Only set when deletionTimestamp is also set.\nMay only be shortened.\nRead-only.\n+optional",
@@ -3236,7 +3825,9 @@
           "x-go-name": "DeletionGracePeriodSeconds"
         },
         "deletionTimestamp": {
-          "$ref": "#/definitions/Time"
+          "description": "DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This\nfield is set by the server when a graceful deletion is requested by the user, and is not\ndirectly settable by a client. The resource is expected to be deleted (no longer visible\nfrom resource lists, and not reachable by name) after the time in this field, once the\nfinalizers list is empty. As long as the finalizers list contains items, deletion is blocked.\nOnce the deletionTimestamp is set, this value may not be unset or be set further into the\nfuture, although it may be shortened or the resource may be deleted prior to this time.\nFor example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react\nby sending a graceful termination signal to the containers in the pod. After that 30 seconds,\nthe Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup,\nremove the pod from the API. In the presence of network partitions, this object may still\nexist after this timestamp, until an administrator or automated process can determine the\nresource is fully terminated.\nIf not set, graceful deletion of the object has not been requested.\n\nPopulated by the system when a graceful deletion is requested.\nRead-only.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n+optional",
+          "type": "string",
+          "x-go-name": "DeletionTimestamp"
         },
         "finalizers": {
           "description": "Must be empty before the object is deleted from the registry. Each entry\nis an identifier for the responsible component that will remove the entry\nfrom the list. If the deletionTimestamp of the object is non-nil, entries\nin this list can only be removed.\nFinalizers may be processed and removed in any order.  Order is NOT enforced\nbecause it introduces significant risk of stuck finalizers.\nfinalizers is a shared field, any actor with permission can reorder it.\nIf the finalizer list is processed in order, then this can lead to a situation\nin which the component responsible for the first finalizer in the list is\nwaiting for a signal (field value, external system, or other) produced by a\ncomponent responsible for a finalizer later in the list, resulting in a deadlock.\nWithout enforced ordering finalizers are free to order amongst themselves and\nare not vulnerable to ordering changes in the list.\n+optional\n+patchStrategy=merge",
@@ -3308,7 +3899,7 @@
       "x-go-package": "k8s.io/apimachinery/pkg/apis/meta/v1"
     },
     "OwnerReference": {
-      "description": "OwnerReference contains enough information to let you identify an owning\nobject. An owning object must be in the same namespace as the dependent, or\nbe cluster-scoped, so there is no namespace field.",
+      "description": "OwnerReference contains enough information to let you identify an owning\nobject. An owning object must be in the same namespace as the dependent, or\nbe cluster-scoped, so there is no namespace field.\n+structType=atomic",
       "type": "object",
       "properties": {
         "apiVersion": {
@@ -3346,46 +3937,67 @@
       "type": "object",
       "title": "PasswordAuthRequest is an authentication request for password authentication.",
       "required": [
-        "username",
         "remoteAddress",
         "connectionId",
-        "sessionId",
+        "username",
         "passwordBase64"
       ],
       "properties": {
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
         "connectionId": {
           "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
           "type": "string",
           "x-go-name": "ConnectionID"
         },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
+        },
         "passwordBase64": {
           "description": "Password the user provided for authentication.",
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "uint8"
-          },
+          "type": "string",
+          "format": "Base64",
           "x-go-name": "Password"
         },
         "remoteAddress": {
-          "description": "RemoteAddress is the IP address of the user trying to authenticate.",
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
           "type": "string",
           "x-go-name": "RemoteAddress"
         },
-        "sessionId": {
-          "description": "SessionID is a deprecated alias for ConnectionID and will be removed in the future.",
-          "type": "string",
-          "x-go-name": "SessionID"
-        },
         "username": {
-          "description": "Username is the username provided for authentication.",
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
           "type": "string",
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/auth"
+      "x-go-package": "go.containerssh.io/libcontainerssh/auth"
     },
     "PersistentVolumeAccessMode": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -3402,6 +4014,9 @@
           "x-go-name": "AccessModes"
         },
         "dataSource": {
+          "$ref": "#/definitions/TypedLocalObjectReference"
+        },
+        "dataSourceRef": {
           "$ref": "#/definitions/TypedLocalObjectReference"
         },
         "resources": {
@@ -3444,7 +4059,9 @@
           "x-go-name": "ClusterName"
         },
         "creationTimestamp": {
-          "$ref": "#/definitions/Time"
+          "description": "CreationTimestamp is a timestamp representing the server time when this object was\ncreated. It is not guaranteed to be set in happens-before order across separate operations.\nClients may not set this value. It is represented in RFC3339 form and is in UTC.\n\nPopulated by the system.\nRead-only.\nNull for lists.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n+optional",
+          "type": "string",
+          "x-go-name": "CreationTimestamp"
         },
         "deletionGracePeriodSeconds": {
           "description": "Number of seconds allowed for this object to gracefully terminate before\nit will be removed from the system. Only set when deletionTimestamp is also set.\nMay only be shortened.\nRead-only.\n+optional",
@@ -3453,7 +4070,9 @@
           "x-go-name": "DeletionGracePeriodSeconds"
         },
         "deletionTimestamp": {
-          "$ref": "#/definitions/Time"
+          "description": "DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This\nfield is set by the server when a graceful deletion is requested by the user, and is not\ndirectly settable by a client. The resource is expected to be deleted (no longer visible\nfrom resource lists, and not reachable by name) after the time in this field, once the\nfinalizers list is empty. As long as the finalizers list contains items, deletion is blocked.\nOnce the deletionTimestamp is set, this value may not be unset or be set further into the\nfuture, although it may be shortened or the resource may be deleted prior to this time.\nFor example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react\nby sending a graceful termination signal to the containers in the pod. After that 30 seconds,\nthe Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup,\nremove the pod from the API. In the presence of network partitions, this object may still\nexist after this timestamp, until an administrator or automated process can determine the\nresource is fully terminated.\nIf not set, graceful deletion of the object has not been requested.\n\nPopulated by the system when a graceful deletion is requested.\nRead-only.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata\n+optional",
+          "type": "string",
+          "x-go-name": "DeletionTimestamp"
         },
         "finalizers": {
           "description": "Must be empty before the object is deleted from the registry. Each entry\nis an identifier for the responsible component that will remove the entry\nfrom the list. If the deletionTimestamp of the object is non-nil, entries\nin this list can only be removed.\nFinalizers may be processed and removed in any order.  Order is NOT enforced\nbecause it introduces significant risk of stuck finalizers.\nfinalizers is a shared field, any actor with permission can reorder it.\nIf the finalizer list is processed in order, then this can lead to a situation\nin which the component responsible for the first finalizer in the list is\nwaiting for a signal (field value, external system, or other) produced by a\ncomponent responsible for a finalizer later in the list, resulting in a deadlock.\nWithout enforced ordering finalizers are free to order amongst themselves and\nare not vulnerable to ordering changes in the list.\n+optional\n+patchStrategy=merge",
@@ -3546,6 +4165,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "PersistentVolumeMode": {
+      "description": "+enum",
       "type": "string",
       "title": "PersistentVolumeMode describes how a volume is intended to be consumed, either Block or Filesystem.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -4126,66 +4746,9 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "PodConditionType": {
-      "description": "PodConditionType is a valid value for PodCondition.Type",
+      "description": "PodConditionType is a valid value for PodCondition.Type\n+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
-    },
-    "PodConfig": {
-      "description": "goland:noinspection GoVetStructTag",
-      "type": "object",
-      "title": "PodConfig describes the pod to launch.",
-      "properties": {
-        "agentPath": {
-          "description": "AgentPath contains the path to the ContainerSSH Guest Agent.",
-          "type": "string",
-          "x-go-name": "AgentPath"
-        },
-        "consoleContainerNumber": {
-          "description": "ConsoleContainerNumber specifies the container to attach the running process to. Defaults to 0.",
-          "type": "integer",
-          "format": "int64",
-          "x-go-name": "ConsoleContainerNumber"
-        },
-        "disableAgent": {
-          "description": "DisableAgent disables using the ContainerSSH Guest Agent.",
-          "type": "boolean",
-          "x-go-name": "DisableAgent"
-        },
-        "idleCommand": {
-          "description": "IdleCommand contains the command to run as the first process in the container. Other commands are executed using the \"exec\" method.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "IdleCommand"
-        },
-        "metadata": {
-          "$ref": "#/definitions/ObjectMeta"
-        },
-        "mode": {
-          "$ref": "#/definitions/ExecutionMode"
-        },
-        "shellCommand": {
-          "description": "ShellCommand is the command used for launching shells when the container. Required in ExecutionModeConnection and when the agent is used.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "ShellCommand"
-        },
-        "spec": {
-          "$ref": "#/definitions/PodSpec"
-        },
-        "subsystems": {
-          "description": "Subsystems contains a map of subsystem names and the executable to launch.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "x-go-name": "Subsystems"
-        }
-      },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
     },
     "PodDNSConfig": {
       "description": "PodDNSConfig defines the DNS parameters of a pod in addition to\nthose generated from DNSPolicy.",
@@ -4236,8 +4799,18 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "PodFSGroupChangePolicy": {
-      "description": "PodFSGroupChangePolicy holds policies that will be used for applying fsGroup to a volume\nwhen volume is mounted.",
+      "description": "PodFSGroupChangePolicy holds policies that will be used for applying fsGroup to a volume\nwhen volume is mounted.\n+enum",
       "type": "string",
+      "x-go-package": "k8s.io/api/core/v1"
+    },
+    "PodOS": {
+      "type": "object",
+      "title": "PodOS defines the OS parameters of a pod.",
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/OSName"
+        }
+      },
       "x-go-package": "k8s.io/api/core/v1"
     },
     "PodReadinessGate": {
@@ -4256,7 +4829,7 @@
       "title": "PodSecurityContext holds pod-level security attributes and common container settings.",
       "properties": {
         "fsGroup": {
-          "description": "A special supplemental group that applies to all containers in a pod.\nSome volume types allow the Kubelet to change the ownership of that volume\nto be owned by the pod:\n\n1. The owning GID will be the FSGroup\n2. The setgid bit is set (new files created in the volume will be owned by FSGroup)\n3. The permission bits are OR'd with rw-rw----\n\nIf unset, the Kubelet will not modify the ownership and permissions of any volume.\n+optional",
+          "description": "A special supplemental group that applies to all containers in a pod.\nSome volume types allow the Kubelet to change the ownership of that volume\nto be owned by the pod:\n\n1. The owning GID will be the FSGroup\n2. The setgid bit is set (new files created in the volume will be owned by FSGroup)\n3. The permission bits are OR'd with rw-rw----\n\nIf unset, the Kubelet will not modify the ownership and permissions of any volume.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "FSGroup"
@@ -4265,7 +4838,7 @@
           "$ref": "#/definitions/PodFSGroupChangePolicy"
         },
         "runAsGroup": {
-          "description": "The GID to run the entrypoint of the container process.\nUses runtime default if unset.\nMay also be set in SecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence\nfor that container.\n+optional",
+          "description": "The GID to run the entrypoint of the container process.\nUses runtime default if unset.\nMay also be set in SecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence\nfor that container.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "RunAsGroup"
@@ -4276,7 +4849,7 @@
           "x-go-name": "RunAsNonRoot"
         },
         "runAsUser": {
-          "description": "The UID to run the entrypoint of the container process.\nDefaults to user specified in image metadata if unspecified.\nMay also be set in SecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence\nfor that container.\n+optional",
+          "description": "The UID to run the entrypoint of the container process.\nDefaults to user specified in image metadata if unspecified.\nMay also be set in SecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence\nfor that container.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "RunAsUser"
@@ -4288,7 +4861,7 @@
           "$ref": "#/definitions/SeccompProfile"
         },
         "supplementalGroups": {
-          "description": "A list of groups applied to the first process run in each container, in addition\nto the container's primary GID.  If unspecified, no groups will be added to\nany container.\n+optional",
+          "description": "A list of groups applied to the first process run in each container, in addition\nto the container's primary GID.  If unspecified, no groups will be added to\nany container.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "array",
           "items": {
             "type": "integer",
@@ -4297,7 +4870,7 @@
           "x-go-name": "SupplementalGroups"
         },
         "sysctls": {
-          "description": "Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported\nsysctls (by the container runtime) might fail to launch.\n+optional",
+          "description": "Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported\nsysctls (by the container runtime) might fail to launch.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Sysctl"
@@ -4348,7 +4921,7 @@
           "x-go-name": "EnableServiceLinks"
         },
         "ephemeralContainers": {
-          "description": "List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing\npod to perform user-initiated actions such as debugging. This list cannot be specified when\ncreating a pod, and it cannot be modified by updating the pod spec. In order to add an\nephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.\nThis field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.\n+optional\n+patchMergeKey=name\n+patchStrategy=merge",
+          "description": "List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing\npod to perform user-initiated actions such as debugging. This list cannot be specified when\ncreating a pod, and it cannot be modified by updating the pod spec. In order to add an\nephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.\nThis field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.\n+optional\n+patchMergeKey=name\n+patchStrategy=merge",
           "type": "array",
           "items": {
             "$ref": "#/definitions/EphemeralContainer"
@@ -4405,12 +4978,15 @@
           "x-go-name": "NodeName"
         },
         "nodeSelector": {
-          "description": "NodeSelector is a selector which must be true for the pod to fit on a node.\nSelector which must match a node's labels for the pod to be scheduled on that node.\nMore info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/\n+optional",
+          "description": "NodeSelector is a selector which must be true for the pod to fit on a node.\nSelector which must match a node's labels for the pod to be scheduled on that node.\nMore info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/\n+optional\n+mapType=atomic",
           "type": "object",
           "additionalProperties": {
             "type": "string"
           },
           "x-go-name": "NodeSelector"
+        },
+        "os": {
+          "$ref": "#/definitions/PodOS"
         },
         "overhead": {
           "$ref": "#/definitions/ResourceList"
@@ -4430,7 +5006,7 @@
           "x-go-name": "PriorityClassName"
         },
         "readinessGates": {
-          "description": "If specified, all readiness gates will be evaluated for pod readiness.\nA pod is ready when all its containers are ready AND\nall conditions specified in the readiness gates have status equal to \"True\"\nMore info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md\n+optional",
+          "description": "If specified, all readiness gates will be evaluated for pod readiness.\nA pod is ready when all its containers are ready AND\nall conditions specified in the readiness gates have status equal to \"True\"\nMore info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates\n+optional",
           "type": "array",
           "items": {
             "$ref": "#/definitions/PodReadinessGate"
@@ -4441,7 +5017,7 @@
           "$ref": "#/definitions/RestartPolicy"
         },
         "runtimeClassName": {
-          "description": "RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used\nto run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run.\nIf unset or empty, the \"legacy\" RuntimeClass will be used, which is an implicit class with an\nempty definition that uses the default runtime handler.\nMore info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md\nThis is a beta feature as of Kubernetes v1.14.\n+optional",
+          "description": "RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used\nto run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run.\nIf unset or empty, the \"legacy\" RuntimeClass will be used, which is an implicit class with an\nempty definition that uses the default runtime handler.\nMore info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class\nThis is a beta feature as of Kubernetes v1.14.\n+optional",
           "type": "string",
           "x-go-name": "RuntimeClassName"
         },
@@ -4598,6 +5174,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "PreemptionPolicy": {
+      "description": "+enum",
       "type": "string",
       "title": "PreemptionPolicy describes a policy for if/when to preempt a pod.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -4631,6 +5208,9 @@
           "format": "int32",
           "x-go-name": "FailureThreshold"
         },
+        "grpc": {
+          "$ref": "#/definitions/GRPCAction"
+        },
         "httpGet": {
           "$ref": "#/definitions/HTTPGetAction"
         },
@@ -4656,7 +5236,7 @@
           "$ref": "#/definitions/TCPSocketAction"
         },
         "terminationGracePeriodSeconds": {
-          "description": "Optional duration in seconds the pod needs to terminate gracefully upon probe failure.\nThe grace period is the duration in seconds after the processes running in the pod are sent\na termination signal and the time when the processes are forcibly halted with a kill signal.\nSet this value longer than the expected cleanup time for your process.\nIf this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this\nvalue overrides the value provided by the pod spec.\nValue must be non-negative integer. The value zero indicates stop immediately via\nthe kill signal (no opportunity to shut down).\nThis is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.\n+optional",
+          "description": "Optional duration in seconds the pod needs to terminate gracefully upon probe failure.\nThe grace period is the duration in seconds after the processes running in the pod are sent\na termination signal and the time when the processes are forcibly halted with a kill signal.\nSet this value longer than the expected cleanup time for your process.\nIf this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this\nvalue overrides the value provided by the pod spec.\nValue must be non-negative integer. The value zero indicates stop immediately via\nthe kill signal (no opportunity to shut down).\nThis is a beta field and requires enabling ProbeTerminationGracePeriod feature gate.\nMinimum value is 1. spec.terminationGracePeriodSeconds is used if unset.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "TerminationGracePeriodSeconds"
@@ -4670,7 +5250,28 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
+    "ProbeHandler": {
+      "description": "One and only one of the fields must be specified.",
+      "type": "object",
+      "title": "ProbeHandler defines a specific action that should be taken in a probe.",
+      "properties": {
+        "exec": {
+          "$ref": "#/definitions/ExecAction"
+        },
+        "grpc": {
+          "$ref": "#/definitions/GRPCAction"
+        },
+        "httpGet": {
+          "$ref": "#/definitions/HTTPGetAction"
+        },
+        "tcpSocket": {
+          "$ref": "#/definitions/TCPSocketAction"
+        }
+      },
+      "x-go-package": "k8s.io/api/core/v1"
+    },
     "ProcMountType": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -4701,25 +5302,69 @@
       "x-go-package": "github.com/docker/docker/api/types/mount"
     },
     "Protocol": {
+      "description": "+enum",
       "type": "string",
       "title": "Protocol defines network protocols supported for things like container ports.",
       "x-go-package": "k8s.io/api/core/v1"
+    },
+    "PublicKey": {
+      "type": "object",
+      "title": "PublicKey contains the details of a public key provided during authentication.",
+      "required": [
+        "publicKey"
+      ],
+      "properties": {
+        "publicKey": {
+          "description": "PublicKey is the key in the authorized key format.",
+          "type": "string",
+          "x-go-name": "PublicKey"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/auth"
     },
     "PublicKeyAuthRequest": {
       "type": "object",
       "title": "PublicKeyAuthRequest is an authentication request for public key authentication.",
       "required": [
-        "username",
         "remoteAddress",
         "connectionId",
-        "sessionId",
+        "username",
         "publicKey"
       ],
       "properties": {
+        "clientVersion": {
+          "description": "ClientVersion contains the version string the connecting client sent if any. May be empty if the client did not\nprovide a client version.",
+          "type": "string",
+          "x-go-name": "ClientVersion"
+        },
         "connectionId": {
           "description": "ConnectionID is an opaque ID to identify the SSH connection in question.",
           "type": "string",
           "x-go-name": "ConnectionID"
+        },
+        "environment": {
+          "description": "Environment is a set of key-value pairs provided by the authentication or configuration system and may be\nexposed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Environment"
+        },
+        "files": {
+          "description": "Files is a key-value pair of file names and their content set by the authentication or configuration system\nand consumed by the backend.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/BinaryMetadataValue"
+          },
+          "x-go-name": "Files"
+        },
+        "metadata": {
+          "description": "Metadata is a set of key-value pairs that carry additional information from the authentication and configuration\nsystem to the backends. Backends can expose this information as container labels, environment variables, or\nother places.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/MetadataValue"
+          },
+          "x-go-name": "Metadata"
         },
         "publicKey": {
           "description": "PublicKey is the key in the authorized key format.",
@@ -4727,25 +5372,20 @@
           "x-go-name": "PublicKey"
         },
         "remoteAddress": {
-          "description": "RemoteAddress is the IP address of the user trying to authenticate.",
+          "description": "RemoteAddress is the IP address and port of the user trying to authenticate.",
           "type": "string",
           "x-go-name": "RemoteAddress"
         },
-        "sessionId": {
-          "description": "SessionID is a deprecated alias for ConnectionID and will be removed in the future.",
-          "type": "string",
-          "x-go-name": "SessionID"
-        },
         "username": {
-          "description": "Username is the username provided for authentication.",
+          "description": "Username is the username provided on login by the client. This may, but must not necessarily match the\nauthenticated username.",
           "type": "string",
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "github.com/containerssh/auth"
+      "x-go-package": "go.containerssh.io/libcontainerssh/auth"
     },
     "PullPolicy": {
-      "description": "PullPolicy describes a policy for if/when to pull a container image",
+      "description": "PullPolicy describes a policy for if/when to pull a container image\n+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -4843,7 +5483,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "ResourceFieldSelector": {
-      "description": "ResourceFieldSelector represents container resources (cpu, memory) and their output format",
+      "description": "ResourceFieldSelector represents container resources (cpu, memory) and their output format\n+structType=atomic",
       "type": "object",
       "properties": {
         "containerName": {
@@ -5040,8 +5680,9 @@
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
     "RestartPolicy": {
-      "type": "object",
-      "title": "RestartPolicy represents the restart policies of the container.",
+      "description": "Only one of the following restart policies may be specified.\nIf none of the following policies is specified, the default one\nis RestartPolicyAlways.\n+enum",
+      "type": "string",
+      "title": "RestartPolicy describes how the container should be restarted.",
       "properties": {
         "MaximumRetryCount": {
           "type": "integer",
@@ -5051,7 +5692,7 @@
           "type": "string"
         }
       },
-      "x-go-package": "github.com/docker/docker/api/types/container"
+      "x-go-package": "k8s.io/api/core/v1"
     },
     "SELinuxOptions": {
       "description": "SELinuxOptions are the labels to be applied to the container",
@@ -5079,6 +5720,130 @@
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
+    },
+    "SSHCipher": {
+      "description": "SSHCipher is the SSH cipher",
+      "type": "string",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHCipherList": {
+      "description": "SSHCipherList is a list of supported ciphers",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SSHCipher"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHKex": {
+      "description": "SSHKex are the SSH key exchange algorithms",
+      "type": "string",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHKexList": {
+      "type": "array",
+      "title": "SSHKexList is a list of key exchange algorithms.",
+      "items": {
+        "$ref": "#/definitions/SSHKex"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHKeyAlgo": {
+      "type": "string",
+      "title": "SSHKeyAlgo are supported key algorithms.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHKeyAlgoList": {
+      "type": "array",
+      "title": "SSHKeyAlgoList is a list of key algorithms.",
+      "items": {
+        "$ref": "#/definitions/SSHKeyAlgo"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHMAC": {
+      "type": "string",
+      "title": "SSHMAC are the SSH mac algorithms.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHMACList": {
+      "description": "SSHMACList is a list of SSHMAC algorithms",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SSHMAC"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHProxyAllowedHostKeyFingerprints": {
+      "type": "array",
+      "title": "SSHProxyAllowedHostKeyFingerprints is a list of fingerprints that ContainerSSH is allowed to connect to.",
+      "items": {
+        "type": "string"
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHProxyClientVersion": {
+      "type": "string",
+      "title": "SSHProxyClientVersion is a string that is issued to the client when connecting.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SSHProxyConfig": {
+      "type": "object",
+      "title": "SSHProxyConfig is the configuration for the SSH proxy module.",
+      "properties": {
+        "allowedHostKeyFingerprints": {
+          "$ref": "#/definitions/SSHProxyAllowedHostKeyFingerprints"
+        },
+        "ciphers": {
+          "$ref": "#/definitions/SSHCipherList"
+        },
+        "clientVersion": {
+          "$ref": "#/definitions/SSHProxyClientVersion"
+        },
+        "hostKeyAlgos": {
+          "$ref": "#/definitions/SSHKeyAlgoList"
+        },
+        "kex": {
+          "$ref": "#/definitions/SSHKexList"
+        },
+        "macs": {
+          "$ref": "#/definitions/SSHMACList"
+        },
+        "password": {
+          "description": "Password is the password to offer to the backing SSH server for authentication.",
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "port": {
+          "description": "Port is the TCP port to connect to.",
+          "type": "integer",
+          "format": "uint16",
+          "x-go-name": "Port"
+        },
+        "privateKey": {
+          "description": "PrivateKey is the private key to use for authenticating with the backing server.",
+          "type": "string",
+          "x-go-name": "PrivateKey"
+        },
+        "server": {
+          "description": "Server is the IP address or hostname of the backing server.",
+          "type": "string",
+          "x-go-name": "Server"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        },
+        "username": {
+          "description": "Username is the username to pass to the backing SSH server for authentication.",
+          "type": "string",
+          "x-go-name": "Username"
+        },
+        "usernamePassThrough": {
+          "description": "UsernamePassThrough means that the username should be taken from the connecting client.",
+          "type": "boolean",
+          "x-go-name": "UsernamePassThrough"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "ScaleIOVolumeSource": {
       "description": "ScaleIOVolumeSource represents a persistent ScaleIO volume",
@@ -5152,6 +5917,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "SeccompProfileType": {
+      "description": "+enum",
       "type": "string",
       "title": "SeccompProfileType defines the supported seccomp profile types.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -5175,6 +5941,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "SecretKeySelector": {
+      "description": "+structType=atomic",
       "type": "object",
       "title": "SecretKeySelector selects a key of a Secret.",
       "properties": {
@@ -5254,13 +6021,55 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
+    "SecurityConfig": {
+      "type": "object",
+      "title": "SecurityConfig is the configuration structure for security settings.",
+      "properties": {
+        "command": {
+          "$ref": "#/definitions/CommandConfig"
+        },
+        "defaultMode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        },
+        "env": {
+          "$ref": "#/definitions/SecurityEnvConfig"
+        },
+        "forceCommand": {
+          "description": "ForceCommand behaves similar to the OpenSSH ForceCommand option. When set this command overrides any command\nrequested by the client and executes this command instead. The original command supplied by the client will be\nset in the `SSH_ORIGINAL_COMMAND` environment variable.\n\nSetting ForceCommand changes subsystem requests into exec requests for the backends.",
+          "type": "string",
+          "x-go-name": "ForceCommand"
+        },
+        "forwarding": {
+          "$ref": "#/definitions/ForwardingConfig"
+        },
+        "maxSessions": {
+          "description": "MaxSessions drives how many session channels can be open at the same time for a single network connection.\n1 means unlimited. It is strongly recommended to configure this to a sane value, e.g. 10.",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MaxSessions"
+        },
+        "shell": {
+          "$ref": "#/definitions/SecurityShellConfig"
+        },
+        "signal": {
+          "$ref": "#/definitions/SecuritySignalConfig"
+        },
+        "subsystem": {
+          "$ref": "#/definitions/SubsystemConfig"
+        },
+        "tty": {
+          "$ref": "#/definitions/SecurityTTYConfig"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
     "SecurityContext": {
       "description": "Some fields are present in both SecurityContext and PodSecurityContext.  When both\nare set, the values in SecurityContext take precedence.",
       "type": "object",
       "title": "SecurityContext holds security configuration that will be applied to a container.",
       "properties": {
         "allowPrivilegeEscalation": {
-          "description": "AllowPrivilegeEscalation controls whether a process can gain more\nprivileges than its parent process. This bool directly controls if\nthe no_new_privs flag will be set on the container process.\nAllowPrivilegeEscalation is true always when the container is:\n1) run as Privileged\n2) has CAP_SYS_ADMIN\n+optional",
+          "description": "AllowPrivilegeEscalation controls whether a process can gain more\nprivileges than its parent process. This bool directly controls if\nthe no_new_privs flag will be set on the container process.\nAllowPrivilegeEscalation is true always when the container is:\n1) run as Privileged\n2) has CAP_SYS_ADMIN\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "boolean",
           "x-go-name": "AllowPrivilegeEscalation"
         },
@@ -5268,7 +6077,7 @@
           "$ref": "#/definitions/Capabilities"
         },
         "privileged": {
-          "description": "Run container in privileged mode.\nProcesses in privileged containers are essentially equivalent to root on the host.\nDefaults to false.\n+optional",
+          "description": "Run container in privileged mode.\nProcesses in privileged containers are essentially equivalent to root on the host.\nDefaults to false.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "boolean",
           "x-go-name": "Privileged"
         },
@@ -5276,12 +6085,12 @@
           "$ref": "#/definitions/ProcMountType"
         },
         "readOnlyRootFilesystem": {
-          "description": "Whether this container has a read-only root filesystem.\nDefault is false.\n+optional",
+          "description": "Whether this container has a read-only root filesystem.\nDefault is false.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "boolean",
           "x-go-name": "ReadOnlyRootFilesystem"
         },
         "runAsGroup": {
-          "description": "The GID to run the entrypoint of the container process.\nUses runtime default if unset.\nMay also be set in PodSecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence.\n+optional",
+          "description": "The GID to run the entrypoint of the container process.\nUses runtime default if unset.\nMay also be set in PodSecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "RunAsGroup"
@@ -5292,7 +6101,7 @@
           "x-go-name": "RunAsNonRoot"
         },
         "runAsUser": {
-          "description": "The UID to run the entrypoint of the container process.\nDefaults to user specified in image metadata if unspecified.\nMay also be set in PodSecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence.\n+optional",
+          "description": "The UID to run the entrypoint of the container process.\nDefaults to user specified in image metadata if unspecified.\nMay also be set in PodSecurityContext.  If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence.\nNote that this field cannot be set when spec.os.name is windows.\n+optional",
           "type": "integer",
           "format": "int64",
           "x-go-name": "RunAsUser"
@@ -5308,6 +6117,83 @@
         }
       },
       "x-go-package": "k8s.io/api/core/v1"
+    },
+    "SecurityEnvConfig": {
+      "type": "object",
+      "title": "SecurityEnvConfig configures setting environment variables.",
+      "properties": {
+        "allow": {
+          "description": "Allow takes effect when Mode is ExecutionPolicyFilter and only allows the specified environment variables to be\nset.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Allow"
+        },
+        "deny": {
+          "description": "Allow takes effect when Mode is not ExecutionPolicyDisable and disallows the specified environment variables to\nbe set.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Deny"
+        },
+        "mode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SecurityExecutionPolicy": {
+      "type": "string",
+      "title": "SecurityExecutionPolicy drives how to treat a certain request.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SecurityShellConfig": {
+      "type": "object",
+      "title": "SecurityShellConfig controls shell executions via SSH.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SecuritySignalConfig": {
+      "type": "object",
+      "title": "SecuritySignalConfig configures how signal forwarding requests are treated.",
+      "properties": {
+        "allow": {
+          "description": "Allow takes effect when Mode is ExecutionPolicyFilter and only allows the specified signals to be forwarded.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Allow"
+        },
+        "deny": {
+          "description": "Allow takes effect when Mode is not ExecutionPolicyDisable and disallows the specified signals to be forwarded.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Deny"
+        },
+        "mode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
+    },
+    "SecurityTTYConfig": {
+      "type": "object",
+      "title": "SecurityTTYConfig controls how to treat TTY/PTY requests by clients.",
+      "properties": {
+        "mode": {
+          "$ref": "#/definitions/SecurityExecutionPolicy"
+        }
+      },
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "ServiceAccountTokenProjection": {
       "description": "ServiceAccountTokenProjection represents a projected service account token\nvolume. This projection can be used to insert a service account token into\nthe pods runtime filesystem for use against APIs (Kubernetes API Server or\notherwise).",
@@ -5345,42 +6231,6 @@
         }
       },
       "x-go-package": "github.com/docker/docker/api/types"
-    },
-    "ShellConfig": {
-      "type": "object",
-      "title": "ShellConfig controls shell executions via SSH.",
-      "properties": {
-        "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
-        }
-      },
-      "x-go-package": "github.com/containerssh/security"
-    },
-    "SignalConfig": {
-      "type": "object",
-      "title": "SignalConfig configures how signal forwarding requests are treated.",
-      "properties": {
-        "allow": {
-          "description": "Allow takes effect when Mode is ExecutionPolicyFilter and only allows the specified signals to be forwarded.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Allow"
-        },
-        "deny": {
-          "description": "Allow takes effect when Mode is not ExecutionPolicyDisable and disallows the specified signals to be forwarded.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "x-go-name": "Deny"
-        },
-        "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
-        }
-      },
-      "x-go-package": "github.com/containerssh/security"
     },
     "StorageMedium": {
       "type": "string",
@@ -5447,10 +6297,10 @@
           "x-go-name": "Deny"
         },
         "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
+          "$ref": "#/definitions/SecurityExecutionPolicy"
         }
       },
-      "x-go-package": "github.com/containerssh/security"
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "Sysctl": {
       "description": "Sysctl defines a kernel parameter to be set",
@@ -5484,21 +6334,18 @@
       },
       "x-go-package": "k8s.io/api/core/v1"
     },
-    "TTYConfig": {
-      "type": "object",
-      "title": "TTYConfig controls how to treat TTY/PTY requests by clients.",
-      "properties": {
-        "mode": {
-          "$ref": "#/definitions/ExecutionPolicy"
-        }
-      },
-      "x-go-package": "github.com/containerssh/security"
+    "TLSVersion": {
+      "type": "string",
+      "title": "TLSVersion is the version of the TLS protocol to use.",
+      "x-go-package": "go.containerssh.io/libcontainerssh/config"
     },
     "TaintEffect": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
     "TerminationMessagePolicy": {
+      "description": "+enum",
       "type": "string",
       "title": "TerminationMessagePolicy describes how termination messages are retrieved from a container.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -5516,38 +6363,6 @@
         }
       },
       "x-go-package": "github.com/docker/docker/api/types/blkiodev"
-    },
-    "Time": {
-      "description": "Programs using times should typically store and pass them as values,\nnot pointers. That is, time variables and struct fields should be of\ntype time.Time, not *time.Time.\n\nA Time value can be used by multiple goroutines simultaneously except\nthat the methods GobDecode, UnmarshalBinary, UnmarshalJSON and\nUnmarshalText are not concurrency-safe.\n\nTime instants can be compared using the Before, After, and Equal methods.\nThe Sub method subtracts two instants, producing a Duration.\nThe Add method adds a Time and a Duration, producing a Time.\n\nThe zero value of type Time is January 1, year 1, 00:00:00.000000000 UTC.\nAs this time is unlikely to come up in practice, the IsZero method gives\na simple way of detecting a time that has not been initialized explicitly.\n\nEach Time has associated with it a Location, consulted when computing the\npresentation form of the time, such as in the Format, Hour, and Year methods.\nThe methods Local, UTC, and In return a Time with a specific location.\nChanging the location in this way changes only the presentation; it does not\nchange the instant in time being denoted and therefore does not affect the\ncomputations described in earlier paragraphs.\n\nRepresentations of a Time value saved by the GobEncode, MarshalBinary,\nMarshalJSON, and MarshalText methods store the Time.Location's offset, but not\nthe location name. They therefore lose information about Daylight Saving Time.\n\nIn addition to the required “wall clock” reading, a Time may contain an optional\nreading of the current process's monotonic clock, to provide additional precision\nfor comparison or subtraction.\nSee the “Monotonic Clocks” section in the package documentation for details.\n\nNote that the Go == operator compares not just the time instant but also the\nLocation and the monotonic clock reading. Therefore, Time values should not\nbe used as map or database keys without first guaranteeing that the\nidentical Location has been set for all values, which can be achieved\nthrough use of the UTC or Local method, and that the monotonic clock reading\nhas been stripped by setting t = t.Round(0). In general, prefer t.Equal(u)\nto t == u, since t.Equal uses the most accurate comparison available and\ncorrectly handles the case when only one of its arguments has a monotonic\nclock reading.",
-      "type": "string",
-      "format": "date-time",
-      "title": "A Time represents an instant in time with nanosecond precision.",
-      "x-go-package": "k8s.io/apimachinery/pkg/apis/meta/v1"
-    },
-    "TimeoutConfig": {
-      "type": "object",
-      "title": "TimeoutConfig configures the various timeouts for the Kubernetes backend.",
-      "properties": {
-        "commandStart": {
-          "$ref": "#/definitions/Duration"
-        },
-        "http": {
-          "$ref": "#/definitions/Duration"
-        },
-        "podStart": {
-          "$ref": "#/definitions/Duration"
-        },
-        "podStop": {
-          "$ref": "#/definitions/Duration"
-        },
-        "signal": {
-          "$ref": "#/definitions/Duration"
-        },
-        "window": {
-          "$ref": "#/definitions/Duration"
-        }
-      },
-      "x-go-package": "github.com/containerssh/kubernetes/v2"
     },
     "TmpfsOptions": {
       "type": "object",
@@ -5594,6 +6409,7 @@
       "x-go-package": "k8s.io/api/core/v1"
     },
     "TolerationOperator": {
+      "description": "+enum",
       "type": "string",
       "title": "A toleration operator is the set of operators that can be used in a toleration.",
       "x-go-package": "k8s.io/api/core/v1"
@@ -5629,7 +6445,7 @@
       "x-go-package": "k8s.io/apimachinery/pkg/util/intstr"
     },
     "TypedLocalObjectReference": {
-      "description": "TypedLocalObjectReference contains enough information to let you locate the\ntyped referenced object inside the same namespace.",
+      "description": "TypedLocalObjectReference contains enough information to let you locate the\ntyped referenced object inside the same namespace.\n+structType=atomic",
       "type": "object",
       "properties": {
         "apiGroup": {
@@ -5656,7 +6472,7 @@
       "x-go-package": "k8s.io/apimachinery/pkg/types"
     },
     "URIScheme": {
-      "description": "URIScheme identifies the scheme used for connection to a host for Get actions",
+      "description": "URIScheme identifies the scheme used for connection to a host for Get actions\n+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -5684,6 +6500,7 @@
       "x-go-package": "github.com/docker/go-units"
     },
     "UnsatisfiableConstraintAction": {
+      "description": "+enum",
       "type": "string",
       "x-go-package": "k8s.io/api/core/v1"
     },
@@ -6136,6 +6953,11 @@
           "type": "string",
           "x-go-name": "GMSACredentialSpecName"
         },
+        "hostProcess": {
+          "description": "HostProcess determines if a container should be run as a 'Host Process' container.\nThis field is alpha-level and will only be honored by components that enable the\nWindowsHostProcessContainers feature flag. Setting this field without the feature\nflag will result in errors when validating the Pod. All of a Pod's containers must\nhave the same effective HostProcess value (it is not allowed to have a mix of HostProcess\ncontainers and non-HostProcess containers).  In addition, if HostProcess is true\nthen HostNetwork must also be set to true.\n+optional",
+          "type": "boolean",
+          "x-go-name": "HostProcess"
+        },
         "runAsUserName": {
           "description": "The UserName in Windows to run the entrypoint of the container process.\nDefaults to the user specified in image metadata if unspecified.\nMay also be set in PodSecurityContext. If set in both SecurityContext and\nPodSecurityContext, the value specified in SecurityContext takes precedence.\n+optional",
           "type": "string",
@@ -6149,11 +6971,14 @@
     "AuthResponse": {
       "description": "Response is the full HTTP authentication response.",
       "schema": {
-        "$ref": "#/definitions/AuthResponseBody"
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/BinaryMetadataValue"
+        }
       }
     },
     "ConfigResponse": {
-      "description": "ConfigResponse is the entire response from the config server",
+      "description": "Response is the entire response from the config server",
       "schema": {
         "$ref": "#/definitions/ConfigResponseBody"
       }
