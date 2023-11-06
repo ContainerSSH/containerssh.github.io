@@ -2,6 +2,7 @@
 date: 2021-04-01
 title: "ContainerSSH 0.4: Audit & Proxy"
 description: "We are announcing the immediate availability of ContainerSSH 0.4: Audit & Proxy"
+slug: containerssh-0-4
 image: images/blog/containerssh-0-4/preview.png
 alt: "ContainerSSH 0.4: Audit & Proxy. This is no april fool’s joke: ContainerSSH 0.4 is now available. We are adding detailed SSH audit log, SSH proxying, better logging, improved backends, and much more! Click here for details."
 ---

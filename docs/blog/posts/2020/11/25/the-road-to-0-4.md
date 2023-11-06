@@ -2,6 +2,7 @@
 date: 2020-11-25
 title: "The road to ContainerSSH 0.4: modularized structure, audit logging, and more"
 description: "What happened to ContainerSSH 0.4? Why is it not released yet?"
+slug: the-road-to-0-4
 image: images/blog/the-road-to-0-4/preview.png
 ---
 

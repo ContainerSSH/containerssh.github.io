@@ -2,6 +2,7 @@
 date: 2020-12-24
 title: Announcing the ContainerSSH Guest Agent
 description: The new ContainerSSH guest agent will level the playing field across container backends.
+slug: the-agent
 ---
 
 

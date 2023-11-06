@@ -2,6 +2,7 @@
 date: 2021-05-26
 title: "ContainerSSH 0.4.1: Bugfixing Audit & Proxy"
 description: "We are announcing the immediate availability of ContainerSSH 0.4.1: Bugfixing Audit & Proxy"
+slug: containerssh-0-4-1
 ---
 
 # ContainerSSH 0.4.1: Bugfixing Audit & Proxy

@@ -2,6 +2,7 @@
 date: 2021-03-19
 title: We broke your images
 description: Two days ago we pushed a change that broke all ContainerSSH container images on the Docker hub.
+slug: we-messed-up
 image: images/blog/we-messed-up/preview.png
 ---
 

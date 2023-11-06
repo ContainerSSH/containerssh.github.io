@@ -2,6 +2,7 @@
 date: 2021-04-13
 title: "DevLog: SSH authentication via OAuth2"
 description: "Authenticating an SSH session over OAuth2 sounds crazy? Not as much as you'd think!"
+slug: devlog-oauth2
 image: images/blog/devlog-oauth2/preview.png
 ---
 
