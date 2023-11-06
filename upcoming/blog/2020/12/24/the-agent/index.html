@@ -7,15 +7,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="What happened to ContainerSSH 0.4? Why is it not released yet?">
+        <meta name="description" content="The new ContainerSSH guest agent will level the playing field across container backends.">
       
       
       
-        <link rel="canonical" href="https://containerssh.io/upcoming/blog/2020/11/25/the-road-to-containerssh-04-modularized-structure-audit-logging-and-more/">
+        <link rel="canonical" href="https://containerssh.io/upcoming/blog/2020/12/24/the-agent/">
       
       
+        <link rel="prev" href="../../../11/25/the-road-to-0-4/">
       
-        <link rel="next" href="../../../12/24/announcing-the-containerssh-guest-agent/">
+      
+        <link rel="next" href="../../../../2021/03/19/we-messed-up/">
       
       
       <link rel="icon" href="../../../../../images/logo.svg">
@@ -29,31 +31,29 @@
   
   
   
-    
-  
   
   
     
   
   <meta property="og:type" content="website">
-  <meta property="og:title" content="The road to ContainerSSH 0.4: modularized structure, audit logging, and more">
+  <meta property="og:title" content="Announcing the ContainerSSH Guest Agent">
   <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
-  <meta property="og:description" content="What happened to ContainerSSH 0.4? Why is it not released yet?">
-  <meta property="og:url" content="https://containerssh.io/upcoming/blog/2020/11/25/the-road-to-containerssh-04-modularized-structure-audit-logging-and-more/">
-  <meta property="og:image" content="https://containerssh.io/upcomingimages/blog/the-road-to-0-4/preview.png">
+  <meta property="og:description" content="The new ContainerSSH guest agent will level the playing field across container backends.">
+  <meta property="og:url" content="https://containerssh.io/upcoming/blog/2020/12/24/the-agent/">
+  <meta property="og:image" content="https://containerssh.io/upcoming/images/social.png">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
-  <meta name="twitter:title" content="The road to ContainerSSH 0.4: modularized structure, audit logging, and more">
-  <meta name="twitter:description" content="What happened to ContainerSSH 0.4? Why is it not released yet?">
-  <meta name="twitter:image" content="https://containerssh.io/upcomingimages/blog/the-road-to-0-4/preview.png">
+  <meta name="twitter:title" content="Announcing the ContainerSSH Guest Agent">
+  <meta name="twitter:description" content="The new ContainerSSH guest agent will level the playing field across container backends.">
+  <meta name="twitter:image" content="https://containerssh.io/upcoming/images/social.png">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
   <meta name="google-site-verification" content="VN4-Orfu-TOf9hXInR_ZdaZXQJDiak-dmPuaBc9TlwE" />
 
     
       
-        <title>The road to ContainerSSH 0.4: modularized structure, audit logging, and more - ContainerSSH: Launch containers on demand</title>
+        <title>Announcing the ContainerSSH Guest Agent - ContainerSSH: Launch containers on demand</title>
       
     
     
@@ -100,7 +100,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-road-to-containerssh-04-modularized-structure-audit-logging-and-more" class="md-skip">
+        <a href="#announcing-the-containerssh-guest-agent" class="md-skip">
           Skip to content
         </a>
       
@@ -161,7 +161,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              The road to ContainerSSH 0.4: modularized structure, audit logging, and more
+              Announcing the ContainerSSH Guest Agent
             
           </span>
         </div>
@@ -2862,7 +2862,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2020-11-25 00:00:00" class="md-ellipsis">November 25, 2020</time>
+                        <time datetime="2020-12-24 00:00:00" class="md-ellipsis">December 24, 2020</time>
                       </div>
                     </li>
                     
@@ -2897,19 +2897,16 @@
   
 
 
-<h1 id="the-road-to-containerssh-04-modularized-structure-audit-logging-and-more">The road to ContainerSSH 0.4: modularized structure, audit logging, and more<a class="headerlink" href="#the-road-to-containerssh-04-modularized-structure-audit-logging-and-more" title="Permanent link">&para;</a></h1>
-<p>After a rapid rush of releases this summer we have announced that version 0.4.0 would have a long-awaited feature: <a href="/reference/audit">detailed audit logging</a>. This feature would allow for a forensic reconstruction of an SSH session. The use cases for this are diverse: from building honeypots to securing a corporate environment. We even published a <a href="https://github.com/ContainerSSH/ContainerSSH/releases/tag/0.4.0-PR1">preview release</a> for test driving this feature. We even implemented an automatic upload for the audit logs to an S3-compatible object storage. So, what happened? <strong>Why isn't 0.4.0 released yet?</strong></p>
+<h1 id="announcing-the-containerssh-guest-agent">Announcing the ContainerSSH Guest Agent<a class="headerlink" href="#announcing-the-containerssh-guest-agent" title="Permanent link">&para;</a></h1>
+<p>ContainerSSH is an integration project between the SSH library and the Docker and Kubernetes API. However, neither the Docker nor the Kubernetes API have been designed to host some of the more intricate SSH specific features.</p>
+<p>For example, the Kubernetes "attach" API does not allow for retrieving the output of the command running in the container that happened before attaching reliably,and neither Docker nor Kubernetes allow sending signals to commands running in an "exec", etc.</p>
 <!-- more -->
 
-<p>The delay has everything to do with <em>maintainability</em>. The PR-1 implementation of the audit logging was built right into ContainerSSH causing a deluge of code changes. While it technically worked, it blew up the code in size and made features extremely hard to test. Look at <a href="https://github.com/ContainerSSH/ContainerSSH/blob/0.4.0-PR1/ssh/server/server.go#L231">this code, for example</a>. The actual authentication code dwarfs in comparison to the audit logging parts. You could say, the code violates the <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">Single Responsibility Principle</a>. There is no way we could retrofit component-level tests into this.</p>
-<p>When we began work on ContainerSSH we knew that the code quality was prototype-level at best and we'd have to overhaul large parts before the <code>1.0</code> release. In essence, <strong>version <code>0.4</code> became the release to make that overhaul happen.</strong> We started pulling out large parts of the codebase into <a href="/contributing/libraries/">independent libraries</a> and started retrofitting them with unittests. Needless to say, moving from only having a few integration tests to writing unittests for each component unearthed a slew of bugs, which were promptly fixed.</p>
-<p>Starting ContainerSSH with a prototyping approach wasn't a bad decision, though: it helped us getting something working fairly quickly and kept motivation high. This is especially important with a purely open source project.</p>
-<p>Pulling everything apart into separate libraries also gave us a couple of additional advantages. We created <strong>developer documentation for each library</strong>, and we now also have the ability to extend ContainerSSH in a significant way.</p>
-<p>ContainerSSH now has <a href="https://github.com/containerssh/sshserver">clean APIs to handle SSH events</a>. These clean APIs allow developers to plug in <em>additional functionality</em> without breaking any existing features. For example, the audit log functionality is <a href="https://github.com/containerssh/auditlogintegration">integrated in a separate repository with this approach</a>.</p>
-<p>Using a layered approach gives us quite a few options. One idea we are toying with is to create <a href="https://github.com/ContainerSSH/ContainerSSH/issues/65">an SSH proxy</a> that forwards connections to a backend SSH server. This would allow users to deploy ContainerSSH as a pure audit logging facility.</p>
-<p>Another idea is to build in <a href="https://github.com/ContainerSSH/ContainerSSH/issues/64">PAM authentication</a> and <a href="https://github.com/ContainerSSH/ContainerSSH/issues/66">enable a direct shell on the host</a>, which would enable ContainerSSH to function as a replacement for OpenSSH with the added functionality of audit logging.</p>
-<p>If you like these ideas please comment on the issues linked above and <a href="https://github.com/ContainerSSH/ContainerSSH/issues">let us know about your use case</a>.</p>
-<p><strong>So, when is <code>0.4</code> coming out?</strong> We don't know yet. Our <em>plan is early next year</em>, but our focus in this release is stability.</p>
+<p>We won't go into details on these various issues, suffice it to say, some of them break the expectations you would have for a classic SSH server. There are two paths ahead of us: either try to send pull requests to the Docker and Kubernetes projects to patch these features in, or add a guest agent to the container images that enable these extra features.</p>
+<p>Sending in patches to enable all the functionality would be a very long process and chances are that our patches wouldn't be accepted as they add additional functionality that is, admittedly, fringe for most users. Therefore, we opted to <a href="https://github.com/containerssh/agent">build a guest agent</a>.</p>
+<p>The ContainerSSH guest agent is a binary containing only minimal functionality and no external dependencies that can easily be added to any container image as a single binary. We have already added it to the default <code>containerssh/containerssh-guest-image</code> and <strong>we encourage users who built their own image to include the agent as well</strong> and keep it updated. Please see <a href="https://github.com/containerssh/agent">github.com/containerssh/agent</a> for details.</p>
+<p>That being said, the guest image is and will be optional. It will be a feature that needs to be explicitly enabled in the configuration. <strong>Guest agent support will arrive in ContainerSSH 0.4</strong> after the holidays.</p>
+<p>Merry Christmas and Happy Holidays!</p>
 
 
 

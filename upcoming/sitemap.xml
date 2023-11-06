@@ -41,32 +41,32 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2020/11/25/the-road-to-containerssh-04-modularized-structure-audit-logging-and-more/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2020/11/25/the-road-to-0-4/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2020/12/24/announcing-the-containerssh-guest-agent/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2020/12/24/the-agent/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2021/03/19/we-broke-your-images/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2021/03/19/we-messed-up/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2021/04/01/containerssh-04-audit-proxy/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2021/04/01/containerssh-0-4/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2021/04/13/devlog-ssh-authentication-via-oauth2/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2021/04/13/devlog-oauth2/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://containerssh.io/upcoming/blog/2021/05/26/containerssh-041-bugfixing-audit-proxy/</loc>
+         <loc>https://containerssh.io/upcoming/blog/2021/05/26/containerssh-0-4-1/</loc>
          <lastmod>2023-11-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
