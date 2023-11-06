@@ -1,11 +1,15 @@
-title: DevLog: SSH authentication via OAuth2
-description: Authenticating an SSH session over OAuth2 sounds crazy? Not as much as you'd think!
+---
+date: 2021-04-13
+title: "DevLog: SSH authentication via OAuth2"
+description: "Authenticating an SSH session over OAuth2 sounds crazy? Not as much as you'd think!"
 image: images/blog/devlog-oauth2/preview.png
+---
 
 # DevLog: SSH authentication via OAuth2
-<div class="blog-meta"><small>April 13, 2021</small></div>
 
 Traditionally, SSH supports authentication via a number of methods. Typically, you'd use passwords or SSH keys to log in. However, other methods are also possible: keyboard-interactive can be used to ask the connecting user a series of questions. This can be used for two factor authentication, for example. GSSAPI authentication allows for using Kerberos tokens obtained, for example, by logging into a Windows domain to be used as SSH credentials.
+
+<!-- more -->
 
 ## OAuth2: Why?
 

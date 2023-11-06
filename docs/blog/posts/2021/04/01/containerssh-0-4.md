@@ -1,12 +1,16 @@
-title: ContainerSSH 0.4: Audit & Proxy
-description: We are announcing the immediate availability of ContainerSSH 0.4: Audit & Proxy
+---
+date: 2021-04-01
+title: "ContainerSSH 0.4: Audit & Proxy"
+description: "We are announcing the immediate availability of ContainerSSH 0.4: Audit & Proxy"
 image: images/blog/containerssh-0-4/preview.png
-alt: ContainerSSH 0.4: Audit & Proxy. This is no april fool’s joke: ContainerSSH 0.4 is now available. We are adding detailed SSH audit log, SSH proxying, better logging, improved backends, and much more! Click here for details.
+alt: "ContainerSSH 0.4: Audit & Proxy. This is no april fool’s joke: ContainerSSH 0.4 is now available. We are adding detailed SSH audit log, SSH proxying, better logging, improved backends, and much more! Click here for details."
+---
 
 # ContainerSSH 0.4: Audit & Proxy
-<div class="blog-meta"><small>April 1, 2021</small></div>
 
 In [November last year](../../../2020/11/25/the-road-to-0-4.md) we were optimistic that we'd be launching 0.4 early 2021 with the **new audit logging feature**. Now it is finally time: we are very proud to announce the [immediate availability of **ContainerSSH 0.4: Audit & Proxy**](../../../../downloads/index.md).
+
+<!-- more -->
 
 ## TL;DR
 

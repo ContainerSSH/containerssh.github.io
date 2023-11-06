@@ -1,13 +1,17 @@
+---
+date: 2020-12-24
 title: Announcing the ContainerSSH Guest Agent
 description: The new ContainerSSH guest agent will level the playing field across container backends.
+---
 
 
 # Announcing the ContainerSSH Guest Agent
-<div class="blog-meta"><small>December 24, 2020</small></div>
 
 ContainerSSH is an integration project between the SSH library and the Docker and Kubernetes API. However, neither the Docker nor the Kubernetes API have been designed to host some of the more intricate SSH specific features.
 
 For example, the Kubernetes "attach" API does not allow for retrieving the output of the command running in the container that happened before attaching reliably,and neither Docker nor Kubernetes allow sending signals to commands running in an "exec", etc.
+
+<!-- more -->
 
 We won't go into details on these various issues, suffice it to say, some of them break the expectations you would have for a classic SSH server. There are two paths ahead of us: either try to send pull requests to the Docker and Kubernetes projects to patch these features in, or add a guest agent to the container images that enable these extra features.
 

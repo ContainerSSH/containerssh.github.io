@@ -1,11 +1,11 @@
 ---
+date: 2021-03-19
 title: We broke your images
 description: Two days ago we pushed a change that broke all ContainerSSH container images on the Docker hub.
 image: images/blog/we-messed-up/preview.png
 ---
 
 # We broke your images 😢
-<div class="blog-meta"><small>March 19, 2021</small></div>
 
 Two days ago, on *March 17, 2021 around 4:30 PM UTC* we pushed a change to our build system that broke the container images we published on the [Docker Hub](https://hub.docker.com/u/containerssh/). This change resulted in the following error when running the container:
 
@@ -27,6 +27,8 @@ If you are affected by this issue you can pull the fixed ContainerSSH image by p
     Please set the `imagePullPolicy` in your pod spec to `Always` or switch to the image `containerssh/containerssh:<version>-20200318`
 
 The `<version>` tag in this case should be replaced with your ContainerSSH version (e.g. `0.3.1`).
+
+<!-- more -->
 
 **There is no way around it: we messed up.** Pretty badly at that, we potentially broke your production environment without an easy way to roll back to a previous version. This should not happen, not even in a pre-1.0 version, especially not with something as trivial as a permission mistake.
 
