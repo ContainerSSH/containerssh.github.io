@@ -14,9 +14,10 @@ We have tested the following clients and know them to work:
 
 Forwarding is disabled by default, you can enable it via the [security settings](./security.md). Currently only enable/disable directives are supported, no filtering rules. In order for specific ports to be forwarded, or a specific forwarding function please consult the documentation of your SSH Client. 
 
-In order to enable all forwarding functionality the following config can be used:
+In order to enable all forwarding functionality the following configuration can be used:
 
 ```yaml
+security:
     forwarding:
         reverseForwardingMode: enable
         forwardingMode: enable
