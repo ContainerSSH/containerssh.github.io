@@ -48,13 +48,6 @@ ContainerSSH supports a number of authentication backends. The table below summa
 which SSH authentication method. You can configure multiple backends in parallel, but one SSH authentication
 method is always tied to one backend.
 
-| SSH authentication method | Webhook               | OAuth2                | Kerberos              |
-|---------------------------|-----------------------|-----------------------|-----------------------|
-| Password                  | :material-check-bold: | :material-close:      | :material-check-bold: |
-| Public key                | :material-check-bold: | :material-close:      | :material-close:      |
-| Keyboard-interactive      | :material-close:      | :material-check-bold: | :material-close:      |
-| GSSAPI                    | :material-close:      | :material-close:      | :material-check-bold: |
-
 | ContainerSSH Backend     | Password              | Public-Key            |  Keyboard-interactive |  GSSAPI               |
 |--------------------------|-----------------------|-----------------------|-----------------------|-----------------------|
 | Webhook support          | :material-check-bold: | :material-check-bold: | :material-close:      | :material-close:      |
