@@ -1,0 +1,26 @@
+<TaskOptions>
+  <TaskOptions>
+    <option name="arguments" value="run --disable=typecheck $FileDir$ -E asciicheck -E bodyclose -E dupl -E errorlint -E exportloopref -E funlen" />
+    <option name="checkSyntaxErrors" value="true" />
+    <option name="description" />
+    <option name="exitCodeBehavior" value="ERROR" />
+    <option name="fileExtension" value="go" />
+    <option name="immediateSync" value="false" />
+    <option name="name" value="golangci-lint" />
+    <option name="output" value="" />
+    <option name="outputFilters">
+      <array />
+    </option>
+    <option name="outputFromStdout" value="false" />
+    <option name="program" value="golangci-lint.exe" />
+    <option name="runOnExternalChanges" value="true" />
+    <option name="scopeName" value="Project Files" />
+    <option name="trackOnlyRoot" value="true" />
+    <option name="workingDir" value="$ProjectFileDir$" />
+    <envs>
+      <env name="GOROOT" value="$GOROOT$" />
+      <env name="GOPATH" value="$GOPATH$" />
+      <env name="PATH" value="$GoBinDirs$" />
+    </envs>
+  </TaskOptions>
+</TaskOptions>
