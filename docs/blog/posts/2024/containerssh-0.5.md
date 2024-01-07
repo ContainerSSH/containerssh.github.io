@@ -1,10 +1,10 @@
 ---
-date: 2024-01-06
+date: 2024-01-07
 title: "ContainerSSH 0.5: Everything but the kitchen sink"
 description: "ContainerSSH 0.5 has been released, including a huge amount of changes and features. Port forwarding, ..."
 ---
 
-# ContainerSSH 0.5: Everything but the kitchen sink
+# ContainerSSH 0.5: Everything but the Kitchen Sink
 
 After a long slumber ContainerSSH is back with a brand new release! A tremendous amount of changes have been incorporated since the last release including multiple codebase refactors, a move to a monorepo setup for our internal modules and many long and highly requested features such as Oauth2, Kerberos authentication, port and connection forwarding and an advanced metadata handling system.
 
