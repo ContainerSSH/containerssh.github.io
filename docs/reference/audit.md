@@ -104,7 +104,7 @@ The file storage writes audit logs to files on the disk. The storage location ca
 
 ```yaml
 audit:
-  type: file
+  storage: file
   file:
     directory: /var/log/audit
 ```
