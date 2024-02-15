@@ -20,10 +20,10 @@
   "paths": {
     "/authz": {
       "post": {
-        "description": "Authorization",
         "tags": [
           "Authentication"
         ],
+        "summary": "Authorization",
         "operationId": "authz",
         "parameters": [
           {
@@ -69,10 +69,10 @@
     },
     "/password": {
       "post": {
-        "description": "Password authentication",
         "tags": [
           "Authentication"
         ],
+        "summary": "Password authentication",
         "operationId": "authPassword",
         "parameters": [
           {
@@ -94,10 +94,10 @@
     },
     "/pubkey": {
       "post": {
-        "description": "Public key authentication",
         "tags": [
           "Authentication"
         ],
+        "summary": "Public key authentication",
         "operationId": "authPubKey",
         "parameters": [
           {
@@ -2967,7 +2967,7 @@
         "Ulimits": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Ulimit"
+            "type": "string"
           }
         },
         "UsernsMode": {
@@ -5673,16 +5673,15 @@
         "Ulimits": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Ulimit"
+            "type": "string"
           }
         }
       },
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
     "RestartPolicy": {
-      "description": "Only one of the following restart policies may be specified.\nIf none of the following policies is specified, the default one\nis RestartPolicyAlways.\n+enum",
-      "type": "string",
-      "title": "RestartPolicy describes how the container should be restarted.",
+      "type": "object",
+      "title": "RestartPolicy represents the restart policies of the container.",
       "properties": {
         "MaximumRetryCount": {
           "type": "integer",
@@ -5692,7 +5691,7 @@
           "type": "string"
         }
       },
-      "x-go-package": "k8s.io/api/core/v1"
+      "x-go-package": "github.com/docker/docker/api/types/container"
     },
     "SELinuxOptions": {
       "description": "SELinuxOptions are the labels to be applied to the container",
@@ -6481,24 +6480,6 @@
       "title": "UTSMode represents the UTS namespace of the container.",
       "x-go-package": "github.com/docker/docker/api/types/container"
     },
-    "Ulimit": {
-      "type": "object",
-      "title": "Ulimit is a human friendly version of Rlimit.",
-      "properties": {
-        "Hard": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "Name": {
-          "type": "string"
-        },
-        "Soft": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "x-go-package": "github.com/docker/go-units"
-    },
     "UnsatisfiableConstraintAction": {
       "description": "+enum",
       "type": "string",
@@ -6971,10 +6952,7 @@
     "AuthResponse": {
       "description": "Response is the full HTTP authentication response.",
       "schema": {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/definitions/BinaryMetadataValue"
-        }
+        "$ref": "#/definitions/AuthResponseBody"
       }
     },
     "ConfigResponse": {
