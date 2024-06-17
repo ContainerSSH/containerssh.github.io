@@ -36,7 +36,7 @@ The public key auth ContainerSSH will call out to `/pubkey` in the following for
 }
 ```
 
-The public key is provided in the SSH wire format in base64 encoding.
+The public key is provided in the SSH authorized key format.
 
 Your server will need to respond with the following JSON:
 
