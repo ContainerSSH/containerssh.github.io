@@ -9,11 +9,11 @@
     ContainerSSH can be installed in a containerized system (Kubernetes, Docker, Podman) by referencing the following image names:
     
     ```
-    containerssh/containerssh:0.5
-    containerssh/containerssh:0.5.1
+    containerssh/containerssh:v0.5
+    containerssh/containerssh:v0.5.1
 
-    quay.io/containerssh/containerssh:0.5
-    quay.io/containerssh/containerssh:0.5.1
+    quay.io/containerssh/containerssh:v0.5
+    quay.io/containerssh/containerssh:v0.5.1
     ```
     
     Our container images are built on **Alpine Linux (x86, 64 bit)**.
