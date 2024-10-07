@@ -32,7 +32,7 @@ from configuring a webserver. (x509 certificates) SSH certificate authorities ar
 capabilities as x509 authorities. They do not provide the ability to chain certificates, and they also don't provide a 
 built-in mechanism for certificate revocation other than the expiration date of the certificate.
 
-### Keyboard-interfactive authentication
+### Keyboard-interactive authentication
 
 At first glance keyboard-interactive authentication is very similar to password authentication. However, with this
 method the SSH server can provide customized questions to the client, to which the user has to provide answers. There
