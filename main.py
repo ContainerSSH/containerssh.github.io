@@ -522,20 +522,20 @@ gh_client = GitHubClient(os.getenv("GITHUB_TOKEN"), "ContainerSSH", "ContainerSS
 contributorsReader = ContributorsFileReader(os.path.join(os.getcwd(), "contributors.yaml"), gh_client)
 
 
-def declare_variables(variables, macro):
-    @macro
+def define_env(env):
+    @env.macro
     def since(version):
         """Add a button"""
         HTML = """<a href="https://github.com/containerssh/containerssh/releases" target="_blank"><span class="since"><span class="since__hide">(</span><span class="since__text">since</span> <span class="since__value">%s</span><span class="since__hide">)</span></span></a>"""
         return HTML % (version)
 
-    @macro
+    @env.macro
     def upcoming(version):
         "Upcoming version"
         HTML = """<span class="since"><span class="since__hide">(</span><span class="since__text">upcoming in</span> <span class="since__value">%s</span><span class="since__hide">)</span></span>"""
         return HTML % (version)
 
-    @macro
+    @env.macro
     def days_ago(date):
         if not date:
             return ""
@@ -545,21 +545,21 @@ def declare_variables(variables, macro):
         else:
             return "%d days ago" % delta.days
 
-    @macro
+    @env.macro
     def github_repos() -> List[GitHubRepo]:
         return gh_client.get_repos()
 
-    @macro
+    @env.macro
     def get_milestones():
         return gh_client.get_milestones()
 
-    @macro
+    @env.macro
     def get_version(repo: GitHubRepo) -> str:
         if repo is None or repo.last_version is None:
             return ""
         return "[%s](%s/releases/tag/%s)" % (repo.last_version, repo.url, repo.last_version)
 
-    @macro
+    @env.macro
     def github_issues() -> List[GitHubIssue]:
         result = []
         for repo in gh_client.get_repos():
@@ -567,7 +567,7 @@ def declare_variables(variables, macro):
                 result.append(issue)
         return result
 
-    @macro
+    @env.macro
     def github_prs() -> List[GitHubPR]:
         result = []
         for repo in gh_client.get_repos():
@@ -575,36 +575,36 @@ def declare_variables(variables, macro):
                 result.append(pr)
         return result
 
-    @macro
+    @env.macro
     def contributors() -> List[Contributor]:
         return contributorsReader.get_sorted_contributors()
 
-    @macro
+    @env.macro
     def reference_outdated():
         return '''
 !!! warning "Old manual"
     You are reading the reference manual of an older release. [Read the current manual &raquo;](/reference/)
 '''
 
-    @macro
+    @env.macro
     def reference_upcoming():
         return '''
 !!! warning "Upcoming release"
     You are reading the reference manual of an upcoming release. [Read the current manual &raquo;](/reference/)
 '''
 
-    @macro
+    @env.macro
     def grid_start(size=2):
         return '<div class="grid grid--{0}">'.format(size)
 
-    @macro
+    @env.macro
     def grid_end():
         return '</div>'
 
-    @macro
+    @env.macro
     def grid_item_start():
         return '<div class="grid__box">'
 
-    @macro
+    @env.macro
     def grid_item_end():
         return '</div>'
