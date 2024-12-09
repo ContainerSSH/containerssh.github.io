@@ -123,7 +123,7 @@ A new health check service has been created that can be used with Kubernetes or 
 
 ## Changes to the Prometheus integration
 
-The name of some prometheus metrics and units has been altered to adhere to the convension of the metric name ending with the unit.
+The name of some prometheus metrics and units has been altered to adhere to the convention of the metric name ending with the unit.
 
 In detail the following metrics have been modified:
 

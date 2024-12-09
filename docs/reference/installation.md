@@ -59,7 +59,7 @@
 
 === "Kubernetes"
 
-    When running ContainerSSH inside a Kubernetes cluster you must furst create a `Secret` that contains the host key.
+    When running ContainerSSH inside a Kubernetes cluster you must first create a `Secret` that contains the host key.
     
     ```bash
     openssl genrsa | kubectl create secret generic containerssh-hostkey --from-file=host.key=/dev/stdin
