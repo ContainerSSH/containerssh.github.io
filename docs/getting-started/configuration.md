@@ -59,7 +59,7 @@ ssh:
 
 === "OAuth2"
     !!! warning "Feature Preview"
-        OAuth2 support is considered as a feature preview as it doesn't have adequate test coverate
+        OAuth2 support is considered as a feature preview as it doesn't have adequate test coverage
 
     The OAuth2 authentication backend authenticates users using any OIDC-compliant OAuth2 servers for authentication (such as KeyCloak, Microsoft Active Directory Federation Services, etc) and features explicit support for GitHub and GitHub Enterprise.
 

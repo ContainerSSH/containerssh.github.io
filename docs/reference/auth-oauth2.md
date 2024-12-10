@@ -7,7 +7,7 @@ title: OAuth2 authentication
 | OAuth2 backend           | :material-close:      | :material-close:      | :material-check-bold: | :material-close:      |
 
 !!! warning "Feature Preview"
-    OAuth2 support is considered as a feature preview as it doesn't have adequate test coverate
+    OAuth2 support is considered as a feature preview as it doesn't have adequate test coverage
 
 The OAuth2 authentication backend authenticates users using any OIDC-compliant OAuth2 servers for authentication (such as KeyCloak, Microsoft Active Directory Federation Services, etc) and features explicit support for GitHub and GitHub Enterprise. Authentication is done using the `keyboard-interactive` SSH authentication mechanism which is supported by most, but not all, SSH clients.
 
