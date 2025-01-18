@@ -23,7 +23,7 @@ The configuration webhook is a simple JSON `POST` request to which the server mu
     We have an [OpenAPI document](../api/authconfig) available for the authentication and configuration server. You can check the exact values available there, or use the OpenAPI document to generate parts of your server code.
 
 !!! tip
-    We provide a [Go library](https://github.com/ContainerSSH/libcontainerssh) to create a configuration server.
+    We provide a [Go library](https://github.com/ContainerSSH/ContainerSSH?tab=readme-ov-file#building-a-configuration-webhook-server) to create a configuration server.
     
 The config server will receive a request in following format:
 
@@ -93,4 +93,4 @@ Currently only the following options can be set from the configuration server:
 - [Security](security.md)
 
 !!! tip
-    We provide a [Go library to implement a config server](https://github.com/containerssh/libcontainerssh).
+    We provide a [Go library to implement a config server](https://github.com/ContainerSSH/ContainerSSH?tab=readme-ov-file#building-a-configuration-webhook-server).
