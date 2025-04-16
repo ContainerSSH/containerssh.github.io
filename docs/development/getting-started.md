@@ -42,7 +42,7 @@ log:
 ssh:
   hostkeys:
     - ssh_host_rsa_key
-backend: dockerrun
+backend: docker
 auth:
   url: "http://127.0.0.1:8080"
   pubkey: false
