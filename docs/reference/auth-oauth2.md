@@ -98,6 +98,10 @@ auth:
         url: https://your-oidc-server.example.com/
         deviceFlow: true|false
         authorizationCodeFlow: true|false
+        extraScopes:
+          - scope1
+          - scope2
+        enforceScopes: true
         <other oidc options>
 ```
 
@@ -109,6 +113,8 @@ The following configuration options are supported:
 | `authorizationCodeFlow` | `bool` | Use authorization code flow when authenticating. Defaults to false. |
 | `usernameField` | `string` | The field from the result of the userinfo OIDC endpoint to use as the username. Defaults to `sub` |
 | `redirectURI` | `string` | The URI the client is returned to after successful authorization flow authentication. |
+| `extraScopes` | `[]string` | A list of extra scopes to request from the user in addition to "openid". |
+| `enforceScopes` | `bool` | If set to `true` the authentication will fail if the user doesn't grant the scopes requested in `extraScopes`. |
 
 The device flow takes precedence over the authorization code flow if enabled.
 
