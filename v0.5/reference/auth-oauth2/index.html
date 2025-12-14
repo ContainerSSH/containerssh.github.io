@@ -4213,6 +4213,10 @@ root@containerssh-fxsjd:/#
 <span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-oidc-server.example.com/</span>
 <span class="w">        </span><span class="nt">deviceFlow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true|false</span>
 <span class="w">        </span><span class="nt">authorizationCodeFlow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true|false</span>
+<span class="w">        </span><span class="nt">extraScopes</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scope1</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scope2</span>
+<span class="w">        </span><span class="nt">enforceScopes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">&lt;other oidc options&gt;</span>
 </code></pre></div>
 <p>The following configuration options are supported:</p>
@@ -4244,6 +4248,16 @@ root@containerssh-fxsjd:/#
 <td><code>redirectURI</code></td>
 <td><code>string</code></td>
 <td>The URI the client is returned to after successful authorization flow authentication.</td>
+</tr>
+<tr>
+<td><code>extraScopes</code></td>
+<td><code>[]string</code></td>
+<td>A list of extra scopes to request from the user in addition to "openid".</td>
+</tr>
+<tr>
+<td><code>enforceScopes</code></td>
+<td><code>bool</code></td>
+<td>If set to <code>true</code> the authentication will fail if the user doesn't grant the scopes requested in <code>extraScopes</code>.</td>
 </tr>
 </tbody>
 </table>

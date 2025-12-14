@@ -98,11 +98,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#macro-rendering-error" class="md-skip">
-          Skip to content
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -2609,8 +2604,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -3737,8 +3730,6 @@
   
   
   
-    
-  
   
 </nav>
                   </div>
@@ -3758,23 +3749,95 @@
   
 
 
-<h1 id="macro-rendering-error"><em>Macro Rendering Error</em><a class="headerlink" href="#macro-rendering-error" title="Permanent link">&para;</a></h1>
-<p><em>File</em>: <code>development/dashboard.md</code></p>
-<p><em>TypeError</em>: 'NoneType' object is not subscriptable</p>
-<div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/mkdocs_macros/plugin.py&quot;, line 703, in render
-    return md_template.render(**page_variables)
-  File &quot;/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/jinja2/environment.py&quot;, line 1295, in render
-    self.environment.handle_exception()
-  File &quot;/opt/hostedtoolcache/Python/3.8.18/x64/lib/python3.8/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File &quot;&lt;template&gt;&quot;, line 22, in top-level template code
-  File &quot;/home/runner/work/containerssh.github.io/containerssh.github.io/main.py&quot;, line 574, in github_prs
-    for pr in gh_client.get_repo_prs(repo.name):
-  File &quot;/home/runner/work/containerssh.github.io/containerssh.github.io/main.py&quot;, line 465, in get_repo_prs
-    pr.author = prEntry[&quot;author&quot;][&quot;login&quot;]
-TypeError: &#39;NoneType&#39; object is not subscriptable
-</code></pre></div>
+<h1>Development Dashboard</h1>
+
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Roadmap</label><label for="__tabbed_1_2">Repositories</label><label for="__tabbed_1_3">Issues</label><label for="__tabbed_1_4">Pull Requests</label><label for="__tabbed_1_5">Dependency updates</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Description</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ContainerSSH/ContainerSSH">ContainerSSH</a></td>
+<td>Main repo</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Title</th>
+<th>Milestone</th>
+<th>Created</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/ContainerSSH/ContainerSSH/issues/">ContainerSSH</a></td>
+<td><a href="http://github.com">Test issue</a></td>
+<td><a href="{{ no such element: None['url'] }}">{{ no such element: None['title'] }}</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Title</th>
+<th>Created</th>
+<th>Mergeable</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>No pull requests open.</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Repository</th>
+<th>Title</th>
+<th>Created</th>
+<th>Mergeable</th>
+<th>Checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>No dependency updates open.</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 
 
 
