@@ -199,9 +199,10 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 | Name | Type | Description |
 |------|------|-------------|
 | `consoleContainerNumber` | `uint` | Specifies the number of the container to attach to. Defaults to the first container. |
-| `mode` | `string` | Specify `connection` to launch one pod per SSH connection or `session` to run one pod per SSH session (multiple pods per connection). In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `kubectl exec` runs programs. In session mode the command is launched directly. | 
-| `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
-| `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode. Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `mode` | `string` | Specify `connection` to launch one pod per SSH connection, `session` to run one pod per SSH session (multiple pods per connection), or `persistent` to exec into an already running pod. In connection mode the container is started with the `idleCommand` as the first program and every session is launched similar to how `kubectl exec` runs programs. In session mode the command is launched directly. In persistent mode the pod must already exist (or be auto-created with `createMissingPods`). |
+| `createMissingPods` | `bool` | When set to `true` in `persistent` mode, ContainerSSH will automatically create a pod if no existing pod is found. Defaults to `false`. Only valid in `persistent` mode. |
+| `idleCommand` | `[]string` | Specifies the command to run as the first process in the container in `connection` mode (also required in `persistent` mode when `createMissingPods` is enabled). Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
+| `shellCommand` | `[]string` | Specifies the command to run as a shell in `connection` mode (also required in `persistent` mode when `createMissingPods` is enabled). Parameters must be provided as separate items in the array. Has no effect in `session` mode. |
 | `agentPath` | `string` | Contains the full path to the [ContainerSSH guest agent](https://github.com/containerssh/agent) inside the shell container. The agent must be installed in the guest image. |
 | `disableAgent` | `bool` | Disable the ContainerSSH guest agent. This will disable several functions and is *not recommended*. |
 | `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
@@ -210,6 +211,52 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 
 - In `connection` mode the `idleCommand` and `shellCommand` options are required.
 - In `session` mode the restart policy must be empty or `Never`.
+- In `persistent` mode with `createMissingPods` enabled, the `idleCommand`, `shellCommand`, and at least one container in the pod spec are required.
+
+### Persistent mode
+
+The `persistent` execution mode allows ContainerSSH to exec into an already running pod rather than creating a new one for each connection or session. This is useful when you have long-lived pods that should be reused across SSH sessions, for example pre-provisioned development environments.
+
+```yaml
+kubernetes:
+  pod:
+    mode: persistent
+    metadata:
+      name: my-existing-pod
+      namespace: default
+    spec:
+      containers:
+        - name: shell
+          image: containerssh/containerssh-guest-image
+```
+
+In persistent mode:
+
+- ContainerSSH looks up the pod by `metadata.name` and `metadata.namespace` and creates an exec session inside it, similar to `kubectl exec`.
+- The pod is **not removed** when the SSH session ends — it persists for future connections.
+- Files from the authentication metadata (e.g. Kerberos credential caches) are automatically written into the container on connection.
+
+If the target pod may not always exist, you can enable `createMissingPods` to have ContainerSSH create it automatically:
+
+```yaml
+kubernetes:
+  pod:
+    mode: persistent
+    createMissingPods: true
+    idleCommand:
+      - /bin/sh
+    shellCommand:
+      - /bin/bash
+    metadata:
+      name: my-pod
+      namespace: default
+    spec:
+      containers:
+        - name: shell
+          image: containerssh/containerssh-guest-image
+```
+
+When `createMissingPods` is enabled, the `idleCommand`, `shellCommand`, and at least one container in the pod spec must be configured.
 
 ## Configuring timeouts
 

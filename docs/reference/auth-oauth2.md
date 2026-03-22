@@ -70,6 +70,10 @@ auth:
         url: https://your-oidc-server.example.com/
         deviceFlow: true|false
         authorizationFlow: true|false
+        extraScopes:
+          - scope1
+          - scope2
+        enforceScopes: true
         <other oidc options>
 ```
 
