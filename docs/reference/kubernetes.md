@@ -215,7 +215,7 @@ Apart from the `metadata` and `spec` options ContainerSSH has the following opti
 
 ### Persistent mode
 
-The `persistent` execution mode allows ContainerSSH to exec into an already running pod rather than creating a new one for each connection or session. This is useful when you have long-lived pods that should be reused across SSH sessions, for example pre-provisioned development environments.
+The `persistent` execution mode allows ContainerSSH to exec into an already running pod rather than creating a new one for each connection or session. This is useful when you have long-lived pods that should be reused across SSH sessions, this can be used for example, to allow users to execute long-running procesess without the risk that it'll be terminated.
 
 !!! warning "ContainerSSH cannot guarantee user isolation in this mode"
     It is expeced that the users of this feature will use the configuration server to **ensure that every user is dropped into the correct pod**, ideally unique per-user. Do not specify the pod to use in the global configuration as this will lead to all users to be sent to the same pod without any isolation. If this is combined with any type of credential forwarding it can lead to the compromise of the users credentials.
