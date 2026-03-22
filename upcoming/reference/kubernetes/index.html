@@ -24,7 +24,7 @@
       
       
       <link rel="icon" href="../../images/logo.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
   
   
@@ -58,7 +58,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1883,6 +1883,17 @@
     <span class="md-ellipsis">
       
         Configuration restrictions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistent-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent mode
       
     </span>
   </a>
@@ -4215,6 +4226,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#persistent-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent mode
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4632,17 +4654,22 @@ For ContainerSSH version 0.4.1 these are: 1.21, 1.20, and 1.19.</p>
 <tr>
 <td><code>mode</code></td>
 <td><code>string</code></td>
-<td>Specify <code>connection</code> to launch one pod per SSH connection or <code>session</code> to run one pod per SSH session (multiple pods per connection). In connection mode the container is started with the <code>idleCommand</code> as the first program and every session is launched similar to how <code>kubectl exec</code> runs programs. In session mode the command is launched directly.</td>
+<td>Specify <code>connection</code> to launch one pod per SSH connection, <code>session</code> to run one pod per SSH session (multiple pods per connection), or <code>persistent</code> to exec into an already running pod. In connection mode the container is started with the <code>idleCommand</code> as the first program and every session is launched similar to how <code>kubectl exec</code> runs programs. In session mode the command is launched directly. In persistent mode the pod must already exist (or be auto-created with <code>createMissingPods</code>).</td>
+</tr>
+<tr>
+<td><code>createMissingPods</code></td>
+<td><code>bool</code></td>
+<td>When set to <code>true</code> in <code>persistent</code> mode, ContainerSSH will automatically create a pod if no existing pod is found. Defaults to <code>false</code>. Only valid in <code>persistent</code> mode.</td>
 </tr>
 <tr>
 <td><code>idleCommand</code></td>
 <td><code>[]string</code></td>
-<td>Specifies the command to run as the first process in the container in <code>connection</code> mode. Parameters must be provided as separate items in the array. Has no effect in <code>session</code> mode.</td>
+<td>Specifies the command to run as the first process in the container in <code>connection</code> mode (also required in <code>persistent</code> mode when <code>createMissingPods</code> is enabled). Parameters must be provided as separate items in the array. Has no effect in <code>session</code> mode.</td>
 </tr>
 <tr>
 <td><code>shellCommand</code></td>
 <td><code>[]string</code></td>
-<td>Specifies the command to run as a shell in <code>connection</code> mode. Parameters must be provided as separate items in the array. Has no effect in <code>session</code> mode.</td>
+<td>Specifies the command to run as a shell in <code>connection</code> mode (also required in <code>persistent</code> mode when <code>createMissingPods</code> is enabled). Parameters must be provided as separate items in the array. Has no effect in <code>session</code> mode.</td>
 </tr>
 <tr>
 <td><code>agentPath</code></td>
@@ -4665,7 +4692,45 @@ For ContainerSSH version 0.4.1 these are: 1.21, 1.20, and 1.19.</p>
 <ul>
 <li>In <code>connection</code> mode the <code>idleCommand</code> and <code>shellCommand</code> options are required.</li>
 <li>In <code>session</code> mode the restart policy must be empty or <code>Never</code>.</li>
+<li>In <code>persistent</code> mode with <code>createMissingPods</code> enabled, the <code>idleCommand</code>, <code>shellCommand</code>, and at least one container in the pod spec are required.</li>
 </ul>
+<h3 id="persistent-mode">Persistent mode<a class="headerlink" href="#persistent-mode" title="Permanent link">&para;</a></h3>
+<p>The <code>persistent</code> execution mode allows ContainerSSH to exec into an already running pod rather than creating a new one for each connection or session. This is useful when you have long-lived pods that should be reused across SSH sessions, for example pre-provisioned development environments.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-existing-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shell</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-guest-image</span>
+</code></pre></div>
+<p>In persistent mode:</p>
+<ul>
+<li>ContainerSSH looks up the pod by <code>metadata.name</code> and <code>metadata.namespace</code> and creates an exec session inside it, similar to <code>kubectl exec</code>.</li>
+<li>The pod is <strong>not removed</strong> when the SSH session ends — it persists for future connections.</li>
+<li>Files from the authentication metadata (e.g. Kerberos credential caches) are automatically written into the container on connection.</li>
+</ul>
+<p>If the target pod may not always exist, you can enable <code>createMissingPods</code> to have ContainerSSH create it automatically:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">createMissingPods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">idleCommand</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/sh</span>
+<span class="w">    </span><span class="nt">shellCommand</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/bin/bash</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shell</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-guest-image</span>
+</code></pre></div>
+<p>When <code>createMissingPods</code> is enabled, the <code>idleCommand</code>, <code>shellCommand</code>, and at least one container in the pod spec must be configured.</p>
 <h2 id="configuring-timeouts">Configuring timeouts<a class="headerlink" href="#configuring-timeouts" title="Permanent link">&para;</a></h2>
 <p>The <code>timeouts</code> section has the following options. All options can use time units (e.g. <code>60s</code>) and default to nanoseconds without time units.</p>
 <table>
@@ -4913,10 +4978,10 @@ yes
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
