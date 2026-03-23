@@ -1,0 +1,34 @@
+digraph layers {
+    concentrate=true;
+    fontname="Arial";
+    graph [splines=ortho, nodesep=0.2, concentrate=true]
+    node [shape=box, style=filled, fillcolor=black, color=red, fontcolor=white, fontsize=10, fontname="Arial", penwidth=3]
+    edge [penwidth=2, color="#00C900", arrowsize=0.5, tailclip=true]
+
+    SSH -> auditlogintegration
+
+    subgraph auditlog {
+        rank=same;
+        auditlogintegration -> auditlog
+    }
+
+    auditlogintegration -> authintegration
+
+    subgraph auth {
+        rank=same;
+        authintegration -> auth
+    }
+    authintegration -> backend
+
+    subgraph config {
+        rank=same;
+        backend -> configuration
+    }
+
+    subgraph dynamic {
+        backend -> security
+        security -> Docker
+        security -> Kubernetes
+        security -> "SSH proxy"
+    }
+}
