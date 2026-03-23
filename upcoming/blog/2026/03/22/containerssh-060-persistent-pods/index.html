@@ -7,23 +7,21 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+        <meta name="description" content="ContainerSSH 0.6.0: Persistent Pods">
       
       
       
-        <link rel="canonical" href="https://containerssh.io/upcoming/development/containerssh/first-ssh-server/">
+        <link rel="canonical" href="https://containerssh.io/upcoming/blog/2026/03/22/containerssh-060-persistent-pods/">
       
       
-        <link rel="prev" href="../ssh/">
+        <link rel="prev" href="../../../../2024/01/07/containerssh-05-everything-but-the-kitchen-sink/">
       
-      
-        <link rel="next" href="../internal-architecture/">
       
       
         
       
       
-      <link rel="icon" href="../../../images/logo.svg">
+      <link rel="icon" href="../../../../../images/logo.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
   
@@ -36,32 +34,34 @@
   
   
   
+    
+  
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Writing your first SSH server">
+  <meta property="og:title" content="ContainerSSH 0.6.0: Persistent Pods">
   <meta property="og:site_name" content="ContainerSSH: Launch containers on demand">
-  <meta property="og:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
-  <meta property="og:url" content="https://containerssh.io/upcoming/development/containerssh/first-ssh-server/">
+  <meta property="og:description" content="ContainerSSH 0.6.0: Persistent Pods">
+  <meta property="og:url" content="https://containerssh.io/upcoming/blog/2026/03/22/containerssh-060-persistent-pods/">
   <meta property="og:image" content="https://containerssh.io/upcoming/images/social.png">
   
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@containerssh">
   <meta name="twitter:creator" content="@containerssh">
-  <meta name="twitter:title" content="Writing your first SSH server">
-  <meta name="twitter:description" content="ContainerSSH is a standalone, customizable SSH server that launches containers in Kubernetes, Docker, Podman, and can proxy to external SSH servers.">
+  <meta name="twitter:title" content="ContainerSSH 0.6.0: Persistent Pods">
+  <meta name="twitter:description" content="ContainerSSH 0.6.0: Persistent Pods">
   <meta name="twitter:image" content="https://containerssh.io/upcoming/images/social.png">
   <meta name="google-site-verification" content="Weru_AK1pzihagRrQxLKwy_41dczk-ZgG9I-Q6c_0W8" />
   <meta name="google-site-verification" content="VN4-Orfu-TOf9hXInR_ZdaZXQJDiak-dmPuaBc9TlwE" />
 
     
       
-        <title>Implementing your first SSH server - ContainerSSH: Launch containers on demand</title>
+        <title>ContainerSSH 0.6.0: Persistent Pods - ContainerSSH: Launch containers on demand</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -74,9 +74,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../css/custom.css?v7">
+      <link rel="stylesheet" href="../../../../../css/custom.css?v7">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -99,7 +99,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#step-1-the-basic-loop" class="md-skip">
+        <a href="#containerssh-06-persistent-pods" class="md-skip">
           Skip to content
         </a>
       
@@ -126,12 +126,12 @@
             <div class="md-banner__inner md-grid md-typeset">
               
   You're not viewing the latest version.
-  <a href="../../../..">
+  <a href="../../../../../..">
     <strong>Click here to go to latest.</strong>
   </a>
 
             </div>
-            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
           </aside>
         
       </div>
@@ -141,9 +141,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="ContainerSSH: Launch containers on demand" class="md-header__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+    <a href="../../../../.." title="ContainerSSH: Launch containers on demand" class="md-header__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
       
-  <img src="../../../images/logo.svg" alt="logo">
+  <img src="../../../../../images/logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -160,7 +160,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Implementing your first SSH server
+              ContainerSSH 0.6.0: Persistent Pods
             
           </span>
         </div>
@@ -249,7 +249,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../.." class="md-tabs__link">
+      <a href="../../../../.." class="md-tabs__link">
         
   
   
@@ -270,7 +270,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../usecases/lab/" class="md-tabs__link">
+        <a href="../../../../../usecases/lab/" class="md-tabs__link">
           
   
   
@@ -290,7 +290,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../getting-started/" class="md-tabs__link">
+        <a href="../../../../../getting-started/" class="md-tabs__link">
           
   
   
@@ -310,7 +310,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../guides/" class="md-tabs__link">
+        <a href="../../../../../guides/" class="md-tabs__link">
           
   
   
@@ -328,7 +328,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../downloads/" class="md-tabs__link">
+      <a href="../../../../../downloads/" class="md-tabs__link">
         
   
   
@@ -349,11 +349,31 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/" class="md-tabs__link">
+        <a href="../../../../../reference/" class="md-tabs__link">
           
   
   
   Reference manual
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../development/" class="md-tabs__link">
+          
+  
+  
+  Development
 
         </a>
       </li>
@@ -371,27 +391,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../" class="md-tabs__link">
-          
-  
-  
-  Development
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../blog/" class="md-tabs__link">
+        <a href="../../../../" class="md-tabs__link">
           
   
   
@@ -419,7 +419,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -430,9 +432,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="ContainerSSH: Launch containers on demand" class="md-nav__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
+    <a href="../../../../.." title="ContainerSSH: Launch containers on demand" class="md-nav__button md-logo" aria-label="ContainerSSH: Launch containers on demand" data-md-component="logo">
       
-  <img src="../../../images/logo.svg" alt="logo">
+  <img src="../../../../../images/logo.svg" alt="logo">
 
     </a>
     ContainerSSH: Launch containers on demand
@@ -460,7 +462,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   
@@ -539,7 +541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/lab/" class="md-nav__link">
+      <a href="../../../../../usecases/lab/" class="md-nav__link">
         
   
   
@@ -567,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/debugging/" class="md-nav__link">
+      <a href="../../../../../usecases/debugging/" class="md-nav__link">
         
   
   
@@ -595,7 +597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/webhosting/" class="md-nav__link">
+      <a href="../../../../../usecases/webhosting/" class="md-nav__link">
         
   
   
@@ -623,7 +625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/learning/" class="md-nav__link">
+      <a href="../../../../../usecases/learning/" class="md-nav__link">
         
   
   
@@ -651,7 +653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/honeypots/" class="md-nav__link">
+      <a href="../../../../../usecases/honeypots/" class="md-nav__link">
         
   
   
@@ -679,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../usecases/security/" class="md-nav__link">
+      <a href="../../../../../usecases/security/" class="md-nav__link">
         
   
   
@@ -766,7 +768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/" class="md-nav__link">
+      <a href="../../../../../getting-started/" class="md-nav__link">
         
   
   
@@ -794,7 +796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/architecture/" class="md-nav__link">
+      <a href="../../../../../getting-started/architecture/" class="md-nav__link">
         
   
   
@@ -822,7 +824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/installation/" class="md-nav__link">
+      <a href="../../../../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -850,7 +852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/configuration/" class="md-nav__link">
+      <a href="../../../../../getting-started/configuration/" class="md-nav__link">
         
   
   
@@ -878,7 +880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/authserver/" class="md-nav__link">
+      <a href="../../../../../getting-started/authserver/" class="md-nav__link">
         
   
   
@@ -958,7 +960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/backends/" class="md-nav__link">
+      <a href="../../../../../getting-started/backends/" class="md-nav__link">
         
   
   
@@ -986,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/docker/" class="md-nav__link">
+      <a href="../../../../../getting-started/docker/" class="md-nav__link">
         
   
   
@@ -1014,7 +1016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/kubernetes/" class="md-nav__link">
+      <a href="../../../../../getting-started/kubernetes/" class="md-nav__link">
         
   
   
@@ -1042,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/sshproxy/" class="md-nav__link">
+      <a href="../../../../../getting-started/sshproxy/" class="md-nav__link">
         
   
   
@@ -1078,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/faq/" class="md-nav__link">
+      <a href="../../../../../getting-started/faq/" class="md-nav__link">
         
   
   
@@ -1106,7 +1108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/getting-help/" class="md-nav__link">
+      <a href="../../../../../getting-started/getting-help/" class="md-nav__link">
         
   
   
@@ -1193,7 +1195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guides/" class="md-nav__link">
+      <a href="../../../../../guides/" class="md-nav__link">
         
   
   
@@ -1221,7 +1223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guides/honeypot/" class="md-nav__link">
+      <a href="../../../../../guides/honeypot/" class="md-nav__link">
         
   
   
@@ -1249,7 +1251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guides/docker-elk/" class="md-nav__link">
+      <a href="../../../../../guides/docker-elk/" class="md-nav__link">
         
   
   
@@ -1284,7 +1286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../downloads/" class="md-nav__link">
+      <a href="../../../../../downloads/" class="md-nav__link">
         
   
   
@@ -1363,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/" class="md-nav__link">
+      <a href="../../../../../reference/" class="md-nav__link">
         
   
   
@@ -1391,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/installation/" class="md-nav__link">
+      <a href="../../../../../reference/installation/" class="md-nav__link">
         
   
   
@@ -1471,7 +1473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/ssh/" class="md-nav__link">
+      <a href="../../../../../reference/ssh/" class="md-nav__link">
         
   
   
@@ -1499,7 +1501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/features/" class="md-nav__link">
+      <a href="../../../../../reference/features/" class="md-nav__link">
         
   
   
@@ -1527,7 +1529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/forwarding/" class="md-nav__link">
+      <a href="../../../../../reference/forwarding/" class="md-nav__link">
         
   
   
@@ -1615,7 +1617,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/backends/" class="md-nav__link">
+      <a href="../../../../../reference/backends/" class="md-nav__link">
         
   
   
@@ -1643,7 +1645,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/docker/" class="md-nav__link">
+      <a href="../../../../../reference/docker/" class="md-nav__link">
         
   
   
@@ -1671,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/kubernetes/" class="md-nav__link">
+      <a href="../../../../../reference/kubernetes/" class="md-nav__link">
         
   
   
@@ -1699,7 +1701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/sshproxy/" class="md-nav__link">
+      <a href="../../../../../reference/sshproxy/" class="md-nav__link">
         
   
   
@@ -1787,7 +1789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/auth/" class="md-nav__link">
+      <a href="../../../../../reference/auth/" class="md-nav__link">
         
   
   
@@ -1815,7 +1817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/auth-kerberos/" class="md-nav__link">
+      <a href="../../../../../reference/auth-kerberos/" class="md-nav__link">
         
   
   
@@ -1843,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/auth-webhook/" class="md-nav__link">
+      <a href="../../../../../reference/auth-webhook/" class="md-nav__link">
         
   
   
@@ -1871,7 +1873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/auth-oauth2/" class="md-nav__link">
+      <a href="../../../../../reference/auth-oauth2/" class="md-nav__link">
         
   
   
@@ -1959,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/configserver/" class="md-nav__link">
+      <a href="../../../../../reference/configserver/" class="md-nav__link">
         
   
   
@@ -1987,7 +1989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/image/" class="md-nav__link">
+      <a href="../../../../../reference/image/" class="md-nav__link">
         
   
   
@@ -2015,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/api/" class="md-nav__link">
+      <a href="../../../../../reference/api/" class="md-nav__link">
         
   
   
@@ -2103,7 +2105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/logging/" class="md-nav__link">
+      <a href="../../../../../reference/logging/" class="md-nav__link">
         
   
   
@@ -2131,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/audit/" class="md-nav__link">
+      <a href="../../../../../reference/audit/" class="md-nav__link">
         
   
   
@@ -2159,7 +2161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/metrics/" class="md-nav__link">
+      <a href="../../../../../reference/metrics/" class="md-nav__link">
         
   
   
@@ -2187,7 +2189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/health/" class="md-nav__link">
+      <a href="../../../../../reference/health/" class="md-nav__link">
         
   
   
@@ -2275,7 +2277,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/security/" class="md-nav__link">
+      <a href="../../../../../reference/security/" class="md-nav__link">
         
   
   
@@ -2303,7 +2305,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/http/" class="md-nav__link">
+      <a href="../../../../../reference/http/" class="md-nav__link">
         
   
   
@@ -2331,7 +2333,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/hardening/" class="md-nav__link">
+      <a href="../../../../../reference/hardening/" class="md-nav__link">
         
   
   
@@ -2419,7 +2421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/troubleshooting/" class="md-nav__link">
+      <a href="../../../../../reference/troubleshooting/" class="md-nav__link">
         
   
   
@@ -2447,7 +2449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/codes/" class="md-nav__link">
+      <a href="../../../../../reference/codes/" class="md-nav__link">
         
   
   
@@ -2487,31 +2489,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -2529,7 +2526,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2547,7 +2544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../../../../development/" class="md-nav__link">
         
   
   
@@ -2575,7 +2572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/" class="md-nav__link">
+      <a href="../../../../../development/getting-started/" class="md-nav__link">
         
   
   
@@ -2603,7 +2600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dashboard/" class="md-nav__link">
+      <a href="../../../../../development/dashboard/" class="md-nav__link">
         
   
   
@@ -2631,7 +2628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code-style/" class="md-nav__link">
+      <a href="../../../../../development/code-style/" class="md-nav__link">
         
   
   
@@ -2665,20 +2662,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
         
           
-          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
             
   
   
@@ -2714,7 +2708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/" class="md-nav__link">
+      <a href="../../../../../development/devenv/" class="md-nav__link">
         
   
   
@@ -2742,7 +2736,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/gpg/" class="md-nav__link">
+      <a href="../../../../../development/devenv/gpg/" class="md-nav__link">
         
   
   
@@ -2770,7 +2764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/golang/" class="md-nav__link">
+      <a href="../../../../../development/devenv/golang/" class="md-nav__link">
         
   
   
@@ -2798,7 +2792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/qa/" class="md-nav__link">
+      <a href="../../../../../development/devenv/qa/" class="md-nav__link">
         
   
   
@@ -2826,7 +2820,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/docker/" class="md-nav__link">
+      <a href="../../../../../development/devenv/docker/" class="md-nav__link">
         
   
   
@@ -2854,7 +2848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/kubernetes/" class="md-nav__link">
+      <a href="../../../../../development/devenv/kubernetes/" class="md-nav__link">
         
   
   
@@ -2882,7 +2876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/ide/" class="md-nav__link">
+      <a href="../../../../../development/devenv/ide/" class="md-nav__link">
         
   
   
@@ -2910,7 +2904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../devenv/website/" class="md-nav__link">
+      <a href="../../../../../development/devenv/website/" class="md-nav__link">
         
   
   
@@ -2943,31 +2937,26 @@
                 
   
   
-    
   
   
-  
     
     
     
     
       
       
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
         
           
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
             
   
   
@@ -2985,7 +2974,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3003,7 +2992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../../../development/containerssh/" class="md-nav__link">
         
   
   
@@ -3031,7 +3020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ssh/" class="md-nav__link">
+      <a href="../../../../../development/containerssh/ssh/" class="md-nav__link">
         
   
   
@@ -3056,35 +3045,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Writing your first SSH server
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../../../development/containerssh/first-ssh-server/" class="md-nav__link">
         
   
   
@@ -3100,35 +3064,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-the-basic-loop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: The basic loop
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3141,7 +3076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal-architecture/" class="md-nav__link">
+      <a href="../../../../../development/containerssh/internal-architecture/" class="md-nav__link">
         
   
   
@@ -3183,20 +3118,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
         
           
-          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
             
   
   
@@ -3232,7 +3164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../releases/" class="md-nav__link">
+      <a href="../../../../../development/releases/" class="md-nav__link">
         
   
   
@@ -3260,7 +3192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../releases/libraries/" class="md-nav__link">
+      <a href="../../../../../development/releases/libraries/" class="md-nav__link">
         
   
   
@@ -3288,7 +3220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../releases/binaries/" class="md-nav__link">
+      <a href="../../../../../development/releases/binaries/" class="md-nav__link">
         
   
   
@@ -3330,20 +3262,17 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
         
           
-          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
             
   
   
@@ -3379,7 +3308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/" class="md-nav__link">
+      <a href="../../../../../development/tools/" class="md-nav__link">
         
   
   
@@ -3407,7 +3336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/github/" class="md-nav__link">
+      <a href="../../../../../development/tools/github/" class="md-nav__link">
         
   
   
@@ -3435,7 +3364,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/terraform/" class="md-nav__link">
+      <a href="../../../../../development/tools/terraform/" class="md-nav__link">
         
   
   
@@ -3463,7 +3392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/snyk/" class="md-nav__link">
+      <a href="../../../../../development/tools/snyk/" class="md-nav__link">
         
   
   
@@ -3491,7 +3420,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tools/docker/" class="md-nav__link">
+      <a href="../../../../../development/tools/docker/" class="md-nav__link">
         
   
   
@@ -3531,26 +3460,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
             
   
   
@@ -3568,7 +3502,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3583,12 +3517,14 @@
                 
   
   
+    
+  
   
     
   
   
-    <li class="md-nav__item">
-      <a href="../../../blog/" class="md-nav__link">
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../../" class="md-nav__link">
         
   
   
@@ -3622,17 +3558,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
         
           
-          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="">
             
   
   
@@ -3670,7 +3609,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../blog/archive/2026/" class="md-nav__link">
+      <a href="../../../../archive/2026/" class="md-nav__link">
         
   
   
@@ -3700,7 +3639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../blog/archive/2024/" class="md-nav__link">
+      <a href="../../../../archive/2024/" class="md-nav__link">
         
   
   
@@ -3730,7 +3669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../blog/archive/2021/" class="md-nav__link">
+      <a href="../../../../archive/2021/" class="md-nav__link">
         
   
   
@@ -3760,7 +3699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../blog/archive/2020/" class="md-nav__link">
+      <a href="../../../../archive/2020/" class="md-nav__link">
         
   
   
@@ -3804,6 +3743,8 @@
             
             
               
+                
+              
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -3813,6 +3754,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -3821,10 +3764,54 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step-1-the-basic-loop" class="md-nav__link">
+  <a href="#change-summary" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: The basic loop
+        Change summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#persistent-kubernetes-execution-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Persistent Kubernetes execution mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oidc-extra-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OIDC extra scopes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-authentication-fixes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos authentication fixes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-image-pull-policy-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker image pull policy fix
       
     </span>
   </a>
@@ -3840,130 +3827,164 @@
             
           
           
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-  
-  
-
-
-<h1>Implementing your first SSH server</h1>
-
-<p>This section will guide you through implementing your first SSH server in go and combine it with Docker.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you are new to SSH development please read our <a href="../ssh/">Understanding SSH</a> guide first.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The source code for this mini project is <a href="https://github.com/ContainerSSH/minicontainerssh/blob/master/main.go">available on GitHub</a>.</p>
-</div>
-<h2 id="step-1-the-basic-loop">Step 1: The basic loop<a class="headerlink" href="#step-1-the-basic-loop" title="Permanent link">&para;</a></h2>
-<p>Let's start off easy: implementing a TCP server. On *NIX systems listen sockets can be started using the <code>listen()</code> system call and Go follows that pattern nicely:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">listener</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">&quot;tcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;0.0.0.0:2222&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>However, <code>net.Listen</code> does not accept connections, it merely opens a listen socket telling the system kernel that it should not reject connections coming to the specified port.</p>
-<p>Now we need to accept any incoming connections. Let's do that:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
-</code></pre></div>
-<p>This call will <em>block</em> until a client connects or the listen socket is closed. Let's ignore the second case and focus on the first. With <code>tcpConn</code> we now have an open plain text TCP connection. We can read from it, we can write to it, but until we call <code>listener.Accept()</code> again we won't get any new connections. So let's put it in a loop:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Cool, so now we can accept multiple connections! However, these are still just plain text connections, so let's make them into an SSH connection:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">sshConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="p">,</span><span class="w"> </span><span class="nx">reqs</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewServerConn</span><span class="p">(</span><span class="nx">tcpConn</span><span class="p">,</span><span class="w"> </span><span class="nx">sshConfig</span><span class="p">)</span>
-</code></pre></div>
-<p>We won't go into the details of <code>sshConfig</code> here, let's focus on the returned variables instead. The first returned variable, <code>sshConn</code> is the raw SSH connection. If you use an IDE you can use code completion to figure out some useful methods it contains, for example for closing the connection.</p>
-<p>More interesting to us are the <code>chans</code> and <code>reqs</code> variables, however. The <code>chans</code> variable contains a <a href="https://gobyexample.com/channels">Go channel</a> containing SSH channel request. When a client wants to open a new channel we can read from this Go channel and process the request. (Confusing, we know, two things with the same name.)</p>
-<p>The <code>reqs</code> variable is also a Go channel, but it contains global requests. We won't deal with these now, so let's disregard these completely:</p>
-<div class="highlight"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">DiscardRequests</span><span class="p">(</span><span class="nx">reqs</span><span class="p">)</span>
-</code></pre></div>
-<p>As you can see we used the <code>go</code> keyword. This is running the method called in a <a href="https://gobyexample.com/goroutines">goroutine</a>. If you are coming from another programming language you can imagine these as multi-threaded coroutines. Suffice it to say, they won't block our main loop.</p>
-<p>Back to the <code>chans</code>, let's deal with them too. Let's handle them in a method called <code>handleChannels</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">go</span><span class="w"> </span><span class="nx">handleChannels</span><span class="p">(</span><span class="nx">sshConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="p">)</span>
-</code></pre></div>
-<p>This method will be rather simple:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">handleChannels</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span><span class="w"> </span><span class="nx">chans</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">newChannel</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">chans</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">)</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>For each new channel we open yet another goroutine. Fear not, goroutines are <em>very</em> cheap in Go.</p>
-<p>Let's deal with that channel:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">handleChannel</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="o">*</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">ServerConn</span><span class="p">,</span><span class="w"> </span><span class="nx">newChannel</span><span class="w"> </span><span class="nx">ssh</span><span class="p">.</span><span class="nx">NewChannel</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">ChannelType</span><span class="p">();</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;session&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">Reject</span><span class="p">(</span><span class="nx">ssh</span><span class="p">.</span><span class="nx">UnknownChannelType</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;unknown channel type: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span>
-<span class="w">        </span><span class="k">return</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">channel</span><span class="p">,</span><span class="w"> </span><span class="nx">requests</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">newChannel</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
-<span class="w">    </span><span class="c1">//...</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>So far so good, we reject all non-session channels and otherwise accept. The <code>channel</code> contains the reference to the channel, which is also an <code>io.Reader</code> and an <code>io.Writer</code> for <code>stdin</code> and <code>stdout</code>. The <code>requests</code> variable is a go channel containing SSH channel-specific requests.</p>
-<p>Now, let's use <a href="https://docker.io">Docker</a> as our backend. It's simple and it's <a href="https://docs.docker.com/engine/api/v1.40/">really well documented</a>. On a *NIX system we can create a Docker client like this:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">docker</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
-<span class="w">    </span><span class="s">&quot;unix:///var/run/docker.sock&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="kc">nil</span><span class="p">,</span>
-<span class="w">    </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
-<span class="p">)</span>
-</code></pre></div>
-<p>Now we can loop over the requests and handle them, one by one:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">requests</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">reply</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">success</span><span class="w"> </span><span class="kt">bool</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">WantReply</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Reply</span><span class="p">(</span><span class="nx">success</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span>
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">closeConnections</span><span class="p">()</span>
-<span class="w">            </span><span class="p">}</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">handleRequest</span><span class="p">(</span>
-<span class="w">        </span><span class="c1">//...</span>
-<span class="w">    </span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>As you can see, the requests may need a reply, so we are constructing a simplified function to send a reply back to the SSH client.</p>
-<p>For the final piece of our puzzle, let's implement the <code>handleRequest</code> method. For simplicity let's implement a switch-case:</p>
-<div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Type</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;env&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Save environment variables for later use</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;pty-req&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Set the TTY flag on the Docker client to true later</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;window-change&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Use the ContainerResize method on the Docker client later</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;shell&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Create a container and run it</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s">&quot;exec&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="c1">// Create a container and run it</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>That's it! You can find the details on how to run a container in our highly simplified <a href="https://github.com/ContainerSSH/minicontainerssh/blob/master/main.go">minicontainerssh example</a>. We have skipped many parts like error handling, but it should give you a good overview of how an SSH server in Go works and how it interacts with the container backend.</p>
-<p>Now you are ready to dive into the <a href="../internal-architecture/">internal architecture of ContainerSSH</a>. </p>
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-
-                
-              </article>
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
             </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-03-22 00:00:00+00:00" class="md-ellipsis">March 22, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              2 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
           
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+
+  
+  
+
+
+<h1 id="containerssh-06-persistent-pods">ContainerSSH 0.6: Persistent Pods<a class="headerlink" href="#containerssh-06-persistent-pods" title="Permanent link">&para;</a></h1>
+<p>ContainerSSH 0.6 has been released! This release introduces the persistent Kubernetes execution mode, extra scope support for OIDC authentication, important bug fixes for Kerberos and Docker image pulling, and a lot of dependency updates.</p>
+<h2 id="change-summary">Change summary<a class="headerlink" href="#change-summary" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#persistent-kubernetes-execution-mode">Persistent Kubernetes execution mode</a></li>
+<li><a href="#oidc-extra-scopes">OIDC extra scopes</a></li>
+<li><a href="#kerberos-authentication-fixes">Kerberos authentication fixes</a></li>
+<li><a href="#docker-image-pull-policy-fix">Docker image pull policy fix</a></li>
+</ol>
+<h2 id="persistent-kubernetes-execution-mode">Persistent Kubernetes execution mode<a class="headerlink" href="#persistent-kubernetes-execution-mode" title="Permanent link">&para;</a></h2>
+<p>A new <code>persistent</code> execution mode has been added to the Kubernetes backend. Unlike the existing <code>connection</code> mode which create a new pod for each SSH connection and terminates the pod after the session terminates, <code>persistent</code> mode execs into an already existing pod with an option to create the pod if it doesn't exist, or to simply refuse entry if it doesn't. This mode can be useful for use-cases where stateful sessions are needed, including but not limited to managing long-running interactive processes, resource sharing etc.</p>
+<div class="admonition warning">
+<p class="admonition-title">ContainerSSH cannot guarantee user isolation in this mode</p>
+<p>It is expeced that the users of this feature will use the configuration server to <strong>ensure that every user is dropped into the correct pod</strong>, ideally unique per-user. Do not specify the pod to use in the global configuration as this will lead to all users to be sent to the same pod without any isolation. If this is combined with any type of credential forwarding it can lead to the users credentials being compromised.</p>
+</div>
+<p>In the simplest form the persistent mode can be configured with the following block:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-existing-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+</code></pre></div>
+<p>With the <code>createMissingPods</code> option a minimal pod spec is also required:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">createMissingPods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shell</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-guest-image</span>
+</code></pre></div>
+<p>Thanks to <a href="https://github.com/gigabyte132">@gigabyte132</a> for contributing this feature.</p>
+<p><a class="md-button" href="/reference/kubernetes">Read more »</a></p>
+<h2 id="oidc-extra-scopes">OIDC extra scopes<a class="headerlink" href="#oidc-extra-scopes" title="Permanent link">&para;</a></h2>
+<p>The OIDC authentication provider now supports requesting additional scopes beyond the default <code>openid</code> scope. </p>
+<p>Two new configuration options have been added for the oidc provider:</p>
+<ul>
+<li><strong><code>extraScopes</code></strong>: A list of additional OIDC scopes to request during authentication.</li>
+<li><strong><code>enforceScopes</code></strong>: When set to <code>true</code>, authentication will be rejected if the user does not grant all requested extra scopes.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">keyboardInteractive</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oauth2</span>
+<span class="w">    </span><span class="nt">oauth2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oidc</span>
+<span class="w">      </span><span class="nt">oidc</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-oidc-server.example.com/</span>
+<span class="w">        </span><span class="nt">extraScopes</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">email</span>
+<span class="w">        </span><span class="nt">enforceScopes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>These options work with both the device flow and authorization code flow.</p>
+<p>Thanks to <a href="https://github.com/hashkrish">@hashkrish</a> for contributing this feature.</p>
+<p><a class="md-button" href="/reference/auth-oauth2">Read more »</a></p>
+<h2 id="kerberos-authentication-fixes">Kerberos authentication fixes<a class="headerlink" href="#kerberos-authentication-fixes" title="Permanent link">&para;</a></h2>
+<p>This release fixes two issues with Kerberos authentication:</p>
+<ul>
+<li><strong><code>enforceUsername=false</code> now works correctly.</strong> Previously, disabling username enforcement would still reject valid logins with differing usernames.</li>
+<li><strong>Metadata merging is now additive.</strong> Kerberos authentication metadata is now correctly merged with existing connection metadata instead of replacing it. This ensures that metadata set by earlier authentication or configuration steps is preserved.</li>
+</ul>
+<p>Thanks to <a href="https://github.com/gigabyte132">@gigabyte132</a> for contributing this feature.</p>
+<h2 id="docker-image-pull-policy-fix">Docker image pull policy fix<a class="headerlink" href="#docker-image-pull-policy-fix" title="Permanent link">&para;</a></h2>
+<p>The behavior of the <code>IfNotPresent</code> image pull policy has been corrected. Previously, images with no tag or the <code>:latest</code> tag were always pulled even when already present locally, which prevented using local images. The <code>IfNotPresent</code> policy now consistently skips pulling when the image is already available locally, regardless of the tag.</p>
+<p>Thanks to <a href="https://github.com/AlbertoPimpo">@AlbertoPimpo</a> for the fix</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
@@ -4039,14 +4060,14 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../../..", "features": ["navigation.tabs", "navigation.sections", "toc.autohide", "search.suggest", "search.highlight"], "search": "../../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
       
-        <script src="../../../javascript/tables.js"></script>
+        <script src="../../../../../javascript/tables.js"></script>
       
     
   </body>

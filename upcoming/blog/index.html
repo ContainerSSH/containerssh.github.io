@@ -17,7 +17,7 @@
         <link rel="prev" href="../development/tools/docker/">
       
       
-        <link rel="next" href="archive/2024/">
+        <link rel="next" href="archive/2026/">
       
       
         
@@ -3617,6 +3617,36 @@
   
   
     <li class="md-nav__item">
+      <a href="archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="archive/2024/" class="md-nav__link">
         
   
@@ -3745,6 +3775,103 @@
       <header class="md-typeset">
         <h1 id="blog">Blog<a class="headerlink" href="#blog" title="Permanent link">&para;</a></h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-03-22 00:00:00+00:00">March 22, 2026</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="containerssh-06-persistent-pods"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/">ContainerSSH 0.6: Persistent Pods</a></h2>
+<p>ContainerSSH 0.6 has been released! This release introduces the persistent Kubernetes execution mode, extra scope support for OIDC authentication, important bug fixes for Kerberos and Docker image pulling, and a lot of dependency updates.</p>
+<h3 id="change-summary"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/#change-summary">Change summary</a></h3>
+<ol>
+<li><a href="2026/03/22/containerssh-060-persistent-pods/#persistent-kubernetes-execution-mode">Persistent Kubernetes execution mode</a></li>
+<li><a href="2026/03/22/containerssh-060-persistent-pods/#oidc-extra-scopes">OIDC extra scopes</a></li>
+<li><a href="2026/03/22/containerssh-060-persistent-pods/#kerberos-authentication-fixes">Kerberos authentication fixes</a></li>
+<li><a href="2026/03/22/containerssh-060-persistent-pods/#docker-image-pull-policy-fix">Docker image pull policy fix</a></li>
+</ol>
+<h3 id="persistent-kubernetes-execution-mode"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/#persistent-kubernetes-execution-mode">Persistent Kubernetes execution mode</a></h3>
+<p>A new <code>persistent</code> execution mode has been added to the Kubernetes backend. Unlike the existing <code>connection</code> mode which create a new pod for each SSH connection and terminates the pod after the session terminates, <code>persistent</code> mode execs into an already existing pod with an option to create the pod if it doesn't exist, or to simply refuse entry if it doesn't. This mode can be useful for use-cases where stateful sessions are needed, including but not limited to managing long-running interactive processes, resource sharing etc.</p>
+<div class="admonition warning">
+<p class="admonition-title">ContainerSSH cannot guarantee user isolation in this mode</p>
+<p>It is expeced that the users of this feature will use the configuration server to <strong>ensure that every user is dropped into the correct pod</strong>, ideally unique per-user. Do not specify the pod to use in the global configuration as this will lead to all users to be sent to the same pod without any isolation. If this is combined with any type of credential forwarding it can lead to the users credentials being compromised.</p>
+</div>
+<p>In the simplest form the persistent mode can be configured with the following block:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-existing-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+</code></pre></div>
+<p>With the <code>createMissingPods</code> option a minimal pod spec is also required:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">pod</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">persistent</span>
+<span class="w">    </span><span class="nt">createMissingPods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-pod</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shell</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">containerssh/containerssh-guest-image</span>
+</code></pre></div>
+<p>Thanks to <a href="https://github.com/gigabyte132">@gigabyte132</a> for contributing this feature.</p>
+<p><a class="md-button" href="/reference/kubernetes">Read more »</a></p>
+<h3 id="oidc-extra-scopes"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/#oidc-extra-scopes">OIDC extra scopes</a></h3>
+<p>The OIDC authentication provider now supports requesting additional scopes beyond the default <code>openid</code> scope. </p>
+<p>Two new configuration options have been added for the oidc provider:</p>
+<ul>
+<li><strong><code>extraScopes</code></strong>: A list of additional OIDC scopes to request during authentication.</li>
+<li><strong><code>enforceScopes</code></strong>: When set to <code>true</code>, authentication will be rejected if the user does not grant all requested extra scopes.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">auth</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">keyboardInteractive</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oauth2</span>
+<span class="w">    </span><span class="nt">oauth2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oidc</span>
+<span class="w">      </span><span class="nt">oidc</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://your-oidc-server.example.com/</span>
+<span class="w">        </span><span class="nt">extraScopes</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">profile</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">email</span>
+<span class="w">        </span><span class="nt">enforceScopes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>These options work with both the device flow and authorization code flow.</p>
+<p>Thanks to <a href="https://github.com/hashkrish">@hashkrish</a> for contributing this feature.</p>
+<p><a class="md-button" href="/reference/auth-oauth2">Read more »</a></p>
+<h3 id="kerberos-authentication-fixes"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/#kerberos-authentication-fixes">Kerberos authentication fixes</a></h3>
+<p>This release fixes two issues with Kerberos authentication:</p>
+<ul>
+<li><strong><code>enforceUsername=false</code> now works correctly.</strong> Previously, disabling username enforcement would still reject valid logins with differing usernames.</li>
+<li><strong>Metadata merging is now additive.</strong> Kerberos authentication metadata is now correctly merged with existing connection metadata instead of replacing it. This ensures that metadata set by earlier authentication or configuration steps is preserved.</li>
+</ul>
+<p>Thanks to <a href="https://github.com/gigabyte132">@gigabyte132</a> for contributing this feature.</p>
+<h3 id="docker-image-pull-policy-fix"><a class="toclink" href="2026/03/22/containerssh-060-persistent-pods/#docker-image-pull-policy-fix">Docker image pull policy fix</a></h3>
+<p>The behavior of the <code>IfNotPresent</code> image pull policy has been corrected. Previously, images with no tag or the <code>:latest</code> tag were always pulled even when already present locally, which prevented using local images. The <code>IfNotPresent</code> policy now consistently skips pulling when the image is already available locally, regardless of the tag.</p>
+<p>Thanks to <a href="https://github.com/AlbertoPimpo">@AlbertoPimpo</a> for the fix</p>
+    
+    
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
