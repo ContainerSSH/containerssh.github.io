@@ -194,6 +194,42 @@ Apart from the `container`, `host`, `network`, `platform` and `containerName` op
 | `subsystems` | `map[string]string` | Specifies a map of subsystem names to executables. It is recommended to set at least the `sftp` subsystem as many users will want to use it. |
 | `imagePullPolicy` | `Never,IfNotPresent,Always` | Specifies when to pull the container image. Defaults to `IfNotPresent`, which pulls the image only when it is not locally present. It is recommended that you provide a custom, versioned image name to prevent pulling the image at every connection. |
 
+### Configuring SFTP
+
+ContainerSSH supports the SFTP subsystem for file transfer. To enable SFTP with the Docker backend, you need to configure the `subsystems` option in the execution configuration and ensure the SFTP server binary is available in the guest container image.
+
+The `subsystems` option is a map of subsystem names to their executable paths. The default configuration includes SFTP:
+
+```yaml
+docker:
+  execution:
+    subsystems:
+      sftp: /usr/lib/openssh/sftp-server
+```
+
+The default guest image (`containerssh/containerssh-guest-image`) includes the OpenSSH SFTP server at `/usr/lib/openssh/sftp-server`. If you're using a custom image, make sure to install the SFTP server (typically part of the `openssh-server` package on Linux) and adjust the path if necessary.
+
+For example, to enable SFTP with a custom image that has the SFTP server at a different location:
+
+```yaml
+docker:
+  execution:
+    container:
+      image: my-custom-image:latest
+    subsystems:
+      sftp: /usr/libexec/openssh/sftp-server  # Different path on some distributions
+```
+
+!!! note "SFTP binary must be present"
+    The SFTP subsystem will only work if the executable specified in the `subsystems` map exists inside the container. If the binary is missing, SFTP connections will fail with an error.
+
+!!! tip "Testing SFTP"
+    Once configured, you can test SFTP access with:
+    ```bash
+    sftp -P 2222 user@containerssh-host
+    ```
+    Replace `2222` with your ContainerSSH SSH port and `containerssh-host` with your ContainerSSH server address.
+
 ## Configuring timeouts
 
 The `timeouts` section has the following options. All options can use time units (e.g. `60s`) and default to nanoseconds without time units.
